@@ -5,6 +5,7 @@ export const pageRoutes = {
     login: '/login',
     signup: '/signup',
     forgot_password: '/forgot-password',
+    boat_docks: '/docks',
 };
 
 export const AllRoutes = [

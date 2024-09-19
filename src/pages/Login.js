@@ -53,7 +53,7 @@ const Login = () => {
                                         </div>
                                     </div>
                                     <div className="mt-4 d-block">
-                                        <a href="javascript:void(0)"> <button type="button" className="ct_custom_btm">
+                                        <a onClick={() => navigate(pageRoutes.dashboard)} href="javascript:void(0)"> <button type="button" className="ct_custom_btm">
                                             <span className="circle1"></span>
                                             <span className="circle2"></span>
                                             <span className="circle3"></span>
