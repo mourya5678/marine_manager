@@ -1,21 +1,25 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
+import { pageRoutes } from '../routes/PageRoutes';
 
 const Header = () => {
+    const naviagte = useNavigate();
+
     return (
         <div>
-            <div class="ct_toggle_side">
+            <div className="ct_toggle_side">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div class="ct_dashboard_head">
-                <div class="ms-auto d-flex align-items-center gap-3 justify-content-end">
-                    <a href="Quick-Leads.html" class="ct_red_btn">A new lead received</a>
-                    <a href="login.html" class="ct_logout_btn ct_white_btn">
+            <div className="ct_dashboard_head">
+                <div className="ms-auto d-flex align-items-center gap-3 justify-content-end">
+                    <a href="javascript:void(0)" onClick={() => naviagte(pageRoutes.quick_lead)} className="ct_red_btn">A new lead received</a>
+                    <a href="javascript:void(0)" className="ct_logout_btn ct_white_btn">
                         <img src="img/building_icon_2.svg" alt="" />
-                        <div class="ct_user_name_info">
+                        <div className="ct_user_name_info">
                             <h6>Alex meian</h6>
-                            <p class="mb-0">Admin</p>
+                            <p className="mb-0">Admin</p>
                         </div>
                         <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
