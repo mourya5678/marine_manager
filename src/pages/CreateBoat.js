@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import { pageRoutes } from '../routes/PageRoutes';
 
 const CreateBoat = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="ct_dashbaord_bg">
             <div className="ct_dashbaord_main ct_active">
@@ -16,10 +20,8 @@ const CreateBoat = () => {
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
-                                            <label for="" className="mb-1"
-                                            ><strong>Owners Name</strong>
-                                                <span className="ct_required_star">*</span></label
-                                            >
+                                            <label for="" className="mb-1"><strong>Owners Name</strong>
+                                                <span className="ct_required_star">*</span></label>
                                             <input type="text" className="form-control" />
                                         </div>
                                     </div>
@@ -32,10 +34,9 @@ const CreateBoat = () => {
                                                     id="ct_file_upload1"
                                                     className="d-none"
                                                 />
-                                                <span
-                                                ><i className="fa-solid fa-paperclip"></i> Picture of
-                          Boat</span
-                                                >
+                                                <span>
+                                                    <i className="fa-solid fa-paperclip"></i> Picture of Boat
+                                                </span>
                                             </label>
                                         </div>
                                     </div>
@@ -176,8 +177,8 @@ const CreateBoat = () => {
                                     </div>
                                 </div>
                                 <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
-                                    <button type="button" className="ct_outline_btn ct_outline_orange w-100">Cancel</button>
-                                    <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100">Save and add to boats</button>
+                                    <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(pageRoutes.all_boats)}>Cancel</button>
+                                    <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(pageRoutes.all_boats)}>Save and add to boats</button>
                                 </div>
                             </form>
                         </div>

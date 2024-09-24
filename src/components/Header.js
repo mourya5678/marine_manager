@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { pageRoutes } from '../routes/PageRoutes';
 
 const Header = () => {
-    const naviagte = useNavigate();
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -14,7 +14,7 @@ const Header = () => {
             </div>
             <div className="ct_dashboard_head">
                 <div className="ms-auto d-flex align-items-center gap-3 justify-content-end">
-                    <a href="javascript:void(0)" onClick={() => naviagte(pageRoutes.quick_lead)} className="ct_red_btn">A new lead received</a>
+                    <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.quick_lead)} className="ct_red_btn">A new lead received</a>
                     <a href="javascript:void(0)" className="ct_logout_btn ct_white_btn">
                         <img src="img/building_icon_2.svg" alt="" />
                         <div className="ct_user_name_info">

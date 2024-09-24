@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import { pageRoutes } from '../routes/PageRoutes';
 
 const AddNewDocks = () => {
     const navigate = useNavigate();
@@ -112,8 +113,8 @@ const AddNewDocks = () => {
                                     </div>
                                 </div>
                                 <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
-                                    <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(-1)}>Cancel</button>
-                                    <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(-1)}>Save and add to Docks</button>
+                                    <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(pageRoutes.boat_docks)}>Cancel</button>
+                                    <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(pageRoutes.boat_docks)}>Save and add to Docks</button>
                                 </div>
                             </form>
                         </div>
