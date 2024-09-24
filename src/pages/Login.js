@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router'
+import { pipSetAccessToken } from '../auth/Pip';
 import Eye from '../components/Eye'
 import { pageRoutes } from '../routes/PageRoutes';
 
 const Login = () => {
     const navigate = useNavigate();
     const [isEye, setIsEye] = useState(false);
+
+    const onHandleLogin = () => {
+        pipSetAccessToken("H@*&HJKGE#$%^FFGHYH");
+        navigate(pageRoutes.dashboard);
+    };
 
     return (
         <section className="ct_login_main_div">
@@ -53,7 +59,7 @@ const Login = () => {
                                         </div>
                                     </div>
                                     <div className="mt-4 d-block">
-                                        <a onClick={() => navigate(pageRoutes.dashboard)} href="javascript:void(0)"> <button type="button" className="ct_custom_btm">
+                                        <a onClick={onHandleLogin} href="javascript:void(0)"> <button type="button" className="ct_custom_btm">
                                             <span className="circle1"></span>
                                             <span className="circle2"></span>
                                             <span className="circle3"></span>
