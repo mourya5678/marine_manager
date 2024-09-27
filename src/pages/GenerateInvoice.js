@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import { pageRoutes } from '../routes/PageRoutes';
 
 const GenerateInvoice = () => {
     const navigate = useNavigate();
@@ -106,7 +107,7 @@ const GenerateInvoice = () => {
                                 </div>
                                 <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                     <p className="mb-0 ct_fs_18 w-100 text-center"><span className="ct_text_op_5">Total invoice amount :</span> <span className="ct_fw_700">$5,266</span></p>
-                                    <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(-1)}>Save Completed Task</button>
+                                    <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(pageRoutes.maintenance)}>Save</button>
                                 </div>
                             </form>
                         </div>

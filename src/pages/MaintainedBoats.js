@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import { pageRoutes } from '../routes/PageRoutes';
 
 const MaintainedBoats = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="ct_dashbaord_bg">
             <div className="ct_dashbaord_main ct_active">
@@ -23,11 +27,10 @@ const MaintainedBoats = () => {
                                         <th className="ct_ff_roboto">Owners Name</th>
                                         <th className="ct_ff_roboto">Email</th>
                                         <th className="ct_ff_roboto">Contact No.</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <td>1</td>
                                         <td>JPB39Q</td>
                                         <td>06-08-2024</td>
@@ -35,7 +38,7 @@ const MaintainedBoats = () => {
                                         <td className="ct_fw_600">geovanny@hotmail.com</td>
                                         <td className="text-end ct_fw_600">923-416-9914</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <td>2</td>
                                         <td>JPB39Q</td>
                                         <td>06-08-2024</td>
@@ -43,7 +46,7 @@ const MaintainedBoats = () => {
                                         <td className="ct_fw_600">geovanny@hotmail.com</td>
                                         <td className="text-end ct_fw_600">923-416-9914</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <td>3</td>
                                         <td>JPB39Q</td>
                                         <td>06-08-2024</td>
@@ -51,7 +54,7 @@ const MaintainedBoats = () => {
                                         <td className="ct_fw_600">geovanny@hotmail.com</td>
                                         <td className="text-end ct_fw_600">923-416-9914</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <td>4</td>
                                         <td>JPB39Q</td>
                                         <td>06-08-2024</td>
@@ -59,7 +62,7 @@ const MaintainedBoats = () => {
                                         <td className="ct_fw_600">geovanny@hotmail.com</td>
                                         <td className="text-end ct_fw_600">923-416-9914</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <td>5</td>
                                         <td>JPB39Q</td>
                                         <td>06-08-2024</td>
@@ -67,7 +70,7 @@ const MaintainedBoats = () => {
                                         <td className="ct_fw_600">geovanny@hotmail.com</td>
                                         <td className="text-end ct_fw_600">923-416-9914</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <td>6</td>
                                         <td>JPB39Q</td>
                                         <td>06-08-2024</td>
@@ -75,7 +78,7 @@ const MaintainedBoats = () => {
                                         <td className="ct_fw_600">geovanny@hotmail.com</td>
                                         <td className="text-end ct_fw_600">923-416-9914</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <td>7</td>
                                         <td>JPB39Q</td>
                                         <td>06-08-2024</td>
@@ -83,7 +86,7 @@ const MaintainedBoats = () => {
                                         <td className="ct_fw_600">geovanny@hotmail.com</td>
                                         <td className="text-end ct_fw_600">923-416-9914</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <td>8</td>
                                         <td>JPB39Q</td>
                                         <td>06-08-2024</td>
@@ -91,7 +94,7 @@ const MaintainedBoats = () => {
                                         <td className="ct_fw_600">geovanny@hotmail.com</td>
                                         <td className="text-end ct_fw_600">923-416-9914</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <td>9</td>
                                         <td>JPB39Q</td>
                                         <td>06-08-2024</td>

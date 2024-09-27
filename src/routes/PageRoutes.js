@@ -3,14 +3,19 @@ import AllBoats from "../pages/AllBoats";
 import AllSupplier from "../pages/AllSupplier";
 import BoatDetails from "../pages/BoatDetails";
 import BoatDocks from "../pages/BoatDocks";
+import BoatTracker from "../pages/BoatTracker";
+import BusinessProfile from "../pages/BusinessProfile";
 import CreateBoat from "../pages/CreateBoat";
 import CreateStaff from "../pages/CreateStaff";
 import Dashboard from "../pages/Dashboard";
 import GenerateInvoice from "../pages/GenerateInvoice";
+import JobService from "../pages/JobService";
 import LeadReceived from "../pages/LeadReceived";
 import MaintainedBoats from "../pages/MaintainedBoats";
+import MentenanceTask from "../pages/MentenanceTask";
 import ReviewSchedule from "../pages/ReviewSchedule";
 import ScheduledMaintenance from "../pages/ScheduledMaintenance ";
+import UpdateBusinessProfile from "../pages/UpdateBusinessProfile";
 import UpdateDocsks from "../pages/UpdateDocsks";
 
 export const pageRoutes = {
@@ -31,6 +36,11 @@ export const pageRoutes = {
     all_supplier: '/all-supplier',
     create_staff: '/create-staff',
     review_schedule: '/review-schedule',
+    business_profile: '/business-profile',
+    update_business_profile: '/update-business-profile',
+    job_service: '/job-service',
+    mentenance_task: '/mentenance-task',
+    boat_tracer: '/boat-tracer'
 };
 
 export const AllRoutes = [
@@ -118,4 +128,34 @@ export const AllRoutes = [
         element: <ReviewSchedule />,
         isPrivate: true
     },
+    {
+        name: 'BusinessProfile',
+        path: pageRoutes.business_profile,
+        element: <BusinessProfile />,
+        isPrivate: true
+    },
+    {
+        name: 'UpdateBusinessProfile',
+        path: pageRoutes.update_business_profile,
+        element: <UpdateBusinessProfile />,
+        isPrivate: true
+    },
+    {
+        name: 'CdsJobService',
+        path: pageRoutes.job_service,
+        element: <JobService />,
+        isPrivate: true
+    },
+    {
+        name: 'MentenanceTask',
+        path: pageRoutes.mentenance_task,
+        element: <MentenanceTask />,
+        isPrivate: true
+    },
+    {
+        name: 'BoatTracker',
+        path: pageRoutes.boat_tracer,
+        element: <BoatTracker />,
+        isPrivate: true
+    }
 ]

@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import { pageRoutes } from '../routes/PageRoutes';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -131,7 +132,7 @@ const Dashboard = () => {
                             </div>
                             <div className="row">
                                 <div className="col-lg-3 col-md-6 mb-4">
-                                    <a href="javascript:void(0)" className="text-dark">
+                                    <a href="javascript:void(0)" className="text-dark" onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <div className="ct_light_shadow_card">
                                             <p className="mb-2 ct_fs_18 ct_fw_700">No. 362</p>
                                             <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
@@ -141,7 +142,7 @@ const Dashboard = () => {
                                     </a>
                                 </div>
                                 <div className="col-lg-3 col-md-6 mb-4">
-                                    <a href="javascript:void(0)" className="text-dark">
+                                    <a href="javascript:void(0)" className="text-dark" onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <div className="ct_light_shadow_card">
                                             <p className="mb-2 ct_fs_18 ct_fw_700">No. 363</p>
                                             <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
@@ -151,7 +152,7 @@ const Dashboard = () => {
                                     </a>
                                 </div>
                                 <div className="col-lg-3 col-md-6 mb-4">
-                                    <a href="javascript:void(0)" className="text-dark">
+                                    <a href="javascript:void(0)" className="text-dark" onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <div className="ct_light_shadow_card">
                                             <p className="mb-2 ct_fs_18 ct_fw_700">No. 364</p>
                                             <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
@@ -161,7 +162,7 @@ const Dashboard = () => {
                                     </a>
                                 </div>
                                 <div className="col-lg-3 col-md-6 mb-4">
-                                    <a href="javascript:void(0)" className="text-dark">
+                                    <a href="javascript:void(0)" className="text-dark" onClick={() => navigate(pageRoutes.boat_tracer)}>
                                         <div className="ct_light_shadow_card">
                                             <p className="mb-2 ct_fs_18 ct_fw_700">No. 365 </p>
                                             <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
@@ -170,7 +171,6 @@ const Dashboard = () => {
                                         </div>
                                     </a>
                                 </div>
-
                             </div>
                         </div>
                         <div className="ct_mt_20">

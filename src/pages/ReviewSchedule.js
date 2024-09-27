@@ -1,11 +1,30 @@
 import React from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const ReviewSchedule = () => {
     const localizer = momentLocalizer(moment);
+    const myEventsList = [
+        {
+            title: "Meeting",
+            start: new Date(2024, 8, 23, 10, 0), // September 23, 2024, 10:00 AM
+            end: new Date(2024, 8, 23, 11, 0),   // September 23, 2024, 11:00 AM
+        },
+        {
+            title: "Lunch",
+            start: new Date(2024, 8, 24, 12, 0), // September 24, 2024, 12:00 PM
+            end: new Date(2024, 8, 24, 13, 0),   // September 24, 2024, 1:00 PM
+        },
+        {
+            title: "Conference",
+            start: new Date(2024, 8, 25, 9, 0),  // September 25, 2024, 9:00 AM
+            end: new Date(2024, 8, 25, 17, 0),   // September 25, 2024, 5:00 PM
+        }
+    ];
+
     return (
         <div className="ct_dashbaord_bg">
             <div className="ct_dashbaord_main ct_active">
@@ -18,24 +37,6 @@ const ReviewSchedule = () => {
                             <h4 class="ct_fs_24 text-start ct_fw_700 mb-1 ">Calendar</h4>
                             <div class="row">
                                 <div class="col-xl-3 mb-4">
-                                    <div class="ct_current_calendar-container">
-                                        <div class="ct_current_calendar-month-arrow-container">
-                                            <div class="ct_currentcalendar-month-year-container">
-                                                <select class="ct_current_calendar-years"></select>
-                                                <select class="ct_current_calendar-months">
-                                                </select>
-                                            </div>
-                                            <div class="calendar-month-year">
-                                            </div>
-                                            <div class="calendar-arrow-container">
-                                                <button class="calendar-today-button"></button>
-                                            </div>
-                                        </div>
-                                        {/* <ul class="calendar-week ">
-                                        </ul>
-                                        <ul class="calendar-days">
-                                        </ul> */}
-                                    </div>
                                     <div class="ct_event_detail_list mt-4">
                                         <div class="d-flex align-items-center gap-3">
                                             <img src="img/calendar_img_12.png" alt="" class="ct_img_18" />
@@ -82,10 +83,9 @@ const ReviewSchedule = () => {
                                     </div>
                                 </div>
                                 <div class="col-xl-9 mb-4">
-                                    {/* <div id="ec"></div> */}
                                     <Calendar
                                         localizer={localizer}
-                                        // events={myEventsList}
+                                        events={myEventsList}
                                         startAccessor="start"
                                         endAccessor="end"
                                         style={{ height: 500 }}

@@ -22,8 +22,8 @@ const Header = () => {
                 <div className="ms-auto d-flex align-items-center gap-3 justify-content-end">
                     <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.quick_lead)} className="ct_red_btn">A new lead received</a>
                     <a href="javascript:void(0)" className="ct_logout_btn ct_white_btn">
-                        <img src="img/building_icon_2.svg" alt="" />
-                        <div className="ct_user_name_info">
+                        <img src="img/building_icon_2.svg" alt="" onClick={() => navigate(pageRoutes.business_profile)} />
+                        <div className="ct_user_name_info" onClick={() => navigate(pageRoutes.business_profile)}>
                             <h6>Alex meian</h6>
                             <p className="mb-0">Admin</p>
                         </div>
