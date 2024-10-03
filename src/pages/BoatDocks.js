@@ -26,6 +26,9 @@ const BoatDocks = () => {
                             </ul>
                             <div className="d-flex align-items-center gap-4">
                                 <div className="position-relative ct_search_input">
+                                    <input type="date" className="form-control ct_flex_1" />
+                                </div>
+                                <div className="position-relative ct_search_input">
                                     <input type="text" className="form-control ct_flex_1" placeholder="Search" />
                                     <i className="fa-solid fa-magnifying-glass "></i>
                                 </div>

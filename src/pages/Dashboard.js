@@ -27,7 +27,7 @@ const Dashboard = () => {
                                     <div className="ct_small_icon" style={{ backgroundColor: "#AE19DE" }}>
                                         <i className="bi bi-bar-chart"></i>
                                     </div>
-                                    <div className="ct_dash_card_info">
+                                    <div className="ct_dash_card_info" onClick={() => navigate(pageRoutes.today_service)}>
                                         <span className="ct_fs_14">Currently in service</span>
                                         <h4>6</h4>
                                         <small className="d-flex align-items-center"><svg width="16" height="16" className="me-1" viewBox="0 0 14 14"
@@ -42,7 +42,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div onClick={() => navigate(pageRoutes.scheduled_boat)}>
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#EB5419" }}>
                                         <i className="bi bi-briefcase"></i>
@@ -82,7 +82,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div onClick={() => navigate(pageRoutes.staff_productivity)}>
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#ED9C11" }}>
                                         <i className="bi bi-person"></i>
@@ -102,7 +102,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div onClick={() => navigate(pageRoutes.quick_lead)}>
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#8611ED" }}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

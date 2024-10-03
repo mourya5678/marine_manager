@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import { pageRoutes } from '../routes/PageRoutes';
 
-const AllBoats = () => {
+const BoatInQue = () => {
     const navigate = useNavigate();
     const [isToggle, setIsToggle] = useState(false);
     const onHandleClick = () => {
@@ -14,15 +14,15 @@ const AllBoats = () => {
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
-                <Sidebar path="all_boats" />
+                <Sidebar path="schedule_boat" />
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="d-flex align-items-center justify-content-between gap-2 ct_flex_wrap_767">
                             <ul className="d-flex align-items-center gap-3 ">
-                                <li className="ct_fs_24 ct_fw_700 ct_list_style_none">All Boats</li>
+                                <li className="ct_fs_24 ct_fw_700 ct_list_style_none">Scheduled Boats</li>
                                 <li className=" ct_fw_700 ct_fs_24 ct_list_style_none ms-2"></li>
-                                <li className="ct_text_op_5 ct_fs_24 ct_fw_600">55 Boats</li>
+                                <li className="ct_text_op_5 ct_fs_24 ct_fw_600">16 Boats</li>
                             </ul>
                             <div className="d-flex align-items-center gap-4">
                                 <div className="position-relative ct_search_input">
@@ -32,7 +32,6 @@ const AllBoats = () => {
                                     <input type="text" className="form-control ct_flex_1" placeholder="Search" />
                                     <i className="fa-solid fa-magnifying-glass "></i>
                                 </div>
-                                <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.crate_boat)} className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22">Add Boat</a>
                             </div>
                         </div>
                         <div className="row mt-5">
@@ -205,5 +204,4 @@ const AllBoats = () => {
         </div>
     )
 }
-
-export default AllBoats;
+export default BoatInQue;

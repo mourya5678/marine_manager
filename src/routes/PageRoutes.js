@@ -3,6 +3,7 @@ import AllBoats from "../pages/AllBoats";
 import AllSupplier from "../pages/AllSupplier";
 import BoatDetails from "../pages/BoatDetails";
 import BoatDocks from "../pages/BoatDocks";
+import BoatInQue from "../pages/BoatInQue";
 import BoatTracker from "../pages/BoatTracker";
 import BusinessProfile from "../pages/BusinessProfile";
 import CreateBoat from "../pages/CreateBoat";
@@ -15,7 +16,9 @@ import MaintainedBoats from "../pages/MaintainedBoats";
 import MentenanceTask from "../pages/MentenanceTask";
 import ReviewSchedule from "../pages/ReviewSchedule";
 import ScheduledMaintenance from "../pages/ScheduledMaintenance ";
+import StaffProductivity from "../pages/StaffProductivity";
 import TaskDescription from "../pages/TaskDescription";
+import TodayService from "../pages/TodayService";
 import UpdateBusinessProfile from "../pages/UpdateBusinessProfile";
 import UpdateDocsks from "../pages/UpdateDocsks";
 
@@ -40,9 +43,12 @@ export const pageRoutes = {
     business_profile: '/business-profile',
     update_business_profile: '/update-business-profile',
     job_service: '/job-service',
-    mentenance_task: '/mentenance-task',
+    mentenance_task: '/maintenance-task',
     boat_tracer: '/boat-tracer',
-    task_description: '/task-description'
+    task_description: '/task-description',
+    scheduled_boat: '/scheduled-boat',
+    today_service: '/today-service',
+    staff_productivity: '/staff-productivity',
 };
 
 export const AllRoutes = [
@@ -50,6 +56,24 @@ export const AllRoutes = [
         name: 'Dashboard',
         path: pageRoutes.dashboard,
         element: <Dashboard />,
+        isPrivate: true
+    },
+    {
+        name: 'Scheduled Boat',
+        path: pageRoutes.scheduled_boat,
+        element: <BoatInQue />,
+        isPrivate: true
+    },
+    {
+        name: 'Today Service',
+        path: pageRoutes.today_service,
+        element: <TodayService />,
+        isPrivate: true
+    },
+    {
+        name: 'Staff Productivity',
+        path: pageRoutes.staff_productivity,
+        element: <StaffProductivity />,
         isPrivate: true
     },
     {
