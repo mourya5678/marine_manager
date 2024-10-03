@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
 const JobService = () => {
+    const [isToggle, setIsToggle] = useState(false);
+    const onHandleClick = () => {
+        setIsToggle(!isToggle);
+    }
     return (
         <div className="ct_dashbaord_bg">
-            <div className="ct_dashbaord_main ct_active">
+            <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="cds_job" />
                 <div className="ct_content_right">
-                    <Header />
+                    <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="d-flex align-items-center gap-3 mb-3">
                             <a href="javascript:void(0)" className="ct_fs_18 ct_fw_700 text-dark ct_ff_roboto"><i className="fa-solid fa-arrow-left-long"></i> Back</a>

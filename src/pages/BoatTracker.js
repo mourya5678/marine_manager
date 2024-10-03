@@ -1,31 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
 const BoatTracker = () => {
     const navigate = useNavigate();
+    const [isToggle, setIsToggle] = useState(false);
+    const onHandleClick = () => {
+        setIsToggle(!isToggle);
+    }
 
     return (
         <div className="ct_dashbaord_bg">
-            <div className="ct_dashbaord_main ct_active">
+            <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="tracker" />
                 <div className="ct_content_right">
-                    <Header />
-                    <div class="ct_dashbaord_middle">
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <a href="javascript:void(0)" onClick={() => navigate(-1)} class="ct_fs_18 ct_fw_700 text-dark ct_ff_roboto"><i class="fa-solid fa-arrow-left-long"></i> Back</a>
+                    <Header onClick={onHandleClick} />
+                    <div className="ct_dashbaord_middle">
+                        <div className="d-flex align-items-center gap-3 mb-3">
+                            <a href="javascript:void(0)" onClick={() => navigate(-1)} className="ct_fs_18 ct_fw_700 text-dark ct_ff_roboto"><i className="fa-solid fa-arrow-left-long"></i> Back</a>
                         </div>
-                        <div class="table-responsive mt-3">
-                            <table class="table ct_project_table ct_custom_table_main">
+                        <div className="table-responsive mt-3">
+                            <table className="table ct_project_table ct_custom_table_main">
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th class="ct_ff_roboto">Maintenance Item Description</th>
-                                        <th class="ct_ff_roboto">Boat registration</th>
-                                        <th class="ct_ff_roboto">Supplier</th>
-                                        <th class="ct_ff_roboto">Date Scheduled</th>
-                                        <th class="ct_ff_roboto">User Allocated</th>
+                                        <th className="ct_ff_roboto">Maintenance Item Description</th>
+                                        <th className="ct_ff_roboto">Boat registration</th>
+                                        <th className="ct_ff_roboto">Supplier</th>
+                                        <th className="ct_ff_roboto">Date Scheduled</th>
+                                        <th className="ct_ff_roboto">User Allocated</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -34,15 +38,15 @@ const BoatTracker = () => {
                                         <td>Full antifoul of hull</td>
                                         <td>JPB39Q</td>
                                         <td>Volvo</td>
-                                        <td class="ct_fw_600">06-08-2024 - 28-09-2024</td>
-                                        <td class="text-end ct_fw_600">Morris Hyatt</td>
+                                        <td className="ct_fw_600">06-08-2024 - 28-09-2024</td>
+                                        <td className="text-end ct_fw_600">Morris Hyatt</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div class="ct_white_bg_1">
-                            <div class="ct_tracker_main">
-                                <div class="ct_date_task_list">
+                        <div className="ct_white_bg_1">
+                            <div className="ct_tracker_main">
+                                <div className="ct_date_task_list">
                                     <ul>
                                         <li>Date/Task</li>
                                         <li>Hull Clean</li>
@@ -56,8 +60,8 @@ const BoatTracker = () => {
                                         <li>Booked in care</li>
                                     </ul>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="table ct_tracker_table">
+                                <div className="table-responsive">
+                                    <table className="table ct_tracker_table">
                                         <thead>
                                             <tr>
                                                 <th>01-08-2024</th>

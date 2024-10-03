@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
 const CreateStaff = () => {
+    const [isToggle, setIsToggle] = useState(false);
+    const onHandleClick = () => {
+        setIsToggle(!isToggle);
+    }
     return (
         <div className="ct_dashbaord_bg">
-            <div className="ct_dashbaord_main ct_active">
+            <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="create-staff" />
                 <div className="ct_content_right">
-                    <Header />
+                    <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="ct_white_bg_1 py-5">
                             <div className="d-flex align-items-center justify-content-between flex-wrap gap-2">

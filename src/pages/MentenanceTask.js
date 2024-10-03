@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -6,13 +6,17 @@ import { pageRoutes } from '../routes/PageRoutes';
 
 const MentenanceTask = () => {
     const navigate = useNavigate();
+    const [isToggle, setIsToggle] = useState(false);
+    const onHandleClick = () => {
+        setIsToggle(!isToggle);
+    }
 
     return (
         <div className="ct_dashbaord_bg">
-            <div className="ct_dashbaord_main ct_active">
+            <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="" />
                 <div className="ct_content_right">
-                    <Header />
+                    <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="ct_white_bg_1">
                             <h4 className="ct_fs_24 text-start ct_fw_700 mb-3">Maintenance Task</h4>

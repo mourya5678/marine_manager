@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
 const UpdateBusinessProfile = () => {
     const navigate = useNavigate();
+    const [isToggle, setIsToggle] = useState(false);
+    const onHandleClick = () => {
+        setIsToggle(!isToggle);
+    }
 
     return (
         <div className="ct_dashbaord_bg">
-            <div className="ct_dashbaord_main ct_active">
+            <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="business_profile" />
                 <div className="ct_content_right">
-                    <Header />
+                    <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3">
                             <h4 className="ct_fs_24 text-start ct_fw_700 ">Update Business Profile</h4>

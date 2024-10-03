@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
 const LeadReceived = () => {
     const navigate = useNavigate();
+    const [isToggle, setIsToggle] = useState(false);
+    const onHandleClick = () => {
+        setIsToggle(!isToggle);
+    }
 
     return (
         <div className="ct_dashbaord_bg">
-            <div className="ct_dashbaord_main ct_active">
+            <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="quick-leads" />
                 <div className="ct_content_right">
-                    <Header />
+                    <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap">
                             <h4 className="mb-0 ct_fs_24 ct_fw_600">Quick Leads </h4>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -6,13 +6,17 @@ import { pageRoutes } from '../routes/PageRoutes';
 
 const BoatDetails = () => {
     const navigate = useNavigate();
+    const [isToggle, setIsToggle] = useState(false);
+    const onHandleClick = () => {
+        setIsToggle(!isToggle);
+    }
 
     return (
         <div className="ct_dashbaord_bg">
-            <div className="ct_dashbaord_main ct_active">
+            <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="boats_details" />
                 <div className="ct_content_right">
-                    <Header />
+                    <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="d-flex align-items-center gap-3 mb-3">
                             <a
@@ -138,7 +142,7 @@ const BoatDetails = () => {
                             <div className="row">
                                 <div className="col-md-6 ms-auto">
                                     <div className="mt-4 w-100">
-                                        <a href="javascript:void(0)" className="ct_outline_btn ct_outline_orange w-100 d-block text-center">Complete Maintenance Details</a>
+                                        <a href="javascript:void(0)" className="ct_outline_btn ct_outline_orange w-100 d-block text-center" onClick={() => navigate(pageRoutes.task_description)}>Complete Maintenance Details</a>
                                     </div>
                                 </div>
                             </div>

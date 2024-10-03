@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { pipDeleteToken } from '../auth/Pip';
 import { pageRoutes } from '../routes/PageRoutes';
 
-const Header = () => {
+const Header = ({ onClick }) => {
     const navigate = useNavigate();
 
     const onHandleLogout = () => {
@@ -13,7 +13,7 @@ const Header = () => {
 
     return (
         <div>
-            <div className="ct_toggle_side">
+            <div className="ct_toggle_side" onClick={onClick}>
                 <span></span>
                 <span></span>
                 <span></span>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import { Calendar, momentLocalizer } from "react-big-calendar";
@@ -7,6 +7,10 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 const ReviewSchedule = () => {
     const localizer = momentLocalizer(moment);
+    const [isToggle, setIsToggle] = useState(false);
+    const onHandleClick = () => {
+        setIsToggle(!isToggle);
+    }
     const myEventsList = [
         {
             title: "Meeting",
@@ -27,10 +31,10 @@ const ReviewSchedule = () => {
 
     return (
         <div className="ct_dashbaord_bg">
-            <div className="ct_dashbaord_main ct_active">
+            <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="review" />
                 <div className="ct_content_right">
-                    <Header />
+                    <Header onClick={onHandleClick} />
                     <div class="ct_dashbaord_middle">
                         <h4 class="ct_fs_24 ct_fw_700 mb-4 pb-1">Maintained Boats</h4>
                         <div class="ct_white_bg_1 pb-5">

@@ -15,6 +15,7 @@ import MaintainedBoats from "../pages/MaintainedBoats";
 import MentenanceTask from "../pages/MentenanceTask";
 import ReviewSchedule from "../pages/ReviewSchedule";
 import ScheduledMaintenance from "../pages/ScheduledMaintenance ";
+import TaskDescription from "../pages/TaskDescription";
 import UpdateBusinessProfile from "../pages/UpdateBusinessProfile";
 import UpdateDocsks from "../pages/UpdateDocsks";
 
@@ -40,7 +41,8 @@ export const pageRoutes = {
     update_business_profile: '/update-business-profile',
     job_service: '/job-service',
     mentenance_task: '/mentenance-task',
-    boat_tracer: '/boat-tracer'
+    boat_tracer: '/boat-tracer',
+    task_description: '/task-description'
 };
 
 export const AllRoutes = [
@@ -156,6 +158,12 @@ export const AllRoutes = [
         name: 'BoatTracker',
         path: pageRoutes.boat_tracer,
         element: <BoatTracker />,
+        isPrivate: true
+    },
+    {
+        name: 'TaskDescription',
+        path: pageRoutes.task_description,
+        element: <TaskDescription />,
         isPrivate: true
     }
 ]
