@@ -28,7 +28,7 @@ const ScheduledMaintenance = () => {
                                             <option value="">Boat1</option>
                                             <option value="">Boat1</option>
                                         </select>
-                                        <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.mentenance_task)} className=" w-100 ct_white_space_nowrap ct_input_h_44 ct_custom_btm ct_line_height_22 " style={{ paddingBlock: "12px" }}>Generate Invoice</a>
+                                        <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.task_review)} className=" w-100 ct_white_space_nowrap ct_input_h_44 ct_custom_btm ct_line_height_22 " style={{ paddingBlock: "12px" }}>Generate Invoice</a>
                                     </div>
                                 </div>
                                 <div>

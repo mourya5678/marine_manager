@@ -10,6 +10,7 @@ import CreateBoat from "../pages/CreateBoat";
 import CreateStaff from "../pages/CreateStaff";
 import Dashboard from "../pages/Dashboard";
 import GenerateInvoice from "../pages/GenerateInvoice";
+import Invoice from "../pages/Invoice";
 import JobService from "../pages/JobService";
 import LeadReceived from "../pages/LeadReceived";
 import MaintainedBoats from "../pages/MaintainedBoats";
@@ -18,6 +19,7 @@ import ReviewSchedule from "../pages/ReviewSchedule";
 import ScheduledMaintenance from "../pages/ScheduledMaintenance ";
 import StaffProductivity from "../pages/StaffProductivity";
 import TaskDescription from "../pages/TaskDescription";
+import TaskReview from "../pages/TaskReview";
 import TodayService from "../pages/TodayService";
 import UpdateBusinessProfile from "../pages/UpdateBusinessProfile";
 import UpdateDocsks from "../pages/UpdateDocsks";
@@ -49,6 +51,8 @@ export const pageRoutes = {
     scheduled_boat: '/scheduled-boat',
     today_service: '/today-service',
     staff_productivity: '/staff-productivity',
+    task_review: '/task-review',
+    invoice: '/invoice'
 };
 
 export const AllRoutes = [
@@ -68,6 +72,18 @@ export const AllRoutes = [
         name: 'Today Service',
         path: pageRoutes.today_service,
         element: <TodayService />,
+        isPrivate: true
+    },
+    {
+        name: 'Task Review',
+        path: pageRoutes.task_review,
+        element: <TaskReview />,
+        isPrivate: true
+    },
+    {
+        name: 'Invoice',
+        path: pageRoutes.invoice,
+        element: <Invoice />,
         isPrivate: true
     },
     {

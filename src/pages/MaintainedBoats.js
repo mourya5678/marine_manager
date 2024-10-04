@@ -18,9 +18,9 @@ const MaintainedBoats = () => {
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
-                        <div className="">
+                        <div className="d-flex align-item-center gap-3">
                             <a href="javascript:void(0)" onClick={() => navigate(-1)} className="ct_fs_18 ct_fw_700 text-dark ct_ff_roboto"><i className="fa-solid fa-arrow-left-long"></i> Back</a>
-                            <h4 className="mb-0 ct_fs_24 ct_fw_600">Maintained Boats </h4>
+                            <h4 className="mb-0 ct_fs_24 ct_fw_600">Maintained Boats</h4>
                         </div>
                         <div className="table-responsive mt-3">
                             <table className="table ct_project_table ct_custom_table_main">
