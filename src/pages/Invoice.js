@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
+import '../Invoice.css';
 import Sidebar from '../components/Sidebar';
 import { pageRoutes } from '../routes/PageRoutes';
 

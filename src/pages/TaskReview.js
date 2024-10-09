@@ -18,9 +18,9 @@ const TaskReview = () => {
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
-                        <div className="ct_grid_2_1 justify-content-between">
+                        <div className="d-flex align-items-center justify-content-between">
                             <h4 className="mb-0 ct_fs_24 ct_fw_600">Task Review</h4>
-                            <div className="ct_grid_3_1">
+                            <div className="">
                                 <a href="javascript:void(0)" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={() => navigate(pageRoutes.invoice)}>Next</a>
                             </div>
                         </div>

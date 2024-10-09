@@ -24,15 +24,15 @@ const BoatDocks = () => {
                                 <li className=" ct_fw_700 ct_fs_24 ct_list_style_none ms-2"></li>
                                 <li className="ct_text_op_5 ct_fs_24 ct_fw_600">55 Docks</li>
                             </ul>
-                            <div className="d-flex align-items-center gap-4">
-                                <div className="position-relative ct_search_input">
+                            <div className="d-flex align-items-center gap-4 ct_flex_wrap_767 ct_wrap_100_1_main">
+                                <div className="position-relative ct_search_input ct_wrap_100_1">
                                     <input type="date" className="form-control ct_flex_1" />
                                 </div>
-                                <div className="position-relative ct_search_input">
+                                <div className="position-relative ct_search_input ct_wrap_100_1">
                                     <input type="text" className="form-control ct_flex_1" placeholder="Search" />
                                     <i className="fa-solid fa-magnifying-glass "></i>
                                 </div>
-                                <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.add_new_docks)} className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22">Add New Dock</a>
+                                <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.add_new_docks)} className="ct_custom_btm ct_wrap_100_1 ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22">Add New Dock</a>
                             </div>
                         </div>
                         <div className="row mt-5">

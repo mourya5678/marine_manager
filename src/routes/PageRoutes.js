@@ -20,6 +20,7 @@ import ScheduledMaintenance from "../pages/ScheduledMaintenance ";
 import StaffProductivity from "../pages/StaffProductivity";
 import TaskDescription from "../pages/TaskDescription";
 import TaskReview from "../pages/TaskReview";
+import TodayInvoice from "../pages/TodayInvoice";
 import TodayService from "../pages/TodayService";
 import UpdateBusinessProfile from "../pages/UpdateBusinessProfile";
 import UpdateDocsks from "../pages/UpdateDocsks";
@@ -52,7 +53,8 @@ export const pageRoutes = {
     today_service: '/today-service',
     staff_productivity: '/staff-productivity',
     task_review: '/task-review',
-    invoice: '/invoice'
+    invoice: '/invoice',
+    today_invoice: '/todays-invoice'
 };
 
 export const AllRoutes = [
@@ -78,6 +80,12 @@ export const AllRoutes = [
         name: 'Task Review',
         path: pageRoutes.task_review,
         element: <TaskReview />,
+        isPrivate: true
+    },
+    {
+        name: 'Todays Invoice',
+        path: pageRoutes.today_invoice,
+        element: <TodayInvoice />,
         isPrivate: true
     },
     {

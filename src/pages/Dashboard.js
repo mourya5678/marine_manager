@@ -62,7 +62,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div onClick={() => navigate(pageRoutes.today_invoice)}>
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#1A6FE7" }}>
                                         <i className="bi bi-clock"></i>
