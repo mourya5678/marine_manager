@@ -1,11 +1,68 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
+import { AddStaffSchema, UpdateStaffSchema } from '../auth/Schema';
 import Sidebar from '../components/Sidebar';
+import { addStaffDetails, getStaffData, updateStaffDetails } from '../redux/actions/staffActions';
+import { Formik } from 'formik';
+import ErrorMessage from '../components/ErrorMessage';
+import { useNavigate } from 'react-router';
 
 const CreateStaff = () => {
+    const { isLoading, staff_data } = useSelector((state) => state?.staffReducer);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isToggle, setIsToggle] = useState(false);
+    const [staffDetails, setStaffDetails] = useState({});
+
+    const initialState = {
+        name: '',
+        role: '',
+        email: '',
+        phone_no: '',
+        password: '',
+        home_address: ''
+    };
+
+    useEffect(() => {
+        dispatch(getStaffData());
+    }, []);
+
     const onHandleClick = () => {
         setIsToggle(!isToggle);
+    };
+
+    const onHandleAddStaff = async (values, { setSubmitting }) => {
+        setSubmitting(false);
+        const callback = (response) => {
+            if (response.success) dispatch(getStaffData());
+        };
+        dispatch(addStaffDetails({ payload: values, callback }));
+    };
+
+    const onHandleUpdateStaff = async (values, { setSubmitting }) => {
+        setSubmitting(false);
+        const callback = (response) => {
+            if (response.success) {
+                setStaffDetails({});
+                dispatch(getStaffData());
+            }
+        };
+        const data = {
+            id: values?.id,
+            name: values?.full_name,
+            role: values?.role,
+            phone_no: values?.phone_no,
+            password: values?.showPassword,
+            home_address: values?.home_address,
+            status: values?.status == true ? 1 : 0
+        }
+        dispatch(updateStaffDetails({ payload: data, callback }));
+    };
+
+
+    if (isLoading) {
+        return "Loading..."
     }
     return (
         <div className="ct_dashbaord_bg">
@@ -32,98 +89,41 @@ const CreateStaff = () => {
                                             <th className="ct_ff_roboto border-0">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Noel Skiles</td>
-                                            <td>Electrical Work</td>
-                                            <td>Walker_Towne@yahoo.com</td>
-                                            <td className="ct_fw_600">(555) 789-0123</td>
-                                            <td className=" ct_fw_600 ct_green_text">Active</td>
-                                            <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Noel Skiles</td>
-                                            <td>Electrical Work</td>
-                                            <td>Walker_Towne@yahoo.com</td>
-                                            <td className="ct_fw_600">(555) 789-0123</td>
-                                            <td className=" ct_fw_600 ct_green_text">Active</td>
-                                            <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Noel Skiles</td>
-                                            <td>Electrical Work</td>
-                                            <td>Walker_Towne@yahoo.com</td>
-                                            <td className="ct_fw_600">(555) 789-0123</td>
-                                            <td className=" ct_fw_600 ct_green_text">Active</td>
-                                            <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Noel Skiles</td>
-                                            <td>Electrical Work</td>
-                                            <td>Walker_Towne@yahoo.com</td>
-                                            <td className="ct_fw_600">(555) 789-0123</td>
-                                            <td className="ct_fw_600 ct_red_text">Disabled</td>
-                                            <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Noel Skiles</td>
-                                            <td>Electrical Work</td>
-                                            <td>Walker_Towne@yahoo.com</td>
-                                            <td className="ct_fw_600">(555) 789-0123</td>
-                                            <td className=" ct_fw_600 ct_green_text">Active</td>
-                                            <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Noel Skiles</td>
-                                            <td>Electrical Work</td>
-                                            <td>Walker_Towne@yahoo.com</td>
-                                            <td className="ct_fw_600">(555) 789-0123</td>
-                                            <td className="ct_fw_600 ct_green_text">Active</td>
-                                            <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>Noel Skiles</td>
-                                            <td>Electrical Work</td>
-                                            <td>Walker_Towne@yahoo.com</td>
-                                            <td className="ct_fw_600">(555) 789-0123</td>
-                                            <td className="ct_fw_600 ct_red_text">Disabled</td>
-                                            <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>8</td>
-                                            <td>Noel Skiles</td>
-                                            <td>Electrical Work</td>
-                                            <td>Walker_Towne@yahoo.com</td>
-                                            <td className="ct_fw_600">(555) 789-0123</td>
-                                            <td className="ct_fw_600 ct_red_text">Disabled</td>
-                                            <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>9</td>
-                                            <td>Noel Skiles</td>
-                                            <td>Electrical Work</td>
-                                            <td>Walker_Towne@yahoo.com</td>
-                                            <td className="ct_fw_600">(555) 789-0123</td>
-                                            <td className=" ct_fw_600 ct_red_text">Disabled</td>
-                                            <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                    {staff_data?.length != 0 ?
+                                        <tbody>
+                                            {staff_data?.map((item, i) => (
+                                                <tr>
+                                                    <td>{i + 1}</td>
+                                                    <td>{item?.full_name ?? 'NA'}</td>
+                                                    <td>{item?.role ?? 'NA'}</td>
+                                                    <td>{item?.email ?? 'NA'}</td>
+                                                    <td className="ct_fw_600">{item?.phone_no ?? 'NA'}</td>
+                                                    <td className=" ct_fw_600 ct_green_text">{item?.status == 1 ? 'Active' : 'Inactive'}</td>
+                                                    <td className="text-end ct_action_btns" onClick={() => setStaffDetails({
+                                                        id: item?.id,
+                                                        full_name: item?.full_name,
+                                                        role: item?.role,
+                                                        email: item?.email,
+                                                        phone_no: item?.phone_no,
+                                                        password: item?.showPassword,
+                                                        home_address: item?.home_address,
+                                                        status: item?.status == 0 ? false : true
+                                                    })}><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                        :
+                                        <tfoot>
+                                            <tr>
+                                                <td className="text-center bg-transparent border-0" colSpan="7">
+                                                    <div className="text-center">
+                                                        <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">No staff member found</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    }
                                 </table>
                             </div>
                         </div>
@@ -136,55 +136,140 @@ const CreateStaff = () => {
                         <div className="modal-body">
                             <div className="pt-4">
                                 <h4 className="mb-4 text-center"><strong>Add Staff Member </strong></h4>
-                                <form>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Name</strong> <span className="ct_required_star">*</span></label>
-                                                <input type="text" className="form-control" />
+                                <Formik
+                                    initialValues={initialState}
+                                    validationSchema={AddStaffSchema}
+                                    onSubmit={(values, actions) => {
+                                        onHandleAddStaff(values, actions);
+                                    }}
+                                >
+                                    {({
+                                        values,
+                                        errors,
+                                        touched,
+                                        handleChange,
+                                        handleBlur,
+                                        handleSubmit,
+                                    }) => (
+                                        <form>
+                                            <div className="row">
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Name</strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="name"
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            value={values?.name}
+                                                            type="text"
+                                                            className="form-control"
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="name"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Job Role</strong> <span className="ct_required_star">*</span></label>
+                                                        <select className="form-control"
+                                                            id="role"
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            value={values?.role}>
+                                                            <option value="">Select Job Role</option>
+                                                            <option value="Electrical Work">Electrical Work</option>
+                                                        </select>
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="role"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Email </strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="email"
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            value={values?.email}
+                                                            type="email"
+                                                            className="form-control"
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="email"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Password </strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="password"
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            value={values?.password}
+                                                            type="password"
+                                                            className="form-control"
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="password"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Contact no. </strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="phone_no"
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            value={values?.phone_no}
+                                                            type="text"
+                                                            className="form-control"
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="phone_no"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Home Address </strong> <span className="ct_required_star">*</span></label>
+                                                        <textarea
+                                                            id="home_address"
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            value={values?.home_address}
+                                                            className="form-control"
+                                                            rows="4"
+                                                        ></textarea>
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="home_address"
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Job Role</strong> <span className="ct_required_star">*</span></label>
-                                                <select className="form-control">
-                                                    <option value="">Electrical Work</option>
-                                                    <option value="">Electrical Work</option>
-                                                    <option value="">Electrical Work</option>
-                                                </select>
+                                            <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
+                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit ct_" onClick={handleSubmit} className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit ct_white_space_nowrap" data-bs-dismiss={values?.email != '' && Object?.keys(errors)?.length == 0 && "modal"}>Submit</button>
                                             </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Email </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="email" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Password </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="password" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Contact no. </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="number" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Home Address </strong> <span className="ct_required_star">*</span></label>
-                                                <textarea className="form-control" rows="4"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                        </form>
+                                    )}
+                                </Formik>
                             </div>
-                        </div>
-                        <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
-                            <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit ct_white_space_nowrap" data-bs-dismiss="modal">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -196,74 +281,174 @@ const CreateStaff = () => {
                         <div className="modal-body">
                             <div className="pt-4">
                                 <h4 className="mb-4 text-center"><strong>Update Staff Details </strong></h4>
-                                <form>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Name</strong> <span className="ct_required_star">*</span></label>
-                                                <input type="text" className="form-control" value="Kadin Calzoni" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Job Role</strong> <span className="ct_required_star">*</span></label>
-                                                <select className="form-control">
-                                                    <option value="">Electrical Work</option>
-                                                    <option value="">Electrical Work</option>
-                                                    <option value="">Electrical Work</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Email </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="email" className="form-control" value="staffmember1@domain.com" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Password </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="password" className="form-control" value="12345678" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Contact no. </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="text" className="form-control" value="(555) 456-7890" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Home Address </strong> <span className="ct_required_star">*</span></label>
-                                                <textarea className="form-control" rows="4">223 C Brigade Road </textarea>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <div className="d-flex align-items-center justify-content-between gap-2">
-                                                    <label className="mb-0"><strong>Status </strong> <span className="ct_required_star">*</span></label>
-                                                    <div className="form-check form-switch">
-                                                        <input className="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked />
+                                {staffDetails?.email &&
+                                    <Formik
+                                        initialValues={staffDetails}
+                                        validationSchema={UpdateStaffSchema}
+                                        onSubmit={(values, actions) => {
+                                            onHandleUpdateStaff(values, actions);
+                                        }}
+                                    >
+                                        {({
+                                            values,
+                                            errors,
+                                            touched,
+                                            handleChange,
+                                            handleBlur,
+                                            handleSubmit,
+                                        }) => (
+                                            <form>
+                                                <div className="row">
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Name</strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="full_name"
+                                                                type="text"
+                                                                className="form-control"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.full_name}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="full_name"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Job Role</strong> <span className="ct_required_star">*</span></label>
+                                                            <select className="form-control"
+                                                                id="role"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.role}>
+                                                                <option value="">Select Job Role</option>
+                                                                <option value="Electrical Work">Electrical Work</option>
+                                                            </select>
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="role"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Email </strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                type="email"
+                                                                className="form-control"
+                                                                id="email"
+                                                                value={values?.email}
+                                                                readOnly
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="email"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Password </strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                id="password"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.password}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="password"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Contact no. </strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                type="text"
+                                                                className="form-control"
+                                                                id="phone_no"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.phone_no}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="phone_no"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Home Address </strong> <span className="ct_required_star">*</span></label>
+                                                            <textarea
+                                                                className="form-control"
+                                                                rows="4"
+                                                                id="home_address"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.home_address}
+                                                            ></textarea>
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="home_address"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <div className="d-flex align-items-center justify-content-between gap-2">
+                                                                <label className="mb-0"><strong>Status </strong> <span className="ct_required_star">*</span></label>
+                                                                <div className="form-check form-switch">
+                                                                    <input
+                                                                        className="form-check-input"
+                                                                        type="checkbox"
+                                                                        id="status"
+                                                                        onBlur={handleBlur}
+                                                                        onChange={handleChange}
+                                                                        value={values?.status}
+                                                                        checked={values.status}
+                                                                    />
+                                                                    <ErrorMessage
+                                                                        errors={errors}
+                                                                        touched={touched}
+                                                                        fieldName="status"
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                                <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
+                                                    <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                    <button
+                                                        type="submit"
+                                                        onClick={handleSubmit}
+                                                        data-bs-dismiss={Object?.keys(errors)?.length == 0 && "modal"}
+                                                        className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit ct_white_space_nowrap"
+                                                    >Submit</button>
+                                                </div>
+                                            </form>
+                                        )}
+                                    </Formik>
+                                }
                             </div>
-                        </div>
-                        <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
-                            <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
-                            <button
-                                type="button "
-                                data-bs-dismiss="modal"
-                                className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit ct_white_space_nowrap"
-                            >Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

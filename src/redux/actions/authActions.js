@@ -1,0 +1,54 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { API_REQUEST } from ".";
+import { pipSetAccessToken } from "../../auth/Pip";
+import {
+    loginEndPointURL,
+    signupEndPointURL,
+    forgotPasswordEndPointURL
+} from "../../routes/BackendRoutes";
+
+export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: signupEndPointURL,
+            method: "POST",
+            data: payload,
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const userLogin = createAsyncThunk("auth-login", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: loginEndPointURL,
+            method: "POST",
+            data: payload,
+        });
+        pipSetAccessToken(response?.data?.token);
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const userForgotPassword = createAsyncThunk("auth-forgot-password", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: forgotPasswordEndPointURL,
+            method: "POST",
+            data: payload,
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});

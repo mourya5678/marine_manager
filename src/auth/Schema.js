@@ -1,4 +1,4 @@
-import Yup from 'yup';
+import * as Yup from 'yup';
 
 export const signInSchema = Yup.object().shape({
     email: Yup.string()
@@ -15,6 +15,35 @@ export const signInSchema = Yup.object().shape({
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
             "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
         )
+});
+
+export const signUpSchema = Yup.object().shape({
+    first_name: Yup.string().required("Please enter a first name"),
+    last_name: Yup.string().required("Please enter a last name"),
+    company_name: Yup.string().required("Please enter your company name"),
+    email: Yup.string()
+        .email("Please enter a valid email")
+        .required("Please enter a valid email")
+        .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
+            "Please enter a valid email"
+        ),
+    phone_no: Yup.string()
+        .matches(/^[0-9]+$/, "Mobile number must be number")
+        .min(10, "Mobile number cannot be less then 10 digits").max(10, "Mobile number can not be more then 10 digits")
+        .required("Please enter your mobile number"),
+    password: Yup.string()
+        .required("Please enter your password")
+        .min(8, "Password cannot be less then 8 characters")
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
+            "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
+        ),
+    confirm_password: Yup.string()
+        .required("Please enter confirm password")
+        .oneOf([Yup.ref("password"), null], "Your password must match"),
+    ct_checkbox_cbx: Yup.boolean()
+        .oneOf([true], 'Checkbox must be checked')
 });
 
 export const ForgotPasswordSchema = Yup.object().shape({
@@ -51,4 +80,70 @@ export const ChangePasswordSchema = Yup.object().shape({
     confirmPassword: Yup.string()
         .required("Please enter confirm password")
         .oneOf([Yup.ref("newPassword"), null], "Your password must match"),
+});
+
+export const AddStaffSchema = Yup.object().shape({
+    name: Yup.string().required("Please enter name"),
+    role: Yup.string().required("Please select job role"),
+    email: Yup.string()
+        .email("Please enter a valid email")
+        .required("Please enter a valid email")
+        .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
+            "Please enter a valid email"
+        ),
+    phone_no: Yup.string()
+        .matches(/^[0-9]+$/, "Contact number must be number")
+        .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        .required("Please enter your contact number"),
+    password: Yup.string()
+        .required("Please enter your password")
+        .min(8, "Password cannot be less then 8 characters")
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
+            "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
+        ),
+    home_address: Yup.string().required("Please enter home address"),
+});
+
+export const UpdateStaffSchema = Yup.object().shape({
+    full_name: Yup.string().required("Please enter name"),
+    role: Yup.string().required("Please select job role"),
+    email: Yup.string()
+        .email("Please enter a valid email")
+        .required("Please enter a valid email")
+        .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
+            "Please enter a valid email"
+        ),
+    phone_no: Yup.string()
+        .matches(/^[0-9]+$/, "Contact number must be number")
+        .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        .required("Please enter your contact number"),
+    password: Yup.string()
+        .required("Please enter your password")
+        .min(8, "Password cannot be less then 8 characters")
+        .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
+            "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
+        ),
+    home_address: Yup.string().required("Please enter home address"),
+    status: Yup.string().required("Please add status"),
+});
+
+export const AddSupplierSchema = Yup.object().shape({
+    company_name: Yup.string().required("Please enter company name"),
+    company_description: Yup.string().required("Please enter company description"),
+    email: Yup.string()
+        .email("Please enter a valid email")
+        .required("Please enter a valid email")
+        .matches(
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
+            "Please enter a valid email"
+        ),
+    city: Yup.string().required("Please enter city"),
+    phone_no: Yup.string()
+        .matches(/^[0-9]+$/, "Contact number must be number")
+        .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        .required("Please enter contact number")
 });
