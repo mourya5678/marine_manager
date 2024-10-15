@@ -5,6 +5,10 @@ export const signupEndPointURL = "users/signup";
 export const loginEndPointURL = "users/login";
 export const forgotPasswordEndPointURL = "users/forgetPassword";
 
+// Bussiness profile
+export const bussinessProfileEndPointURL = "users/myProfile";
+export const updateBussinessProfileEndPointURL = "users/editProfile";
+
 // staff 
 export const addStaffEndPointURL = "staff/addStaffMember";
 export const getStaffDataEndPointURL = "staff/staffMembers";

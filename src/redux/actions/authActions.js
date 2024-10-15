@@ -4,7 +4,9 @@ import { pipSetAccessToken } from "../../auth/Pip";
 import {
     loginEndPointURL,
     signupEndPointURL,
-    forgotPasswordEndPointURL
+    forgotPasswordEndPointURL,
+    bussinessProfileEndPointURL,
+    updateBussinessProfileEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
@@ -45,6 +47,36 @@ export const userForgotPassword = createAsyncThunk("auth-forgot-password", async
             url: forgotPasswordEndPointURL,
             method: "POST",
             data: payload,
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const getBussinessProfileData = createAsyncThunk("get-profile", async (props) => {
+    try {
+        const response = await API_REQUEST({
+            url: bussinessProfileEndPointURL,
+            method: "GET",
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+export const updateBussinessProfile = createAsyncThunk("update-profile", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: updateBussinessProfileEndPointURL,
+            method: "POST",
+            data: payload,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         });
         callback(response);
         return response;

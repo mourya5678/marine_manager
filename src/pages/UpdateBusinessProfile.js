@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 
 const UpdateBusinessProfile = () => {
     const navigate = useNavigate();
+    const { state } = useLocation();
     const [isToggle, setIsToggle] = useState(false);
+    const [profileData, setProfileData] = useState(state?.data);
+    
     const onHandleClick = () => {
         setIsToggle(!isToggle);
-    }
+    };
+
+    const onHandleChangeValue = () => {
+
+    };
 
     return (
         <div className="ct_dashbaord_bg">
@@ -30,7 +38,7 @@ const UpdateBusinessProfile = () => {
                                             ><strong>Company Name</strong>
                                             </label
                                             >
-                                            <input type="text" className="form-control" />
+                                            <input type="text" className="form-control" value={profileData?.company_name} />
                                         </div>
                                     </div>
 
@@ -40,7 +48,7 @@ const UpdateBusinessProfile = () => {
                                             ><strong>Company Email</strong>
                                             </label
                                             >
-                                            <input type="email" className="form-control" />
+                                            <input type="email" className="form-control" value={profileData?.email} />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -49,7 +57,7 @@ const UpdateBusinessProfile = () => {
                                             ><strong>Company Phone number</strong>
                                             </label
                                             >
-                                            <input type="number" className="form-control" />
+                                            <input type="number" className="form-control" value={profileData?.phone_no} />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -58,7 +66,7 @@ const UpdateBusinessProfile = () => {
                                             ><strong>Accounting Software Used</strong>
                                             </label
                                             >
-                                            <input type="text" className="form-control" />
+                                            <input type="text" className="form-control" value={profileData?.accounting_software_used} />
                                         </div>
                                     </div>
 
@@ -68,7 +76,7 @@ const UpdateBusinessProfile = () => {
                                             ><strong>About Us</strong>
                                             </label
                                             >
-                                            <textarea className="form-control" rows="3"></textarea>
+                                            <textarea className="form-control" rows="3" value={profileData?.about_us}></textarea>
                                         </div>
                                     </div>
 
@@ -78,7 +86,7 @@ const UpdateBusinessProfile = () => {
                                             ><strong>Service Region</strong>
                                             </label
                                             >
-                                            <textarea className="form-control" rows="3"></textarea>
+                                            <textarea className="form-control" rows="3" value={profileData?.service_region}></textarea>
                                         </div>
                                     </div>
                                     <div className="col-md-12">
@@ -87,7 +95,7 @@ const UpdateBusinessProfile = () => {
                                             ><strong>Services Offered</strong>
                                             </label
                                             >
-                                            <textarea className="form-control" rows="3"></textarea>
+                                            <textarea className="form-control" rows="3" value={profileData?.services_offered}></textarea>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
