@@ -8,7 +8,8 @@ import {
     addSupplierEndPointURL,
     addDockDetailsEndPointURL,
     getAllBoatsDataEndPointURL,
-    addBoatDetailsEndPointURL
+    addBoatDetailsEndPointURL,
+    getDockDetailsEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const addStaffDetails = createAsyncThunk("add-staff", async (props) => {
@@ -119,5 +120,17 @@ export const addBoatDetails = createAsyncThunk("add-boat", async (props) => {
         return response;
     } catch (error) {
         callback(null, error);
+    }
+});
+
+export const getDockData = createAsyncThunk("dock-data", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: getDockDetailsEndPointURL,
+            method: "GET",
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
     }
 });

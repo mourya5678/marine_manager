@@ -13,19 +13,19 @@ export const pipGetAccessToken = () => {
 };
 
 export const pipViewDate = (date) => {
-    return moment(date).format("DD-MM-YYYY");
+    return moment.utc(date).format("DD-MM-YYYY");
 };
 
 export const pipViewDate3 = (date) => {
-    return moment(date).format("MM/DD/YYYY");
+    return moment.utc(date).format("MM/DD/YYYY");
 };
 
 export const pipViewDate2 = (date) => {
-    return moment(date).format("MM-DD-YYYY");
+    return moment.utc(date).format("MM-DD-YYYY");
 };
 
 export const pipViewDate4 = (date) => {
-    return moment(date).format("YYYY-MM-DD");
+    return moment.utc(date).format("YYYY-MM-DD");
 };
 
 export const pipDeleteToken = () => {

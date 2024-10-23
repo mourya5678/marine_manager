@@ -23,6 +23,7 @@ export const addSupplierEndPointURL = "supplier/addsupllier";
 
 // Dock 
 export const addDockDetailsEndPointURL = "dock/addDock";
+export const getDockDetailsEndPointURL = "dock/getAllDock";
 
 // Boats
 export const getAllBoatsDataEndPointURL = "boat/getAllBoat";

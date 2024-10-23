@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { AddDockSchema } from '../auth/Schema';
+import ErrorMessage from '../components/ErrorMessage';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import { addDockDetails, getBoatData } from '../redux/actions/staffActions';
@@ -37,9 +38,9 @@ const AddNewDocks = () => {
     const onHandleAddDocks = async (values, { setSubmitting }) => {
         setSubmitting(false);
         const callback = (response) => {
-            // if (response.success) dispatch(getStaffData());
+            if (response.success) navigate(pageRoutes.boat_docks);
         };
-        // dispatch(addDockDetails({ payload: values, callback }));
+        dispatch(addDockDetails({ payload: values, callback }));
     };
 
     if (isLoading) {
@@ -77,7 +78,19 @@ const AddNewDocks = () => {
                                                     ><strong>Dock Name</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
-                                                    <input type="text" className="form-control" />
+                                                    <input
+                                                        id="name"
+                                                        value={values.name}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="text"
+                                                        className="form-control"
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="name"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -86,12 +99,23 @@ const AddNewDocks = () => {
                                                         <strong>Choose Boat For This Dock</strong>
                                                         <span className="ct_required_star">*</span>
                                                     </label>
-                                                    <select className="form-control">
-                                                        <option value="">---Select Boat---</option>
+                                                    <select
+                                                        className="form-control"
+                                                        id="boatId"
+                                                        value={values.boatId}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                    >
+                                                        <option value="">----Select Boat----</option>
                                                         {all_boats && all_boats?.map((item) => (
-                                                            <option value="">Breeze{console.log({ item })}</option>
+                                                            <option value={item.id}>{item.name}</option>
                                                         ))}
                                                     </select>
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="boatId"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
@@ -100,7 +124,19 @@ const AddNewDocks = () => {
                                                     ><strong>Enter Storage Address</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
-                                                    <input type="text" className="form-control" />
+                                                    <input
+                                                        id="address"
+                                                        value={values.address}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="text"
+                                                        className="form-control"
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="address"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -109,7 +145,19 @@ const AddNewDocks = () => {
                                                     ><strong>Email</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
-                                                    <input type="email" className="form-control" />
+                                                    <input
+                                                        type="email"
+                                                        className="form-control"
+                                                        id="email"
+                                                        value={values.email}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="email"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -118,7 +166,19 @@ const AddNewDocks = () => {
                                                     ><strong>Contact No.</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
-                                                    <input type="text" className="form-control" />
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        id="phone_no"
+                                                        value={values.phone_no}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="phone_no"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -128,8 +188,22 @@ const AddNewDocks = () => {
                                                         <span className="ct_required_star">*</span></label
                                                     >
                                                     <div className="position-relative">
-                                                        <input type="number" className="form-control ct_text_indent_15" />
+                                                        <input
+                                                            type="string"
+                                                            className="form-control ct_text_indent_15"
+                                                            onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
+                                                            onWheel={() => document.activeElement.blur()}
+                                                            id="booking_cost_per_day"
+                                                            value={values.booking_cost_per_day}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        />
                                                         <span className="ct_dollar_sign">$</span>
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="booking_cost_per_day"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,20 +214,45 @@ const AddNewDocks = () => {
                                                         <span className="ct_required_star">*</span></label
                                                     >
                                                     <div className="position-relative">
-                                                        <input type="number" className="form-control ct_text_indent_15" />
+                                                        <input
+                                                            type="string"
+                                                            className="form-control ct_text_indent_15"
+                                                            onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
+                                                            onWheel={() => document.activeElement.blur()}
+                                                            id="booking_cost"
+                                                            value={values.booking_cost}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        />
                                                         <span className="ct_dollar_sign">$</span>
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="booking_cost"
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Book From</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
-                                                    <input type="date" className="form-control" />
+                                                    <input
+                                                        type="date"
+                                                        className="form-control"
+                                                        min={new Date()?.toISOString()?.split("T")[0]}
+                                                        id="book_from"
+                                                        value={values.book_from}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="book_from"
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -162,13 +261,29 @@ const AddNewDocks = () => {
                                                     ><strong>Book To</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
-                                                    <input type="date" className="form-control" />
+                                                    <input
+                                                        type="date"
+                                                        className="form-control"
+                                                        min={new Date()?.toISOString()?.split("T")[0]}
+                                                        id="book_to"
+                                                        value={values.book_to}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="book_to"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(pageRoutes.boat_docks)}>Cancel</button>
-                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(pageRoutes.boat_docks)}>Save and add to Docks</button>
+                                            <button type="button"
+                                                className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100"
+                                                onClick={handleSubmit}
+                                            >Save and add to Docks</button>
                                         </div>
                                     </form>
                                 )}

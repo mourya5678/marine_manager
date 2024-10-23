@@ -7,7 +7,7 @@ import {
     forgotPasswordEndPointURL,
     bussinessProfileEndPointURL,
     updateBussinessProfileEndPointURL,
-    getDashboardDataEndPointURL
+    getDashboardDataEndPointURL,
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {

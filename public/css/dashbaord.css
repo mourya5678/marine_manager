@@ -818,7 +818,7 @@ input[type="number"] {
 }
 .ct_dollar_sign {
   position: absolute;
-  top: 50%;
+  top: 21px;
   left: 10px;
   font-weight: 700;
   transform: translateY(-50%);

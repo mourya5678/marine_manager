@@ -192,8 +192,7 @@ export const AddBoatSchema = Yup.object().shape({
 });
 
 export const AddDockSchema = Yup.object().shape({
-    name: Yup.string().required("Please enter name"),
-    role: Yup.string().required("Please select job role"),
+    name: Yup.string().required("Please enter dock name"),
     email: Yup.string()
         .email("Please enter a valid email")
         .required("Please enter a valid email")
@@ -205,12 +204,19 @@ export const AddDockSchema = Yup.object().shape({
         .matches(/^[0-9]+$/, "Contact number must be number")
         .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
         .required("Please enter your contact number"),
-    password: Yup.string()
-        .required("Please enter your password")
-        .min(8, "Password cannot be less then 8 characters")
-        .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
-            "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
-        ),
-    home_address: Yup.string().required("Please enter home address"),
+    book_from: Yup.date()
+        .required("Please select booking date")
+        .typeError("Please select valid date"),
+    book_to: Yup.date()
+        .required("Please select booking end date")
+        .min(Yup.ref('book_from'), "End date cannot be the same or before the from date")
+        .typeError("Please select valid date"),
+    address: Yup.string().required("Please enter storage address"),
+    booking_cost: Yup.number()
+        .required("Please enter booking cost")
+        .min(1, "Cost must be greater than 0"),
+    booking_cost_per_day: Yup.number()
+        .required("Please enter booking cost per day")
+        .min(1, "Cost must be greater than 0"),
+    boatId: Yup.string().required("Please select boat")
 });

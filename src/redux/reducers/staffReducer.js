@@ -6,7 +6,8 @@ import {
     addSupplierDetails,
     addDockDetails,
     getBoatData,
-    addBoatDetails
+    addBoatDetails,
+    getDockData
 } from "../actions/staffActions";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
     staff_data: [],
     supplier_data: [],
     all_boats: [],
+    all_docks: []
 };
 
 export const staffSlice = createSlice({
@@ -101,6 +103,19 @@ export const staffSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(addBoatDetails.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // getDockData
+        builder.addCase(getDockData.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getDockData.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.all_docks = data ?? []
+            state.isLoading = false;
+        });
+        builder.addCase(getDockData.rejected, (state, action) => {
             state.isLoading = false;
         });
     },
