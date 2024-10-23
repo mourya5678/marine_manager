@@ -4,13 +4,15 @@ import {
     userLogin,
     userForgotPassword,
     getBussinessProfileData,
-    updateBussinessProfile
+    updateBussinessProfile,
+    getDashboardData
 } from "../actions/authActions";
 
 const initialState = {
     isLoading: false,
     isToggle: false,
     bussiness_profile: [],
+    dashBoardData: {},
 };
 
 export const authSlice = createSlice({
@@ -72,6 +74,19 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(updateBussinessProfile.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // getDashboardData
+        builder.addCase(getDashboardData.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getDashboardData.fulfilled, (state, action) => {
+            const { data } = action?.payload || {};
+            state.dashBoardData = data ?? {};
+            state.isLoading = false;
+        });
+        builder.addCase(getDashboardData.rejected, (state, action) => {
             state.isLoading = false;
         });
     },

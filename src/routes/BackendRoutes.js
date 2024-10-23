@@ -5,6 +5,9 @@ export const signupEndPointURL = "users/signup";
 export const loginEndPointURL = "users/login";
 export const forgotPasswordEndPointURL = "users/forgetPassword";
 
+// Dashboard Data
+export const getDashboardDataEndPointURL = "home/getHome";
+
 // Bussiness profile
 export const bussinessProfileEndPointURL = "users/myProfile";
 export const updateBussinessProfileEndPointURL = "users/editProfile";
@@ -17,3 +20,10 @@ export const updateStaffEndPointURL = "staff/editStaffMember";
 // supplier
 export const getSupplierEndPointURL = "supplier";
 export const addSupplierEndPointURL = "supplier/addsupllier";
+
+// Dock 
+export const addDockDetailsEndPointURL = "dock/addDock";
+
+// Boats
+export const getAllBoatsDataEndPointURL = "boat/getAllBoat";
+export const addBoatDetailsEndPointURL = "boat/addBoat";

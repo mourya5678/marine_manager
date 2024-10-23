@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import { getDashboardData } from '../redux/actions/authActions';
 import { pageRoutes } from '../routes/PageRoutes';
 
 const Dashboard = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
+    const { isLoading, dashBoardData } = useSelector((state) => state?.authReducer);
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     }
 
+    useEffect(() => {
+        dispatch(getDashboardData());
+    }, []);
+
+    console.log({ dashBoardData }, "dashBoardData")
+
+    if (isLoading) {
+        return "Loading..."
+    }
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -29,16 +42,7 @@ const Dashboard = () => {
                                     </div>
                                     <div className="ct_dash_card_info" onClick={() => navigate(pageRoutes.today_service)}>
                                         <span className="ct_fs_14">Currently in service</span>
-                                        <h4>6</h4>
-                                        <small className="d-flex align-items-center"><svg width="16" height="16" className="me-1" viewBox="0 0 14 14"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M5.06012 3.49414C5.06012 3.25252 5.256 3.05664 5.49762 3.05664L10.5051 3.05664C10.6212 3.05664 10.7324 3.10273 10.8145 3.18478C10.8965 3.26683 10.9426 3.37811 10.9426 3.49414L10.9426 8.50164C10.9426 8.74326 10.7467 8.93913 10.5051 8.93914C10.2635 8.93914 10.0676 8.74326 10.0676 8.50164L10.0676 3.93164L5.49762 3.93164C5.256 3.93164 5.06012 3.73577 5.06012 3.49414Z"
-                                                fill="#1A932E" />
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M3.18387 10.8157C3.01302 10.6449 3.01302 10.3678 3.18387 10.197L10.1259 3.25497C10.2967 3.08411 10.5738 3.08411 10.7446 3.25497C10.9155 3.42582 10.9155 3.70283 10.7446 3.87369L3.80259 10.8157C3.63173 10.9866 3.35473 10.9866 3.18387 10.8157Z"
-                                                fill="#1A932E" />
-                                        </svg>12% increase from yesterday</small>
+                                        <h4>{dashBoardData?.currentlyInService ?? 0}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -49,16 +53,7 @@ const Dashboard = () => {
                                     </div>
                                     <div className="ct_dash_card_info">
                                         <span>Boats in queue</span>
-                                        <h4>95 /<span>100</span> </h4>
-                                        <small className="d-flex align-items-center"><svg width="16" height="16" viewBox="0 0 15 14" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M10.7061 5.0611C10.9477 5.0611 11.1436 5.25698 11.1436 5.4986L11.1436 10.5061C11.1436 10.6221 11.0975 10.7334 11.0154 10.8155C10.9334 10.8975 10.8221 10.9436 10.7061 10.9436L5.69856 10.9436C5.45694 10.9436 5.26106 10.7477 5.26106 10.5061C5.26106 10.2645 5.45694 10.0686 5.69856 10.0686L10.2686 10.0686L10.2686 5.4986C10.2686 5.25698 10.4644 5.0611 10.7061 5.0611Z"
-                                                fill="#EE201C" />
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M3.38449 3.18485C3.55534 3.01399 3.83235 3.01399 4.00321 3.18485L10.9452 10.1269C11.1161 10.2977 11.1161 10.5747 10.9452 10.7456C10.7744 10.9164 10.4974 10.9164 10.3265 10.7456L3.38449 3.80357C3.21363 3.63271 3.21363 3.3557 3.38449 3.18485Z"
-                                                fill="#EE201C" />
-                                        </svg>10% decrease from last month</small>
+                                        <h4>{dashBoardData?.boatsInQueue ?? 0}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -70,15 +65,6 @@ const Dashboard = () => {
                                     <div className="ct_dash_card_info">
                                         <span>Total invoice generated today</span>
                                         <h4>$135000</h4>
-                                        <small className="d-flex align-items-center"><svg width="16" height="16" className="me-1" viewBox="0 0 14 14"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M5.06012 3.49414C5.06012 3.25252 5.256 3.05664 5.49762 3.05664L10.5051 3.05664C10.6212 3.05664 10.7324 3.10273 10.8145 3.18478C10.8965 3.26683 10.9426 3.37811 10.9426 3.49414L10.9426 8.50164C10.9426 8.74326 10.7467 8.93913 10.5051 8.93914C10.2635 8.93914 10.0676 8.74326 10.0676 8.50164L10.0676 3.93164L5.49762 3.93164C5.256 3.93164 5.06012 3.73577 5.06012 3.49414Z"
-                                                fill="#1A932E" />
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M3.18387 10.8157C3.01302 10.6449 3.01302 10.3678 3.18387 10.197L10.1259 3.25497C10.2967 3.08411 10.5738 3.08411 10.7446 3.25497C10.9155 3.42582 10.9155 3.70283 10.7446 3.87369L3.80259 10.8157C3.63173 10.9866 3.35473 10.9866 3.18387 10.8157Z"
-                                                fill="#1A932E" />
-                                        </svg>8% increase from last month</small>
                                     </div>
                                 </div>
                             </div>
@@ -90,15 +76,6 @@ const Dashboard = () => {
                                     <div className="ct_dash_card_info">
                                         <span>Staff Standby</span>
                                         <h4>17 /<span> 120</span></h4>
-                                        <small className="d-flex align-items-center"><svg width="16" height="16" className="me-1" viewBox="0 0 14 14"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M5.06012 3.49414C5.06012 3.25252 5.256 3.05664 5.49762 3.05664L10.5051 3.05664C10.6212 3.05664 10.7324 3.10273 10.8145 3.18478C10.8965 3.26683 10.9426 3.37811 10.9426 3.49414L10.9426 8.50164C10.9426 8.74326 10.7467 8.93913 10.5051 8.93914C10.2635 8.93914 10.0676 8.74326 10.0676 8.50164L10.0676 3.93164L5.49762 3.93164C5.256 3.93164 5.06012 3.73577 5.06012 3.49414Z"
-                                                fill="#1A932E" />
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M3.18387 10.8157C3.01302 10.6449 3.01302 10.3678 3.18387 10.197L10.1259 3.25497C10.2967 3.08411 10.5738 3.08411 10.7446 3.25497C10.9155 3.42582 10.9155 3.70283 10.7446 3.87369L3.80259 10.8157C3.63173 10.9866 3.35473 10.9866 3.18387 10.8157Z"
-                                                fill="#1A932E" />
-                                        </svg>2% increase from last month</small>
                                     </div>
                                 </div>
                             </div>
@@ -117,15 +94,6 @@ const Dashboard = () => {
                                     <div className="ct_dash_card_info">
                                         <span>Quick Leads</span>
                                         <h4>265</h4>
-                                        <small className="d-flex align-items-center"><svg width="16" height="16" className="me-1" viewBox="0 0 14 14"
-                                            fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M5.06012 3.49414C5.06012 3.25252 5.256 3.05664 5.49762 3.05664L10.5051 3.05664C10.6212 3.05664 10.7324 3.10273 10.8145 3.18478C10.8965 3.26683 10.9426 3.37811 10.9426 3.49414L10.9426 8.50164C10.9426 8.74326 10.7467 8.93913 10.5051 8.93914C10.2635 8.93914 10.0676 8.74326 10.0676 8.50164L10.0676 3.93164L5.49762 3.93164C5.256 3.93164 5.06012 3.73577 5.06012 3.49414Z"
-                                                fill="#1A932E" />
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M3.18387 10.8157C3.01302 10.6449 3.01302 10.3678 3.18387 10.197L10.1259 3.25497C10.2967 3.08411 10.5738 3.08411 10.7446 3.25497C10.9155 3.42582 10.9155 3.70283 10.7446 3.87369L3.80259 10.8157C3.63173 10.9866 3.35473 10.9866 3.18387 10.8157Z"
-                                                fill="#1A932E" />
-                                        </svg>8% increase from last month</small>
                                     </div>
                                 </div>
                             </div>
@@ -135,53 +103,30 @@ const Dashboard = () => {
                                 <h4 className="mb-0 ct_fs_22">Boats under maintenance</h4>
                             </div>
                             <div className="row">
-                                <div className="col-lg-3 col-md-6 mb-4">
-                                    <a href="javascript:void(0)" className="text-dark" onClick={() => navigate(pageRoutes.boat_tracer)}>
-                                        <div className="ct_light_shadow_card">
-                                            <p className="mb-2 ct_fs_18 ct_fw_700">No. 362</p>
-                                            <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
-                                                style={{ width: "12px" }} />Boat Name</p>
-                                            <h4 className="mb-0 ct_fs_28 ct_fw_700">Blue Moon</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="col-lg-3 col-md-6 mb-4">
-                                    <a href="javascript:void(0)" className="text-dark" onClick={() => navigate(pageRoutes.boat_tracer)}>
-                                        <div className="ct_light_shadow_card">
-                                            <p className="mb-2 ct_fs_18 ct_fw_700">No. 363</p>
-                                            <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
-                                                style={{ width: "12px" }} />Boat Name</p>
-                                            <h4 className="mb-0 ct_fs_28 ct_fw_700">Breeze</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="col-lg-3 col-md-6 mb-4">
-                                    <a href="javascript:void(0)" className="text-dark" onClick={() => navigate(pageRoutes.boat_tracer)}>
-                                        <div className="ct_light_shadow_card">
-                                            <p className="mb-2 ct_fs_18 ct_fw_700">No. 364</p>
-                                            <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
-                                                style={{ width: "12px" }} />Boat Name</p>
-                                            <h4 className="mb-0 ct_fs_28 ct_fw_700">Sunshine</h4>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div className="col-lg-3 col-md-6 mb-4">
-                                    <a href="javascript:void(0)" className="text-dark" onClick={() => navigate(pageRoutes.boat_tracer)}>
-                                        <div className="ct_light_shadow_card">
-                                            <p className="mb-2 ct_fs_18 ct_fw_700">No. 365 </p>
-                                            <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
-                                                style={{ width: "12px" }} />Boat Name</p>
-                                            <h4 className="mb-0 ct_fs_28 ct_fw_700">Tornado</h4>
-                                        </div>
-                                    </a>
-                                </div>
+                                {dashBoardData?.boatsUnderMaintanence?.length != 0 ? dashBoardData?.boatsUnderMaintanence?.slice(0, 5)?.map((item) => (
+                                    <div className="col-lg-3 col-md-6 mb-4">
+                                        <a href="javascript:void(0)" className="text-dark"
+                                            onClick={() => navigate(pageRoutes.boat_tracer)}>
+                                            <div className="ct_light_shadow_card">
+                                                <p className="mb-2 ct_fs_18 ct_fw_700">No. 362</p>
+                                                <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
+                                                    style={{ width: "12px" }} />Boat Name</p>
+                                                <h4 className="mb-0 ct_fs_28 ct_fw_700">Blue Moon</h4>
+                                            </div>
+                                        </a>
+                                    </div>
+                                ))
+                                    :
+                                    <div className="col-md-12 mb-4">
+                                        <p className="mb-2 ct_fs_18 ct_fw_700 text-center">No boat found in under maintanence</p>
+                                    </div>
+                                }
                             </div>
                         </div>
                         <div className="ct_mt_20">
                             <div className="d-flex align-items-center justify-content-between mb-4">
                                 <h4 className="mb-0 ct_fs_22">Maintenance task scheduled tomorrow </h4>
                             </div>
-
                             <div className="row">
                                 <div className="col-lg-3 col-md-6 mb-4">
                                     <div className="ct_light_shadow_card">

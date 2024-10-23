@@ -6,7 +6,8 @@ import {
     signupEndPointURL,
     forgotPasswordEndPointURL,
     bussinessProfileEndPointURL,
-    updateBussinessProfileEndPointURL
+    updateBussinessProfileEndPointURL,
+    getDashboardDataEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
@@ -82,5 +83,17 @@ export const updateBussinessProfile = createAsyncThunk("update-profile", async (
         return response;
     } catch (error) {
         callback(null, error);
+    }
+});
+
+export const getDashboardData = createAsyncThunk("dashboard-data", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: getDashboardDataEndPointURL,
+            method: "GET",
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
     }
 });

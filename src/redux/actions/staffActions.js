@@ -5,7 +5,10 @@ import {
     getStaffDataEndPointURL,
     updateStaffEndPointURL,
     getSupplierEndPointURL,
-    addSupplierEndPointURL
+    addSupplierEndPointURL,
+    addDockDetailsEndPointURL,
+    getAllBoatsDataEndPointURL,
+    addBoatDetailsEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const addStaffDetails = createAsyncThunk("add-staff", async (props) => {
@@ -67,6 +70,48 @@ export const addSupplierDetails = createAsyncThunk("add-supplier", async (props)
     try {
         const response = await API_REQUEST({
             url: addSupplierEndPointURL,
+            method: "POST",
+            data: payload,
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const addDockDetails = createAsyncThunk("add-dock", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: addDockDetailsEndPointURL,
+            method: "POST",
+            data: payload,
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const getBoatData = createAsyncThunk("get-boat", async (props) => {
+    try {
+        const response = await API_REQUEST({
+            url: getAllBoatsDataEndPointURL,
+            method: "GET",
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+export const addBoatDetails = createAsyncThunk("add-boat", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: addBoatDetailsEndPointURL,
             method: "POST",
             data: payload,
         });

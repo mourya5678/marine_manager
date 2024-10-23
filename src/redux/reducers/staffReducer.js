@@ -2,13 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
     addStaffDetails,
     getStaffData,
-    getSupplierData
+    getSupplierData,
+    addSupplierDetails,
+    addDockDetails,
+    getBoatData,
+    addBoatDetails
 } from "../actions/staffActions";
 
 const initialState = {
     isLoading: false,
     staff_data: [],
-    supplier_data: []
+    supplier_data: [],
+    all_boats: [],
 };
 
 export const staffSlice = createSlice({
@@ -50,6 +55,52 @@ export const staffSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(getSupplierData.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // addSupplierDetails
+        builder.addCase(addSupplierDetails.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(addSupplierDetails.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(addSupplierDetails.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // addDockDetails
+        builder.addCase(addDockDetails.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(addDockDetails.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(addDockDetails.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // getBoatData
+        builder.addCase(getBoatData.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getBoatData.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.all_boats = data ?? []
+            state.isLoading = false;
+        });
+        builder.addCase(getBoatData.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // addBoatDetails
+        builder.addCase(addBoatDetails.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(addBoatDetails.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(addBoatDetails.rejected, (state, action) => {
             state.isLoading = false;
         });
     },
