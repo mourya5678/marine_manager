@@ -20,6 +20,7 @@ export const updateStaffEndPointURL = "staff/editStaffMember";
 // supplier
 export const getSupplierEndPointURL = "supplier";
 export const addSupplierEndPointURL = "supplier/addsupllier";
+export const updateSupplierEndPointURL = "supplier/editsupllier";
 
 // Dock 
 export const addDockDetailsEndPointURL = "dock/addDock";

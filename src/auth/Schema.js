@@ -220,3 +220,13 @@ export const AddDockSchema = Yup.object().shape({
         .min(1, "Cost must be greater than 0"),
     boatId: Yup.string().required("Please select boat")
 });
+
+export const UpdateSupplierSchema = Yup.object().shape({
+    company_name: Yup.string().required("Please enter company name"),
+    company_description: Yup.string().required("Please enter company description"),
+    city: Yup.string().required("Please enter city"),
+    phone_no: Yup.string()
+        .matches(/^[0-9]+$/, "Contact number must be number")
+        .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        .required("Please enter contact number")
+});

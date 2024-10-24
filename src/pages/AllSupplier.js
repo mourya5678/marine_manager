@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { AddSupplierSchema } from '../auth/Schema';
-import { addSupplierDetails, getSupplierData } from '../redux/actions/staffActions';
+import { AddSupplierSchema, UpdateSupplierSchema } from '../auth/Schema';
+import { addSupplierDetails, getSupplierData, updateSupplierDetails } from '../redux/actions/staffActions';
 import ErrorMessage from '../components/ErrorMessage';
 
 const AllSupplier = () => {
@@ -13,6 +13,7 @@ const AllSupplier = () => {
     const [isToggle, setIsToggle] = useState(false);
     const [searchData, setSearchData] = useState();
     const [allSupplierData, setAllSupplierData] = useState(supplier_data)
+    const [supplierDetail, setSupplierDetail] = useState();
 
     const initialState = {
         company_name: '',
@@ -43,6 +44,16 @@ const AllSupplier = () => {
         };
         dispatch(addSupplierDetails({ payload: values, callback }))
     };
+
+    const onHandleUpdateSupplier = async (values, { setSubmitting }) => {
+        setSubmitting(false);
+        const callback = (response) => {
+            if (response.success) {
+                dispatch(getSupplierData());
+            }
+        };
+        dispatch(updateSupplierDetails({ payload: values, callback }))
+    }
 
     const onHandleSearchData = (e) => {
         setSearchData(e.target.value)
@@ -87,6 +98,7 @@ const AllSupplier = () => {
                                         <th>E-mail Address </th>
                                         <th>Contact no.</th>
                                         <th>City</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 {allSupplierData?.length != 0 ?
@@ -98,7 +110,18 @@ const AllSupplier = () => {
                                                 <td>{item?.company_description ?? 'NA'}</td>
                                                 <td><a href="javascript:void(0)">{item?.email ?? 'NA'}</a></td>
                                                 <td>{item?.phone_no ?? 'NA'}</td>
-                                                <td className="text-end">{item?.city ?? 'NA'}</td>
+                                                <td>{item?.city ?? 'NA'}</td>
+                                                <td className="text-end ct_action_btns"
+                                                    onClick={() => setSupplierDetail({
+                                                        company_name: item?.company_name ?? '',
+                                                        company_description: item?.company_description ?? '',
+                                                        city: item?.city ?? '',
+                                                        phone_no: item?.phone_no ?? '',
+                                                        id: item?.id
+                                                    })}
+                                                >
+                                                    <i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_supplier"></i>
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -252,6 +275,128 @@ const AllSupplier = () => {
                                         </form>
                                     )}
                                 </Formik>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade Committed_Price" id="ct_update_supplier" tabindex="-1" aria-labelledby="ct_update_supplierLabel"
+                aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Update Supplier Details </strong></h4>
+                                {supplierDetail &&
+                                    <Formik
+                                        initialValues={supplierDetail}
+                                        validationSchema={UpdateSupplierSchema}
+                                        onSubmit={(values, actions) => {
+                                            onHandleUpdateSupplier(values, actions);
+                                        }}
+                                    >
+                                        {({
+                                            values,
+                                            errors,
+                                            touched,
+                                            handleChange,
+                                            handleBlur,
+                                            handleSubmit,
+                                        }) => (
+                                            <form>
+                                                <div className="row">
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Company Name</strong> <span
+                                                                className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="company_name"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.company_name}
+                                                                type="text"
+                                                                className="form-control"
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="company_name"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Company Description</strong> <span
+                                                                className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="company_description"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.company_description}
+                                                                type="text"
+                                                                className="form-control"
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="company_description"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Contact No. </strong> <span
+                                                                className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="phone_no"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.phone_no}
+                                                                type="text"
+                                                                className="form-control"
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="phone_no"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>City</strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="city"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.city}
+                                                                type="text"
+                                                                className="form-control"
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="city"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="modal-footer justify-content-center border-0">
+                                                    <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                    <button
+                                                        type="submit ct_"
+                                                        onClick={handleSubmit}
+                                                        className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                                                        data-bs-dismiss={values?.email != '' && Object?.keys(errors)?.length == 0 && "modal"}
+                                                    >
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        )}
+                                    </Formik>
+                                }
                             </div>
                         </div>
                     </div>
