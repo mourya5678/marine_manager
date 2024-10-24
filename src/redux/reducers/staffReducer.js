@@ -7,7 +7,9 @@ import {
     addDockDetails,
     getBoatData,
     addBoatDetails,
-    getDockData
+    getDockData,
+    updateDocksDetails,
+    getAvailableBoats
 } from "../actions/staffActions";
 
 const initialState = {
@@ -15,7 +17,8 @@ const initialState = {
     staff_data: [],
     supplier_data: [],
     all_boats: [],
-    all_docks: []
+    all_docks: [],
+    available_boats: []
 };
 
 export const staffSlice = createSlice({
@@ -116,6 +119,30 @@ export const staffSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(getDockData.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // updateDocksDetails
+        builder.addCase(updateDocksDetails.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(updateDocksDetails.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(updateDocksDetails.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // getAvailableBoats
+        builder.addCase(getAvailableBoats.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getAvailableBoats.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.available_boats = data ?? []
+            state.isLoading = false;
+        });
+        builder.addCase(getAvailableBoats.rejected, (state, action) => {
             state.isLoading = false;
         });
     },

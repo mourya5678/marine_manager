@@ -80,7 +80,9 @@ const AllBoats = () => {
                                                     new Date(item?.book_from).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
                                                         "tomorrow"
                                                         :
-                                                        pipViewDate(item?.book_from)
+                                                        new Date(item?.book_from).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
+                                                            "yesterday" :
+                                                            pipViewDate(item?.book_from)
                                                 }
                                                 </p>
                                             </div>

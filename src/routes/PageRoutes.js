@@ -9,6 +9,7 @@ import BusinessProfile from "../pages/BusinessProfile";
 import CreateBoat from "../pages/CreateBoat";
 import CreateStaff from "../pages/CreateStaff";
 import Dashboard from "../pages/Dashboard";
+import DockDetails from "../pages/DockDetails";
 import GenerateInvoice from "../pages/GenerateInvoice";
 import Invoice from "../pages/Invoice";
 import JobService from "../pages/JobService";
@@ -54,7 +55,8 @@ export const pageRoutes = {
     staff_productivity: '/staff-productivity',
     task_review: '/task-review',
     invoice: '/invoice',
-    today_invoice: '/todays-invoice'
+    today_invoice: '/todays-invoice',
+    dock_details: '/dock-details'
 };
 
 export const AllRoutes = [
@@ -80,6 +82,12 @@ export const AllRoutes = [
         name: 'Task Review',
         path: pageRoutes.task_review,
         element: <TaskReview />,
+        isPrivate: true
+    },
+    {
+        name: 'Dock Details',
+        path: pageRoutes.dock_details,
+        element: <DockDetails />,
         isPrivate: true
     },
     {

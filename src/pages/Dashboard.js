@@ -19,8 +19,6 @@ const Dashboard = () => {
         dispatch(getDashboardData());
     }, []);
 
-    console.log({ dashBoardData }, "dashBoardData")
-
     if (isLoading) {
         return "Loading..."
     }

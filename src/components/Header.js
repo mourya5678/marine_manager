@@ -1,16 +1,46 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { pipDeleteToken } from '../auth/Pip';
+import { pipDeleteToken, pipSaveProfile, pipGetProfile } from '../auth/Pip';
 import { pageRoutes } from '../routes/PageRoutes';
+import { getBussinessProfileData } from '../redux/actions/authActions';
 
 const Header = ({ onClick }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { isLoading, bussiness_profile } = useSelector((state) => state?.authReducer);
+    const [profileData, setProfileData] = useState();
+
+    useEffect(() => {
+        const dat = pipGetProfile()
+        if (!dat) {
+            dispatch(getBussinessProfileData());
+        } else {
+            setProfileData(dat);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (bussiness_profile) {
+            const data = {
+                name: bussiness_profile?.first_name ?? '',
+                company_name: bussiness_profile?.company_name ?? ''
+            }
+            setProfileData(data);
+            pipSaveProfile(data)
+        }
+    }, [bussiness_profile]);
+
+
 
     const onHandleLogout = () => {
         pipDeleteToken();
         navigate(pageRoutes.login);
     };
 
+    if (isLoading) {
+        return "Loading..."
+    }
     return (
         <div>
             <div className="ct_toggle_side" onClick={onClick}>
@@ -24,8 +54,8 @@ const Header = ({ onClick }) => {
                     <a href="javascript:void(0)" className="ct_logout_btn ct_white_btn">
                         <img src="img/building_icon_2.svg" alt="" onClick={() => navigate(pageRoutes.business_profile)} />
                         <div className="ct_user_name_info" onClick={() => navigate(pageRoutes.business_profile)}>
-                            <h6>Alex meian</h6>
-                            <p className="mb-0">Admin</p>
+                            <h6>{profileData?.name ?? ''}</h6>
+                            <p className="mb-0">{profileData?.company_name ?? ''}</p>
                         </div>
                         <svg onClick={onHandleLogout} width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path

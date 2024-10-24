@@ -54,3 +54,4 @@ export const pipSaveProfile = (profile) => {
 export const pipGetProfile = () => {
     return JSON.parse(localStorage.getItem('user_data'));
 };
+

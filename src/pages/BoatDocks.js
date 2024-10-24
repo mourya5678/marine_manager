@@ -67,14 +67,14 @@ const BoatDocks = () => {
                         </div>
                         <div className="row mt-5">
                             {displayBoatData?.length != 0 ?
-                                displayBoatData?.map((item, i) => (
+                                displayBoatData?.map((item) => (
                                     < div className="col-xl-3 col-lg-6 mb-4">
-                                        <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.update_docks)} className="text-dark">
+                                        <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })} className="text-dark">
                                             <div className="ct_boat_card">
                                                 <ul className="ct_list_style_none">
                                                     <li>
                                                         <p className="mb-0 ct_fs_14">Dock Name</p>
-                                                        <p className="mb-0 ct_fs_18 ct_fw_700 ct_orange_text ct_text_decoration_none">Dock {i + 1}</p>
+                                                        <p className="mb-0 ct_fs_18 ct_fw_700 ct_orange_text ct_text_decoration_none">{item?.name ?? 'NA'}</p>
                                                     </li>
                                                     <li>
                                                         <p className="mb-0 ct_fs_14">Size</p>
