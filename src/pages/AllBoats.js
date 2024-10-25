@@ -43,7 +43,7 @@ const AllBoats = () => {
                             <ul className="d-flex align-items-center gap-3 ">
                                 <li className="ct_fs_24 ct_fw_700 ct_list_style_none">All Boats</li>
                                 <li className=" ct_fw_700 ct_fs_24 ct_list_style_none ms-2"></li>
-                                <li className="ct_text_op_5 ct_fs_24 ct_fw_600">{all_boats?.length ?? 0} Boats</li>
+                                <li className="ct_text_op_5 ct_fs_24 ct_fw_600">{displayBoatData?.length ?? 0} Boats</li>
                             </ul>
                             <div className="d-flex align-items-center gap-4 ct_flex_wrap_767 ct_wrap_100_1_main">
                                 <div className="position-relative ct_search_input ct_wrap_100_1">
@@ -76,13 +76,13 @@ const AllBoats = () => {
                                                 <p className="mb-2 ct_fs_18 ct_fw_700">No. {item?.id ?? 0}</p>
                                                 <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />Boat Name</p>
                                                 <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.name ?? 'NA'}</h4>
-                                                <p className="mb-0 mt-3 ct_green_text">Scheduled for {new Date(item?.book_from).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "today" :
-                                                    new Date(item?.book_from).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                                <p className="mb-0 mt-3 ct_green_text">Scheduled for {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "today" :
+                                                    new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
                                                         "tomorrow"
                                                         :
-                                                        new Date(item?.book_from).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
+                                                        new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
                                                             "yesterday" :
-                                                            pipViewDate(item?.book_from)
+                                                            pipViewDate(item?.book_to)
                                                 }
                                                 </p>
                                             </div>

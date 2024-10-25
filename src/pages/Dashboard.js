@@ -104,12 +104,13 @@ const Dashboard = () => {
                                 {dashBoardData?.boatsUnderMaintanence?.length != 0 ? dashBoardData?.boatsUnderMaintanence?.slice(0, 5)?.map((item) => (
                                     <div className="col-lg-3 col-md-6 mb-4">
                                         <a href="javascript:void(0)" className="text-dark"
-                                            onClick={() => navigate(pageRoutes.boat_tracer)}>
+                                            onClick={() => navigate(pageRoutes.boat_tracer)}
+                                        >
                                             <div className="ct_light_shadow_card">
-                                                <p className="mb-2 ct_fs_18 ct_fw_700">No. 362</p>
+                                                <p className="mb-2 ct_fs_18 ct_fw_700">No. {item?.id ?? 0}</p>
                                                 <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
                                                     style={{ width: "12px" }} />Boat Name</p>
-                                                <h4 className="mb-0 ct_fs_28 ct_fw_700">Blue Moon</h4>
+                                                <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.name ?? 'NA'}</h4>
                                             </div>
                                         </a>
                                     </div>

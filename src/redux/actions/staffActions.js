@@ -104,6 +104,7 @@ export const getBoatData = createAsyncThunk("get-boat", async (props) => {
         const response = await API_REQUEST({
             url: getAllBoatsDataEndPointURL,
             method: "GET",
+            params: props
         });
         return response;
     } catch (error) {

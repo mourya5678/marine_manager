@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import { getBoatData } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
 
 const ScheduledMaintenance = () => {
@@ -9,7 +11,7 @@ const ScheduledMaintenance = () => {
     const [isToggle, setIsToggle] = useState(false);
     const onHandleClick = () => {
         setIsToggle(!isToggle);
-    }
+    };
 
     return (
         <div className="ct_dashbaord_bg">
