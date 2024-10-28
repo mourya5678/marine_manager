@@ -5,7 +5,8 @@ import {
     userForgotPassword,
     getBussinessProfileData,
     updateBussinessProfile,
-    getDashboardData
+    getDashboardData,
+    updateBussinessImage
 } from "../actions/authActions";
 
 const initialState = {
@@ -87,6 +88,17 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(getDashboardData.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // updateBussinessImage
+        builder.addCase(updateBussinessImage.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(updateBussinessImage.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(updateBussinessImage.rejected, (state, action) => {
             state.isLoading = false;
         });
     },

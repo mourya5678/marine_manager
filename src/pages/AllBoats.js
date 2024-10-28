@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar';
 import { getBoatData } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
 import { pipViewDate, pipViewDate4 } from '../auth/Pip';
+import Loader from '../components/Loader';
 
 const AllBoats = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ const AllBoats = () => {
     }, []);
 
     if (isLoading) {
-        return "Loading..."
+        return <Loader />
     }
     return (
         <div className="ct_dashbaord_bg">
@@ -81,8 +82,7 @@ const AllBoats = () => {
                                                         "Scheduled for tomorrow"
                                                         :
                                                         new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
-                                                            " Scheduled" :
-                                                            pipViewDate(item?.book_to)
+                                                            " Scheduled" : `Scheduled for ${pipViewDate(item?.book_to)}`
                                                 }
                                                 </p>
                                             </div>

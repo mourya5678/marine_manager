@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { ForgotPasswordSchema } from '../auth/Schema';
 import ErrorMessage from '../components/ErrorMessage';
+import Loader from '../components/Loader';
 import { userForgotPassword } from '../redux/actions/authActions';
 import { pageRoutes } from '../routes/PageRoutes';
 
@@ -27,7 +28,7 @@ const ForgotPassword = () => {
     };
 
     if (isLoading) {
-        return "Loading"
+        return <Loader />
     }
     return (
         <section className="ct_login_main_div">

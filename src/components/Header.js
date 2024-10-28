@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { pipDeleteToken, pipSaveProfile, pipGetProfile } from '../auth/Pip';
 import { pageRoutes } from '../routes/PageRoutes';
 import { getBussinessProfileData } from '../redux/actions/authActions';
+import Loader from './Loader';
 
 const Header = ({ onClick }) => {
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Header = ({ onClick }) => {
     };
 
     if (isLoading) {
-        return "Loading..."
+        return <Loader />
     }
     return (
         <div>

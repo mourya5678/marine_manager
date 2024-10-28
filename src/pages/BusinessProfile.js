@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
+import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
 import { getBussinessProfileData } from '../redux/actions/authActions';
 import { pageRoutes } from '../routes/PageRoutes';
@@ -20,10 +21,12 @@ const BusinessProfile = () => {
         setIsToggle(!isToggle);
     }
 
-    console.log({ bussiness_profile }, 'bussiness_profile');
+    const onHandleOpenNewTab = (item) => {
+        window.open(item?.filename, '_blank')
+    }
 
     if (isLoading) {
-        return "Loading..."
+        return <Loader />
     }
     return (
         <div className="ct_dashbaord_bg">
@@ -93,8 +96,7 @@ const BusinessProfile = () => {
                                         <div className="form-group mb-3">
                                             <label for="" className="mb-1"
                                             ><strong>Service Region</strong>
-                                            </label
-                                            >
+                                            </label>
                                             <textarea className="form-control" rows="3" value={bussiness_profile?.service_region} readOnly></textarea>
                                         </div>
                                     </div>
@@ -102,8 +104,7 @@ const BusinessProfile = () => {
                                         <div className="form-group mb-3">
                                             <label for="" className="mb-1"
                                             ><strong>Services Offered</strong>
-                                            </label
-                                            >
+                                            </label>
                                             <textarea className="form-control" rows="3" value={bussiness_profile?.services_offered} readOnly></textarea>
                                         </div>
                                     </div>
@@ -114,7 +115,9 @@ const BusinessProfile = () => {
                                             </label>
                                         </div>
                                         {bussiness_profile?.company_logo &&
-                                            <div className="my-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                            <div className="my-4 d-flex align-items-center justify-content-between flex-wrap gap-2"
+                                                data-bs-toggle="modal" data-bs-target="#ct_view_image"
+                                            >
                                                 <div className="d-flex align-items-center gap-3">
                                                     <img src={bussiness_profile?.company_logo} alt="" className="ct_uploaded_img" />
                                                 </div>
@@ -128,7 +131,9 @@ const BusinessProfile = () => {
                                             </label>
                                         </div>
                                         {bussiness_profile?.trade_license &&
-                                            <div className="my-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                            <div className="my-4 d-flex align-items-center justify-content-between flex-wrap gap-2"
+                                                data-bs-toggle="modal" data-bs-target="#ct_view_trade_image"
+                                            >
                                                 <div className="d-flex align-items-center gap-3">
                                                     <img src={bussiness_profile?.trade_license} alt="" className="ct_uploaded_img" />
                                                 </div>
@@ -141,22 +146,68 @@ const BusinessProfile = () => {
                                             ><strong>Professional indemnity insurance</strong>
                                             </label>
                                         </div>
-                                        {bussiness_profile?.InsuranceFile?.length != 0 &&
-                                            bussiness_profile?.InsuranceFile?.map((item, i) => (
-                                                <div className="mt-4 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                                                    <div className="d-flex align-items-center gap-3">
-                                                        <iframe
-                                                            src={item?.filename}
-                                                            title={`pdf-viewer-${i}`}
-                                                            width="200"
-                                                            height="200"
-                                                        />
+
+                                        <div className="row">
+                                            {bussiness_profile?.InsuranceFile?.length != 0 &&
+                                                bussiness_profile?.InsuranceFile?.map((item, i) => (
+                                                    <div className="col-lg-6">
+                                                        <div className="mt-4 d-flex align-items-center flex-wrap gap-3">
+                                                            <div className="d-flex align-items-center gap-3">
+                                                                <iframe
+                                                                    src={item?.filename}
+                                                                    title={`pdf-viewer-${i}`}
+                                                                    width="200"
+                                                                    height="200"
+                                                                />
+                                                            </div>
+                                                            <button type="button" onClick={() => onHandleOpenNewTab(item)} className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22 mx-0">View Pdf</button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                ))}
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
+                <div className="modal-dialog modal-md modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body p-2">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Image Preview </strong></h4>
+                                {bussiness_profile?.company_logo && <img src={bussiness_profile?.company_logo} style={{
+                                    height: "356px",
+                                    objectFit: "contain"
+                                }} />}
+                            </div>
+                            <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
+                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade Committed_Price" id="ct_view_trade_image" tabindex="-1" aria-labelledby="ct_view_trade_imageLabel" aria-hidden="true">
+                <div className="modal-dialog modal-md modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body p-2">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Image Preview </strong></h4>
+                                {bussiness_profile?.trade_license && <img src={bussiness_profile?.trade_license} style={{
+                                    height: "356px",
+                                    objectFit: "contain"
+                                }} />}
+                            </div>
+                            <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
+                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>

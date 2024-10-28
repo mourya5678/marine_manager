@@ -7,6 +7,7 @@ import Eye from '../components/Eye';
 import { pageRoutes } from '../routes/PageRoutes';
 import { userSignUp } from '../redux/actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../components/Loader';
 
 const SignUp = () => {
     const { isLoading } = useSelector((state) => state?.authReducer);
@@ -47,7 +48,7 @@ const SignUp = () => {
     };
 
     if (isLoading) {
-        return "Loading"
+        return <Loader />
     }
     return (
         <section className="ct_login_main_div my-4">

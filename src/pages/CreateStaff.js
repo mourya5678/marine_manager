@@ -7,11 +7,15 @@ import { addStaffDetails, getStaffData, updateStaffDetails } from '../redux/acti
 import { Formik } from 'formik';
 import ErrorMessage from '../components/ErrorMessage';
 import { useNavigate } from 'react-router';
+import Eye from '../components/Eye';
+import Loader from '../components/Loader';
 
 const CreateStaff = () => {
     const { isLoading, staff_data } = useSelector((state) => state?.staffReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [isEye, setIsEye] = useState(false);
+    const [isEye1, setIsEye1] = useState(false);
     const [isToggle, setIsToggle] = useState(false);
     const [staffDetails, setStaffDetails] = useState({});
 
@@ -40,9 +44,9 @@ const CreateStaff = () => {
         const data = {
             name: values?.name?.trim(),
             role: values?.role?.trim(),
-            email: values,
-            phone_no: values,
-            password: values,
+            email: values?.email,
+            phone_no: `${values?.phone_no}`,
+            password: values?.password,
             home_address: values?.home_address?.trim()
         };
         dispatch(addStaffDetails({ payload: data, callback }));
@@ -70,7 +74,7 @@ const CreateStaff = () => {
 
 
     if (isLoading) {
-        return "Loading..."
+        return <Loader />
     }
     return (
         <div className="ct_dashbaord_bg">
@@ -116,7 +120,9 @@ const CreateStaff = () => {
                                                         password: item?.showPassword,
                                                         home_address: item?.home_address,
                                                         status: item?.status == 0 ? false : true
-                                                    })}><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
+                                                    })}>
+                                                        <i className="fa-solid fa-eye me-2" data-bs-toggle="modal" data-bs-target="#ct_view_member"></i>
+                                                        <i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -363,14 +369,17 @@ const CreateStaff = () => {
                                                     <div className="col-md-12">
                                                         <div className="form-group mb-3">
                                                             <label className="mb-1"><strong>Password </strong> <span className="ct_required_star">*</span></label>
-                                                            <input
-                                                                type="text"
-                                                                className="form-control"
-                                                                id="password"
-                                                                onBlur={handleBlur}
-                                                                onChange={handleChange}
-                                                                value={values?.password}
-                                                            />
+                                                            <div className="position-relative">
+                                                                <input
+                                                                    type={isEye1 ? "text" : "password"}
+                                                                    className="form-control"
+                                                                    id="password"
+                                                                    onBlur={handleBlur}
+                                                                    onChange={handleChange}
+                                                                    value={values?.password}
+                                                                />
+                                                                <Eye isEye={isEye1} onClick={() => setIsEye1(!isEye1)} />
+                                                            </div>
                                                             <ErrorMessage
                                                                 errors={errors}
                                                                 touched={touched}
@@ -456,6 +465,108 @@ const CreateStaff = () => {
                     </div>
                 </div>
             </div>
+
+            <div className="modal fade Committed_Price" id="ct_view_member" tabindex="-1" aria-labelledby="ct_view_memberLabel" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Staff Details </strong></h4>
+                                {staffDetails?.email &&
+                                    <form>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Name</strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={staffDetails?.full_name ?? ''}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Job Role</strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={staffDetails?.role ?? ''}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Email </strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        type="email"
+                                                        className="form-control"
+                                                        value={staffDetails?.email ?? ''}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3 ">
+                                                    <label className="mb-1"><strong>Password </strong> <span className="ct_required_star">*</span></label>
+                                                    <div className="position-relative">
+                                                        <input
+                                                            type={isEye ? "text" : "password"}
+                                                            className="form-control"
+                                                            value={staffDetails?.password ?? ''}
+                                                            readOnly
+                                                        />
+                                                        <Eye isEye={isEye} onClick={() => setIsEye(!isEye)} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Contact no. </strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        type="text"
+                                                        className="form-control"
+                                                        value={staffDetails?.phone_no ?? ''}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Home Address </strong> <span className="ct_required_star">*</span></label>
+                                                    <textarea
+                                                        className="form-control"
+                                                        rows="4"
+                                                        value={staffDetails?.home_address ?? ''}
+                                                        readOnly
+                                                    ></textarea>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <div className="d-flex align-items-center justify-content-between gap-2">
+                                                        <label className="mb-0"><strong>Status </strong> <span className="ct_required_star">*</span></label>
+                                                        <div className="form-check form-switch">
+                                                            {staffDetails?.status == 1 ? 'Active' : 'Inactive'}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
+                                            <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div >
     )
 }

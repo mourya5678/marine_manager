@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
+import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
 import { getDashboardData } from '../redux/actions/authActions';
 import { pageRoutes } from '../routes/PageRoutes';
@@ -20,7 +21,7 @@ const Dashboard = () => {
     }, []);
 
     if (isLoading) {
-        return "Loading..."
+        return <Loader />
     }
     return (
         <div className="ct_dashbaord_bg">

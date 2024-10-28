@@ -8,6 +8,7 @@ import {
     bussinessProfileEndPointURL,
     updateBussinessProfileEndPointURL,
     getDashboardDataEndPointURL,
+    deleteImageEndPointURL,
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
@@ -95,5 +96,19 @@ export const getDashboardData = createAsyncThunk("dashboard-data", async () => {
         return response;
     } catch (error) {
         console.log(error)
+    }
+});
+
+export const updateBussinessImage = createAsyncThunk("update-img", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: deleteImageEndPointURL + `/${payload}`,
+            method: "DELETE",
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
     }
 });

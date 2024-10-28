@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { AddDockSchema } from '../auth/Schema';
 import ErrorMessage from '../components/ErrorMessage';
 import Header from '../components/Header';
+import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
 import { addDockDetails, getAvailableBoats, getBoatData } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
@@ -55,7 +56,7 @@ const AddNewDocks = () => {
     };
 
     if (isLoading) {
-        return "Loading..."
+        return <Loader />
     }
     return (
         <div className="ct_dashbaord_bg">

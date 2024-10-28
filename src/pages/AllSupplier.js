@@ -6,6 +6,7 @@ import Sidebar from '../components/Sidebar';
 import { AddSupplierSchema, UpdateSupplierSchema } from '../auth/Schema';
 import { addSupplierDetails, getSupplierData, updateSupplierDetails } from '../redux/actions/staffActions';
 import ErrorMessage from '../components/ErrorMessage';
+import Loader from '../components/Loader';
 
 const AllSupplier = () => {
     const { isLoading, supplier_data } = useSelector((state) => state?.staffReducer);
@@ -47,7 +48,7 @@ const AllSupplier = () => {
             company_description: values?.company_description.trim(),
             email: values?.email,
             city: values?.city?.trim(),
-            phone_no: values,
+            phone_no: `${values?.phone_no}`,
         }
         dispatch(addSupplierDetails({ payload: data, callback }))
     };
@@ -60,11 +61,11 @@ const AllSupplier = () => {
             }
         };
         const data = {
+            id: values?.id,
             company_name: values?.company_name?.trim(),
             company_description: values?.company_description.trim(),
-            email: values?.email,
             city: values?.city?.trim(),
-            phone_no: values,
+            phone_no: `${values?.phone_no}`,
         }
         dispatch(updateSupplierDetails({ payload: data, callback }))
     };
@@ -76,11 +77,13 @@ const AllSupplier = () => {
                 if (item?.company_name?.toLowerCase().includes(e.target.value.toLowerCase())) { return item; }
             })
             setAllSupplierData(data);
+        } else {
+            setAllSupplierData(supplier_data);
         }
     };
 
     if (isLoading) {
-        return "Loading..."
+        return <Loader />
     }
     return (
         <div className="ct_dashbaord_bg">
@@ -121,7 +124,7 @@ const AllSupplier = () => {
                                             <tr>
                                                 <td>{i + 1}</td>
                                                 <td>{item?.company_name ?? 'NA'}</td>
-                                                <td>{item?.company_description ?? 'NA'}</td>
+                                                <td><span className="ct_word_break">{item?.company_description ? item?.company_description?.slice(0, 50) + '...' : 'NA'}</span></td>
                                                 <td><a href="javascript:void(0)">{item?.email ?? 'NA'}</a></td>
                                                 <td>{item?.phone_no ?? 'NA'}</td>
                                                 <td>{item?.city ?? 'NA'}</td>
@@ -135,6 +138,7 @@ const AllSupplier = () => {
                                                         id: item?.id
                                                     })}
                                                 >
+                                                    <i className="fa-solid fa-eye me-2" data-bs-toggle="modal" data-bs-target="#ct_view_supplier"></i>
                                                     <i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_supplier"></i>
                                                 </td>
                                             </tr>
@@ -428,6 +432,87 @@ const AllSupplier = () => {
                                             </form>
                                         )}
                                     </Formik>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade Committed_Price" id="ct_view_supplier" tabindex="-1" aria-labelledby="ct_view_supplierLabel"
+                aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Supplier Details </strong></h4>
+                                {supplierDetail &&
+                                    <form>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Company Name</strong> <span
+                                                        className="ct_required_star">*</span></label>
+                                                    <input
+                                                        value={supplierDetail?.company_name ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>E-mail Address</strong> <span
+                                                        className="ct_required_star">*</span></label>
+                                                    <input
+                                                        value={supplierDetail?.email ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Company Description</strong> <span
+                                                        className="ct_required_star">*</span></label>
+                                                    <input
+                                                        value={supplierDetail?.company_description ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Contact No. </strong> <span
+                                                        className="ct_required_star">*</span></label>
+                                                    <input
+                                                        value={supplierDetail?.phone_no ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>City</strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        value={supplierDetail?.city ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="modal-footer justify-content-center border-0">
+                                            <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                        </div>
+                                    </form>
                                 }
                             </div>
                         </div>

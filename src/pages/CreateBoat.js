@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { AddBoatSchema } from '../auth/Schema';
 import ErrorMessage from '../components/ErrorMessage';
 import Header from '../components/Header';
+import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
 import { addBoatDetails, getBoatData } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
@@ -76,7 +77,7 @@ const CreateBoat = () => {
     };
 
     if (isLoading) {
-        return "Loading..."
+        return <Loader />
     }
     return (
         <div className="ct_dashbaord_bg">
@@ -121,32 +122,6 @@ const CreateBoat = () => {
                                                         touched={touched}
                                                         fieldName="owners_name"
                                                     />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1 ct_nbsp_text_remove_res">&nbsp;</label>
-                                                    <label className="ct_file_upload">
-                                                        <input
-                                                            type="file"
-                                                            id="name"
-                                                            onChange={onHandleImageChange}
-                                                            id="ct_file_upload1"
-                                                            className="d-none"
-                                                            accept="image/*"
-                                                        />
-                                                        <span>
-                                                            <i className="fa-solid fa-paperclip"></i> Picture of Boat
-                                                        </span>
-                                                    </label>
-                                                    <div className="ct_boat_dtl_img">
-                                                        {avatar_url && <img src={URL.createObjectURL(avatar_url)} alt="" />}
-                                                    </div>
-                                                    {avatar_urlError &&
-                                                        <span style={{ color: "red" }}>
-                                                            {avatar_urlError}
-                                                        </span>
-                                                    }
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -474,6 +449,31 @@ const CreateBoat = () => {
                                                     />
                                                 </div>
                                             </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="ct_file_upload">
+                                                        <input
+                                                            type="file"
+                                                            id="name"
+                                                            onChange={onHandleImageChange}
+                                                            id="ct_file_upload1"
+                                                            className="d-none"
+                                                            accept="image/*"
+                                                        />
+                                                        <span>
+                                                            <i className="fa-solid fa-paperclip"></i> Picture of Boat
+                                                        </span>
+                                                    </label>
+                                                    <div className="ct_boat_dtl_img mt-2 text-center" data-bs-toggle="modal" data-bs-target="#ct_view_image">
+                                                        {avatar_url && <img src={URL.createObjectURL(avatar_url)} alt="" className="ct_uploaded_img" style={{ backgroundColor: "#f5f5f5", padding: "4px" }} />}
+                                                    </div>
+                                                    {avatar_urlError &&
+                                                        <span style={{ color: "red" }}>
+                                                            {avatar_urlError}
+                                                        </span>
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(pageRoutes.all_boats)}>Cancel</button>
@@ -482,6 +482,25 @@ const CreateBoat = () => {
                                     </form>
                                 )}
                             </Formik>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
+                <div className="modal-dialog modal-md modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body p-2">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Image Preview </strong></h4>
+                                {avatar_url && <img src={URL.createObjectURL(avatar_url)} style={{
+                                    height: "356px",
+                                    objectFit: "contain"
+                                }} />}
+                            </div>
+                            <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
+                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>

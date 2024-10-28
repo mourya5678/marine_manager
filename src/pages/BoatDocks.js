@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { pipViewDate, pipViewDate4 } from '../auth/Pip';
 import Header from '../components/Header';
+import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
 import { getDockData } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
@@ -29,7 +30,7 @@ const BoatDocks = () => {
     }, []);
 
     if (isLoading) {
-        return "Loading..."
+        return <Loader />
     }
     return (
         <div className="ct_dashbaord_bg">
@@ -96,7 +97,7 @@ const BoatDocks = () => {
                                                             :
                                                             new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
                                                                 "Scheduled" :
-                                                                pipViewDate(item?.boat?.book_to)
+                                                                `Scheduled for ${pipViewDate(item?.boat?.book_to)}`
                                                     }</p>
                                                 </div>
                                             </div>

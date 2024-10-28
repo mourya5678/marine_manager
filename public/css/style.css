@@ -63,7 +63,7 @@ img {
 }
 .ct_hide_pass_wye {
   position: absolute;
-  top: 24px;
+  top: 50%;
   transform: translateY(-50%);
   right: 15px;
 }
