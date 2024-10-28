@@ -46,11 +46,11 @@ const CreateBoat = () => {
         };
         if (avatar_url) {
             const formData = new FormData();
-            formData.append('vin', values.vin);
-            formData.append('name', values.name);
-            formData.append('make', values.make);
-            formData.append('rego', values.rego);
-            formData.append('model', values.model);
+            formData.append('vin', values.vin.trim());
+            formData.append('name', values.name.trim());
+            formData.append('make', values.make.trim());
+            formData.append('rego', values.rego.trim());
+            formData.append('model', values.model.trim());
             formData.append('email', values.email);
             formData.append('length', values.length);
             formData.append('book_to', values.book_to);
@@ -58,9 +58,9 @@ const CreateBoat = () => {
             formData.append('phone_no', values.phone_no);
             formData.append('engine_no', values.engine_no);
             formData.append('book_from', values.book_from);
-            formData.append('engine_make', values.engine_make);
-            formData.append('owners_name', values.owners_name);
-            formData.append('engine_model', values.engine_model);
+            formData.append('engine_make', values.engine_make.trim());
+            formData.append('owners_name', values.owners_name.trim());
+            formData.append('engine_model', values.engine_model.trim());
             formData.append('docking_date', values.docking_date);
             formData.append('avatar_url', avatar_url);
             dispatch(addBoatDetails({ payload: formData, callback }));
@@ -139,6 +139,9 @@ const CreateBoat = () => {
                                                             <i className="fa-solid fa-paperclip"></i> Picture of Boat
                                                         </span>
                                                     </label>
+                                                    <div className="ct_boat_dtl_img">
+                                                        {avatar_url && <img src={URL.createObjectURL(avatar_url)} alt="" />}
+                                                    </div>
                                                     {avatar_urlError &&
                                                         <span style={{ color: "red" }}>
                                                             {avatar_urlError}
@@ -348,6 +351,7 @@ const CreateBoat = () => {
                                                         onChange={handleChange}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         type="date"
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         className="form-control"
                                                     />
                                                     <ErrorMessage
@@ -368,7 +372,9 @@ const CreateBoat = () => {
                                                         value={values.book_from}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         type="date"
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         className="form-control"
                                                     />
@@ -390,7 +396,9 @@ const CreateBoat = () => {
                                                         value={values.book_to}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         type="date"
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         className="form-control"
                                                     />
@@ -452,6 +460,7 @@ const CreateBoat = () => {
                                                     <input
                                                         type="date"
                                                         className="form-control"
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         id="docking_date"
                                                         value={values.docking_date}
                                                         min={new Date()?.toISOString()?.split("T")[0]}

@@ -33,7 +33,17 @@ const SignUp = () => {
         const callback = (response) => {
             if (response.success) navigate(pageRoutes?.login);
         };
-        dispatch(userSignUp({ payload: values, callback }));
+        const data = {
+            first_name: values?.first_name.trim(),
+            last_name: values?.last_name?.trim(),
+            company_name: values?.company_name.trim(),
+            email: values?.email,
+            phone_no: values?.phone_no,
+            password: values?.password,
+            confirm_password: values?.confirm_password,
+            ct_checkbox_cbx: values?.ct_checkbox_cbx,
+        };
+        dispatch(userSignUp({ payload: data, callback }));
     };
 
     if (isLoading) {

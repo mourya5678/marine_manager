@@ -21,7 +21,7 @@ const AllBoats = () => {
 
     const displayBoatData = all_boats?.filter((item) => {
         const filterDatass = filterData ? item?.name?.toLowerCase()?.includes(filterData?.toLowerCase()) : true;
-        const dateMatch = filterByDate ? pipViewDate4(item?.book_from) == filterByDate : true;
+        const dateMatch = filterByDate ? pipViewDate4(item?.book_to) == filterByDate : true;
         return filterDatass && dateMatch;
     })
 
@@ -39,7 +39,7 @@ const AllBoats = () => {
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
-                        <div className="d-flex align-items-center justify-content-between gap-2 ct_flex_wrap_767">
+                        <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 ct_flex_wrap_767">
                             <ul className="d-flex align-items-center gap-3 ">
                                 <li className="ct_fs_24 ct_fw_700 ct_list_style_none">All Boats</li>
                                 <li className=" ct_fw_700 ct_fs_24 ct_list_style_none ms-2"></li>
@@ -57,7 +57,7 @@ const AllBoats = () => {
                                 <div className="position-relative ct_search_input ct_wrap_100_1">
                                     <input
                                         type="text"
-                                        className="form-control ct_flex_1"
+                                        className="form-control ct_flex_1 pe-5"
                                         value={filterData}
                                         onChange={(e) => setFilterData(e.target.value)}
                                         placeholder="Search by boat name"
@@ -76,12 +76,12 @@ const AllBoats = () => {
                                                 <p className="mb-2 ct_fs_18 ct_fw_700">No. {item?.id ?? 0}</p>
                                                 <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />Boat Name</p>
                                                 <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.name ?? 'NA'}</h4>
-                                                <p className="mb-0 mt-3 ct_green_text">Scheduled for {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "today" :
+                                                <p className="mb-0 mt-3 ct_green_text">{new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
                                                     new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
-                                                        "tomorrow"
+                                                        "Scheduled for tomorrow"
                                                         :
                                                         new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
-                                                            "yesterday" :
+                                                            " Scheduled" :
                                                             pipViewDate(item?.book_to)
                                                 }
                                                 </p>

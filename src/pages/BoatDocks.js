@@ -38,8 +38,8 @@ const BoatDocks = () => {
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
-                        <div className="d-flex align-items-center justify-content-between gap-2 ct_flex_wrap_767">
-                            <ul className="d-flex align-items-center gap-3 ">
+                        <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap ct_flex_wrap_767">
+                            <ul className="d-flex align-items-center gap-3  ">
                                 <li className="ct_fs_24 ct_fw_700 ct_list_style_none">All Docks</li>
                                 <li className=" ct_fw_700 ct_fs_24 ct_list_style_none ms-2"></li>
                                 <li className="ct_text_op_5 ct_fs_24 ct_fw_600">{all_docks?.length ?? 0} Docks</li>
@@ -58,7 +58,7 @@ const BoatDocks = () => {
                                         value={filterData}
                                         onChange={(e) => setFilterData(e.target.value)}
                                         type="text"
-                                        className="form-control ct_flex_1"
+                                        className="form-control ct_flex_1 pe-5"
                                         placeholder="Search by dock name" />
                                     <i className="fa-solid fa-magnifying-glass "></i>
                                 </div>
@@ -90,11 +90,13 @@ const BoatDocks = () => {
                                                     <p className="d-flex align-items-center gap-1 mb-3">
                                                         <img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />Boat Name</p>
                                                     <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.boat?.name ?? 'NA'}</h4>
-                                                    <p className="mb-0 mt-3 pb-3">Schedules for {new Date(item?.boat?.book_from).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "today" :
-                                                        new Date(item?.boat?.book_from).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
-                                                            "tomorrow"
+                                                    <p className="mb-0 mt-3 pb-3">{new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                                                        new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                                            "Scheduled for tomorrow"
                                                             :
-                                                            pipViewDate(item?.boat?.book_from)
+                                                            new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
+                                                                "Scheduled" :
+                                                                pipViewDate(item?.boat?.book_to)
                                                     }</p>
                                                 </div>
                                             </div>

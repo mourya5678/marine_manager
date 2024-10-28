@@ -17,7 +17,7 @@ const BoatInQue = () => {
 
     const displayBoatData = all_boats?.filter((item) => {
         const filterDatass = filterData ? item?.name?.toLowerCase()?.includes(filterData?.toLowerCase()) : true;
-        const dateMatch = filterByDate ? pipViewDate4(item?.book_from) == filterByDate : true;
+        const dateMatch = filterByDate ? pipViewDate4(item?.book_to) == filterByDate : true;
         return filterDatass && dateMatch;
     })
 
@@ -51,6 +51,7 @@ const BoatInQue = () => {
                                         value={filterByDate}
                                         onChange={(e) => setFilterByDate(e.target.value)}
                                         type="date"
+                                        onKeyDown={(e) => e.preventDefault()}
                                         className="form-control ct_flex_1"
                                     />
                                 </div>

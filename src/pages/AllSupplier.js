@@ -42,7 +42,14 @@ const AllSupplier = () => {
                 dispatch(getSupplierData());
             }
         };
-        dispatch(addSupplierDetails({ payload: values, callback }))
+        const data = {
+            company_name: values?.company_name?.trim(),
+            company_description: values?.company_description.trim(),
+            email: values?.email,
+            city: values?.city?.trim(),
+            phone_no: values,
+        }
+        dispatch(addSupplierDetails({ payload: data, callback }))
     };
 
     const onHandleUpdateSupplier = async (values, { setSubmitting }) => {
@@ -52,8 +59,15 @@ const AllSupplier = () => {
                 dispatch(getSupplierData());
             }
         };
-        dispatch(updateSupplierDetails({ payload: values, callback }))
-    }
+        const data = {
+            company_name: values?.company_name?.trim(),
+            company_description: values?.company_description.trim(),
+            email: values?.email,
+            city: values?.city?.trim(),
+            phone_no: values,
+        }
+        dispatch(updateSupplierDetails({ payload: data, callback }))
+    };
 
     const onHandleSearchData = (e) => {
         setSearchData(e.target.value)
@@ -80,7 +94,7 @@ const AllSupplier = () => {
                                 <h4 className="mb-0 ct_fs_22">All Suppliers</h4>
                                 <div className="d-flex align-items-center gap-4">
                                     <div className="position-relative ct_search_input">
-                                        <input value={searchData} onChange={onHandleSearchData} type="text" className="form-control ct_flex_1" placeholder="Search company name" />
+                                        <input value={searchData} onChange={onHandleSearchData} type="text" className="form-control ct_flex_1 pe-5" placeholder="Search company name" />
                                         <i className="fa-solid fa-magnifying-glass "></i>
                                     </div>
                                     <button className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item"
@@ -116,6 +130,7 @@ const AllSupplier = () => {
                                                         company_name: item?.company_name ?? '',
                                                         company_description: item?.company_description ?? '',
                                                         city: item?.city ?? '',
+                                                        email: item?.email ?? '',
                                                         phone_no: item?.phone_no ?? '',
                                                         id: item?.id
                                                     })}
@@ -317,6 +332,23 @@ const AllSupplier = () => {
                                                                 value={values?.company_name}
                                                                 type="text"
                                                                 className="form-control"
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="company_name"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>E-mail Address</strong> <span
+                                                                className="ct_required_star">*</span></label>
+                                                            <input
+                                                                value={values?.email}
+                                                                type="text"
+                                                                className="form-control"
+                                                                readOnly
                                                             />
                                                             <ErrorMessage
                                                                 errors={errors}

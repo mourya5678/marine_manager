@@ -13,7 +13,7 @@ const Header = ({ onClick }) => {
 
     useEffect(() => {
         const dat = pipGetProfile()
-        if (!dat) {
+        if (dat?.company_name == '') {
             dispatch(getBussinessProfileData());
         } else {
             setProfileData(dat);
@@ -21,13 +21,16 @@ const Header = ({ onClick }) => {
     }, []);
 
     useEffect(() => {
-        if (bussiness_profile) {
-            const data = {
-                name: bussiness_profile?.first_name ?? '',
-                company_name: bussiness_profile?.company_name ?? ''
+        const dat = pipGetProfile();
+        if (dat?.company_name == '' || !dat) {
+            if (bussiness_profile) {
+                const data = {
+                    name: bussiness_profile?.first_name ?? '',
+                    company_name: bussiness_profile?.company_name ?? ''
+                }
+                pipSaveProfile(data)
+                setProfileData(data);
             }
-            setProfileData(data);
-            pipSaveProfile(data)
         }
     }, [bussiness_profile]);
 

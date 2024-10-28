@@ -242,6 +242,7 @@ const UpdateDocsks = () => {
                                                     <input
                                                         type="date"
                                                         className="form-control"
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         id="book_from"
                                                         value={values.book_from}
                                                         onBlur={handleBlur}
@@ -263,6 +264,7 @@ const UpdateDocsks = () => {
                                                     <input
                                                         type="date"
                                                         className="form-control"
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         id="book_to"
                                                         value={values.book_to}
                                                         onBlur={handleBlur}

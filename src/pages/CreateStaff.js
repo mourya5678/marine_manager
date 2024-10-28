@@ -37,7 +37,15 @@ const CreateStaff = () => {
         const callback = (response) => {
             if (response.success) dispatch(getStaffData());
         };
-        dispatch(addStaffDetails({ payload: values, callback }));
+        const data = {
+            name: values?.name?.trim(),
+            role: values?.role?.trim(),
+            email: values,
+            phone_no: values,
+            password: values,
+            home_address: values?.home_address?.trim()
+        };
+        dispatch(addStaffDetails({ payload: data, callback }));
     };
 
     const onHandleUpdateStaff = async (values, { setSubmitting }) => {
@@ -50,13 +58,13 @@ const CreateStaff = () => {
         };
         const data = {
             id: values?.id,
-            name: values?.full_name,
-            role: values?.role,
+            name: values?.full_name.trim(),
+            role: values?.role.trim(),
             phone_no: values?.phone_no,
             password: values?.showPassword,
-            home_address: values?.home_address,
+            home_address: values?.home_address.trim(),
             status: values?.status == true ? 1 : 0
-        }
+        };
         dispatch(updateStaffDetails({ payload: data, callback }));
     };
 

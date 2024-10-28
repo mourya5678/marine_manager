@@ -18,9 +18,9 @@ export const signInSchema = Yup.object().shape({
 });
 
 export const signUpSchema = Yup.object().shape({
-    first_name: Yup.string().required("Please enter a first name"),
-    last_name: Yup.string().required("Please enter a last name"),
-    company_name: Yup.string().required("Please enter your company name"),
+    first_name: Yup.string().trim().required("Please enter a first name"),
+    last_name: Yup.string().trim().required("Please enter a last name"),
+    company_name: Yup.string().trim().required("Please enter your company name"),
     email: Yup.string()
         .email("Please enter a valid email")
         .required("Please enter a valid email")
@@ -57,9 +57,9 @@ export const ForgotPasswordSchema = Yup.object().shape({
 });
 
 export const UpdateUserSchema = Yup.object().shape({
-    full_name: Yup.string().matches(/^[a-zA-Z]+(?:\s+[a-zA-Z]+)+$/, 'Please enter your full name (first and last name).')
+    full_name: Yup.string().trim().matches(/^[a-zA-Z]+(?:\s+[a-zA-Z]+)+$/, 'Please enter your full name (first and last name).')
         .required("Please enter a full name"),
-    username: Yup.string().required("Please enter a user name")
+    username: Yup.string().trim().required("Please enter a user name")
 });
 
 export const ChangePasswordSchema = Yup.object().shape({
@@ -83,8 +83,8 @@ export const ChangePasswordSchema = Yup.object().shape({
 });
 
 export const AddStaffSchema = Yup.object().shape({
-    name: Yup.string().required("Please enter name"),
-    role: Yup.string().required("Please select job role"),
+    name: Yup.string().trim().required("Please enter name"),
+    role: Yup.string().trim().required("Please select job role"),
     email: Yup.string()
         .email("Please enter a valid email")
         .required("Please enter a valid email")
@@ -103,11 +103,11 @@ export const AddStaffSchema = Yup.object().shape({
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
             "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
         ),
-    home_address: Yup.string().required("Please enter home address"),
+    home_address: Yup.string().trim().required("Please enter home address"),
 });
 
 export const UpdateStaffSchema = Yup.object().shape({
-    full_name: Yup.string().required("Please enter name"),
+    full_name: Yup.string().trim().required("Please enter name"),
     role: Yup.string().required("Please select job role"),
     email: Yup.string()
         .email("Please enter a valid email")
@@ -127,13 +127,13 @@ export const UpdateStaffSchema = Yup.object().shape({
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
             "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
         ),
-    home_address: Yup.string().required("Please enter home address"),
+    home_address: Yup.string().trim().required("Please enter home address"),
     status: Yup.string().required("Please add status"),
 });
 
 export const AddSupplierSchema = Yup.object().shape({
-    company_name: Yup.string().required("Please enter company name"),
-    company_description: Yup.string().required("Please enter company description"),
+    company_name: Yup.string().trim().required("Please enter company name"),
+    company_description: Yup.string().trim().required("Please enter company description"),
     email: Yup.string()
         .email("Please enter a valid email")
         .required("Please enter a valid email")
@@ -141,7 +141,7 @@ export const AddSupplierSchema = Yup.object().shape({
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
             "Please enter a valid email"
         ),
-    city: Yup.string().required("Please enter city"),
+    city: Yup.string().trim().required("Please enter city"),
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
         .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
@@ -149,18 +149,18 @@ export const AddSupplierSchema = Yup.object().shape({
 });
 
 export const AddBoatSchema = Yup.object().shape({
-    name: Yup.string().required("Please enter boat name"),
-    owners_name: Yup.string().required("Please enter owners name"),
-    rego: Yup.string().required("Please enter rego"),
-    vin: Yup.string()
+    name: Yup.string().trim().required("Please enter boat name"),
+    owners_name: Yup.string().trim().required("Please enter owners name"),
+    rego: Yup.string().trim().required("Please enter rego"),
+    vin: Yup.string().trim()
         .length(17, 'VIN must be exactly 17 characters long')
         .matches(/^[A-HJ-NPR-Z0-9]{17}$/, 'Invalid VIN format') // Excludes I, O, and Q
         .required('VIN is required'),
-    make: Yup.string().required("Please enter make"),
-    model: Yup.string().required("Please enter model"),
-    engine_no: Yup.string().required("Please enter engine number"),
-    engine_make: Yup.string().required("Please enter engine make"),
-    engine_model: Yup.string().required("Please enter engine model"),
+    make: Yup.string().trim().required("Please enter make"),
+    model: Yup.string().trim().required("Please enter model"),
+    engine_no: Yup.string().trim().required("Please enter engine number"),
+    engine_make: Yup.string().trim().required("Please enter engine make"),
+    engine_model: Yup.string().trim().required("Please enter engine model"),
     email: Yup.string()
         .email("Please enter valid email address")
         .required("Please enter valid email address")
@@ -192,7 +192,7 @@ export const AddBoatSchema = Yup.object().shape({
 });
 
 export const AddDockSchema = Yup.object().shape({
-    name: Yup.string().required("Please enter dock name"),
+    name: Yup.string().trim().required("Please enter dock name"),
     email: Yup.string()
         .email("Please enter a valid email")
         .required("Please enter a valid email")
@@ -211,7 +211,7 @@ export const AddDockSchema = Yup.object().shape({
         .required("Please select booking end date")
         .min(Yup.ref('book_from'), "End date cannot be the same or before the from date")
         .typeError("Please select valid date"),
-    address: Yup.string().required("Please enter storage address"),
+    address: Yup.string().trim().required("Please enter storage address"),
     booking_cost: Yup.number()
         .required("Please enter booking cost")
         .min(1, "Cost must be greater than 0"),
@@ -222,9 +222,9 @@ export const AddDockSchema = Yup.object().shape({
 });
 
 export const UpdateSupplierSchema = Yup.object().shape({
-    company_name: Yup.string().required("Please enter company name"),
-    company_description: Yup.string().required("Please enter company description"),
-    city: Yup.string().required("Please enter city"),
+    company_name: Yup.string().trim().required("Please enter company name"),
+    company_description: Yup.string().trim().required("Please enter company description"),
+    city: Yup.string().trim().required("Please enter city"),
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
         .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")

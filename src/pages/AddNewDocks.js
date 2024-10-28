@@ -6,13 +6,13 @@ import { AddDockSchema } from '../auth/Schema';
 import ErrorMessage from '../components/ErrorMessage';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { addDockDetails, getBoatData } from '../redux/actions/staffActions';
+import { addDockDetails, getAvailableBoats, getBoatData } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
 
 const AddNewDocks = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isLoading, all_boats } = useSelector((state) => state?.staffReducer);
+    const { isLoading, all_boats, available_boats } = useSelector((state) => state?.staffReducer);
     const [isToggle, setIsToggle] = useState(false);
 
     const initialState = {
@@ -28,7 +28,7 @@ const AddNewDocks = () => {
     };
 
     useEffect(() => {
-        dispatch(getBoatData());
+        dispatch(getAvailableBoats());
     }, []);
 
     const onHandleClick = () => {
@@ -40,7 +40,18 @@ const AddNewDocks = () => {
         const callback = (response) => {
             if (response.success) navigate(pageRoutes.boat_docks);
         };
-        dispatch(addDockDetails({ payload: values, callback }));
+        const data = {
+            name: values?.name.trim(),
+            email: values?.email.trim(),
+            boatId: values?.boatId.trim(),
+            address: values?.address.trim(),
+            book_to: values?.book_to,
+            phone_no: values?.phone_no,
+            book_from: values?.book_from,
+            booking_cost: `${values?.booking_cost}`,
+            booking_cost_per_day: `${values?.booking_cost_per_day}`,
+        }
+        dispatch(addDockDetails({ payload: data, callback }));
     };
 
     if (isLoading) {
@@ -107,7 +118,7 @@ const AddNewDocks = () => {
                                                         onChange={handleChange}
                                                     >
                                                         <option value="">----Select Boat----</option>
-                                                        {all_boats && all_boats?.map((item) => (
+                                                        {available_boats && available_boats?.map((item) => (
                                                             <option value={item.id}>{item.name}</option>
                                                         ))}
                                                     </select>
@@ -189,7 +200,7 @@ const AddNewDocks = () => {
                                                     >
                                                     <div className="position-relative">
                                                         <input
-                                                            type="string"
+                                                            type="number"
                                                             className="form-control ct_text_indent_15"
                                                             onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
                                                             onWheel={() => document.activeElement.blur()}
@@ -215,7 +226,7 @@ const AddNewDocks = () => {
                                                     >
                                                     <div className="position-relative">
                                                         <input
-                                                            type="string"
+                                                            type="number"
                                                             className="form-control ct_text_indent_15"
                                                             onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
                                                             onWheel={() => document.activeElement.blur()}
@@ -242,6 +253,7 @@ const AddNewDocks = () => {
                                                     <input
                                                         type="date"
                                                         className="form-control"
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         id="book_from"
                                                         value={values.book_from}
@@ -264,6 +276,7 @@ const AddNewDocks = () => {
                                                     <input
                                                         type="date"
                                                         className="form-control"
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         id="book_to"
                                                         value={values.book_to}

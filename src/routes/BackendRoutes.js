@@ -32,3 +32,6 @@ export const getAvailableBoatsEndPointURL = "dock/availableBoats"
 // Boats
 export const getAllBoatsDataEndPointURL = "boat/getAllBoat";
 export const addBoatDetailsEndPointURL = "boat/addBoat";
+
+// Images Delete 
+export const deleteImageEndPointURL = "users/deleteFile";

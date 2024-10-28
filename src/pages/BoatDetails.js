@@ -13,8 +13,6 @@ const BoatDetails = () => {
         setIsToggle(!isToggle);
     };
 
-    console.log({ state }, "state");
-
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
