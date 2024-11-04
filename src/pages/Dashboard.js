@@ -14,7 +14,7 @@ const Dashboard = () => {
     const { isLoading, dashBoardData } = useSelector((state) => state?.authReducer);
     const onHandleClick = () => {
         setIsToggle(!isToggle);
-    }
+    };
 
     useEffect(() => {
         dispatch(getDashboardData());
