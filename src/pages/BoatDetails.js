@@ -146,7 +146,7 @@ const BoatDetails = () => {
                                 <div className="col-md-6 mt-3 mb-md-0">
                                     <div className="ct_boat_dtl_img">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Boat Image</p>
-                                        {state?.data?.avatar_url && <img src={state?.data?.avatar_url} alt="" />}
+                                        {state?.data?.avatar_url && <img src={state?.data?.avatar_url} alt="" data-bs-toggle="modal" data-bs-target="#ct_view_image" />}
                                     </div>
                                 </div>
                             </div>
@@ -158,6 +158,25 @@ const BoatDetails = () => {
                                         >Complete Maintenance Details</a>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
+                <div className="modal-dialog modal-md modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body p-2">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Image Preview </strong></h4>
+                                {state?.data?.avatar_url && <img src={state?.data?.avatar_url} style={{
+                                    height: "356px",
+                                    objectFit: "contain"
+                                }} />}
+                            </div>
+                            <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
+                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

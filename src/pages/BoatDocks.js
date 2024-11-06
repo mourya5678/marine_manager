@@ -73,15 +73,15 @@ const BoatDocks = () => {
                                         <a href="javascript:void(0)" className="text-dark">
                                             <div className="ct_boat_card">
                                                 <ul className="ct_list_style_none">
-                                                    <li>
+                                                    <li className="flex-wrap gap-2">
                                                         <p className="mb-0 ct_fs_14">Dock Name</p>
                                                         <p className="mb-0 ct_fs_18 ct_fw_700 ct_orange_text ct_text_decoration_none">{item?.name ?? 'NA'}</p>
                                                     </li>
-                                                    <li>
+                                                    <li className="flex-wrap gap-2">
                                                         <p className="mb-0 ct_fs_14">Size</p>
                                                         <p className="mb-0 ct_fs_14 ct_fw_700 ct_text_op_5">30 x 40 m</p>
                                                     </li>
-                                                    <li>
+                                                    <li className="flex-wrap gap-2">
                                                         <p className="mb-0 ct_fs_14">Release Date</p>
                                                         <p className="mb-0 ct_fs_14 ct_fw_700 ct_text_op_5">{item?.book_to ? pipViewDate(item?.book_to) : 'NA'}</p>
                                                     </li>
@@ -92,7 +92,7 @@ const BoatDocks = () => {
                                                         <p className="d-flex align-items-center gap-1 mb-3">
                                                             <img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{item?.boat?.owners_name ?? 'NA'}</p>
                                                         <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.boat?.name ?? 'NA'}</h4>
-                                                        <p className="mb-0 mt-3 pb-3">{new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                                                        <p className="mb-0 mt-3 pb-3 ct_fs_14">{new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
                                                             new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
                                                                 "Scheduled for tomorrow"
                                                                 :

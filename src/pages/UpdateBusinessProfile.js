@@ -258,20 +258,18 @@ const UpdateBusinessProfile = () => {
                                         </div>
                                         {changeLogoImage &&
                                             <div className="my-4 d-flex align-items-center justify-content-between flex-wrap gap-2"
-                                                data-bs-toggle="modal" data-bs-target="#ct_view_image"
                                             >
                                                 <div className="position-relative">
-                                                    <img src={URL.createObjectURL(changeLogoImage)} alt="" className="ct_uploaded_img" />
+                                                    <img src={URL.createObjectURL(changeLogoImage)} alt="" className="ct_uploaded_img" data-bs-toggle="modal" data-bs-target="#ct_view_image" />
                                                     <i className="fa-solid fa-xmark ct_img_dlt_img" onClick={onHandleRemoveImageLogo}></i>
                                                 </div>
                                             </div>
                                         }
                                         {!changeLogoImage && profileData?.company_logo &&
                                             <div className="my-4 d-flex align-items-center justify-content-between flex-wrap gap-2"
-                                                data-bs-toggle="modal" data-bs-target="#ct_view_image"
                                             >
                                                 <div className="d-flex align-items-center gap-3 position-relative">
-                                                    <img src={profileData?.company_logo} alt="" className="ct_uploaded_img" />
+                                                    <img src={profileData?.company_logo} alt="" className="ct_uploaded_img" data-bs-toggle="modal" data-bs-target="#ct_view_image" />
                                                 </div>
                                             </div>
                                         }
@@ -288,20 +286,19 @@ const UpdateBusinessProfile = () => {
                                         </div>
                                         {changeTradeImage &&
                                             <div className="my-4 d-flex align-items-center justify-content-between flex-wrap gap-2"
-                                                data-bs-toggle="modal" data-bs-target="#ct_view_trade_image"
                                             >
                                                 <div className="d-flex align-items-center gap-3 position-relative">
-                                                    <img src={URL.createObjectURL(changeTradeImage)} alt="" className="ct_uploaded_img" />
+                                                    <img src={URL.createObjectURL(changeTradeImage)} alt="" className="ct_uploaded_img" data-bs-toggle="modal" data-bs-target="#ct_view_trade_image" />
                                                     <i className="fa-solid fa-xmark ct_img_dlt_img" onClick={onHandleRemoveImageTrade}></i>
                                                 </div>
                                             </div>
                                         }
                                         {!changeTradeImage && profileData?.trade_license &&
                                             <div className="my-4 d-flex align-items-center justify-content-between flex-wrap gap-2"
-                                                data-bs-toggle="modal" data-bs-target="#ct_view_trade_image"
+
                                             >
                                                 <div className="d-flex align-items-center gap-3 position-relative">
-                                                    <img src={profileData?.trade_license} alt="" className="ct_uploaded_img" />
+                                                    <img src={profileData?.trade_license} alt="" className="ct_uploaded_img" data-bs-toggle="modal" data-bs-target="#ct_view_trade_image" />
                                                 </div>
                                             </div>
                                         }
