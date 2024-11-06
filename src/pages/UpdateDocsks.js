@@ -41,10 +41,23 @@ const UpdateDocsks = () => {
 
     const onHandleUpdateDockData = async (values, { setSubmitting }) => {
         setSubmitting(false);
+        console.log({ values })
+        const data = {
+            address: `${values?.address}`,
+            boatId: `${values?.boatId}`,
+            book_from: `${values?.book_from}`,
+            book_to: `${values?.book_to}`,
+            booking_cost: `${values?.booking_cost}`,
+            booking_cost_per_day: `${values?.booking_cost_per_day}`,
+            email: `${values?.email}`,
+            id: `${values?.id}`,
+            name: `${values?.name}`,
+            phone_no: `${values?.phone_no}`
+        }
         const callback = (response) => {
             if (response.success) navigate(pageRoutes.boat_docks);
         };
-        dispatch(updateDocksDetails({ payload: values, callback }));
+        dispatch(updateDocksDetails({ payload: data, callback }));
     }
 
     if (isLoading) {
@@ -244,6 +257,7 @@ const UpdateDocsks = () => {
                                                         className="form-control"
                                                         onKeyDown={(e) => e.preventDefault()}
                                                         id="book_from"
+                                                        min={new Date()?.toISOString()?.split("T")[0]}
                                                         value={values.book_from}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
@@ -266,6 +280,7 @@ const UpdateDocsks = () => {
                                                         className="form-control"
                                                         onKeyDown={(e) => e.preventDefault()}
                                                         id="book_to"
+                                                        min={new Date()?.toISOString()?.split("T")[0]}
                                                         value={values.book_to}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}

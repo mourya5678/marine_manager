@@ -1,4 +1,4 @@
-export const BASE_URL = "http://192.168.29.19:4001/";   // Local Url
+export const BASE_URL = "http://3.26.177.93:4000/";   // Local Url
 
 // auth user
 export const signupEndPointURL = "users/signup";

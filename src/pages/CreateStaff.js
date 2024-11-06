@@ -16,6 +16,7 @@ const CreateStaff = () => {
     const navigate = useNavigate();
     const [isEye, setIsEye] = useState(false);
     const [isEye1, setIsEye1] = useState(false);
+    const [isEye2, setIsEye2] = useState(false);
     const [isToggle, setIsToggle] = useState(false);
     const [staffDetails, setStaffDetails] = useState({});
 
@@ -224,14 +225,17 @@ const CreateStaff = () => {
                                                 <div className="col-md-12">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Password </strong> <span className="ct_required_star">*</span></label>
-                                                        <input
-                                                            id="password"
-                                                            onBlur={handleBlur}
-                                                            onChange={handleChange}
-                                                            value={values?.password}
-                                                            type="password"
-                                                            className="form-control"
-                                                        />
+                                                        <div className="position-relative">
+                                                            <input
+                                                                id="password"
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                value={values?.password}
+                                                                type={isEye2 ? "text" : "password"}
+                                                                className="form-control"
+                                                            />
+                                                            <Eye isEye={isEye2} onClick={() => setIsEye2(!isEye2)} />
+                                                        </div>
                                                         <ErrorMessage
                                                             errors={errors}
                                                             touched={touched}
