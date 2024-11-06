@@ -309,7 +309,7 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-12 mb-3">
                                         <div className="form-group">
                                             <label className="mb-1"
-                                            ><strong>Professional indemnity insurance</strong>
+                                            ><strong>Professional indemnity insurance (PDF format only)</strong>
                                             </label>
                                             <label className="ct_file_upload">
                                                 <input

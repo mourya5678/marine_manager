@@ -41,10 +41,11 @@ const AddNewDocks = () => {
         const callback = (response) => {
             if (response.success) navigate(pageRoutes.boat_docks);
         };
+        console.log("values?.boatId", values?.boatId);
         const data = {
             name: values?.name.trim(),
             email: values?.email.trim(),
-            boatId: values?.boatId.trim(),
+            boatId: values?.boatId ? values?.boatId : 0,
             address: values?.address.trim(),
             book_to: values?.book_to,
             phone_no: values?.phone_no,
@@ -66,7 +67,7 @@ const AddNewDocks = () => {
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="ct_white_bg_1 pb-5">
-                            <h4 className="ct_fs_24 text-start ct_fw_700 mb-3">Add New Dock</h4>
+                            <h4 className="ct_fs_24 text-start ct_fw_700 mb-3">Add Dock</h4>
                             <Formik
                                 initialValues={initialState}
                                 validationSchema={AddDockSchema}
@@ -133,7 +134,7 @@ const AddNewDocks = () => {
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Enter Storage Address</strong>
+                                                    ><strong>Storage Address</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
                                                     <input
@@ -203,7 +204,6 @@ const AddNewDocks = () => {
                                                         <input
                                                             type="number"
                                                             className="form-control ct_text_indent_15"
-                                                            onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
                                                             onWheel={() => document.activeElement.blur()}
                                                             id="booking_cost_per_day"
                                                             value={values.booking_cost_per_day}
@@ -229,7 +229,6 @@ const AddNewDocks = () => {
                                                         <input
                                                             type="number"
                                                             className="form-control ct_text_indent_15"
-                                                            onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
                                                             onWheel={() => document.activeElement.blur()}
                                                             id="booking_cost"
                                                             value={values.booking_cost}
@@ -297,7 +296,7 @@ const AddNewDocks = () => {
                                             <button type="button"
                                                 className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100"
                                                 onClick={handleSubmit}
-                                            >Save and add to Docks</button>
+                                            >Save and add to Dock</button>
                                         </div>
                                     </form>
                                 )}

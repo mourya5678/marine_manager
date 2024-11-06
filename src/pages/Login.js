@@ -8,6 +8,7 @@ import { pageRoutes } from '../routes/PageRoutes';
 import { signInSchema } from '../auth/Schema';
 import { userLogin } from '../redux/actions/authActions';
 import ErrorMessage from '../components/ErrorMessage';
+import Loader from '../components/Loader';
 
 const Login = () => {
     const { isLoading } = useSelector((state) => state?.authReducer);
@@ -37,7 +38,7 @@ const Login = () => {
     };
 
     if (isLoading) {
-        return 'Loading...'
+        return <Loader />
     }
     return (
         <section className="ct_login_main_div">
@@ -102,12 +103,12 @@ const Login = () => {
                                                         className="ct_input"
                                                     />
                                                     <Eye isEye={isEye} onClick={() => setIsEye(!isEye)} />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="password"
-                                                    />
                                                 </div>
+                                                <ErrorMessage
+                                                    errors={errors}
+                                                    touched={touched}
+                                                    fieldName="password"
+                                                />
                                             </div>
                                             <div className="ct_remember_text">
                                                 <div className="ct_checkbox_main">

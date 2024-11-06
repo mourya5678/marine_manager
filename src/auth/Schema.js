@@ -158,7 +158,10 @@ export const AddBoatSchema = Yup.object().shape({
         .required('VIN is required'),
     make: Yup.string().trim().required("Please enter make"),
     model: Yup.string().trim().required("Please enter model"),
-    engine_no: Yup.string().trim().required("Please enter engine number"),
+    engine_no: Yup.number()
+        .required("Please enter engine number")
+        .positive("Length must be greater than 0")
+        .typeError("Length must be engine number"),
     engine_make: Yup.string().trim().required("Please enter engine make"),
     engine_model: Yup.string().trim().required("Please enter engine model"),
     email: Yup.string()
@@ -181,7 +184,7 @@ export const AddBoatSchema = Yup.object().shape({
         .typeError("Please select valid date"),
     book_to: Yup.date()
         .required("Please select booking end date")
-        .min(Yup.ref('book_from'), "End date cannot be the same or before the from date")
+        .min(Yup.ref('book_from'), "End date must be after the start date")
         .typeError("Please select valid date"),
     app_date: Yup.date()
         .required("Please select app date")
@@ -209,7 +212,7 @@ export const AddDockSchema = Yup.object().shape({
         .typeError("Please select valid date"),
     book_to: Yup.date()
         .required("Please select booking end date")
-        .min(Yup.ref('book_from'), "End date cannot be the same or before the from date")
+        .min(Yup.ref('book_from'), "End date must be after the start date")
         .typeError("Please select valid date"),
     address: Yup.string().trim().required("Please enter storage address"),
     booking_cost: Yup.number()
@@ -218,7 +221,7 @@ export const AddDockSchema = Yup.object().shape({
     booking_cost_per_day: Yup.number()
         .required("Please enter booking cost per day")
         .min(1, "Cost must be greater than 0"),
-    boatId: Yup.string().required("Please select boat")
+    boatId: Yup.string().required("Please select boat").optional()
 });
 
 export const UpdateSupplierSchema = Yup.object().shape({

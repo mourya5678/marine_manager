@@ -20,7 +20,7 @@ const BoatDocks = () => {
     }
 
     const displayBoatData = all_docks?.filter((item) => {
-        const filterDatass = filterData ? item?.boat?.name?.toLowerCase()?.includes(filterData?.toLowerCase()) : true;
+        const filterDatass = filterData ? item?.name?.toLowerCase()?.includes(filterData?.toLowerCase()) : true;
         const dateMatch = filterByDate ? pipViewDate4(item?.book_to) == filterByDate : true;
         return filterDatass && dateMatch;
     })
@@ -63,14 +63,14 @@ const BoatDocks = () => {
                                         placeholder="Search by dock name" />
                                     <i className="fa-solid fa-magnifying-glass "></i>
                                 </div>
-                                <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.add_new_docks)} className="ct_custom_btm ct_wrap_100_1 ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22">Add New Dock</a>
+                                <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.add_new_docks)} className="ct_custom_btm ct_wrap_100_1 ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22">Add Dock</a>
                             </div>
                         </div>
                         <div className="row mt-5">
                             {displayBoatData?.length != 0 ?
-                                displayBoatData?.map((item) => (
-                                    < div className="col-xl-3 col-lg-6 mb-4">
-                                        <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })} className="text-dark">
+                                displayBoatData?.map((item, i) => (
+                                    <div className="col-xl-3 col-lg-6 mb-4">
+                                        <a href="javascript:void(0)" className="text-dark">
                                             <div className="ct_boat_card">
                                                 <ul className="ct_list_style_none">
                                                     <li>
@@ -86,20 +86,27 @@ const BoatDocks = () => {
                                                         <p className="mb-0 ct_fs_14 ct_fw_700 ct_text_op_5">{item?.book_to ? pipViewDate(item?.book_to) : 'NA'}</p>
                                                     </li>
                                                 </ul>
-                                                <div className="ct_boat_inner_bg ct_mt_20">
-                                                    <p className="mb-2 ct_fs_18 ct_fw_700">No. 362</p>
-                                                    <p className="d-flex align-items-center gap-1 mb-3">
-                                                        <img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />Boat Name</p>
-                                                    <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.boat?.name ?? 'NA'}</h4>
-                                                    <p className="mb-0 mt-3 pb-3">{new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
-                                                        new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
-                                                            "Scheduled for tomorrow"
-                                                            :
-                                                            new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
-                                                                "Scheduled" :
-                                                                `Scheduled for ${pipViewDate(item?.boat?.book_to)}`
-                                                    }</p>
-                                                </div>
+                                                {item?.boat ?
+                                                    <div className="ct_boat_inner_bg ct_mt_20" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })}>
+                                                        <p className="mb-2 ct_fs_18 ct_fw_700">No. {i + 1}</p>
+                                                        <p className="d-flex align-items-center gap-1 mb-3">
+                                                            <img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{item?.boat?.owners_name ?? 'NA'}</p>
+                                                        <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.boat?.name ?? 'NA'}</h4>
+                                                        <p className="mb-0 mt-3 pb-3">{new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                                                            new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                                                "Scheduled for tomorrow"
+                                                                :
+                                                                new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
+                                                                    "Scheduled" :
+                                                                    `Scheduled for ${pipViewDate(item?.boat?.book_to)}`
+                                                        }</p>
+                                                    </div>
+                                                    :
+                                                    <div class="ct_boat_inner_bg ct_mt_20 ct_empty_box_padd_66" onClick={() => navigate(pageRoutes.update_docks, { state: { data: item } })}>
+                                                        <p class="mb-2 ct_fs_18 ct_fw_500 ct_text_op_5">Click here to</p>
+                                                        <h4 class="mb-0 ct_fs_28 ct_fw_700 ct_text_op_5">Allot a boat</h4>
+                                                    </div>
+                                                }
                                             </div>
                                         </a>
                                     </div>

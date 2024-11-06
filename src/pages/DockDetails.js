@@ -40,13 +40,13 @@ const DockDetails = () => {
                                             ><strong>Choose Boat For This Dock</strong>
                                                 <span className="ct_required_star">*</span></label
                                             >
-                                            <input type="text" className="form-control" value={state?.data?.boat?.name ?? 'NA'} readOnly />
+                                            <input type="text" className="form-control" value={state?.data?.boat?.name} readOnly />
                                         </div>
                                     </div>
                                     <div className="col-md-12">
                                         <div className="form-group mb-3">
                                             <label className="mb-1"
-                                            ><strong>Enter Storage Address</strong>
+                                            ><strong>Storage Address</strong>
                                                 <span className="ct_required_star">*</span></label
                                             >
                                             <input type="text" className="form-control" value={state?.data?.address ?? 'NA'} readOnly />
@@ -115,7 +115,7 @@ const DockDetails = () => {
                                 </div>
                                 <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                     <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(-1)}>Back</button>
-                                    <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(pageRoutes.update_docks, { state: { data: state?.data } })}>Update Docks</button>
+                                    <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(pageRoutes.update_docks, { state: { data: state?.data } })}>Update Dock</button>
                                 </div>
                             </form>
                         </div>

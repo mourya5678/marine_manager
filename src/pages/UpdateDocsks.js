@@ -9,6 +9,7 @@ import Sidebar from '../components/Sidebar';
 import { pipViewDate4 } from '../auth/Pip';
 import { getAvailableBoats, getBoatData, updateDocksDetails } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
+import Loader from '../components/Loader';
 
 const UpdateDocsks = () => {
     const navigate = useNavigate();
@@ -44,7 +45,7 @@ const UpdateDocsks = () => {
         console.log({ values })
         const data = {
             address: `${values?.address}`,
-            boatId: `${values?.boatId}`,
+            boatId: values?.boatId ? values?.boatId : 0,
             book_from: `${values?.book_from}`,
             book_to: `${values?.book_to}`,
             booking_cost: `${values?.booking_cost}`,
@@ -61,7 +62,7 @@ const UpdateDocsks = () => {
     }
 
     if (isLoading) {
-        return 'Loading...'
+        return <Loader />
     }
     return (
         <div className="ct_dashbaord_bg">
@@ -123,7 +124,7 @@ const UpdateDocsks = () => {
                                                         onChange={handleChange}
                                                         className="form-control"
                                                     >
-                                                        <option value={state?.data?.boat?.id}>{state?.data?.boat?.name}</option>
+                                                        {state?.data?.boat?.id ? <option value={state?.data?.boat?.id}>{state?.data?.boat?.name}</option> : <option value="">----Select Boat----</option>}
                                                         {available_boats && available_boats?.map((item) => (
                                                             <option value={item.id}>{item.name}</option>
                                                         ))}
@@ -138,7 +139,7 @@ const UpdateDocsks = () => {
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1">
-                                                        <strong>Enter Storage Address</strong>
+                                                        <strong>Storage Address</strong>
                                                         <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
@@ -295,7 +296,7 @@ const UpdateDocsks = () => {
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(-1)}>Cancel</button>
-                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Update Docks</button>
+                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Update Dock</button>
                                         </div>
                                     </form>
                                 )}

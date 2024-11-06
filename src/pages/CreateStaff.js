@@ -55,9 +55,9 @@ const CreateStaff = () => {
 
     const onHandleUpdateStaff = async (values, { setSubmitting }) => {
         setSubmitting(false);
+        setStaffDetails();
         const callback = (response) => {
             if (response.success) {
-                setStaffDetails({});
                 dispatch(getStaffData());
             }
         };
@@ -66,7 +66,7 @@ const CreateStaff = () => {
             name: values?.full_name.trim(),
             role: values?.role.trim(),
             phone_no: values?.phone_no,
-            password: values?.showPassword,
+            password: values?.password,
             home_address: values?.home_address.trim(),
             status: values?.status == true ? 1 : 0
         };
@@ -87,13 +87,13 @@ const CreateStaff = () => {
                         <div className="ct_white_bg_1 py-5">
                             <div className="d-flex align-items-center justify-content-between flex-wrap gap-2">
                                 <h4 className="ct_fs_24 text-start ct_fw_700 mb-3">Staff Members</h4>
-                                <button className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22 mx-0" data-bs-toggle="modal" data-bs-target="#ct_add_member">Add Members</button>
+                                <button className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22 mx-0" data-bs-toggle="modal" data-bs-target="#ct_add_member">Add Member</button>
                             </div>
                             <div className="table-responsive mt-3">
                                 <table className="table ct_project_table ct_custom_table_main">
                                     <thead>
                                         <tr>
-                                            <th className="border-0"></th>
+                                            <th className="border-0">S.no</th>
                                             <th className="ct_ff_roboto border-0">Name</th>
                                             <th className="ct_ff_roboto border-0">Job Role</th>
                                             <th className="ct_ff_roboto border-0">E-mail Address</th>
@@ -281,7 +281,7 @@ const CreateStaff = () => {
                                                 </div>
                                             </div>
                                             <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
-                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal" onClick={() => setStaffDetails()}>Cancel</button>
                                                 <button type="submit ct_" onClick={handleSubmit} className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit ct_white_space_nowrap" data-bs-dismiss={values?.email != '' && Object?.keys(errors)?.length == 0 && "modal"}>Submit</button>
                                             </div>
                                         </form>
@@ -298,7 +298,7 @@ const CreateStaff = () => {
                     <div className="modal-content">
                         <div className="modal-body">
                             <div className="pt-4">
-                                <h4 className="mb-4 text-center"><strong>Update Staff Details </strong></h4>
+                                <h4 className="mb-4 text-center"><strong>Update Staff Detail </strong></h4>
                                 {staffDetails?.email &&
                                     <Formik
                                         initialValues={staffDetails}
@@ -452,7 +452,7 @@ const CreateStaff = () => {
                                                     </div>
                                                 </div>
                                                 <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
-                                                    <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal" onClick={() => setStaffDetails()}>Cancel</button>
                                                     <button
                                                         type="submit"
                                                         onClick={handleSubmit}
@@ -475,7 +475,7 @@ const CreateStaff = () => {
                     <div className="modal-content">
                         <div className="modal-body">
                             <div className="pt-4">
-                                <h4 className="mb-4 text-center"><strong>Staff Details </strong></h4>
+                                <h4 className="mb-4 text-center"><strong>Staff Detail </strong></h4>
                                 {staffDetails?.email &&
                                     <form>
                                         <div className="row">
@@ -548,7 +548,7 @@ const CreateStaff = () => {
                                                     ></textarea>
                                                 </div>
                                             </div>
-                                            <div className="col-md-12">
+                                            {/* <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <div className="d-flex align-items-center justify-content-between gap-2">
                                                         <label className="mb-0"><strong>Status </strong> <span className="ct_required_star">*</span></label>
@@ -557,7 +557,7 @@ const CreateStaff = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
                                             <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>

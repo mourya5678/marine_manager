@@ -40,6 +40,7 @@ const AllSupplier = () => {
         setSubmitting(false);
         const callback = (response) => {
             if (response.success) {
+                setSupplierDetail({})
                 dispatch(getSupplierData());
             }
         };
@@ -55,6 +56,7 @@ const AllSupplier = () => {
 
     const onHandleUpdateSupplier = async (values, { setSubmitting }) => {
         setSubmitting(false);
+        setSupplierDetail();
         const callback = (response) => {
             if (response.success) {
                 dispatch(getSupplierData());
@@ -111,7 +113,6 @@ const AllSupplier = () => {
                                     <tr>
                                         <th>S.no.</th>
                                         <th>Company Name</th>
-                                        <th>Company Description</th>
                                         <th>E-mail Address </th>
                                         <th>Contact no.</th>
                                         <th>City</th>
@@ -124,8 +125,7 @@ const AllSupplier = () => {
                                             <tr>
                                                 <td>{i + 1}</td>
                                                 <td>{item?.company_name ?? 'NA'}</td>
-                                                <td><span className="ct_word_break">{item?.company_description ? item?.company_description?.slice(0, 50) + '...' : 'NA'}</span></td>
-                                                <td><a href="javascript:void(0)">{item?.email ?? 'NA'}</a></td>
+                                                <td>{item?.email ?? 'NA'}</td>
                                                 <td>{item?.phone_no ?? 'NA'}</td>
                                                 <td>{item?.city ?? 'NA'}</td>
                                                 <td className="text-end ct_action_btns"
@@ -208,12 +208,11 @@ const AllSupplier = () => {
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Company Description</strong> <span
                                                             className="ct_required_star">*</span></label>
-                                                        <input
+                                                        <textarea
                                                             id="company_description"
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
                                                             value={values?.company_description}
-                                                            type="text"
                                                             className="form-control"
                                                         />
                                                         <ErrorMessage
@@ -281,7 +280,7 @@ const AllSupplier = () => {
                                                 </div>
                                             </div>
                                             <div className="modal-footer justify-content-center border-0">
-                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal" onClick={() => setSupplierDetail()}>Cancel</button>
                                                 <button
                                                     type="submit ct_"
                                                     onClick={handleSubmit}
@@ -365,12 +364,11 @@ const AllSupplier = () => {
                                                         <div className="form-group mb-3">
                                                             <label className="mb-1"><strong>Company Description</strong> <span
                                                                 className="ct_required_star">*</span></label>
-                                                            <input
+                                                            <textarea
                                                                 id="company_description"
                                                                 onBlur={handleBlur}
                                                                 onChange={handleChange}
                                                                 value={values?.company_description}
-                                                                type="text"
                                                                 className="form-control"
                                                             />
                                                             <ErrorMessage
@@ -419,7 +417,7 @@ const AllSupplier = () => {
                                                     </div>
                                                 </div>
                                                 <div className="modal-footer justify-content-center border-0">
-                                                    <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal" onClick={() => setSupplierDetail()}>Cancel</button>
                                                     <button
                                                         type="submit ct_"
                                                         onClick={handleSubmit}
@@ -477,9 +475,8 @@ const AllSupplier = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Company Description</strong> <span
                                                         className="ct_required_star">*</span></label>
-                                                    <input
+                                                    <textarea
                                                         value={supplierDetail?.company_description ?? ''}
-                                                        type="text"
                                                         className="form-control"
                                                         readOnly
                                                     />
@@ -510,7 +507,7 @@ const AllSupplier = () => {
                                             </div>
                                         </div>
                                         <div className="modal-footer justify-content-center border-0">
-                                            <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal" onClick={() => setSupplierDetail()}>Cancel</button>
                                         </div>
                                     </form>
                                 }

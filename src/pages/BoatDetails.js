@@ -38,8 +38,9 @@ const BoatDetails = () => {
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
-                                    <div className="ct_boat_dtl_img">
-                                        {state?.data?.avatar_url && <img src={state?.data?.avatar_url} alt="" />}
+                                    <div className="ct_boat_dtl_left_cnt">
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Email</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.email ?? 'NA'}</p>
                                     </div>
                                 </div>
                             </div>
@@ -122,28 +123,36 @@ const BoatDetails = () => {
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Booking dates</p>
-                                        <p className="ct_fs_16 mb-2 ">{state?.data?.createdAt ? pipViewDate(state?.data?.createdAt) : 'NA'}</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Phone No.</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.phone_no ?? 'NA'}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="row ct_mt_20 ct_border_bottom_1">
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Email</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.email ?? 'NA'}</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Booking from</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.book_from ? pipViewDate(state?.data?.book_from) : 'NA'}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Phone No.</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.phone_no ?? 'NA'}</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Booking to</p>
+                                        <p className="ct_fs_16 mb-2 ">{state?.data?.book_to ? pipViewDate(state?.data?.book_to) : 'NA'}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
-                                <div className="col-md-6 ms-auto">
-                                    <div className="mt-4 w-100">
+                                <div className="col-md-6 mt-3 mb-md-0">
+                                    <div className="ct_boat_dtl_img">
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Boat Image</p>
+                                        {state?.data?.avatar_url && <img src={state?.data?.avatar_url} alt="" />}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row mb-2">
+                                <div className="col-md-6 mx-auto">
+                                    <div className="mt-2 w-100">
                                         <a href="javascript:void(0)" className="ct_outline_btn ct_outline_orange w-100 d-block text-center"
                                         // onClick={() => navigate(pageRoutes.task_description)}
                                         >Complete Maintenance Details</a>

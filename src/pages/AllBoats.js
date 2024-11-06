@@ -70,12 +70,12 @@ const AllBoats = () => {
                         </div>
                         <div className="row mt-5">
                             {displayBoatData?.length != 0 ?
-                                displayBoatData?.map((item) => (
+                                displayBoatData?.map((item, i) => (
                                     <div className="col-xl-3 col-lg-6 mb-4">
                                         <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.boat_detail, { state: { data: item } })} className="text-dark">
                                             <div className="ct_boat_card ct_px_18">
-                                                <p className="mb-2 ct_fs_18 ct_fw_700">No. {item?.id ?? 0}</p>
-                                                <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />Boat Name</p>
+                                                <p className="mb-2 ct_fs_18 ct_fw_700">No. {i + 1}</p>
+                                                <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{item?.owners_name ?? 'NA'}</p>
                                                 <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.name ?? 'NA'}</h4>
                                                 <p className="mb-0 mt-3 ct_green_text">{new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
                                                     new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?

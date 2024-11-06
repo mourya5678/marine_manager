@@ -240,7 +240,9 @@ const CreateBoat = () => {
                                                         value={values.engine_no}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
-                                                        type="text"
+                                                        type="number"
+                                                        onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
+                                                        onWheel={() => document.activeElement.blur()}
                                                         className="form-control"
                                                     />
                                                     <ErrorMessage
@@ -300,6 +302,8 @@ const CreateBoat = () => {
                                                     >
                                                     <input
                                                         id="length"
+                                                        onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
+                                                        onWheel={() => document.activeElement.blur()}
                                                         value={values.length}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
@@ -477,7 +481,7 @@ const CreateBoat = () => {
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(pageRoutes.all_boats)}>Cancel</button>
-                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save and add to boats</button>
+                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save and add to Boat</button>
                                         </div>
                                     </form>
                                 )}

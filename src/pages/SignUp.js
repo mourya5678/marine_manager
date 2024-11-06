@@ -184,12 +184,12 @@ const SignUp = () => {
                                                         className="ct_input"
                                                     />
                                                     <Eye isEye={isEye} onClick={() => setIsEye(!isEye)} />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="password"
-                                                    />
                                                 </div>
+                                                <ErrorMessage
+                                                    errors={errors}
+                                                    touched={touched}
+                                                    fieldName="password"
+                                                />
                                             </div>
                                             <div className="ct_input-group mb-3">
                                                 <label className="mb-2 ct_fw_700">Confirm Password <span className="ct_required_star">*</span></label>
@@ -204,12 +204,12 @@ const SignUp = () => {
                                                         required
                                                     />
                                                     <Eye isEye={isEye1} onClick={() => setIsEye1(!isEye1)} />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="confirm_password"
-                                                    />
                                                 </div>
+                                                <ErrorMessage
+                                                    errors={errors}
+                                                    touched={touched}
+                                                    fieldName="confirm_password"
+                                                />
                                             </div>
                                             <div className="ct_remember_text">
                                                 <div className="ct_checkbox_main mb-3 align-items-start">
