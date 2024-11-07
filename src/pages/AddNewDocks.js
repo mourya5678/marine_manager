@@ -296,7 +296,7 @@ const AddNewDocks = () => {
                                             <button type="button"
                                                 className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100"
                                                 onClick={handleSubmit}
-                                            >Save and add to Dock</button>
+                                            >Save and add Dock</button>
                                         </div>
                                     </form>
                                 )}

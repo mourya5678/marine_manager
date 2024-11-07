@@ -86,7 +86,7 @@ const UpdateBoatDetails = () => {
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="ct_white_bg_1">
-                            <a href="javascript:void(0)" onClick={() => navigate(-1)}><h4 className="ct_fs_24 text-start ct_fw_700 mb-3"><i className="fa-solid fa-arrow-left me-2"></i>Back</h4></a>
+                            <h4 className="ct_fs_24 text-start ct_fw_700 mb-3">Boat Update</h4>
                             <Formik
                                 initialValues={initialState}
                                 validationSchema={AddBoatSchema}
@@ -477,7 +477,8 @@ const UpdateBoatDetails = () => {
                                             </div>
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
-                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save and update to Boat</button>
+                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(-1)}>Back</button>
+                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save and update Boat</button>
                                         </div>
                                     </form>
                                 )}

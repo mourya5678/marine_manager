@@ -13,8 +13,6 @@ const BoatDetails = () => {
         setIsToggle(!isToggle);
     };
 
-    console.log(state?.data, "state?.data")
-
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -29,12 +27,6 @@ const BoatDetails = () => {
                                 className="ct_fs_24 text-dark ct_fw_600 ct_ff_roboto">
                                 <i className="fa-solid fa-arrow-left me-2"></i>
                                 Boat Detail
-                            </a>
-                            <a
-                                href="javascript:void(0)"
-                                onClick={() => navigate(pageRoutes.update_boat, { state: { data: state?.data } })}
-                                className="ct_fs_24 text-dark text-end ct_fw_600 ct_ff_roboto">
-                                Update Boat
                             </a>
                         </div>
                         <div className="ct_white_bg_1">
@@ -159,14 +151,14 @@ const BoatDetails = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row mb-2">
-                                <div className="col-md-6 mx-auto">
-                                    <div className="mt-2 w-100">
-                                        <a href="javascript:void(0)" className="ct_outline_btn ct_outline_orange w-100 d-block text-center"
-                                        // onClick={() => navigate(pageRoutes.task_description)}
-                                        >Complete Maintenance Details</a>
-                                    </div>
-                                </div>
+                            <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
+                                <button type="button" className="ct_outline_btn ct_outline_orange w-100"
+                                // onClick={() => navigate(pageRoutes.task_description)}
+                                >Complete Maintenance Details</button>
+                                <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100"
+
+                                    onClick={() => navigate(pageRoutes.update_boat, { state: { data: state.data } })}
+                                >Update Boat</button>
                             </div>
                         </div>
                     </div>

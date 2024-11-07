@@ -481,7 +481,7 @@ const CreateBoat = () => {
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(pageRoutes.all_boats)}>Cancel</button>
-                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save and add to Boat</button>
+                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save and add Boat</button>
                                         </div>
                                     </form>
                                 )}

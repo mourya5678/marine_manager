@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { useNavigate } from 'react-router';
+import { pipSaveProfile } from '../auth/Pip';
 import Header from '../components/Header';
 import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
@@ -57,7 +58,7 @@ const UpdateBusinessProfile = () => {
                 setLastNameError('Please enter last name');
             }
         } else if (key == "abn") {
-            const regex = /^.{11}$/;
+            const regex = /^[A-Za-z0-9]{11}$/;
             if (regex?.test(value?.trim())) {
                 setAbnError('');
             } else {
@@ -85,11 +86,16 @@ const UpdateBusinessProfile = () => {
 
     const onHandleSubmitUpdatedDetails = () => {
         const data = /^[0-9]{10}$/
-        const regex = /^.{11}$/;
-        if (profileData.phone_no && profileData?.company_name && profileData?.first_name && profileData?.last_name
+        const regex = /^[A-Za-z0-9]{11}$/;
+        if (profileData.phone_no && profileData?.company_name.trim() && profileData?.first_name.trim() && profileData?.last_name.trim()
             && regex?.test(profileData.abn)) {
             const callback = (response) => {
                 if (response.success) {
+                    const data = {
+                        name: profileData?.first_name ? profileData?.first_name.trim() : '',
+                        company_name: profileData?.company_name ? profileData?.company_name.trim() : ''
+                    }
+                    pipSaveProfile(data);
                     navigate(pageRoutes.business_profile);
                 }
             };

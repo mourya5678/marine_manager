@@ -220,11 +220,29 @@ export const AddDockSchema = Yup.object().shape({
         .min(Yup.ref('book_from'), "End date must be after the start date")
         .typeError("Please select valid date"),
     address: Yup.string().trim().required("Please enter storage address"),
-    booking_cost: Yup.number()
+    booking_cost: Yup.string()
+        .matches(
+            /^(?!0\.00$)(?!0$)\d+(\.\d{1,6})?$/,
+            "Booking Cost must be greater than 0"
+        )
+        .test(
+            "is-valid-number",
+            "Please enter a valid number",
+            value => !isNaN(parseFloat(value))
+        )
         .required("Please enter booking cost")
-        .min(1, "Cost must be greater than 0"),
-    booking_cost_per_day: Yup.number()
-        .required("Please enter booking cost per day")
+        .min(1, "Booking Cost must be greater than 0"),
+    booking_cost_per_day: Yup.string()
+        .required("Please enter cost per day")
+        .matches(
+            /^(?!0\.00$)(?!0$)\d+(\.\d{1,6})?$/,
+            "Cost must be greater than 0"
+        )
+        .test(
+            "is-valid-number",
+            "Please enter a valid number",
+            value => !isNaN(parseFloat(value))
+        )
         .min(1, "Cost must be greater than 0"),
     boatId: Yup.string().required("Please select boat").optional()
 });
