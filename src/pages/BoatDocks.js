@@ -98,7 +98,7 @@ const BoatDocks = () => {
                                                                 :
                                                                 new Date(item?.boat.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
                                                                     "Scheduled" :
-                                                                    `Scheduled for ${pipViewDate(item?.boat?.book_to)}`
+                                                                    item?.boat?.book_to ? `Scheduled for ${pipViewDate(item?.boat?.book_to)}` : `Not scheduled yet`
                                                         }</p>
                                                     </div>
                                                     :

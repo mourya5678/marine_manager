@@ -23,6 +23,7 @@ import TaskDescription from "../pages/TaskDescription";
 import TaskReview from "../pages/TaskReview";
 import TodayInvoice from "../pages/TodayInvoice";
 import TodayService from "../pages/TodayService";
+import UpdateBoatDetails from "../pages/UpdateBoatDetails";
 import UpdateBusinessProfile from "../pages/UpdateBusinessProfile";
 import UpdateDocsks from "../pages/UpdateDocsks";
 
@@ -56,7 +57,8 @@ export const pageRoutes = {
     task_review: '/task-review',
     invoice: '/invoice',
     today_invoice: '/todays-invoice',
-    dock_details: '/dock-details'
+    dock_details: '/dock-details',
+    update_boat: '/update-boat'
 };
 
 export const AllRoutes = [
@@ -166,6 +168,12 @@ export const AllRoutes = [
         name: 'BoatDetails',
         path: pageRoutes.boat_detail,
         element: <BoatDetails />,
+        isPrivate: true
+    },
+    {
+        name: 'UpdateBoatDetails',
+        path: pageRoutes.update_boat,
+        element: <UpdateBoatDetails />,
         isPrivate: true
     },
     {

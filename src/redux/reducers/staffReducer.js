@@ -10,7 +10,8 @@ import {
     getDockData,
     updateDocksDetails,
     getAvailableBoats,
-    updateSupplierDetails
+    updateSupplierDetails,
+    updateBoatDetails
 } from "../actions/staffActions";
 
 const initialState = {
@@ -155,6 +156,17 @@ export const staffSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(updateSupplierDetails.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // updateBoatDetails
+        builder.addCase(updateBoatDetails.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(updateBoatDetails.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(updateBoatDetails.rejected, (state, action) => {
             state.isLoading = false;
         });
     },

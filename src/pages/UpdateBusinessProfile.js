@@ -39,10 +39,10 @@ const UpdateBusinessProfile = () => {
             }
         } else if (key == "phone_no") {
             const data = /^[0-9]{10}$/
-            if (data?.test(value)) {
+            if (value) {
                 setPhoneNoError();
             } else {
-                setPhoneNoError('Phone number must be 10 digits');
+                setPhoneNoError('Please enter Phone Number');
             }
         } else if (key == "first_name") {
             if (value?.trim()) {
@@ -61,7 +61,11 @@ const UpdateBusinessProfile = () => {
             if (regex?.test(value?.trim())) {
                 setAbnError('');
             } else {
-                setAbnError('Please enter abn');
+                if (!value?.trim()) {
+                    setAbnError('Please enter ABN');
+                } else {
+                    setAbnError('ABN must be at least 11 characters');
+                }
             }
         }
     };
@@ -82,7 +86,7 @@ const UpdateBusinessProfile = () => {
     const onHandleSubmitUpdatedDetails = () => {
         const data = /^[0-9]{10}$/
         const regex = /^.{11}$/;
-        if (data.test(profileData.phone_no) && profileData?.company_name && profileData?.first_name && profileData?.last_name
+        if (profileData.phone_no && profileData?.company_name && profileData?.first_name && profileData?.last_name
             && regex?.test(profileData.abn)) {
             const callback = (response) => {
                 if (response.success) {
@@ -108,8 +112,8 @@ const UpdateBusinessProfile = () => {
             }
             dispatch(updateBussinessProfile({ payload: formData, callback }));
         } else {
-            if (!data.test(profileData.phone_no)) {
-                setPhoneNoError('Phone number must be 10 digits');
+            if (!profileData.phone_no) {
+                setPhoneNoError('Please enter Phone number');
             }
             if (!profileData?.company_name) {
                 setCompanyNameError('Please enter company name');
@@ -120,8 +124,10 @@ const UpdateBusinessProfile = () => {
             if (!profileData?.last_name) {
                 setLastNameError('Please enter last name');
             }
-            if (!regex?.test(profileData.abn)) {
-                setAbnError('Please enter abn');
+            if (!profileData.abn) {
+                setAbnError('Please enter ABN');
+            } else if (!regex?.test(profileData.abn)) {
+                setAbnError('ABN must be at least 11 characters');
             }
         }
 

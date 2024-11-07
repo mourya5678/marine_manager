@@ -30,7 +30,7 @@ export const signUpSchema = Yup.object().shape({
         ),
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Mobile number must be number")
-        .min(10, "Mobile number cannot be less then 10 digits").max(10, "Mobile number can not be more then 10 digits")
+        // .min(10, "Mobile number cannot be less then 10 digits").max(10, "Mobile number can not be more then 10 digits")
         .required("Please enter your mobile number"),
     password: Yup.string()
         .required("Please enter your password")
@@ -94,7 +94,7 @@ export const AddStaffSchema = Yup.object().shape({
         ),
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
-        .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
         .required("Please enter your contact number"),
     password: Yup.string()
         .required("Please enter your password")
@@ -118,7 +118,7 @@ export const UpdateStaffSchema = Yup.object().shape({
         ),
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
-        .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
         .required("Please enter your contact number"),
     password: Yup.string()
         .required("Please enter your password")
@@ -144,7 +144,7 @@ export const AddSupplierSchema = Yup.object().shape({
     city: Yup.string().trim().required("Please enter city"),
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
-        .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
         .required("Please enter contact number")
 });
 
@@ -163,7 +163,10 @@ export const AddBoatSchema = Yup.object().shape({
         .positive("Length must be greater than 0")
         .typeError("Length must be engine number"),
     engine_make: Yup.string().trim().required("Please enter engine make"),
-    engine_model: Yup.string().trim().required("Please enter engine model"),
+    engine_model: Yup.string().trim().
+        // required("Please enter engine model")
+        optional()
+    ,
     email: Yup.string()
         .email("Please enter valid email address")
         .required("Please enter valid email address")
@@ -180,18 +183,20 @@ export const AddBoatSchema = Yup.object().shape({
         .positive("Length must be greater than 0")
         .typeError("Length must be number"),
     book_from: Yup.date()
-        .required("Please select booking date")
-        .typeError("Please select valid date"),
+        .typeError("Please select valid date")
+        .optional(),
     book_to: Yup.date()
-        .required("Please select booking end date")
+        // .required("Please select booking end date")
         .min(Yup.ref('book_from'), "End date must be after the start date")
-        .typeError("Please select valid date"),
+        .typeError("Please select valid date")
+        .optional(),
     app_date: Yup.date()
-        .required("Please select app date")
-        .typeError("Please select valid date"),
+        // .required("Please select app date")
+        .typeError("Please select valid date").optional(),
     docking_date: Yup.date()
-        .required("Please select docking date")
-        .typeError("Please select valid date"),
+        // .required("Please select docking date")
+        .typeError("Please select valid date")
+        .optional(),
 });
 
 export const AddDockSchema = Yup.object().shape({
@@ -205,7 +210,7 @@ export const AddDockSchema = Yup.object().shape({
         ),
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
-        .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
         .required("Please enter your contact number"),
     book_from: Yup.date()
         .required("Please select booking date")
@@ -230,6 +235,6 @@ export const UpdateSupplierSchema = Yup.object().shape({
     city: Yup.string().trim().required("Please enter city"),
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
-        .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
         .required("Please enter contact number")
 });

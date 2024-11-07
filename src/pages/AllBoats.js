@@ -82,7 +82,7 @@ const AllBoats = () => {
                                                         "Scheduled for tomorrow"
                                                         :
                                                         new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
-                                                            " Scheduled" : `Scheduled for ${pipViewDate(item?.book_to)}`
+                                                            " Scheduled" : item?.book_to ? `Scheduled for ${pipViewDate(item?.book_to)}` : `Not scheduled yet`
                                                 }
                                                 </p>
                                             </div>

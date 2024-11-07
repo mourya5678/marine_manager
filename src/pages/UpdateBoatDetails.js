@@ -1,79 +1,78 @@
 import { Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import { pipViewDate4 } from '../auth/Pip';
 import { AddBoatSchema } from '../auth/Schema';
 import ErrorMessage from '../components/ErrorMessage';
 import Header from '../components/Header';
 import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
-import { addBoatDetails, getBoatData } from '../redux/actions/staffActions';
+import { updateBoatDetails } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
 
-const CreateBoat = () => {
+const UpdateBoatDetails = () => {
     const navigate = useNavigate();
+    const { state } = useLocation();
     const dispatch = useDispatch();
-    const { isLoading, all_boats } = useSelector((state) => state?.staffReducer);
+    const { isLoading } = useSelector((state) => state?.staffReducer);
     const [isToggle, setIsToggle] = useState(false);
     const [avatar_url, setAvtarUrl] = useState();
-    const [avatar_urlError, setAvtarUrlError] = useState();
     const initialState = {
-        vin: '',
-        name: '',
-        make: '',
-        rego: '',
-        model: '',
-        email: '',
-        length: '',
-        book_to: '',
-        app_date: '',
-        phone_no: '',
-        engine_no: '',
-        book_from: '',
-        engine_make: '',
-        owners_name: '',
-        engine_model: '',
-        docking_date: '',
+        vin: state?.data?.vin ?? '',
+        name: state?.data?.name ?? '',
+        make: state?.data?.make ?? '',
+        rego: state?.data?.rego ?? '',
+        model: state?.data?.model ?? '',
+        email: state?.data?.email ?? '',
+        length: state?.data?.length ?? '',
+        book_to: state?.data?.book_to ? pipViewDate4(state?.data?.book_to) : '',
+        app_date: state?.data?.app_date ? pipViewDate4(state?.data?.app_date) : '',
+        phone_no: state?.data?.phone_no ?? '',
+        engine_no: state?.data?.engine_no ?? '',
+        book_from: state?.data?.book_from ? pipViewDate4(state?.data?.book_from) : '',
+        engine_make: state?.data?.engine_make ?? '',
+        owners_name: state?.data?.owners_name ?? '',
+        engine_model: state?.data?.engine_model ?? '',
+        docking_date: state?.data?.docking_date ? pipViewDate4(state?.data?.docking_date) : '',
     };
 
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
 
+    const onHandleImageChange = (e) => {
+        setAvtarUrl(e.target.files[0]);
+    };
+
+    console.log(state?.data, "state?.data", state?.data?.docking_date);
     const createBoatData = async (values, { setSubmitting }) => {
         setSubmitting(false);
         const callback = (response) => {
             if (response.success) navigate(pageRoutes.all_boats);
         };
+        const formData = new FormData();
+        formData.append('id', state?.data?.id);
+        formData.append('vin', values.vin.trim());
+        formData.append('name', values.name.trim());
+        formData.append('make', values.make.trim());
+        formData.append('rego', values.rego.trim());
+        formData.append('model', values.model.trim());
+        formData.append('email', values.email);
+        formData.append('length', values.length);
+        formData.append('book_to', values.book_to);
+        formData.append('app_date', values.app_date);
+        formData.append('phone_no', values.phone_no);
+        formData.append('engine_no', values.engine_no);
+        formData.append('book_from', values.book_from);
+        formData.append('engine_make', values.engine_make.trim());
+        formData.append('owners_name', values.owners_name.trim());
+        formData.append('engine_model', values.engine_model.trim());
+        formData.append('docking_date', values.docking_date);
         if (avatar_url) {
-            const formData = new FormData();
-            formData.append('vin', values.vin.trim());
-            formData.append('name', values.name.trim());
-            formData.append('make', values.make.trim());
-            formData.append('rego', values.rego.trim());
-            formData.append('model', values.model.trim());
-            formData.append('email', values.email);
-            formData.append('length', values.length);
-            formData.append('book_to', values.book_to);
-            formData.append('app_date', values.app_date);
-            formData.append('phone_no', values.phone_no);
-            formData.append('engine_no', values.engine_no);
-            formData.append('book_from', values.book_from);
-            formData.append('engine_make', values.engine_make.trim());
-            formData.append('owners_name', values.owners_name.trim());
-            formData.append('engine_model', values.engine_model.trim());
-            formData.append('docking_date', values.docking_date);
             formData.append('avatar_url', avatar_url);
-            dispatch(addBoatDetails({ payload: formData, callback }));
-        } else {
-            setAvtarUrlError("Please select boat image")
         }
-    };
-
-    const onHandleImageChange = (e) => {
-        console.log(e.target.files[0]);
-        setAvtarUrl(e.target.files[0]);
-        setAvtarUrlError();
+        dispatch(updateBoatDetails({ payload: formData, callback }));
     };
 
     if (isLoading) {
@@ -87,7 +86,7 @@ const CreateBoat = () => {
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
                         <div className="ct_white_bg_1">
-                            <h4 className="ct_fs_24 text-start ct_fw_700 mb-3">Boat Creation</h4>
+                            <a href="javascript:void(0)" onClick={() => navigate(-1)}><h4 className="ct_fs_24 text-start ct_fw_700 mb-3"><i className="fa-solid fa-arrow-left me-2"></i>Back</h4></a>
                             <Formik
                                 initialValues={initialState}
                                 validationSchema={AddBoatSchema}
@@ -345,7 +344,7 @@ const CreateBoat = () => {
                                                     <label className="mb-1"
                                                     ><strong>Book From</strong>
                                                         {/* <span className="ct_required_star">*</span> */}
-                                                    </label >
+                                                    </label>
                                                     <input
                                                         id="book_from"
                                                         value={values.book_from}
@@ -469,19 +468,16 @@ const CreateBoat = () => {
                                                         </span>
                                                     </label>
                                                     <div className="ct_boat_dtl_img mt-2 text-center" data-bs-toggle="modal" data-bs-target="#ct_view_image">
-                                                        {avatar_url && <img src={URL.createObjectURL(avatar_url)} alt="" className="ct_uploaded_img" style={{ backgroundColor: "#f5f5f5", padding: "4px" }} />}
+                                                        {!avatar_url && state?.data?.avatar_url && <img src={state?.data?.avatar_url} alt="" className="ct_uploaded_img" style={{ backgroundColor: "#f5f5f5", padding: "4px" }} />}
+                                                        {avatar_url &&
+                                                            <img src={URL.createObjectURL(avatar_url)} alt="" className="ct_uploaded_img" style={{ backgroundColor: "#f5f5f5", padding: "4px" }} />
+                                                        }
                                                     </div>
-                                                    {avatar_urlError &&
-                                                        <span style={{ color: "red" }}>
-                                                            {avatar_urlError}
-                                                        </span>
-                                                    }
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
-                                            <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(pageRoutes.all_boats)}>Cancel</button>
-                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save and add to Boat</button>
+                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save and update to Boat</button>
                                         </div>
                                     </form>
                                 )}
@@ -497,10 +493,16 @@ const CreateBoat = () => {
                         <div className="modal-body p-2">
                             <div className="pt-4">
                                 <h4 className="mb-4 text-center"><strong>Image Preview </strong></h4>
-                                {avatar_url && <img src={URL.createObjectURL(avatar_url)} style={{
+                                {!avatar_url && state?.data?.avatar_url && <img src={state?.data?.avatar_url} style={{
                                     height: "356px",
                                     objectFit: "contain"
                                 }} />}
+                                {avatar_url &&
+                                    <img src={URL.createObjectURL(avatar_url)} style={{
+                                        height: "356px",
+                                        objectFit: "contain"
+                                    }} />
+                                }
                             </div>
                             <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
                                 <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>
@@ -509,8 +511,8 @@ const CreateBoat = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
-export default CreateBoat;
+export default UpdateBoatDetails;
