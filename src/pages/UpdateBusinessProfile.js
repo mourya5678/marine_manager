@@ -18,6 +18,9 @@ const UpdateBusinessProfile = () => {
     const [profileData, setProfileData] = useState(state?.data ?? '');
     const [companyNameError, setCompanyNameError] = useState();
     const [phoneNoError, setPhoneNoError] = useState();
+    const [firstNameError, setFirstNameError] = useState();
+    const [lastNameError, setLastNameError] = useState();
+    const [abnError, setAbnError] = useState();
     const [changeLogoImage, setChangeLogoImage] = useState();
     const [changeTradeImage, setChangeTradeImage] = useState();
     const [changeInsuranceImage, setChangeInsuranceImage] = useState([]);
@@ -41,6 +44,25 @@ const UpdateBusinessProfile = () => {
             } else {
                 setPhoneNoError('Phone number must be 10 digits');
             }
+        } else if (key == "first_name") {
+            if (value?.trim()) {
+                setFirstNameError('');
+            } else {
+                setFirstNameError('Please enter first name');
+            }
+        } else if (key == "last_name") {
+            if (value?.trim()) {
+                setLastNameError('');
+            } else {
+                setLastNameError('Please enter last name');
+            }
+        } else if (key == "abn") {
+            const regex = /^.{11}$/;
+            if (regex?.test(value?.trim())) {
+                setAbnError('');
+            } else {
+                setAbnError('Please enter abn');
+            }
         }
     };
 
@@ -58,15 +80,19 @@ const UpdateBusinessProfile = () => {
     };
 
     const onHandleSubmitUpdatedDetails = () => {
-        console.log("Hello")
         const data = /^[0-9]{10}$/
-        if (data.test(profileData.phone_no) && profileData?.company_name) {
+        const regex = /^.{11}$/;
+        if (data.test(profileData.phone_no) && profileData?.company_name && profileData?.first_name && profileData?.last_name
+            && regex?.test(profileData.abn)) {
             const callback = (response) => {
                 if (response.success) {
                     navigate(pageRoutes.business_profile);
                 }
             };
             const formData = new FormData();
+            formData.append('first_name', profileData.first_name?.trim());
+            formData.append('last_name', profileData.last_name?.trim());
+            formData.append('abn', profileData.abn?.trim());
             formData.append('company_name', profileData.company_name?.trim());
             formData.append('phone_no', profileData.phone_no);
             formData.append('accounting_software_used', profileData.accounting_software_used ? profileData.accounting_software_used?.trim() : '');
@@ -87,6 +113,15 @@ const UpdateBusinessProfile = () => {
             }
             if (!profileData?.company_name) {
                 setCompanyNameError('Please enter company name');
+            }
+            if (!profileData?.first_name) {
+                setFirstNameError('Please enter first name');
+            }
+            if (!profileData?.last_name) {
+                setLastNameError('Please enter last name');
+            }
+            if (!regex?.test(profileData.abn)) {
+                setAbnError('Please enter abn');
             }
         }
 
@@ -141,6 +176,44 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label for="" className="mb-1"
+                                            ><strong>First Name</strong>
+                                            </label
+                                            >
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={profileData?.first_name}
+                                                onChange={(e) => onHandleChangeValue('first_name', e.target.value)}
+                                            />
+                                            {firstNameError &&
+                                                <span style={{ color: "red" }}>
+                                                    {firstNameError}
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label className="mb-1"
+                                            ><strong>Last Name</strong>
+                                            </label
+                                            >
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={profileData?.last_name}
+                                                onChange={(e) => onHandleChangeValue('last_name', e.target.value)}
+                                            />
+                                            {lastNameError &&
+                                                <span style={{ color: "red" }}>
+                                                    {lastNameError}
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label for="" className="mb-1"
                                             ><strong>Company Name</strong>
                                             </label
                                             >
@@ -181,6 +254,25 @@ const UpdateBusinessProfile = () => {
                                             {phoneNoError &&
                                                 <span style={{ color: "red" }}>
                                                     {phoneNoError}
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label className="mb-1"
+                                            ><strong>ABN</strong>
+                                            </label
+                                            >
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                value={profileData?.abn}
+                                                onChange={(e) => onHandleChangeValue('abn', e.target.value)}
+                                            />
+                                            {abnError &&
+                                                <span style={{ color: "red" }}>
+                                                    {abnError}
                                                 </span>
                                             }
                                         </div>

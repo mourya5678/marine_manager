@@ -153,9 +153,9 @@ export const AddBoatSchema = Yup.object().shape({
     owners_name: Yup.string().trim().required("Please enter owners name"),
     rego: Yup.string().trim().required("Please enter rego"),
     vin: Yup.string().trim()
-        .length(17, 'VIN must be exactly 17 characters long')
-        .matches(/^[A-HJ-NPR-Z0-9]{17}$/, 'Invalid VIN format') // Excludes I, O, and Q
-        .required('VIN is required'),
+        // .length(17, 'VIN must be exactly 17 characters long')
+        // .matches(/^[A-HJ-NPR-Z0-9]$/, 'Invalid VIN format') // Excludes I, O, and Q
+        .required('Please enter VIN'),
     make: Yup.string().trim().required("Please enter make"),
     model: Yup.string().trim().required("Please enter model"),
     engine_no: Yup.number()
@@ -173,7 +173,7 @@ export const AddBoatSchema = Yup.object().shape({
         ),
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Mobile number must be number")
-        .min(10, "Mobile number cannot be less then 10 digits").max(10, "Mobile number can not be more then 10 digits")
+        // .min(10, "Mobile number cannot be less then 10 digits").max(10, "Mobile number can not be more then 10 digits")
         .required("Please enter your mobile number"),
     length: Yup.number()
         .required("Please enter length")

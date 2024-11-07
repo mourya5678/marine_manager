@@ -45,6 +45,28 @@ const BusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label for="" className="mb-1"
+                                            ><strong>First Name</strong>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={bussiness_profile?.first_name}
+                                                className="form-control"
+                                                readOnly
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label for="" className="mb-1"
+                                            ><strong>Last Name</strong>
+                                            </label
+                                            >
+                                            <input type="text" className="form-control" value={bussiness_profile?.last_name} readOnly />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label for="" className="mb-1"
                                             ><strong>Company Name</strong>
                                             </label>
                                             <input
@@ -72,6 +94,14 @@ const BusinessProfile = () => {
                                             </label
                                             >
                                             <input type="number" className="form-control" value={bussiness_profile?.phone_no} readOnly />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label for="" className="mb-1"
+                                            ><strong>ABN</strong>
+                                            </label>
+                                            <input type="text" className="form-control" value={bussiness_profile?.abn} readOnly />
                                         </div>
                                     </div>
                                     <div className="col-md-6">

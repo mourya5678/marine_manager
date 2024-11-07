@@ -195,7 +195,7 @@ const CreateStaff = () => {
                                                             onChange={handleChange}
                                                             value={values?.role}>
                                                             <option value="">Select Job Role</option>
-                                                            <option value="Electrical Work">Electrical Work</option>
+                                                            <option value="Technician">Technician</option>
                                                         </select>
                                                         <ErrorMessage
                                                             errors={errors}
