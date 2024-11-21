@@ -1,15 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import { Formik } from 'formik';
+import { AddLeadSchema } from '../auth/Schema';
+import ErrorMessage from '../components/ErrorMessage';
+import { AddLeads, getAllLeadsData } from '../redux/actions/maintainedBoatsActions';
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../components/Loader';
 
 const LeadReceived = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
+    const { isLoading, allLeads } = useSelector((state) => state?.maintainedReducer);
+    const [leadDetails, setLeadDetails] = useState([]);
+
+    const initialState = {
+        client_name: '',
+        client_contact_number: '',
+    };
+
+    useEffect(() => {
+        dispatch(getAllLeadsData());
+    }, []);
+
     const onHandleClick = () => {
         setIsToggle(!isToggle);
-    }
+    };
 
+    const onHandleAddLead = async (values, { setSubmitting, resetForm }) => {
+        setSubmitting(false);
+        resetForm();
+        const callback = (response) => {
+            if (response.success) {
+                dispatch(getAllLeadsData());
+            }
+        };
+        dispatch(AddLeads({ payload: values, callback }));
+    };
+
+    if (isLoading) {
+        return <Loader />
+    }
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -19,43 +52,37 @@ const LeadReceived = () => {
                     <div className="ct_dashbaord_middle">
                         <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap">
                             <h4 className="mb-0 ct_fs_24 ct_fw_600">Quick Leads </h4>
-                            <button className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22 mx-0" data-bs-toggle="modal" data-bs-target="#ct_new_lead">+ Add New Lead</button>
+                            <button className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22 mx-0" data-bs-toggle="modal" data-bs-target="#ct_new_lead">Add Lead</button>
                         </div>
                         <div className="table-responsive mt-3">
                             <table className="table ct_project_table ct_custom_table_main">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th>S.No.</th>
                                         <th className="ct_ff_roboto">Client Name</th>
                                         <th className="ct_ff_roboto">Contact details</th>
                                         <th className="ct_ff_roboto">Status</th>
+                                        <th className="ct_ff_roboto">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Dixie Thiel</td>
-                                        <td className="ct_fw_600">899-450-7002</td>
-                                        <td className="text-end ct_fw_600">Contact</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Dixie Thiel</td>
-                                        <td className="ct_fw_600">899-450-7002</td>
-                                        <td className="text-end ct_fw_600 ct_green_text">Actioned</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Dixie Thiel</td>
-                                        <td className="ct_fw_600">899-450-7002</td>
-                                        <td className="text-end ct_fw_600">Contact</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Dixie Thiel</td>
-                                        <td className="ct_fw_600">899-450-7002</td>
-                                        <td className="text-end ct_fw_600">Contact</td>
-                                    </tr>
+                                    {allLeads?.length != 0 && allLeads?.map((item, i) => (
+                                        <tr>
+                                            <td>{i + 1}</td>
+                                            <td>{item?.client_name ?? ''}</td>
+                                            <td className="ct_fw_600">{item?.client_contact_number ?? ''}</td>
+                                            <td className="ct_fw_600">{item?.status == 0 ? "Open" : item?.status == 1 ? "Actioned" : item?.status == 2 && "Contacted"}</td>
+                                            <td className="text-end ct_fw_600">
+                                                <i className="fa-solid fa-pen"
+                                                    onClick={() => setLeadDetails({
+                                                        id: item?.id,
+                                                        client_name: item?.client_name,
+                                                        client_contact_number: item?.client_contact_number
+                                                    })}
+                                                    data-bs-toggle="modal" data-bs-target="#ct_update_lead"
+                                                ></i></td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
@@ -115,33 +142,156 @@ const LeadReceived = () => {
                     <div className="modal-content">
                         <div className="modal-body">
                             <div className="pt-4">
-                                <h4 className="mb-4 text-center"><strong>Add New Lead</strong></h4>
-                                <form>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label for="" className="mb-1"><strong>Client Name</strong> <span className="ct_required_star">*</span></label>
-                                                <input type="text" className="form-control" />
+                                <h4 className="mb-4 text-center"><strong>Add Lead</strong></h4>
+                                <Formik
+                                    initialValues={initialState}
+                                    validationSchema={AddLeadSchema}
+                                    onSubmit={(values, actions) => {
+                                        onHandleAddLead(values, actions);
+                                    }}
+                                >
+                                    {({
+                                        values,
+                                        errors,
+                                        touched,
+                                        handleChange,
+                                        handleBlur,
+                                        handleSubmit,
+                                        resetForm
+                                    }) => (
+                                        <form>
+                                            <div className="row">
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Client Name</strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="client_name"
+                                                            type="text"
+                                                            className="form-control"
+                                                            value={values.client_name}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="client_name"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Client Contact no. </strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="client_contact_number"
+                                                            type="number"
+                                                            className="form-control"
+                                                            value={values.client_contact_number}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="client_contact_number"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="modal-footer justify-content-center border-0">
+                                                    <button type="button" onClick={() => resetForm({ values: initialState })} className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                                                        data-bs-dismiss={values?.client_name != '' && Object?.keys(errors)?.length == 0 && "modal"}
+                                                        onClick={handleSubmit}>Submit</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label for="" className="mb-1"><strong>Client Contact no. </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="number" className="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                        </form>
+                                    )}
+                                </Formik>
                             </div>
-                        </div>
-                        <div className="modal-footer justify-content-center border-0">
-                            <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit" data-bs-dismiss="modal">Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div className="modal fade Committed_Price" id="ct_update_lead" tabindex="-1" aria-labelledby="ct_update_leadLabel" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body">
+
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Update Lead</strong></h4>
+                                {leadDetails &&
+                                    <Formik
+                                        initialValues={leadDetails}
+                                        validationSchema={AddLeadSchema}
+                                        onSubmit={(values, actions) => {
+                                            onHandleAddLead(values, actions);
+                                        }}
+                                    >
+                                        {({
+                                            values,
+                                            errors,
+                                            touched,
+                                            handleChange,
+                                            handleBlur,
+                                            handleSubmit,
+                                            resetForm
+                                        }) => (
+                                            <form>
+                                                <div className="row">
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Client Name</strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="client_name"
+                                                                type="text"
+                                                                className="form-control"
+                                                                value={values.client_name}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="client_name"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Client Contact no. </strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="client_contact_number"
+                                                                type="number"
+                                                                className="form-control"
+                                                                value={values.client_contact_number}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="client_contact_number"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer justify-content-center border-0">
+                                                        <button type="button" onClick={() => setLeadDetails({})} className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                        <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                                                            data-bs-dismiss={values?.client_name != '' && Object?.keys(errors)?.length == 0 && "modal"}
+                                                            onClick={handleSubmit}>Update</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        )}
+                                    </Formik>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div >
     )
 }
 

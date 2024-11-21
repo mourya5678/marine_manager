@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import { pipViewDate4 } from '../auth/Pip';
 
 const BoatTracker = () => {
     const navigate = useNavigate();
+    const { state } = useLocation()
     const [isToggle, setIsToggle] = useState(false);
     const onHandleClick = () => {
         setIsToggle(!isToggle);
-    }
+    };
+
+    console.log({ state }, "state");
 
     return (
         <div className="ct_dashbaord_bg">
@@ -24,7 +28,7 @@ const BoatTracker = () => {
                             <table className="table ct_project_table ct_custom_table_main">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th>S.No.</th>
                                         <th className="ct_ff_roboto">Maintenance Item Description</th>
                                         <th className="ct_ff_roboto">Boat registration</th>
                                         <th className="ct_ff_roboto">Supplier</th>
@@ -33,14 +37,18 @@ const BoatTracker = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Full antifoul of hull</td>
-                                        <td>JPB39Q</td>
-                                        <td>Volvo</td>
-                                        <td className="ct_fw_600">06-08-2024 - 28-09-2024</td>
-                                        <td className="text-end ct_fw_600">Morris Hyatt</td>
-                                    </tr>
+                                    {
+                                        state?.data?.Task?.length != 0 && state?.data?.Task?.map((item, i) => (
+                                            <tr>
+                                                <td>{i + 1}</td>
+                                                <td>{item?.description ?? ''}</td>
+                                                <td>{state?.data?.rego ?? ''}</td>
+                                                <td>Volvo</td>
+                                                <td className="ct_fw_600">{`${pipViewDate4(item?.date_scheduled_from)} - ${pipViewDate4(item?.date_scheduled_to)}`}</td>
+                                                <td className="text-end ct_fw_600">Morris Hyatt</td>
+                                            </tr>
+                                        ))
+                                    }
                                 </tbody>
                             </table>
                         </div>

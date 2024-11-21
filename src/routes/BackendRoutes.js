@@ -1,4 +1,6 @@
-export const BASE_URL = "http://3.26.177.93:4000/";   // Local Url
+export const BASE_URL = "http://192.168.29.19:4001/";   // Local 
+
+// export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
 
 // auth user
 export const signupEndPointURL = "users/signup";
@@ -36,3 +38,11 @@ export const updateBoatDetailsEndPointURL = "boat/updateBoat"
 
 // Images Delete 
 export const deleteImageEndPointURL = "users/deleteFile";
+
+// Task
+export const getAllBoatWithTasksEndPointURL = "task/getAllBoatsWithTasks";
+export const getAllTaskDataEndPointURL = "task/getAllTask";
+
+// Lead
+export const getAllLeaddataEndPointURL = "quickLeads/getAllQuickLeads";
+export const AddLeaddataEndPointURL = "quickLeads/addQuickLeads";

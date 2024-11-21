@@ -256,3 +256,11 @@ export const UpdateSupplierSchema = Yup.object().shape({
         // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
         .required("Please enter contact number")
 });
+
+export const AddLeadSchema = Yup.object().shape({
+    client_name: Yup.string().trim().required("Please enter client name"),
+    client_contact_number: Yup.string()
+        .matches(/^[0-9]+$/, "Client contact number must be number")
+        // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+        .required("Please enter client contact number")
+});

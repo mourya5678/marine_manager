@@ -53,7 +53,7 @@ const Header = ({ onClick }) => {
                 </div>
                 <div className="ct_dashboard_head">
                     <div className="ms-auto d-flex align-items-center gap-3 justify-content-end">
-                        <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.quick_lead)} className="ct_red_btn">A new lead received</a>
+                        {/* <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.quick_lead)} className="ct_red_btn">A new lead received</a> */}
                         <a href="javascript:void(0)" className="ct_logout_btn ct_white_btn">
                             <img src="img/building_icon_2.svg" alt="" onClick={() => navigate(pageRoutes.business_profile)} />
                             <div className="ct_user_name_info" onClick={() => navigate(pageRoutes.business_profile)}>
@@ -105,8 +105,8 @@ const Header = ({ onClick }) => {
                             <h4 className="text-center mb-4 ct_fw_600">Log Out Account</h4>
                             <p className="text-center ct_grey_text">
                                 Are you sure, you want to logout? once you logout <br /> you
-                need to login again.
-              </p>
+                                need to login again.
+                            </p>
                             <div className="modal-footer border-0 justify-content-center">
                                 <button
                                     type="button"
@@ -114,7 +114,7 @@ const Header = ({ onClick }) => {
                                     data-bs-dismiss="modal"
                                 >
                                     Cancel
-                </button>
+                                </button>
                                 <a
                                     href="javascript:void(0)"
                                     onClick={() => onHandleLogout()}
@@ -124,7 +124,7 @@ const Header = ({ onClick }) => {
                                     style={{ borderColor: "rgb(220, 53, 69)" }}
                                 >
                                     Logout
-                </a>
+                                </a>
                             </div>
                             <div></div>
                         </div>

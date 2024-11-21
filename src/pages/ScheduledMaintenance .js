@@ -43,7 +43,7 @@ const ScheduledMaintenance = () => {
                             <table className="table ct_project_table ct_custom_table_main">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th>S.No.</th>
                                         <th className="ct_ff_roboto">Maintenance Item Description</th>
                                         <th className="ct_ff_roboto">Boat registration</th>
                                         <th className="ct_ff_roboto">Supplier</th>

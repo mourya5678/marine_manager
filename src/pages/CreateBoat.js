@@ -353,7 +353,6 @@ const CreateBoat = () => {
                                                         onChange={handleChange}
                                                         onKeyDown={(e) => e.preventDefault()}
                                                         type="date"
-                                                        onKeyDown={(e) => e.preventDefault()}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         className="form-control"
                                                     />
@@ -377,7 +376,6 @@ const CreateBoat = () => {
                                                         onChange={handleChange}
                                                         onKeyDown={(e) => e.preventDefault()}
                                                         type="date"
-                                                        onKeyDown={(e) => e.preventDefault()}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         className="form-control"
                                                     />
@@ -458,9 +456,8 @@ const CreateBoat = () => {
                                                     <label className="ct_file_upload">
                                                         <input
                                                             type="file"
-                                                            id="name"
-                                                            onChange={onHandleImageChange}
                                                             id="ct_file_upload1"
+                                                            onChange={onHandleImageChange}
                                                             className="d-none"
                                                             accept="image/*"
                                                         />
