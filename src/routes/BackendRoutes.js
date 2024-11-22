@@ -40,9 +40,11 @@ export const updateBoatDetailsEndPointURL = "boat/updateBoat"
 export const deleteImageEndPointURL = "users/deleteFile";
 
 // Task
+export const createTaskEndPointURL = "task/addTask";
 export const getAllBoatWithTasksEndPointURL = "task/getAllBoatsWithTasks";
 export const getAllTaskDataEndPointURL = "task/getAllTask";
 
 // Lead
 export const getAllLeaddataEndPointURL = "quickLeads/getAllQuickLeads";
 export const AddLeaddataEndPointURL = "quickLeads/addQuickLeads";
+export const UpdateLeaddataEndPointURL = "quickLeads/updateQuickLeads";

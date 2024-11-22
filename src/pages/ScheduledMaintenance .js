@@ -3,16 +3,49 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { getBoatData } from '../redux/actions/staffActions';
+import { getBoatData, getStaffData, getSupplierData } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
+import { Formik } from 'formik';
+import { CreateTaskSchema } from '../auth/Schema';
+import Loader from '../components/Loader';
 
 const ScheduledMaintenance = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
+    const { isLoading, staff_data, all_boats, supplier_data } = useSelector((state) => state?.staffReducer);
+    const { isLoading1, boatTaskData } = useSelector((state) => state?.maintainedReducer);
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
 
+    useEffect(() => {
+        dispatch(getStaffData());
+        dispatch(getBoatData());
+        dispatch(getSupplierData());
+    }, []);
+
+    const initialState = {
+        description: "",
+        time_alloted: "",
+        quoted_value: "",
+        boatId: '',
+        assignStaffId: '',
+        supplierId: '',
+        date_scheduled_from: "",
+        date_scheduled_to: "",
+        isRecurring: ''
+    };
+
+    const onHandleCreateTask = async (values, { setSubmitting, resetForm }) => {
+        setSubmitting(false);
+        resetForm();
+    };
+
+    console.log({ supplier_data })
+    // if (isLoading || isLoading1) {
+    //     return <Loader />
+    // }
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -238,75 +271,154 @@ const ScheduledMaintenance = () => {
                         <div className="modal-body">
                             <div className="pt-4">
                                 <h4 className="mb-4 text-center"><strong>Create A Maintenance Task </strong></h4>
-                                <form>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Assign To </strong><span className="ct_required_star">*</span></label>
-                                                <select className="form-control">
-                                                    <option value="">Johan Doe - Technician</option>
-                                                    <option value="">Johan Doe - Technician</option>
-                                                    <option value="">Johan Doe - Technician</option>
-                                                </select>
+                                <Formik
+                                    initialValues={initialState}
+                                    validationSchema={CreateTaskSchema}
+                                    onSubmit={(values, actions) => {
+                                        onHandleCreateTask(values, actions);
+                                    }}
+                                >
+                                    {({
+                                        values,
+                                        errors,
+                                        touched,
+                                        handleChange,
+                                        handleBlur,
+                                        handleSubmit,
+                                        resetForm
+                                    }) => (
+                                        <form>
+                                            <div className="row">
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Assign To </strong><span className="ct_required_star">*</span></label>
+                                                        <select
+                                                            id="assignStaffId"
+                                                            className="form-control"
+                                                            value={values.assignStaffId}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        >
+                                                            <option value="">----Select Staff Member----</option>
+                                                            {staff_data && staff_data?.map((item) => (
+                                                                <option value={item?.id}>{item?.full_name ?? ''} - {item?.role ?? ''}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="description"
+                                                            value={values.description}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            type="text"
+                                                            className="form-control"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Time Allocated(Hours)</strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="time_alloted"
+                                                            value={values.time_alloted}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            type="text"
+                                                            className="form-control"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Quoted Value </strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="quoted_value"
+                                                            value={values.quoted_value}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            type="number"
+                                                            className="form-control"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
+                                                        <select
+                                                            id="boatId"
+                                                            className="form-control"
+                                                            value={values.boatId}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        >
+                                                            <option value="">----Select Boat----</option>
+                                                            {all_boats && all_boats?.map((item) => (
+                                                                <option value={item?.id}>{item?.rego ?? ''} - {item?.name ?? ''}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1">
+                                                            <strong>Supplier</strong><span className="ct_required_star">*</span></label>
+                                                        <select
+                                                            id="supplierId"
+                                                            className="form-control"
+                                                            value={values.supplierId}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        >
+                                                            <option value="">----Select Supplier----</option>
+                                                            {supplier_data && supplier_data?.map((item) => (
+                                                                <option value={item?.id}>{item?.company_name ?? ''}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="date_scheduled_from"
+                                                            type="date"
+                                                            className="form-control"
+                                                            value={values.date_scheduled_from}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Date Scheduled To </strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="date_scheduled_to"
+                                                            type="date"
+                                                            className="form-control"
+                                                            value={values.date_scheduled_to}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="modal-footer justify-content-center border-0">
+                                                    <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal"
+                                                        onClick={() => resetForm({ values: initialState })}>Cancel</button>
+                                                    <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                                                        onClick={handleSubmit}
+                                                        data-bs-dismiss={values?.assignStaffId != '' && Object?.keys(errors)?.length == 0 && "modal"}
+                                                    >Submit</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
-                                                <input type="text" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Time Allocated(Hours)</strong> <span className="ct_required_star">*</span></label>
-                                                <input type="text" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Quoted Value </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="number" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
-                                                <select className="form-control">
-                                                    <option value="">JPB39Q - Breeze</option>
-                                                    <option value="">JPB39Q - Breeze</option>
-                                                    <option value="">JPB39Q - Breeze</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Supplier</strong><span className="ct_required_star">*</span></label>
-                                                <select className="form-control">
-                                                    <option value="">Marine HQ</option>
-                                                    <option value="">Marine HQ</option>
-                                                    <option value="">Marine HQ</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="date" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Date Scheduled To </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="date" className="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                        </form>
+                                    )}
+                                </Formik>
                             </div>
-                        </div>
-                        <div className="modal-footer justify-content-center border-0">
-                            <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit" data-bs-dismiss="modal">Submit</button>
                         </div>
                     </div>
                 </div>

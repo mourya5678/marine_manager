@@ -5,7 +5,7 @@ import Sidebar from '../components/Sidebar';
 import { Formik } from 'formik';
 import { AddLeadSchema } from '../auth/Schema';
 import ErrorMessage from '../components/ErrorMessage';
-import { AddLeads, getAllLeadsData } from '../redux/actions/maintainedBoatsActions';
+import { AddLeads, getAllLeadsData, UpdateLeads } from '../redux/actions/maintainedBoatsActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 
@@ -13,8 +13,8 @@ const LeadReceived = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
-    const { isLoading, allLeads } = useSelector((state) => state?.maintainedReducer);
-    const [leadDetails, setLeadDetails] = useState([]);
+    const { isLoading1, allLeads } = useSelector((state) => state?.maintainedReducer);
+    const [leadDetails, setLeadDetails] = useState();
 
     const initialState = {
         client_name: '',
@@ -37,10 +37,32 @@ const LeadReceived = () => {
                 dispatch(getAllLeadsData());
             }
         };
-        dispatch(AddLeads({ payload: values, callback }));
+        const data = {
+            client_name: values.client_name,
+            client_contact_number: `${values.client_contact_number}`,
+        }
+        dispatch(AddLeads({ payload: data, callback }));
     };
 
-    if (isLoading) {
+    const onHandleUpdateLead = async (values, { setSubmitting, resetForm }) => {
+        setSubmitting(false);
+        resetForm();
+        setLeadDetails();
+        const callback = (response) => {
+            if (response.success) {
+                dispatch(getAllLeadsData());
+            }
+        };
+        const data = {
+            id: values?.id,
+            client_name: values.client_name,
+            client_contact_number: `${values.client_contact_number}`,
+            status: values.status
+        }
+        dispatch(UpdateLeads({ payload: data, callback }));
+    };
+
+    if (isLoading1) {
         return <Loader />
     }
     return (
@@ -60,7 +82,7 @@ const LeadReceived = () => {
                                     <tr>
                                         <th>S.No.</th>
                                         <th className="ct_ff_roboto">Client Name</th>
-                                        <th className="ct_ff_roboto">Contact details</th>
+                                        <th className="ct_ff_roboto">Contact Number</th>
                                         <th className="ct_ff_roboto">Status</th>
                                         <th className="ct_ff_roboto">Action</th>
                                     </tr>
@@ -77,7 +99,8 @@ const LeadReceived = () => {
                                                     onClick={() => setLeadDetails({
                                                         id: item?.id,
                                                         client_name: item?.client_name,
-                                                        client_contact_number: item?.client_contact_number
+                                                        client_contact_number: item?.client_contact_number,
+                                                        status: item?.status
                                                     })}
                                                     data-bs-toggle="modal" data-bs-target="#ct_update_lead"
                                                 ></i></td>
@@ -181,7 +204,7 @@ const LeadReceived = () => {
                                                 </div>
                                                 <div className="col-md-12">
                                                     <div className="form-group mb-3">
-                                                        <label className="mb-1"><strong>Client Contact no. </strong> <span className="ct_required_star">*</span></label>
+                                                        <label className="mb-1"><strong>Contact Number </strong> <span className="ct_required_star">*</span></label>
                                                         <input
                                                             id="client_contact_number"
                                                             type="number"
@@ -217,7 +240,6 @@ const LeadReceived = () => {
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">
-
                             <div className="pt-4">
                                 <h4 className="mb-4 text-center"><strong>Update Lead</strong></h4>
                                 {leadDetails &&
@@ -225,7 +247,7 @@ const LeadReceived = () => {
                                         initialValues={leadDetails}
                                         validationSchema={AddLeadSchema}
                                         onSubmit={(values, actions) => {
-                                            onHandleAddLead(values, actions);
+                                            onHandleUpdateLead(values, actions);
                                         }}
                                     >
                                         {({
@@ -259,7 +281,7 @@ const LeadReceived = () => {
                                                     </div>
                                                     <div className="col-md-12">
                                                         <div className="form-group mb-3">
-                                                            <label className="mb-1"><strong>Client Contact no. </strong> <span className="ct_required_star">*</span></label>
+                                                            <label className="mb-1"><strong>Contact Number </strong> <span className="ct_required_star">*</span></label>
                                                             <input
                                                                 id="client_contact_number"
                                                                 type="number"
@@ -275,8 +297,29 @@ const LeadReceived = () => {
                                                             />
                                                         </div>
                                                     </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Status</strong> <span className="ct_required_star">*</span></label>
+                                                            <select
+                                                                className="form-control"
+                                                                id="status"
+                                                                value={values?.status}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            >
+                                                                <option value="0">Open</option>
+                                                                <option value="1">Actioned</option>
+                                                                <option value="2">Contacted</option>
+                                                            </select>
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="status"
+                                                            />
+                                                        </div>
+                                                    </div>
                                                     <div className="modal-footer justify-content-center border-0">
-                                                        <button type="button" onClick={() => setLeadDetails({})} className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                        <button type="button" onClick={() => setLeadDetails()} className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
                                                         <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
                                                             data-bs-dismiss={values?.client_name != '' && Object?.keys(errors)?.length == 0 && "modal"}
                                                             onClick={handleSubmit}>Update</button>
