@@ -1,16 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
     getAllBoatTask,
-    getAllTask,
+    getAllTaskByID,
     AddLeads,
     getAllLeadsData,
     UpdateLeads,
-    CreateTask
+    CreateTask,
+    getAllTask,
+    UpdateTask
 } from "../actions/maintainedBoatsActions";
 
 const initialState = {
     isLoading1: false,
     boatTaskData: [],
+    allTasks_by_id: [],
     allTasks: [],
     allLeads: []
 };
@@ -33,16 +36,16 @@ export const maintainedSlice = createSlice({
             state.isLoading1 = false;
         });
 
-        // getAllTask
-        builder.addCase(getAllTask.pending, (state, action) => {
+        // getAllTaskByID
+        builder.addCase(getAllTaskByID.pending, (state, action) => {
             state.isLoading1 = true;
         });
-        builder.addCase(getAllTask.fulfilled, (state, action) => {
+        builder.addCase(getAllTaskByID.fulfilled, (state, action) => {
             const { data } = action.payload ?? [];
-            state.allTasks = data ?? []
+            state.allTasks_by_id = data ?? []
             state.isLoading1 = false;
         });
-        builder.addCase(getAllTask.rejected, (state, action) => {
+        builder.addCase(getAllTaskByID.rejected, (state, action) => {
             state.isLoading1 = false;
         });
 
@@ -89,6 +92,30 @@ export const maintainedSlice = createSlice({
             state.isLoading1 = false;
         });
         builder.addCase(CreateTask.rejected, (state, action) => {
+            state.isLoading1 = false;
+        });
+
+        // getAllTask
+        builder.addCase(getAllTask.pending, (state, action) => {
+            state.isLoading1 = true;
+        });
+        builder.addCase(getAllTask.fulfilled, (state, action) => {
+            const { data } = action.payload ?? [];
+            state.allTasks = data ?? []
+            state.isLoading1 = false;
+        });
+        builder.addCase(getAllTask.rejected, (state, action) => {
+            state.isLoading1 = false;
+        });
+
+        // UpdateTask
+        builder.addCase(UpdateTask.pending, (state, action) => {
+            state.isLoading1 = true;
+        });
+        builder.addCase(UpdateTask.fulfilled, (state, action) => {
+            state.isLoading1 = false;
+        });
+        builder.addCase(UpdateTask.rejected, (state, action) => {
             state.isLoading1 = false;
         });
     }

@@ -266,9 +266,20 @@ export const AddLeadSchema = Yup.object().shape({
 });
 
 export const CreateTaskSchema = Yup.object().shape({
-    client_name: Yup.string().trim().required("Please enter client name"),
-    client_contact_number: Yup.string()
-        .matches(/^[0-9]+$/, "Contact number must be number")
-        // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
-        .required("Please enter contact number")
+    description: Yup.string().trim().required("Please enter description"),
+    time_alloted: Yup.string().trim()
+        .min(1, "Time alloted must be at least 1 character long")
+        .max(5, "Time alloted must be at most 4 characters long")
+        .required("Please enter time alloted"),
+    quoted_value: Yup.string().trim().required("Please enter quoted value"),
+    boatId: Yup.string().trim().required("Please select boat registration"),
+    assignStaffId: Yup.string().trim().required("Please select staff"),
+    supplierId: Yup.string().trim().required("Please select supplier"),
+    date_scheduled_from: Yup.date()
+        .required("Please select scheduled from")
+        .typeError("Please select valid date"),
+    date_scheduled_to: Yup.date()
+        .required("Please select scheduled to")
+        .min(Yup.ref('date_scheduled_from'), "End date must be the same as or later than the scheduled from date.")
+        .typeError("Please select valid date")
 });

@@ -42,6 +42,7 @@ export const deleteImageEndPointURL = "users/deleteFile";
 // Task
 export const createTaskEndPointURL = "task/addTask";
 export const getAllBoatWithTasksEndPointURL = "task/getAllBoatsWithTasks";
+export const updateTaskEndPointURL = "task/updateTask";
 export const getAllTaskDataEndPointURL = "task/getAllTask";
 
 // Lead

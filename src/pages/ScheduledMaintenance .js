@@ -8,13 +8,18 @@ import { pageRoutes } from '../routes/PageRoutes';
 import { Formik } from 'formik';
 import { CreateTaskSchema } from '../auth/Schema';
 import Loader from '../components/Loader';
+import ErrorMessage from '../components/ErrorMessage';
+import { CreateTask, getAllTask, UpdateTask } from '../redux/actions/maintainedBoatsActions';
+import { pipViewDate, pipViewDate4 } from '../auth/Pip';
 
 const ScheduledMaintenance = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
     const { isLoading, staff_data, all_boats, supplier_data } = useSelector((state) => state?.staffReducer);
-    const { isLoading1, boatTaskData } = useSelector((state) => state?.maintainedReducer);
+    const { isLoading1, boatTaskData, allTasks } = useSelector((state) => state?.maintainedReducer);
+    const [taskDetails, setTaskDetails] = useState();
+
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
@@ -23,6 +28,7 @@ const ScheduledMaintenance = () => {
         dispatch(getStaffData());
         dispatch(getBoatData());
         dispatch(getSupplierData());
+        dispatch(getAllTask());
     }, []);
 
     const initialState = {
@@ -34,18 +40,60 @@ const ScheduledMaintenance = () => {
         supplierId: '',
         date_scheduled_from: "",
         date_scheduled_to: "",
-        isRecurring: ''
+        ct_checkbox_cbx: false,
+        status: false,
+        completed_at: ""
     };
 
     const onHandleCreateTask = async (values, { setSubmitting, resetForm }) => {
         setSubmitting(false);
         resetForm();
+        const callback = (response) => {
+            if (response.success) dispatch(getAllTask());;
+        };
+        const data = {
+            description: values?.description,
+            time_alloted: `${values?.time_alloted}`,
+            quoted_value: values?.quoted_value,
+            boatId: values?.boatId,
+            assignStaffId: values?.assignStaffId,
+            supplierId: values?.supplierId,
+            date_scheduled_from: values?.date_scheduled_from,
+            date_scheduled_to: values?.date_scheduled_to,
+            isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
+            status: values?.completed_at ? 1 : 0,
+            completed_at: values?.completed_at
+        };
+        dispatch(CreateTask({ payload: data, callback }));
     };
 
-    console.log({ supplier_data })
-    // if (isLoading || isLoading1) {
-    //     return <Loader />
-    // }
+    const onHandleUpdateTask = async (values, { setSubmitting, resetForm }) => {
+        setSubmitting(false);
+        const callback = (response) => {
+            if (response.success) dispatch(getAllTask());;
+            setTaskDetails()
+            resetForm();
+        };
+        const data = {
+            id: values.id,
+            description: values?.description,
+            time_alloted: `${values?.time_alloted}`,
+            quoted_value: values?.quoted_value,
+            boatId: values?.boatId,
+            assignStaffId: values?.assignStaffId,
+            supplierId: values?.supplierId,
+            date_scheduled_from: values?.date_scheduled_from,
+            date_scheduled_to: values?.date_scheduled_to,
+            isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
+            status: values?.completed_at ? 1 : 0,
+            completed_at: values?.completed_at
+        };
+        dispatch(UpdateTask({ payload: data, callback }));
+    };
+
+    if (isLoading || isLoading1) {
+        return <Loader />
+    }
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -80,101 +128,43 @@ const ScheduledMaintenance = () => {
                                         <th className="ct_ff_roboto">Maintenance Item Description</th>
                                         <th className="ct_ff_roboto">Boat registration</th>
                                         <th className="ct_ff_roboto">Supplier</th>
-                                        <th className="ct_ff_roboto">Date Scheduled</th>
                                         <th className="ct_ff_roboto">Staff Allocated</th>
+                                        <th className="ct_ff_roboto">Date Scheduled</th>
                                         <th className="ct_ff_roboto">Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Full antifoul of hull</td>
-                                        <td>JPB39Q</td>
-                                        <td>Volvo</td>
-                                        <td>06-08-2024 - 28-09-2024</td>
-                                        <td>Morris Hyatt</td>
-                                        <td className="ct_fw_600">Completed</td>
-                                        <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Hull Clean</td>
-                                        <td>JPB39Q</td>
-                                        <td>Volvo</td>
-                                        <td>06-08-2024 - 28-09-2024</td>
-                                        <td>Alexis Turner</td>
-                                        <td className="ct_green_text ct_fw_700">Invoiced</td>
-                                        <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Engine Service</td>
-                                        <td>JPB39Q</td>
-                                        <td>Volvo</td>
-                                        <td>06-08-2024 - 28-09-2024</td>
-                                        <td>Iris Franecki</td>
-                                        <td className="ct_fw_600 ">Completed</td>
-                                        <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Prop speed</td>
-                                        <td>JPB39Q</td>
-                                        <td>Volvo</td>
-                                        <td>06-08-2024 - 28-09-2024</td>
-                                        <td>Jared Feeney</td>
-                                        <td className="ct_fw_600 ct_red_text">Open</td>
-                                        <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Full antifoul of hull</td>
-                                        <td>JPB39Q</td>
-                                        <td>Volvo</td>
-                                        <td>06-08-2024 - 28-09-2024</td>
-                                        <td>Morris Hyatt</td>
-                                        <td className="ct_fw_600">Completed</td>
-                                        <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Hull Clean</td>
-                                        <td>JPB39Q</td>
-                                        <td>Volvo</td>
-                                        <td>06-08-2024 - 28-09-2024</td>
-                                        <td>Alexis Turner</td>
-                                        <td className="ct_green_text ct_fw_700">Invoiced</td>
-                                        <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Engine Service</td>
-                                        <td>JPB39Q</td>
-                                        <td>Volvo</td>
-                                        <td>06-08-2024 - 28-09-2024</td>
-                                        <td>Iris Franecki</td>
-                                        <td className="ct_fw_600">Completed</td>
-                                        <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12"></i>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>8</td>
-                                        <td>Prop speed</td>
-                                        <td>JPB39Q</td>
-                                        <td>Volvo</td>
-                                        <td>06-08-2024 - 28-09-2024</td>
-                                        <td>Jared Feeney</td>
-                                        <td className="ct_fw_600 ct_red_text">Open</td>
-                                        <td className="text-end ct_action_btns"><i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12"></i>
-                                        </td>
-                                    </tr>
+                                    {allTasks?.length != 0 &&
+                                        allTasks?.map((item, i) => (
+                                            <tr>
+                                                <td>{i + 1}</td>
+                                                <td>{item?.description ?? ''}</td>
+                                                <td>{item?.boat?.rego ?? ''}</td>
+                                                <td>{item?.supplier?.company_name ?? ''}</td>
+                                                <td>{item?.staff?.full_name ?? ''}</td>
+                                                <td>{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_from)}`}</td>
+                                                <td className="ct_fw_600">{item?.status == 1 ? 'Completed' : 'Active'}</td>
+                                                <td className="text-end ct_action_btns">
+                                                    {item?.status != 1 && <i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12" onClick={() => setTaskDetails({
+                                                        id: item?.id,
+                                                        boatId: item?.boatId,
+                                                        description: item?.description,
+                                                        time_alloted: item?.time_alloted,
+                                                        quoted_value: item?.quoted_value,
+                                                        assignStaffId: item?.assignStaffId,
+                                                        supplierId: item?.supplierId,
+                                                        date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
+                                                        date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
+                                                        completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
+                                                        status: item?.status,
+                                                        ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
+                                                    })}></i>
+                                                    }
+                                                </td>
+                                            </tr>
+                                        ))
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -188,78 +178,231 @@ const ScheduledMaintenance = () => {
                         <div className="modal-body">
                             <div className="pt-4">
                                 <h4 className="mb-4 text-center"><strong>Update A Maintenance Task  </strong></h4>
-                                <form>
-                                    <div className="row">
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label for="" className="mb-1"><strong>Assign To </strong><span className="ct_required_star">*</span></label>
-                                                <select className="form-control">
-                                                    <option value="">Johan Doe - Technician</option>
-                                                    <option value="">Johan Doe - Technician</option>
-                                                    <option value="">Johan Doe - Technician</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
-                                                <input type="text" className="form-control" value="Plumbing and bilg system" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Time Allocated(Hours)</strong> <span className="ct_required_star">*</span></label>
-                                                <input type="text" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Quoted Value </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="number" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
-                                                <select className="form-control">
-                                                    <option value="">JPB39Q - Breeze</option>
-                                                    <option value="">JPB39Q - Breeze</option>
-                                                    <option value="">JPB39Q - Breeze</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Supplier</strong><span className="ct_required_star">*</span></label>
-                                                <select className="form-control">
-                                                    <option value="">Marine HQ</option>
-                                                    <option value="">Marine HQ</option>
-                                                    <option value="">Marine HQ</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="date" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group mb-3">
-                                                <label className="mb-1"><strong>Date Scheduled To </strong> <span className="ct_required_star">*</span></label>
-                                                <input type="date" className="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
+                                {taskDetails &&
+                                    <Formik
+                                        initialValues={taskDetails}
+                                        validationSchema={CreateTaskSchema}
+                                        onSubmit={(values, actions) => {
+                                            onHandleUpdateTask(values, actions);
+                                        }}
+                                    >
+                                        {({
+                                            values,
+                                            errors,
+                                            touched,
+                                            handleChange,
+                                            handleBlur,
+                                            handleSubmit,
+                                            resetForm
+                                        }) => (
+                                            <form>
+                                                <div className="row">
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Assign To </strong><span className="ct_required_star">*</span></label>
+                                                            <select
+                                                                id="assignStaffId"
+                                                                className="form-control"
+                                                                value={values.assignStaffId}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            >
+                                                                <option value="">----Select Staff Member----</option>
+                                                                {staff_data && staff_data?.map((item) => (
+                                                                    <option value={item?.id}>{item?.full_name ?? ''} - {item?.role ?? ''}</option>
+                                                                ))}
+                                                            </select>
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="assignStaffId"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="description"
+                                                                value={values.description}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                type="text"
+                                                                className="form-control"
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="description"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Time Allocated(Hours)</strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                type="number"
+                                                                id="time_alloted"
+                                                                className="form-control"
+                                                                value={values.time_alloted}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                onWheel={() => document.activeElement.blur()}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="time_alloted"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Quoted Value </strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="quoted_value"
+                                                                value={values.quoted_value}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                type="text"
+                                                                className="form-control"
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="quoted_value"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
+                                                            <select
+                                                                id="boatId"
+                                                                className="form-control"
+                                                                value={values.boatId}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            >
+                                                                <option value="">----Select Boat----</option>
+                                                                {all_boats && all_boats?.map((item) => (
+                                                                    <option value={item?.id}>{item?.rego ?? ''} - {item?.name ?? ''}</option>
+                                                                ))}
+                                                            </select>
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="boatId"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1">
+                                                                <strong>Supplier</strong><span className="ct_required_star">*</span></label>
+                                                            <select
+                                                                id="supplierId"
+                                                                className="form-control"
+                                                                value={values.supplierId}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            >
+                                                                <option value="">----Select Supplier----</option>
+                                                                {supplier_data && supplier_data?.map((item) => (
+                                                                    <option value={item?.id}>{item?.company_name ?? ''}</option>
+                                                                ))}
+                                                            </select>
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="supplierId"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="date_scheduled_from"
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={values.date_scheduled_from}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="date_scheduled_from"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Date Scheduled To </strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="date_scheduled_to"
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={values.date_scheduled_to}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="date_scheduled_to"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>completed_at </strong> <span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                id="completed_at"
+                                                                type="date"
+                                                                className="form-control"
+                                                                value={values.completed_at}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        {/* <div className="form-group mb-3">
 
-
-
-                                </form>
+                                                    </div> */}
+                                                    </div>
+                                                    <div className='col-md-6'>
+                                                        <div className='form-group mb-3'>
+                                                            <label>&nbsp;</label>
+                                                            {console.log(values.ct_checkbox_cbx)}
+                                                            <div className="ct_checkbox_main"><div>
+                                                                <input
+                                                                    type="checkbox"
+                                                                    id="ct_checkbox_cbx"
+                                                                    className="ct_hidden-xs-up"
+                                                                    value={values.ct_checkbox_cbx}
+                                                                    checked={values.ct_checkbox_cbx}
+                                                                    onBlur={handleBlur}
+                                                                    onChange={handleChange}
+                                                                /><label for="ct_checkbox_cbx" className="ct_checkbox_cbx"></label></div><p className="mb-0">Is Recurring</p></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer justify-content-center border-0">
+                                                        <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal"
+                                                            onClick={() => setTaskDetails()}>Cancel</button>
+                                                        <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                                                            onClick={handleSubmit}
+                                                            data-bs-dismiss={values?.assignStaffId != '' && Object?.keys(errors)?.length == 0 && "modal"}
+                                                        >Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        )}
+                                    </Formik>
+                                }
                             </div>
-                        </div>
-                        <div className="modal-footer justify-content-center border-0">
-                            <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit" data-bs-dismiss="modal">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -304,6 +447,11 @@ const ScheduledMaintenance = () => {
                                                                 <option value={item?.id}>{item?.full_name ?? ''} - {item?.role ?? ''}</option>
                                                             ))}
                                                         </select>
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="assignStaffId"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-12">
@@ -317,18 +465,29 @@ const ScheduledMaintenance = () => {
                                                             type="text"
                                                             className="form-control"
                                                         />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="description"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Time Allocated(Hours)</strong> <span className="ct_required_star">*</span></label>
                                                         <input
+                                                            type="number"
                                                             id="time_alloted"
+                                                            className="form-control"
                                                             value={values.time_alloted}
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
-                                                            type="text"
-                                                            className="form-control"
+                                                            onWheel={() => document.activeElement.blur()}
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="time_alloted"
                                                         />
                                                     </div>
                                                 </div>
@@ -340,8 +499,13 @@ const ScheduledMaintenance = () => {
                                                             value={values.quoted_value}
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
-                                                            type="number"
+                                                            type="text"
                                                             className="form-control"
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="quoted_value"
                                                         />
                                                     </div>
                                                 </div>
@@ -360,6 +524,11 @@ const ScheduledMaintenance = () => {
                                                                 <option value={item?.id}>{item?.rego ?? ''} - {item?.name ?? ''}</option>
                                                             ))}
                                                         </select>
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="boatId"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-12">
@@ -378,6 +547,11 @@ const ScheduledMaintenance = () => {
                                                                 <option value={item?.id}>{item?.company_name ?? ''}</option>
                                                             ))}
                                                         </select>
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="supplierId"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="col-md-6">
@@ -390,6 +564,11 @@ const ScheduledMaintenance = () => {
                                                             value={values.date_scheduled_from}
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="date_scheduled_from"
                                                         />
                                                     </div>
                                                 </div>
@@ -404,6 +583,43 @@ const ScheduledMaintenance = () => {
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
                                                         />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="date_scheduled_to"
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>completed_at </strong> <span className="ct_required_star">*</span></label>
+                                                        <input
+                                                            id="completed_at"
+                                                            type="date"
+                                                            className="form-control"
+                                                            value={values.completed_at}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6">
+                                                    {/* <div className="form-group mb-3">
+
+                                                    </div> */}
+                                                </div>
+                                                <div className='col-md-6'>
+                                                    <div className='form-group mb-3'>
+                                                        <label>&nbsp;</label>
+                                                        <div className="ct_checkbox_main"><div>
+                                                            <input
+                                                                type="checkbox"
+                                                                id="ct_checkbox_cbx"
+                                                                className="ct_hidden-xs-up"
+                                                                value={values.ct_checkbox_cbx}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            /><label for="ct_checkbox_cbx" className="ct_checkbox_cbx"></label></div><p className="mb-0">Is Recurring</p></div>
                                                     </div>
                                                 </div>
                                                 <div className="modal-footer justify-content-center border-0">
@@ -423,7 +639,7 @@ const ScheduledMaintenance = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

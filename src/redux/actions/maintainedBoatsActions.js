@@ -6,7 +6,8 @@ import {
     AddLeaddataEndPointURL,
     getAllLeaddataEndPointURL,
     UpdateLeaddataEndPointURL,
-    createTaskEndPointURL
+    createTaskEndPointURL,
+    updateTaskEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const getAllBoatTask = createAsyncThunk("boat-task", async () => {
@@ -22,7 +23,7 @@ export const getAllBoatTask = createAsyncThunk("boat-task", async () => {
     }
 });
 
-export const getAllTask = createAsyncThunk("all-task", async (props) => {
+export const getAllTaskByID = createAsyncThunk("all-task-by-id", async (props) => {
     const { payload } = props;
     try {
         const response = await API_REQUEST({
@@ -81,6 +82,32 @@ export const CreateTask = createAsyncThunk("create-task", async (props) => {
     try {
         const response = await API_REQUEST({
             url: createTaskEndPointURL,
+            method: "POST",
+            data: payload,
+        });
+        return callback(response);
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const getAllTask = createAsyncThunk("all-task", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: getAllTaskDataEndPointURL,
+            method: "GET",
+        });
+        return response;
+    } catch (error) {
+        console.log('error');
+    }
+});
+
+export const UpdateTask = createAsyncThunk("update-task", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: updateTaskEndPointURL,
             method: "POST",
             data: payload,
         });
