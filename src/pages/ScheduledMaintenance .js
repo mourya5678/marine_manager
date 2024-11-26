@@ -9,7 +9,7 @@ import { Formik } from 'formik';
 import { CreateTaskSchema } from '../auth/Schema';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
-import { CreateTask, getAllTask, UpdateTask } from '../redux/actions/maintainedBoatsActions';
+import { CreateTask, getAllBoatTask, getAllTask, UpdateTask } from '../redux/actions/maintainedBoatsActions';
 import { pipViewDate, pipViewDate4 } from '../auth/Pip';
 
 const ScheduledMaintenance = () => {
@@ -29,6 +29,7 @@ const ScheduledMaintenance = () => {
         dispatch(getBoatData());
         dispatch(getSupplierData());
         dispatch(getAllTask());
+        dispatch(getAllBoatTask())
     }, []);
 
     const initialState = {
@@ -107,9 +108,12 @@ const ScheduledMaintenance = () => {
                                 <div className="ct_dark_grey_bg">
                                     <div className="ct_btn_group">
                                         <select className="form-control ct_input_h_44">
-                                            <option value="">Boat1</option>
-                                            <option value="">Boat1</option>
-                                            <option value="">Boat1</option>
+                                            {
+                                                boatTaskData?.length != 0 &&
+                                                boatTaskData?.map((item, i) => (
+                                                    <option value={item?.id}>{item?.rego}</option>
+                                                ))
+                                            }
                                         </select>
                                         <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.task_review)} className=" w-100 ct_white_space_nowrap ct_input_h_44 ct_custom_btm ct_line_height_22 " style={{ paddingBlock: "12px" }}>Generate Invoice</a>
                                     </div>
