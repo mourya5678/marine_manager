@@ -781,6 +781,11 @@ label.ct_file_upload {
   font-weight: 600 !important;
 }
 
+.ct_pointer_curser {
+  cursor: pointer;
+}
+
+
 .ct_fw_700 {
   font-weight: 700 !important;
 }

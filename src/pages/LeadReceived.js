@@ -5,15 +5,16 @@ import Sidebar from '../components/Sidebar';
 import { Formik } from 'formik';
 import { AddLeadSchema } from '../auth/Schema';
 import ErrorMessage from '../components/ErrorMessage';
-import { AddLeads, getAllLeadsData, UpdateLeads } from '../redux/actions/maintainedBoatsActions';
+import { AddLeads, getAllLeadsData, recouringReminder, UpdateLeads } from '../redux/actions/maintainedBoatsActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
+import { pipViewDate } from '../auth/Pip';
 
 const LeadReceived = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
-    const { isLoading1, allLeads } = useSelector((state) => state?.maintainedReducer);
+    const { isLoading1, allLeads, recouringData } = useSelector((state) => state?.maintainedReducer);
     const [leadDetails, setLeadDetails] = useState();
 
     const initialState = {
@@ -23,6 +24,7 @@ const LeadReceived = () => {
 
     useEffect(() => {
         dispatch(getAllLeadsData());
+        dispatch(recouringReminder());
     }, []);
 
     const onHandleClick = () => {
@@ -117,42 +119,24 @@ const LeadReceived = () => {
                                 <table className="table ct_project_table ct_custom_table_main">
                                     <thead>
                                         <tr>
-                                            <th></th>
+                                            <th>S.No.</th>
                                             <th className="ct_ff_roboto">Client Name</th>
                                             <th className="ct_ff_roboto">Contact details</th>
                                             <th>Task Completed</th>
-                                            <th className="ct_ff_roboto">Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Dixie Thiel</td>
-                                            <td>379-615-0268</td>
-                                            <td className="ct_fw_600">Full antifoul of hull</td>
-                                            <td className="text-end ct_fw_600">12/9/24</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Dixie Thiel</td>
-                                            <td>379-615-0268</td>
-                                            <td className="ct_fw_600">Engine Service</td>
-                                            <td className="text-end ct_fw_600">12/9/24</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Dixie Thiel</td>
-                                            <td>379-615-0268</td>
-                                            <td className="ct_fw_600">Painting top deck</td>
-                                            <td className="text-end ct_fw_600">12/9/24</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Dixie Thiel</td>
-                                            <td>379-615-0268</td>
-                                            <td className="ct_fw_600">Hull Clean</td>
-                                            <td className="text-end ct_fw_600">12/9/24</td>
-                                        </tr>
+                                        {console.log({ recouringData })}
+                                        {recouringData?.length != 0 &&
+                                            recouringData?.map((item, i) => (
+                                                <tr>
+                                                    <td>{i + 1}</td>
+                                                    <td>{item?.boat?.owners_name ?? ''}</td>
+                                                    <td>{item?.boat?.phone_no ?? ''}</td>
+                                                    <td className="text-end ct_fw_600">{pipViewDate(item?.completed_at)}</td>
+                                                </tr>
+                                            ))
+                                        }
                                     </tbody>
                                 </table>
                             </div>

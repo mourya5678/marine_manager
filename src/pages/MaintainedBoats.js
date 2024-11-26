@@ -49,9 +49,8 @@ const MaintainedBoats = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {console.log({ boatTaskData }, 'boatTaskData')}
                                     {boatTaskData?.length != 0 && boatTaskData?.map((item, i) => (
-                                        <tr onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
+                                        <tr className="ct_pointer_curser" onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
                                             <td>{i + 1}</td>
                                             <td>{item?.rego ?? ''}</td>
                                             <td>{item?.lastServiceDate ? pipViewDate(item?.lastServiceDate) : ''}</td>

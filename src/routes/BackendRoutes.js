@@ -49,3 +49,4 @@ export const getAllTaskDataEndPointURL = "task/getAllTask";
 export const getAllLeaddataEndPointURL = "quickLeads/getAllQuickLeads";
 export const AddLeaddataEndPointURL = "quickLeads/addQuickLeads";
 export const UpdateLeaddataEndPointURL = "quickLeads/updateQuickLeads";
+export const RecouringReminderEndPointURL = "quickLeads/getDueRecurringTasks";

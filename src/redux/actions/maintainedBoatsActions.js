@@ -7,7 +7,8 @@ import {
     getAllLeaddataEndPointURL,
     UpdateLeaddataEndPointURL,
     createTaskEndPointURL,
-    updateTaskEndPointURL
+    updateTaskEndPointURL,
+    RecouringReminderEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const getAllBoatTask = createAsyncThunk("boat-task", async () => {
@@ -114,5 +115,17 @@ export const UpdateTask = createAsyncThunk("update-task", async (props) => {
         return callback(response);
     } catch (error) {
         callback(null, error);
+    }
+});
+
+export const recouringReminder = createAsyncThunk("recouring-reminder", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: RecouringReminderEndPointURL,
+            method: "GET",
+        });
+        return response;
+    } catch (error) {
+        console.log('error');
     }
 });

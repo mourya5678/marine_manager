@@ -7,7 +7,8 @@ import {
     UpdateLeads,
     CreateTask,
     getAllTask,
-    UpdateTask
+    UpdateTask,
+    recouringReminder
 } from "../actions/maintainedBoatsActions";
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
     boatTaskData: [],
     allTasks_by_id: [],
     allTasks: [],
-    allLeads: []
+    allLeads: [],
+    recouringData: []
 };
 
 export const maintainedSlice = createSlice({
@@ -116,6 +118,19 @@ export const maintainedSlice = createSlice({
             state.isLoading1 = false;
         });
         builder.addCase(UpdateTask.rejected, (state, action) => {
+            state.isLoading1 = false;
+        });
+
+        // recouringReminder
+        builder.addCase(recouringReminder.pending, (state, action) => {
+            state.isLoading1 = true;
+        });
+        builder.addCase(recouringReminder.fulfilled, (state, action) => {
+            const { data } = action.payload ?? [];
+            state.recouringData = data ?? []
+            state.isLoading1 = false;
+        });
+        builder.addCase(recouringReminder.rejected, (state, action) => {
             state.isLoading1 = false;
         });
     }

@@ -76,7 +76,7 @@ const AllSupplier = () => {
         setSearchData(e.target.value)
         if (e?.target?.value != '') {
             const data = supplier_data.filter((item) => {
-                if (item?.company_name?.toLowerCase().includes(e.target.value.toLowerCase())) { return item; }
+                if (item?.company_name?.toLowerCase().includes(e?.target?.value?.toLowerCase())) { return item; }
             })
             setAllSupplierData(data);
         } else {

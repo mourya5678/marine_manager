@@ -1,19 +1,87 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import { pipViewDate4 } from '../auth/Pip';
+import Chart from "react-apexcharts";
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllTaskByID } from '../redux/actions/maintainedBoatsActions';
+import Loader from '../components/Loader';
 
 const BoatTracker = () => {
     const navigate = useNavigate();
     const { state } = useLocation()
     const [isToggle, setIsToggle] = useState(false);
+    const { isLoading1, allTasks_by_id } = useSelector((state) => state?.maintainedReducer);
+
+    const dispatch = useDispatch()
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
+    const [series, setSeries] = useState([]);
 
-    console.log({ state }, "state");
+    const options = {
+        chart: {
+            type: "rangeBar",
+            height: 500,
+        },
+        plotOptions: {
+            bar: {
+                horizontal: true,
+                barHeight: "15px",
+            },
+        },
+        xaxis: {
+            type: "datetime",
+            labels: {
+                format: "dd-MM-yyyy",
+            },
+            title: {
+                text: "Date",
+            },
+        },
+        yaxis: {
+            title: {
+                text: "Tasks",
+            },
+        },
+        tooltip: {
+            shared: true,
+            intersect: false,
+            y: {
+                formatter: (val) => val,
+            },
+            x: {
+                format: "dd-MM-yyyy",
+            },
+        },
+        dataLabels: {
+            enabled: true,
+            formatter: (val) => `${new Date(val[0]).toLocaleDateString()} - ${new Date(val[1]).toLocaleDateString()}`,
+        },
+        grid: {
+            borderColor: "#f1f1f1",
+        },
+    };
 
+    useEffect(() => {
+        dispatch(getAllTaskByID({ payload: state?.data?.id }))
+    }, []);
+
+    useEffect(() => {
+        let data12 = [];
+        state?.data?.Task.map((item) => (
+            data12?.push({
+                name: `${item?.id}`,
+                data: [{ x: `${item?.id}`, y: [new Date("2024-08-01").getTime(), new Date("2024-08-05").getTime()] }]
+            })
+        ))
+        setSeries(data12);
+    }, [])
+
+    if (isLoading1) {
+        return <Loader />
+    }
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -38,14 +106,14 @@ const BoatTracker = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        state?.data?.Task?.length != 0 && state?.data?.Task?.map((item, i) => (
+                                        allTasks_by_id?.length != 0 && allTasks_by_id?.map((item, i) => (
                                             <tr>
                                                 <td>{i + 1}</td>
                                                 <td>{item?.description ?? ''}</td>
-                                                <td>{state?.data?.rego ?? ''}</td>
-                                                <td>Volvo</td>
+                                                <td>{item?.boat?.rego ?? ''}</td>
+                                                <td>{item?.supplier?.company_name ?? ''}</td>
                                                 <td className="ct_fw_600">{`${pipViewDate4(item?.date_scheduled_from)} - ${pipViewDate4(item?.date_scheduled_to)}`}</td>
-                                                <td className="text-end ct_fw_600">Morris Hyatt</td>
+                                                <td className="text-end ct_fw_600">{item?.staff?.full_name ?? ''}</td>
                                             </tr>
                                         ))
                                     }
@@ -53,161 +121,9 @@ const BoatTracker = () => {
                             </table>
                         </div>
                         <div className="ct_white_bg_1">
-                            <div className="ct_tracker_main">
-                                <div className="ct_date_task_list">
-                                    <ul>
-                                        <li>Date/Task</li>
-                                        <li>Hull Clean</li>
-                                        <li>Antifoul</li>
-                                        <li>Engine Service</li>
-                                        <li>Prop speed</li>
-                                        <li>Plumbing and bilg system</li>
-                                        <li>Deck maintenance</li>
-                                        <li>Painting top deck</li>
-                                        <li>Return to water Crane drop</li>
-                                        <li>Booked in care</li>
-                                    </ul>
-                                </div>
-                                <div className="table-responsive">
-                                    <table className="table ct_tracker_table">
-                                        <thead>
-                                            <tr>
-                                                <th>01-08-2024</th>
-                                                <th>02-08-2024</th>
-                                                <th>03-08-2024</th>
-                                                <th>04-08-2024</th>
-                                                <th>05-08-2024</th>
-                                                <th>06-08-2024</th>
-                                                <th>07-08-2024</th>
-                                                <th>08-08-2024</th>
-                                                <th>09-08-2024</th>
-                                                <th>10-08-2024</th>
-                                                <th>11-08-2024</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><span style={{ background: "#B5E6A2" }}></span></td>
-                                                <td><span style={{ background: "#B5E6A2" }}></span></td>
-                                                <td><span style={{ background: "#B5E6A2" }}></span></td>
-                                                <td><span style={{ background: "#B5E6A2" }}></span></td>
-                                                <td><span style={{ background: "#B5E6A2" }}></span></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><span style={{ background: "#61CBF3" }}></span></td>
-                                                <td><span style={{ background: "#61CBF3" }}></span></td>
-                                                <td><span style={{ background: "#61CBF3" }}></span></td>
-                                                <td><span style={{ background: "#61CBF3" }}></span></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><span style={{ background: "#3C7D22" }}></span></td>
-                                                <td><span style={{ background: "#3C7D22" }}></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><span style={{ background: "#6F9A9D" }}></span></td>
-                                                <td><span style={{ background: "#6F9A9D" }}></span></td>
-                                                <td><span style={{ background: "#6F9A9D" }}></span></td>
-                                                <td><span style={{ background: "#6F9A9D" }}></span></td>
-                                                <td><span style={{ background: "#6F9A9D" }}></span></td>
-                                                <td><span style={{ background: "#6F9A9D" }}></span></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><span style={{ background: "#8F7B5C" }}></span></td>
-                                                <td><span style={{ background: "#8F7B5C" }}></span></td>
-                                                <td><span style={{ background: "#8F7B5C" }}></span></td>
-                                                <td><span style={{ background: "#8F7B5C" }}></span></td>
-                                                <td><span style={{ background: "#8F7B5C" }}></span></td>
-                                                <td><span style={{ background: "#8F7B5C" }}></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td><span style={{ background: "#B4AD6F" }}></span></td>
-                                                <td><span style={{ background: "#B4AD6F" }}></span></td>
-                                                <td><span style={{ background: "#B4AD6F" }}></span></td>
-                                                <td><span style={{ background: "#B4AD6F" }}></span></td>
-                                                <td><span style={{ background: "#B4AD6F" }}></span></td>
-                                                <td><span style={{ background: "#B4AD6F" }}></span></td>
-                                                <td><span style={{ background: "#B4AD6F" }}></span></td>
-                                                <td><span style={{ background: "#B4AD6F" }}></span></td>
-                                                <td><span style={{ background: "#B4AD6F" }}></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><span style={{ background: "#C762D8" }}></span></td>
-                                                <td><span style={{ background: "#C762D8" }}></span></td>
-                                                <td><span style={{ background: "#C762D8" }}></span></td>
-                                                <td><span style={{ background: "#C762D8" }}></span></td>
-                                                <td><span style={{ background: "#C762D8" }}></span></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                                <td><span style={{ background: "#7D1A1A" }}></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><span style={{ background: "#3F7578" }}></span></td>
-                                                <td><span style={{ background: "#3F7578" }}></span></td>
-                                                <td><span style={{ background: "#3F7578" }}></span></td>
-                                                <td><span style={{ background: "#3F7578" }}></span></td>
-                                                <td><span style={{ background: "#3F7578" }}></span></td>
-                                                <td><span style={{ background: "#3F7578" }}></span></td>
-                                                <td><span style={{ background: "#3F7578" }}></span></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            {series &&
+                                <Chart options={options} series={series} type="rangeBar" height={500} />
+                            }
                         </div>
                     </div>
                 </div>
