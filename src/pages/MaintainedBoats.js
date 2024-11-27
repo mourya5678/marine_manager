@@ -7,12 +7,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllBoatTask } from '../redux/actions/maintainedBoatsActions';
 import Loader from '../components/Loader';
 import { pipViewDate } from '../auth/Pip';
+import ReactPagination from '../layout/ReactPagination';
+import PaginationDropdown from '../layout/PaginationDropdown';
 
 const MaintainedBoats = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [isToggle, setIsToggle] = useState(false);
     const { isLoading1, boatTaskData } = useSelector((state) => state?.maintainedReducer);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [usersPerPage, setUserPerPages] = useState(5);
+
+    const displayUsers = boatTaskData?.slice(
+        currentPage * usersPerPage,
+        (currentPage + 1) * usersPerPage
+    );
+
+    const handlePageClick = (data) => {
+        setCurrentPage(data.selected);
+    };
+
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
@@ -49,7 +63,7 @@ const MaintainedBoats = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {boatTaskData?.length != 0 && boatTaskData?.map((item, i) => (
+                                    {displayUsers?.length != 0 && displayUsers?.map((item, i) => (
                                         <tr className="ct_pointer_curser" onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
                                             <td>{i + 1}</td>
                                             <td>{item?.rego ?? ''}</td>
@@ -61,6 +75,25 @@ const MaintainedBoats = () => {
                                     ))}
                                 </tbody>
                             </table>
+                        </div>
+                        <div className="mt-3">
+                            {boatTaskData?.length >= 5 &&
+                                boatTaskData?.length > 0 && <div className="d-flex align-items-center flex-wrap justify-content-between gap-3 mb-3">
+                                    <PaginationDropdown
+                                        onChange={(val) => {
+                                            setUserPerPages(val);
+                                            setCurrentPage(0);
+                                        }}
+                                    />
+                                    <ReactPagination
+                                        pageCount={Math.ceil(
+                                            boatTaskData.length / usersPerPage
+                                        )}
+                                        onPageChange={handlePageClick}
+                                        currentPage={currentPage}
+                                    />
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

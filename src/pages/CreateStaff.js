@@ -9,6 +9,8 @@ import ErrorMessage from '../components/ErrorMessage';
 import { useNavigate } from 'react-router';
 import Eye from '../components/Eye';
 import Loader from '../components/Loader';
+import ReactPagination from '../layout/ReactPagination';
+import PaginationDropdown from '../layout/PaginationDropdown';
 
 const CreateStaff = () => {
     const { isLoading, staff_data } = useSelector((state) => state?.staffReducer);
@@ -19,6 +21,17 @@ const CreateStaff = () => {
     const [isEye2, setIsEye2] = useState(false);
     const [isToggle, setIsToggle] = useState(false);
     const [staffDetails, setStaffDetails] = useState({});
+    const [currentPage, setCurrentPage] = useState(0);
+    const [usersPerPage, setUserPerPages] = useState(5);
+
+    const displayUsers = staff_data?.slice(
+        currentPage * usersPerPage,
+        (currentPage + 1) * usersPerPage
+    );
+
+    const handlePageClick = (data) => {
+        setCurrentPage(data.selected);
+    };
 
     const initialState = {
         name: '',
@@ -102,9 +115,9 @@ const CreateStaff = () => {
                                             <th className="ct_ff_roboto border-0">Action</th>
                                         </tr>
                                     </thead>
-                                    {staff_data?.length != 0 ?
+                                    {displayUsers?.length != 0 ?
                                         <tbody>
-                                            {staff_data?.map((item, i) => (
+                                            {displayUsers?.map((item, i) => (
                                                 <tr>
                                                     <td>{i + 1}</td>
                                                     <td>{item?.full_name ?? 'NA'}</td>
@@ -140,6 +153,25 @@ const CreateStaff = () => {
                                         </tfoot>
                                     }
                                 </table>
+                            </div>
+                            <div className="mt-3">
+                                {staff_data?.length >= 5 &&
+                                    staff_data?.length > 0 && <div className="d-flex align-items-center flex-wrap justify-content-between gap-3 mb-3">
+                                        <PaginationDropdown
+                                            onChange={(val) => {
+                                                setUserPerPages(val);
+                                                setCurrentPage(0);
+                                            }}
+                                        />
+                                        <ReactPagination
+                                            pageCount={Math.ceil(
+                                                staff_data.length / usersPerPage
+                                            )}
+                                            onPageChange={handlePageClick}
+                                            currentPage={currentPage}
+                                        />
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,8 @@ import { AddLeads, getAllLeadsData, recouringReminder, UpdateLeads } from '../re
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import { pipViewDate } from '../auth/Pip';
+import ReactPagination from '../layout/ReactPagination';
+import PaginationDropdown from '../layout/PaginationDropdown';
 
 const LeadReceived = () => {
     const navigate = useNavigate();
@@ -16,6 +18,20 @@ const LeadReceived = () => {
     const [isToggle, setIsToggle] = useState(false);
     const { isLoading1, allLeads, recouringData } = useSelector((state) => state?.maintainedReducer);
     const [leadDetails, setLeadDetails] = useState();
+    const [currentPage, setCurrentPage] = useState(0);
+    const [usersPerPage, setUserPerPages] = useState(5);
+    const [currentPage2, setCurrentPage2] = useState(0);
+    const [usersPerPage2, setUserPerPages2] = useState(5);
+
+    const displayUsers = allLeads?.slice(
+        currentPage * usersPerPage,
+        (currentPage + 1) * usersPerPage
+    );
+
+    const displayUsers2 = recouringData?.slice(
+        currentPage2 * usersPerPage2,
+        (currentPage2 + 1) * usersPerPage2
+    );
 
     const initialState = {
         client_name: '',
@@ -40,7 +56,7 @@ const LeadReceived = () => {
             }
         };
         const data = {
-            client_name: values.client_name,
+            client_name: values.client_name.trim(),
             client_contact_number: `${values.client_contact_number}`,
         }
         dispatch(AddLeads({ payload: data, callback }));
@@ -57,11 +73,19 @@ const LeadReceived = () => {
         };
         const data = {
             id: values?.id,
-            client_name: values.client_name,
+            client_name: values.client_name.trim(),
             client_contact_number: `${values.client_contact_number}`,
             status: values.status
         }
         dispatch(UpdateLeads({ payload: data, callback }));
+    };
+
+    const handlePageClick = (data) => {
+        setCurrentPage(data.selected);
+    };
+
+    const handlePageClick2 = (data) => {
+        setCurrentPage2(data.selected);
     };
 
     if (isLoading1) {
@@ -90,14 +114,14 @@ const LeadReceived = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {allLeads?.length != 0 && allLeads?.map((item, i) => (
+                                    {displayUsers?.length != 0 && displayUsers?.map((item, i) => (
                                         <tr>
-                                            <td>{i + 1}</td>
-                                            <td>{item?.client_name ?? ''}</td>
+                                            <td className="ct_fw_600">{i + 1}</td>
+                                            <td className="ct_fw_600">{item?.client_name ?? ''}</td>
                                             <td className="ct_fw_600">{item?.client_contact_number ?? ''}</td>
                                             <td className="ct_fw_600">{item?.status == 0 ? "Open" : item?.status == 1 ? "Actioned" : item?.status == 2 && "Contacted"}</td>
                                             <td className="text-end ct_fw_600">
-                                                <i className="fa-solid fa-pen"
+                                                <a href="javascript:void(0)"><i className="fa-solid fa-pen"
                                                     onClick={() => setLeadDetails({
                                                         id: item?.id,
                                                         client_name: item?.client_name,
@@ -105,11 +129,32 @@ const LeadReceived = () => {
                                                         status: item?.status
                                                     })}
                                                     data-bs-toggle="modal" data-bs-target="#ct_update_lead"
-                                                ></i></td>
+                                                ></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
+                        </div>
+                        <div className="mt-3">
+                            {allLeads?.length >= 5 &&
+                                allLeads?.length > 0 && <div className="d-flex align-items-center flex-wrap justify-content-between gap-3 mb-3">
+                                    <PaginationDropdown
+                                        onChange={(val) => {
+                                            setUserPerPages(val);
+                                            setCurrentPage(0);
+                                        }}
+                                    />
+                                    <ReactPagination
+                                        pageCount={Math.ceil(
+                                            allLeads.length / usersPerPage
+                                        )}
+                                        onPageChange={handlePageClick}
+                                        currentPage={currentPage}
+                                    />
+                                </div>
+                            }
                         </div>
                         <div className="mt-4">
                             <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap">
@@ -126,19 +171,37 @@ const LeadReceived = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {console.log({ recouringData })}
-                                        {recouringData?.length != 0 &&
-                                            recouringData?.map((item, i) => (
+                                        {displayUsers2?.length != 0 &&
+                                            displayUsers2?.map((item, i) => (
                                                 <tr>
-                                                    <td>{i + 1}</td>
-                                                    <td>{item?.boat?.owners_name ?? ''}</td>
-                                                    <td>{item?.boat?.phone_no ?? ''}</td>
+                                                    <td className="ct_fw_600">{i + 1}</td>
+                                                    <td className="ct_fw_600">{item?.boat?.owners_name ?? ''}</td>
+                                                    <td className="ct_fw_600">{item?.boat?.phone_no ?? ''}</td>
                                                     <td className="text-end ct_fw_600">{pipViewDate(item?.completed_at)}</td>
                                                 </tr>
                                             ))
                                         }
                                     </tbody>
                                 </table>
+                            </div>
+                            <div className="mt-3">
+                                {recouringData?.length >= 5 &&
+                                    recouringData?.length > 0 && <div className="d-flex align-items-center flex-wrap justify-content-between gap-3 mb-3">
+                                        <PaginationDropdown
+                                            onChange={(val) => {
+                                                setUserPerPages2(val);
+                                                setCurrentPage2(0);
+                                            }}
+                                        />
+                                        <ReactPagination
+                                            pageCount={Math.ceil(
+                                                recouringData.length / usersPerPage
+                                            )}
+                                            onPageChange={handlePageClick2}
+                                            currentPage={currentPage2}
+                                        />
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -196,6 +259,7 @@ const LeadReceived = () => {
                                                             value={values.client_contact_number}
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
+                                                            onWheel={() => document.activeElement.blur()}
                                                         />
                                                         <ErrorMessage
                                                             errors={errors}
@@ -273,6 +337,7 @@ const LeadReceived = () => {
                                                                 value={values.client_contact_number}
                                                                 onBlur={handleBlur}
                                                                 onChange={handleChange}
+                                                                onWheel={() => document.activeElement.blur()}
                                                             />
                                                             <ErrorMessage
                                                                 errors={errors}

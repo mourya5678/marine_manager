@@ -11,6 +11,8 @@ import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import { CreateTask, getAllBoatTask, getAllTask, UpdateTask } from '../redux/actions/maintainedBoatsActions';
 import { pipViewDate, pipViewDate4 } from '../auth/Pip';
+import ReactPagination from '../layout/ReactPagination';
+import PaginationDropdown from '../layout/PaginationDropdown';
 
 const ScheduledMaintenance = () => {
     const navigate = useNavigate();
@@ -19,6 +21,13 @@ const ScheduledMaintenance = () => {
     const { isLoading, staff_data, all_boats, supplier_data } = useSelector((state) => state?.staffReducer);
     const { isLoading1, boatTaskData, allTasks } = useSelector((state) => state?.maintainedReducer);
     const [taskDetails, setTaskDetails] = useState();
+    const [currentPage, setCurrentPage] = useState(0);
+    const [usersPerPage, setUserPerPages] = useState(5);
+
+    const displayUsers = allTasks?.slice(
+        currentPage * usersPerPage,
+        (currentPage + 1) * usersPerPage
+    );
 
     const onHandleClick = () => {
         setIsToggle(!isToggle);
@@ -92,6 +101,10 @@ const ScheduledMaintenance = () => {
         dispatch(UpdateTask({ payload: data, callback }));
     };
 
+    const handlePageClick = (data) => {
+        setCurrentPage(data.selected);
+    };
+
     if (isLoading || isLoading1) {
         return <Loader />
     }
@@ -139,8 +152,8 @@ const ScheduledMaintenance = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {allTasks?.length != 0 &&
-                                        allTasks?.map((item, i) => (
+                                    {displayUsers?.length != 0 &&
+                                        displayUsers?.map((item, i) => (
                                             <tr>
                                                 <td>{i + 1}</td>
                                                 <td>{item?.description ?? ''}</td>
@@ -171,6 +184,25 @@ const ScheduledMaintenance = () => {
                                     }
                                 </tbody>
                             </table>
+                        </div>
+                        <div className="mt-3">
+                            {allTasks?.length >= 5 &&
+                                allTasks?.length > 0 && <div className="d-flex align-items-center flex-wrap justify-content-between gap-3 mb-3">
+                                    <PaginationDropdown
+                                        onChange={(val) => {
+                                            setUserPerPages(val);
+                                            setCurrentPage(0);
+                                        }}
+                                    />
+                                    <ReactPagination
+                                        pageCount={Math.ceil(
+                                            allTasks.length / usersPerPage
+                                        )}
+                                        onPageChange={handlePageClick}
+                                        currentPage={currentPage}
+                                    />
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -643,6 +675,7 @@ const ScheduledMaintenance = () => {
                     </div>
                 </div>
             </div>
+
         </div >
     )
 }

@@ -7,6 +7,8 @@ import { AddSupplierSchema, UpdateSupplierSchema } from '../auth/Schema';
 import { addSupplierDetails, getSupplierData, updateSupplierDetails } from '../redux/actions/staffActions';
 import ErrorMessage from '../components/ErrorMessage';
 import Loader from '../components/Loader';
+import ReactPagination from '../layout/ReactPagination';
+import PaginationDropdown from '../layout/PaginationDropdown';
 
 const AllSupplier = () => {
     const { isLoading, supplier_data } = useSelector((state) => state?.staffReducer);
@@ -15,6 +17,17 @@ const AllSupplier = () => {
     const [searchData, setSearchData] = useState();
     const [allSupplierData, setAllSupplierData] = useState(supplier_data)
     const [supplierDetail, setSupplierDetail] = useState();
+    const [currentPage, setCurrentPage] = useState(0);
+    const [usersPerPage, setUserPerPages] = useState(5);
+
+    const displayUsers = supplier_data?.slice(
+        currentPage * usersPerPage,
+        (currentPage + 1) * usersPerPage
+    );
+
+    const handlePageClick = (data) => {
+        setCurrentPage(data.selected);
+    };
 
     const initialState = {
         company_name: '',
@@ -119,9 +132,9 @@ const AllSupplier = () => {
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                {allSupplierData?.length != 0 ?
+                                {displayUsers?.length != 0 ?
                                     <tbody>
-                                        {allSupplierData?.map((item, i) => (
+                                        {displayUsers?.map((item, i) => (
                                             <tr>
                                                 <td>{i + 1}</td>
                                                 <td>{item?.company_name ?? 'NA'}</td>
@@ -156,6 +169,25 @@ const AllSupplier = () => {
                                     </tfoot>
                                 }
                             </table>
+                        </div>
+                        <div className="mt-3">
+                            {supplier_data?.length >= 5 &&
+                                supplier_data?.length > 0 && <div className="d-flex align-items-center flex-wrap justify-content-between gap-3 mb-3">
+                                    <PaginationDropdown
+                                        onChange={(val) => {
+                                            setUserPerPages(val);
+                                            setCurrentPage(0);
+                                        }}
+                                    />
+                                    <ReactPagination
+                                        pageCount={Math.ceil(
+                                            supplier_data.length / usersPerPage
+                                        )}
+                                        onPageChange={handlePageClick}
+                                        currentPage={currentPage}
+                                    />
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -288,7 +320,7 @@ const AllSupplier = () => {
                                                     data-bs-dismiss={values?.email != '' && Object?.keys(errors)?.length == 0 && "modal"}
                                                 >
                                                     Submit
-                            </button>
+                                                </button>
                                             </div>
                                         </form>
                                     )}

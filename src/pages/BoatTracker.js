@@ -7,61 +7,46 @@ import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTaskByID } from '../redux/actions/maintainedBoatsActions';
 import Loader from '../components/Loader';
+import ReactPagination from '../layout/ReactPagination';
+import PaginationDropdown from '../layout/PaginationDropdown';
 
 const BoatTracker = () => {
     const navigate = useNavigate();
     const { state } = useLocation()
     const [isToggle, setIsToggle] = useState(false);
     const { isLoading1, allTasks_by_id } = useSelector((state) => state?.maintainedReducer);
-
     const dispatch = useDispatch()
+    const [isShow, setIsShow] = useState(false);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [usersPerPage, setUserPerPages] = useState(5);
+
+    const displayUsers = allTasks_by_id?.slice(
+        currentPage * usersPerPage,
+        (currentPage + 1) * usersPerPage
+    );
+
+    const handlePageClick = (data) => {
+        setCurrentPage(data.selected);
+    };
+
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
-    const [series, setSeries] = useState([]);
+    const [series, setSeries] = useState();
 
     const options = {
         chart: {
-            type: "rangeBar",
-            height: 500,
+            height: 350,
+            type: 'rangeBar'
         },
         plotOptions: {
             bar: {
-                horizontal: true,
-                barHeight: "15px",
-            },
+                horizontal: true
+            }
         },
         xaxis: {
-            type: "datetime",
-            labels: {
-                format: "dd-MM-yyyy",
-            },
-            title: {
-                text: "Date",
-            },
-        },
-        yaxis: {
-            title: {
-                text: "Tasks",
-            },
-        },
-        tooltip: {
-            shared: true,
-            intersect: false,
-            y: {
-                formatter: (val) => val,
-            },
-            x: {
-                format: "dd-MM-yyyy",
-            },
-        },
-        dataLabels: {
-            enabled: true,
-            formatter: (val) => `${new Date(val[0]).toLocaleDateString()} - ${new Date(val[1]).toLocaleDateString()}`,
-        },
-        grid: {
-            borderColor: "#f1f1f1",
-        },
+            type: 'datetime'
+        }
     };
 
     useEffect(() => {
@@ -69,15 +54,23 @@ const BoatTracker = () => {
     }, []);
 
     useEffect(() => {
-        let data12 = [];
-        state?.data?.Task.map((item) => (
-            data12?.push({
-                name: `${item?.id}`,
-                data: [{ x: `${item?.id}`, y: [new Date("2024-08-01").getTime(), new Date("2024-08-05").getTime()] }]
-            })
-        ))
-        setSeries(data12);
-    }, [])
+        if (allTasks_by_id?.length != 0) {
+            setIsShow(false)
+            let data12 = [];
+            allTasks_by_id.map((item, i) => (
+                data12?.push({
+                    x: `${item?.boat?.rego} ${i + 1}`,
+                    y: [new Date(new Date(item?.date_scheduled_from)).getTime(),
+                    new Date(new Date(item?.date_scheduled_to).setHours(23, 59, 59, 999)).getTime()
+                    ]
+                })
+            ))
+            setSeries([{
+                data: data12
+            }]);
+            setIsShow(true)
+        }
+    }, [allTasks_by_id])
 
     if (isLoading1) {
         return <Loader />
@@ -106,7 +99,7 @@ const BoatTracker = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        allTasks_by_id?.length != 0 && allTasks_by_id?.map((item, i) => (
+                                        displayUsers?.length != 0 && displayUsers?.map((item, i) => (
                                             <tr>
                                                 <td>{i + 1}</td>
                                                 <td>{item?.description ?? ''}</td>
@@ -120,9 +113,28 @@ const BoatTracker = () => {
                                 </tbody>
                             </table>
                         </div>
+                        <div className="mt-3">
+                            {allTasks_by_id?.length >= 5 &&
+                                allTasks_by_id?.length > 0 && <div className="d-flex align-items-center flex-wrap justify-content-between gap-3 mb-3">
+                                    <PaginationDropdown
+                                        onChange={(val) => {
+                                            setUserPerPages(val);
+                                            setCurrentPage(0);
+                                        }}
+                                    />
+                                    <ReactPagination
+                                        pageCount={Math.ceil(
+                                            allTasks_by_id.length / usersPerPage
+                                        )}
+                                        onPageChange={handlePageClick}
+                                        currentPage={currentPage}
+                                    />
+                                </div>
+                            }
+                        </div>
                         <div className="ct_white_bg_1">
-                            {series &&
-                                <Chart options={options} series={series} type="rangeBar" height={500} />
+                            {options && isShow == true &&
+                                <Chart options={options} series={series} type="rangeBar" height={350} />
                             }
                         </div>
                     </div>

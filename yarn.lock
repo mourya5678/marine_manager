@@ -7,6 +7,39 @@
   resolved "https://registry.npmjs.org/@adobe/css-tools/-/css-tools-4.4.0.tgz"
   integrity sha512-Ff9+ksdQQB3rMncgqDK78uLznstjyfIf2Arnh22pW8kBpLs6rpKDwgnZT46hin5Hl1WzazzK64DOrhSwYpS7bQ==
 
+"@ag-grid-community/core@32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-community/core/-/core-32.3.3.tgz"
+  integrity sha512-JMr5ahDjjl+pvQbBM1/VrfVFlioCVnMl1PKWc6MC1ENhpXT1+CPQdfhUEUw2VytOulQeQ4eeP0pFKPuBZ5Jn2g==
+  dependencies:
+    ag-charts-types "10.3.3"
+    tslib "^2.3.0"
+
+"@ag-grid-enterprise/charts@^32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/charts/-/charts-32.3.3.tgz"
+  integrity sha512-NXJef8LpQ6r7qv2ypxPMeStaqbhbvGZ9PXsMc1rRrMsQnbn5LO961rifbX8RtJSKTuCnbp/uZ6pIBu11zS8ang==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    "@ag-grid-enterprise/core" "32.3.3"
+    "@ag-grid-enterprise/range-selection" "32.3.3"
+    ag-charts-community "10.3.3"
+
+"@ag-grid-enterprise/core@32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/core/-/core-32.3.3.tgz"
+  integrity sha512-8qsBPIdx55qY1sqOpmaiSgYXZT5qRy6wScN2goaXDpffxkyTNiQgs6Iq0YdW4c6VJM4Ua87B0RuysOI925ZQ9A==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+
+"@ag-grid-enterprise/range-selection@32.3.3":
+  version "32.3.3"
+  resolved "https://registry.npmjs.org/@ag-grid-enterprise/range-selection/-/range-selection-32.3.3.tgz"
+  integrity sha512-az7vdldLbkSjIE0VlVDI1ig9V0+GPTNVu1+HkxL/fs/hYjBWtJW/DnVVXABvE9FsL4xbkmhIU14NhUEhufqgyw==
+  dependencies:
+    "@ag-grid-community/core" "32.3.3"
+    "@ag-grid-enterprise/core" "32.3.3"
+
 "@alloc/quick-lru@^5.2.0":
   version "5.2.0"
   resolved "https://registry.npmjs.org/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
@@ -2751,6 +2784,36 @@ adjust-sourcemap-loader@^4.0.0:
   dependencies:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
+
+ag-charts-community@10.3.3:
+  version "10.3.3"
+  resolved "https://registry.npmjs.org/ag-charts-community/-/ag-charts-community-10.3.3.tgz"
+  integrity sha512-LUlbVS+4sX1UHqZNuE9m3LISr7D4FEO/Y88fwit1fYPTk2l1ZJG/82gFnm5bQ+iG4QgNIwRa2TWm7w2MLnyJlA==
+  dependencies:
+    ag-charts-locale "10.3.3"
+    ag-charts-types "10.3.3"
+
+ag-charts-enterprise@^10.3.3:
+  version "10.3.3"
+  resolved "https://registry.npmjs.org/ag-charts-enterprise/-/ag-charts-enterprise-10.3.3.tgz"
+  integrity sha512-+RZCrgcRfSHdlHVtFlxpQ7h6Om4oB851/625Ujv8cloA1l6DTaBzijza8Vp8yj9XO2U8SCKGL+s3VkNDNtBO+A==
+  dependencies:
+    ag-charts-community "10.3.3"
+
+ag-charts-locale@10.3.3:
+  version "10.3.3"
+  resolved "https://registry.npmjs.org/ag-charts-locale/-/ag-charts-locale-10.3.3.tgz"
+  integrity sha512-+ZAQYhkFHbdEwLYP1jZeF44X/8wwSH6SNiTykEIIk6EUuP6mm45X2YfQ0bvyekTkEJlLvFspvRQ+C6mspwLx4w==
+
+ag-charts-react@^10.3.3:
+  version "10.3.3"
+  resolved "https://registry.npmjs.org/ag-charts-react/-/ag-charts-react-10.3.3.tgz"
+  integrity sha512-atsx6Bj/Kus307ls7rCTOnsBkscnOeqbqSqsVNIx3OR22OcAKbBnbgJYLMitTfLraA0BP/GAiqD9iygmHFohcg==
+
+ag-charts-types@10.3.3:
+  version "10.3.3"
+  resolved "https://registry.npmjs.org/ag-charts-types/-/ag-charts-types-10.3.3.tgz"
+  integrity sha512-8rmyquaTkwfP4Lzei/W/cbkq9wwEl8+grIo3z97mtxrMIXh9sHJK1oJipd/u08MmBZrca5Jjtn5F1+UNPu/4fQ==
 
 agent-base@6:
   version "6.0.2"
@@ -8209,7 +8272,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -8778,6 +8841,13 @@ react-overlays@^5.2.1:
     prop-types "^15.7.2"
     uncontrollable "^7.2.1"
     warning "^4.0.3"
+
+react-paginate@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/react-paginate/-/react-paginate-8.2.0.tgz#947c3dcb444a6c16c1bcf8361871aa135baa3dcd"
+  integrity sha512-sJCz1PW+9PNIjUSn919nlcRVuleN2YPoFBOvL+6TPgrH/3lwphqiSOgdrLafLdyLDxsgK+oSgviqacF4hxsDIw==
+  dependencies:
+    prop-types "^15"
 
 react-redux@^9.1.2:
   version "9.1.2"
@@ -10053,7 +10123,7 @@ tslib@^1.8.1:
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
 
-tslib@^2.0.0, tslib@^2.0.3:
+tslib@^2.0.0, tslib@^2.0.3, tslib@^2.3.0:
   version "2.7.0"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.7.0.tgz"
   integrity sha512-gLXCKdN1/j47AiHiOkJN69hJmcbGTHI0ImLmbYLHykhgeN0jVGola9yVjFgzCUklsZQMW55o+dW7IXv3RCXDzA==
