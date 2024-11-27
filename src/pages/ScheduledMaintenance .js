@@ -64,7 +64,7 @@ const ScheduledMaintenance = () => {
         const data = {
             description: values?.description,
             time_alloted: `${values?.time_alloted}`,
-            quoted_value: values?.quoted_value,
+            quoted_value: `${values?.quoted_value}`,
             boatId: values?.boatId,
             assignStaffId: values?.assignStaffId,
             supplierId: values?.supplierId,
@@ -88,7 +88,7 @@ const ScheduledMaintenance = () => {
             id: values.id,
             description: values?.description,
             time_alloted: `${values?.time_alloted}`,
-            quoted_value: values?.quoted_value,
+            quoted_value: `${values?.quoted_value}`,
             boatId: values?.boatId,
             assignStaffId: values?.assignStaffId,
             supplierId: values?.supplierId,
@@ -143,7 +143,7 @@ const ScheduledMaintenance = () => {
                                     <tr>
                                         <th>S.No.</th>
                                         <th className="ct_ff_roboto">Maintenance Item Description</th>
-                                        <th className="ct_ff_roboto">Boat registration</th>
+                                        <th className="ct_ff_roboto">Boat Registration</th>
                                         <th className="ct_ff_roboto">Supplier</th>
                                         <th className="ct_ff_roboto">Staff Allocated</th>
                                         <th className="ct_ff_roboto">Date Scheduled</th>
@@ -151,38 +151,50 @@ const ScheduledMaintenance = () => {
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {displayUsers?.length != 0 &&
-                                        displayUsers?.map((item, i) => (
-                                            <tr>
-                                                <td>{i + 1}</td>
-                                                <td>{item?.description ?? ''}</td>
-                                                <td>{item?.boat?.rego ?? ''}</td>
-                                                <td>{item?.supplier?.company_name ?? ''}</td>
-                                                <td>{item?.staff?.full_name ?? ''}</td>
-                                                <td>{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_from)}`}</td>
-                                                <td className="ct_fw_600">{item?.status == 1 ? 'Completed' : 'Active'}</td>
-                                                <td className="text-end ct_action_btns">
-                                                    {item?.status != 1 && <i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12" onClick={() => setTaskDetails({
-                                                        id: item?.id,
-                                                        boatId: item?.boatId,
-                                                        description: item?.description,
-                                                        time_alloted: item?.time_alloted,
-                                                        quoted_value: item?.quoted_value,
-                                                        assignStaffId: item?.assignStaffId,
-                                                        supplierId: item?.supplierId,
-                                                        date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
-                                                        date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
-                                                        completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
-                                                        status: item?.status,
-                                                        ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
-                                                    })}></i>
-                                                    }
-                                                </td>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
+                                {displayUsers?.length != 0 ?
+                                    <tbody>
+                                        {displayUsers?.length != 0 &&
+                                            displayUsers?.map((item, i) => (
+                                                <tr>
+                                                    <td>{i + 1}</td>
+                                                    <td>{item?.description ?? ''}</td>
+                                                    <td>{item?.boat?.rego ?? ''}</td>
+                                                    <td>{item?.supplier?.company_name ?? ''}</td>
+                                                    <td>{item?.staff?.full_name ?? ''}</td>
+                                                    <td>{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
+                                                    <td className="ct_fw_600">{item?.status == 1 ? 'Completed' : 'Active'}</td>
+                                                    <td className="text-end ct_action_btns">
+                                                        {item?.status != 1 && <i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12" onClick={() => setTaskDetails({
+                                                            id: item?.id,
+                                                            boatId: item?.boatId,
+                                                            description: item?.description,
+                                                            time_alloted: item?.time_alloted,
+                                                            quoted_value: item?.quoted_value,
+                                                            assignStaffId: item?.assignStaffId,
+                                                            supplierId: item?.supplierId,
+                                                            date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
+                                                            date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
+                                                            completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
+                                                            status: item?.status,
+                                                            ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
+                                                        })}></i>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        }
+                                    </tbody>
+                                    :
+                                    <tfoot>
+                                        <tr>
+                                            <td className="text-center bg-transparent border-0" colSpan="7">
+                                                <div className="text-center">
+                                                    <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">No Maintenance Found</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                }
                             </table>
                         </div>
                         <div className="mt-3">
@@ -300,8 +312,9 @@ const ScheduledMaintenance = () => {
                                                                 value={values.quoted_value}
                                                                 onBlur={handleBlur}
                                                                 onChange={handleChange}
-                                                                type="text"
+                                                                type="number"
                                                                 className="form-control"
+                                                                onWheel={() => document.activeElement.blur()}
                                                             />
                                                             <ErrorMessage
                                                                 errors={errors}
@@ -393,7 +406,7 @@ const ScheduledMaintenance = () => {
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="form-group mb-3">
-                                                            <label className="mb-1"><strong>completed_at </strong> <span className="ct_required_star">*</span></label>
+                                                            <label className="mb-1"><strong>Completed At </strong> <span className="ct_required_star">*</span></label>
                                                             <input
                                                                 id="completed_at"
                                                                 type="date"
@@ -401,6 +414,11 @@ const ScheduledMaintenance = () => {
                                                                 value={values.completed_at}
                                                                 onBlur={handleBlur}
                                                                 onChange={handleChange}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="completed_at"
                                                             />
                                                         </div>
                                                     </div>
@@ -535,8 +553,9 @@ const ScheduledMaintenance = () => {
                                                             value={values.quoted_value}
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
-                                                            type="text"
+                                                            type="number"
                                                             className="form-control"
+                                                            onWheel={() => document.activeElement.blur()}
                                                         />
                                                         <ErrorMessage
                                                             errors={errors}
@@ -628,7 +647,7 @@ const ScheduledMaintenance = () => {
                                                 </div>
                                                 <div className="col-md-6">
                                                     <div className="form-group mb-3">
-                                                        <label className="mb-1"><strong>completed_at </strong> <span className="ct_required_star">*</span></label>
+                                                        <label className="mb-1"><strong>Completed At </strong> <span className="ct_required_star">*</span></label>
                                                         <input
                                                             id="completed_at"
                                                             type="date"
@@ -636,6 +655,11 @@ const ScheduledMaintenance = () => {
                                                             value={values.completed_at}
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="completed_at"
                                                         />
                                                     </div>
                                                 </div>

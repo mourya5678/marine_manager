@@ -166,22 +166,37 @@ const LeadReceived = () => {
                                         <tr>
                                             <th>S.No.</th>
                                             <th className="ct_ff_roboto">Client Name</th>
-                                            <th className="ct_ff_roboto">Contact details</th>
+                                            <th className="ct_ff_roboto">Contact Number</th>
                                             <th>Task Completed</th>
+                                            <th>Date</th>
+
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {displayUsers2?.length != 0 &&
-                                            displayUsers2?.map((item, i) => (
-                                                <tr>
-                                                    <td className="ct_fw_600">{i + 1}</td>
-                                                    <td className="ct_fw_600">{item?.boat?.owners_name ?? ''}</td>
-                                                    <td className="ct_fw_600">{item?.boat?.phone_no ?? ''}</td>
-                                                    <td className="text-end ct_fw_600">{pipViewDate(item?.completed_at)}</td>
-                                                </tr>
-                                            ))
-                                        }
-                                    </tbody>
+                                    {displayUsers2?.length != 0 ?
+                                        <tbody>
+                                            {displayUsers2?.length != 0 &&
+                                                displayUsers2?.map((item, i) => (
+                                                    <tr>
+                                                        <td className="ct_fw_600">{i + 1}</td>
+                                                        <td className="ct_fw_600">{item?.boat?.owners_name ?? ''}</td>
+                                                        <td className="ct_fw_600">{item?.boat?.phone_no ?? ''}</td>
+                                                        <td className="ct_fw_600">{item?.description ?? ''}</td>
+                                                        <td className="text-end ct_fw_600">{pipViewDate(item?.completed_at)}</td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                        :
+                                        <tfoot>
+                                            <tr>
+                                                <td className="text-center bg-transparent border-0" colSpan="7">
+                                                    <div className="text-center">
+                                                        <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">Leads Not Found</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    }
                                 </table>
                             </div>
                             <div className="mt-3">

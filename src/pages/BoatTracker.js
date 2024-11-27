@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { pipViewDate4 } from '../auth/Pip';
+import { pipViewDate, pipViewDate4 } from '../auth/Pip';
 import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTaskByID } from '../redux/actions/maintainedBoatsActions';
@@ -57,12 +57,14 @@ const BoatTracker = () => {
         if (allTasks_by_id?.length != 0) {
             setIsShow(false)
             let data12 = [];
+            console.log({ allTasks_by_id }, "allTasks_by_id")
             allTasks_by_id.map((item, i) => (
                 data12?.push({
                     x: `${item?.boat?.rego} ${i + 1}`,
                     y: [new Date(new Date(item?.date_scheduled_from)).getTime(),
                     new Date(new Date(item?.date_scheduled_to).setHours(23, 59, 59, 999)).getTime()
-                    ]
+                    ],
+                    fillColor: item?.status == 1 ? "#060606" : "#305CDE"
                 })
             ))
             setSeries([{
@@ -91,26 +93,39 @@ const BoatTracker = () => {
                                     <tr>
                                         <th>S.No.</th>
                                         <th className="ct_ff_roboto">Maintenance Item Description</th>
-                                        <th className="ct_ff_roboto">Boat registration</th>
+                                        <th className="ct_ff_roboto">Boat Registration</th>
                                         <th className="ct_ff_roboto">Supplier</th>
                                         <th className="ct_ff_roboto">Date Scheduled</th>
-                                        <th className="ct_ff_roboto">User Allocated</th>
+                                        <th className="ct_ff_roboto">Staff Allocated</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {
-                                        displayUsers?.length != 0 && displayUsers?.map((item, i) => (
+                                {
+                                    displayUsers?.length != 0 ?
+                                        <tbody>
+                                            {
+                                                displayUsers?.length != 0 && displayUsers?.map((item, i) => (
+                                                    <tr>
+                                                        <td>{i + 1}</td>
+                                                        <td>{item?.description ?? ''}</td>
+                                                        <td>{item?.boat?.rego ?? ''}</td>
+                                                        <td>{item?.supplier?.company_name ?? ''}</td>
+                                                        <td className="ct_fw_600">{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
+                                                        <td className="text-end ct_fw_600">{item?.staff?.full_name ?? ''}</td>
+                                                    </tr>
+                                                ))
+                                            }
+                                        </tbody>
+                                        :
+                                        <tfoot>
                                             <tr>
-                                                <td>{i + 1}</td>
-                                                <td>{item?.description ?? ''}</td>
-                                                <td>{item?.boat?.rego ?? ''}</td>
-                                                <td>{item?.supplier?.company_name ?? ''}</td>
-                                                <td className="ct_fw_600">{`${pipViewDate4(item?.date_scheduled_from)} - ${pipViewDate4(item?.date_scheduled_to)}`}</td>
-                                                <td className="text-end ct_fw_600">{item?.staff?.full_name ?? ''}</td>
+                                                <td className="text-center bg-transparent border-0" colSpan="7">
+                                                    <div className="text-center">
+                                                        <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">Task Not Found</p>
+                                                    </div>
+                                                </td>
                                             </tr>
-                                        ))
-                                    }
-                                </tbody>
+                                        </tfoot>
+                                }
                             </table>
                         </div>
                         <div className="mt-3">

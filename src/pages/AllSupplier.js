@@ -14,13 +14,17 @@ const AllSupplier = () => {
     const { isLoading, supplier_data } = useSelector((state) => state?.staffReducer);
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
-    const [searchData, setSearchData] = useState();
+    const [searchData, setSearchData] = useState('');
     const [allSupplierData, setAllSupplierData] = useState(supplier_data)
     const [supplierDetail, setSupplierDetail] = useState();
     const [currentPage, setCurrentPage] = useState(0);
     const [usersPerPage, setUserPerPages] = useState(5);
 
-    const displayUsers = supplier_data?.slice(
+    const displayUsers = supplier_data?.filter((item) => {
+        return item?.company_name
+            ?.toLowerCase()
+            ?.includes(searchData?.toLowerCase())
+    }).slice(
         currentPage * usersPerPage,
         (currentPage + 1) * usersPerPage
     );
@@ -112,7 +116,7 @@ const AllSupplier = () => {
                                 <h4 className="mb-0 ct_fs_22">All Suppliers</h4>
                                 <div className="d-flex align-items-center gap-4">
                                     <div className="position-relative ct_search_input">
-                                        <input value={searchData} onChange={onHandleSearchData} type="text" className="form-control ct_flex_1 pe-5" placeholder="Search company name" />
+                                        <input value={searchData} onChange={(e) => setSearchData(e.target.value)} type="text" className="form-control ct_flex_1 pe-5" placeholder="Search company name" />
                                         <i className="fa-solid fa-magnifying-glass "></i>
                                     </div>
                                     <button className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item"
@@ -384,11 +388,6 @@ const AllSupplier = () => {
                                                                 type="text"
                                                                 className="form-control"
                                                                 readOnly
-                                                            />
-                                                            <ErrorMessage
-                                                                errors={errors}
-                                                                touched={touched}
-                                                                fieldName="company_name"
                                                             />
                                                         </div>
                                                     </div>

@@ -92,7 +92,7 @@ const Dashboard = () => {
                                     </div>
                                     <div className="ct_dash_card_info">
                                         <span>Quick Leads</span>
-                                        <h4>265</h4>
+                                        <h4>{dashBoardData?.leadCount ?? 0}</h4>
                                     </div>
                                 </div>
                             </div>

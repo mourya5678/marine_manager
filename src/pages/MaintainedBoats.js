@@ -55,25 +55,37 @@ const MaintainedBoats = () => {
                                 <thead>
                                     <tr>
                                         <th>S.No.</th>
-                                        <th className="ct_ff_roboto">Boat Registration No.</th>
+                                        <th className="ct_ff_roboto">Boat Registration</th>
                                         <th className="ct_ff_roboto">Last Serviced</th>
-                                        <th className="ct_ff_roboto">Owners Name</th>
+                                        <th className="ct_ff_roboto">Owner's Name</th>
                                         <th className="ct_ff_roboto">Email</th>
                                         <th className="ct_ff_roboto">Contact No.</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {displayUsers?.length != 0 && displayUsers?.map((item, i) => (
-                                        <tr className="ct_pointer_curser" onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
-                                            <td>{i + 1}</td>
-                                            <td>{item?.rego ?? ''}</td>
-                                            <td>{item?.lastServiceDate ? pipViewDate(item?.lastServiceDate) : ''}</td>
-                                            <td>{item?.owners_name ?? ''}</td>
-                                            <td className="ct_fw_600">{item?.email ?? ''}</td>
-                                            <td className="text-end ct_fw_600">{item?.phone_no ?? ''}</td>
+                                {displayUsers?.length != 0 ?
+                                    <tbody>
+                                        {displayUsers?.length != 0 && displayUsers?.map((item, i) => (
+                                            <tr className="ct_pointer_curser" onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
+                                                <td>{i + 1}</td>
+                                                <td>{item?.rego ?? ''}</td>
+                                                <td>{item?.lastServiceDate ? pipViewDate(item?.lastServiceDate) : 'OnGoing'}</td>
+                                                <td>{item?.owners_name ?? ''}</td>
+                                                <td className="ct_fw_600">{item?.email ?? ''}</td>
+                                                <td className="text-end ct_fw_600">{item?.phone_no ?? ''}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                    :
+                                    <tfoot>
+                                        <tr>
+                                            <td className="text-center bg-transparent border-0" colSpan="7">
+                                                <div className="text-center">
+                                                    <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">Maintained Boats Not Found</p>
+                                                </div>
+                                            </td>
                                         </tr>
-                                    ))}
-                                </tbody>
+                                    </tfoot>
+                                }
                             </table>
                         </div>
                         <div className="mt-3">

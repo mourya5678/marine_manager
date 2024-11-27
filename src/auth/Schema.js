@@ -266,14 +266,16 @@ export const AddLeadSchema = Yup.object().shape({
 });
 
 export const CreateTaskSchema = Yup.object().shape({
-    description: Yup.string().trim().required("Please enter description"),
+    description: Yup.string().trim().required("Please enter maintenance item description"),
     time_alloted: Yup.string().trim()
-        .min(1, "Time alloted must be at least 1 character long")
-        .max(5, "Time alloted must be at most 4 characters long")
-        .required("Please enter time alloted"),
-    quoted_value: Yup.string().trim().required("Please enter quoted value"),
+        .min(1, "Time allocated must be at least 1 character long")
+        .max(5, "Time allocated must be at most 5 characters long")
+        .required("Please enter time allocated"),
+    quoted_value: Yup.string().trim()
+        .min(1, "Quoted value must be at least 1 character long")
+        .max(5, "Quoted value must be at most 5 characters long").required("Please enter quoted value"),
     boatId: Yup.string().trim().required("Please select boat registration"),
-    assignStaffId: Yup.string().trim().required("Please select staff"),
+    assignStaffId: Yup.string().trim().required("Please select staff member"),
     supplierId: Yup.string().trim().required("Please select supplier"),
     date_scheduled_from: Yup.date()
         .required("Please select scheduled from")
@@ -281,5 +283,8 @@ export const CreateTaskSchema = Yup.object().shape({
     date_scheduled_to: Yup.date()
         .required("Please select scheduled to")
         .min(Yup.ref('date_scheduled_from'), "End date must be the same as or later than the scheduled from date.")
-        .typeError("Please select valid date")
+        .typeError("Please select valid date"),
+    completed_at: Yup.date()
+        .min(Yup.ref('date_scheduled_from'), "Completed At must be the same as or later than the scheduled from date.")
+        .typeError("Please select valid date"),
 });
