@@ -16,3 +16,18 @@
   font-size: 13px;
   cursor: pointer;
 }
+
+.ct_graph_legend {
+  width: 10px;
+  height: 10px;
+  border-radius: 100px;
+  display: block;
+}
+
+.ct_complete_graph_clr {
+  background-color: #6929FF;
+}
+
+.ct_inprogress_graph_clr {
+  background-color: #ffb429;
+}

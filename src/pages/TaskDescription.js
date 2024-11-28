@@ -40,7 +40,7 @@ const TaskDescription = () => {
                                 <a href="javascription:void(0)" onClick={() => navigate(-1)} className="text-dark"><i className="fa-solid fa-arrow-left"></i></a>
                                 <div>
                                     <h4 className="ct_fs_24 text-start ct_fw_700 mb-1 ">Complete Maintenance Details</h4>
-                                    <p className="mb-0 ct_ff_roboto ct_text_op_5 ct_fw_500">{state?.data?.rego ?? ''}</p>
+                                    <p className="mb-0 ct_ff_roboto ct_fs_16 ct_fw_600 mt-3">{state?.data?.rego ?? ''}</p>
                                 </div>
                             </div>
                             <form>
@@ -54,13 +54,13 @@ const TaskDescription = () => {
                                                         <td className="px-2">
                                                             <div className="form-group">
                                                                 <label for="" className="mb-2 ct_fw_600">Task Description <span className="ct_required_star">*</span></label>
-                                                                <input type="text" value={item?.description ?? ''} className="form-control" disabled />
+                                                                <textarea value={item?.description ?? ''} className="form-control" readOnly />
                                                             </div>
                                                         </td>
                                                         <td className="px-2">
                                                             <div className="form-group">
                                                                 <label for="" className="mb-2 ct_fw_600">Date Completed <span className="ct_required_star">*</span></label>
-                                                                <input type="text" className="form-control" value={pipViewDate(item?.completed_at)} disabled />
+                                                                <input type="text" className="form-control" value={pipViewDate(item?.completed_at)} readOnly />
                                                             </div>
                                                         </td>
                                                     </tr>

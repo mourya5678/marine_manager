@@ -19,6 +19,7 @@ const BoatTracker = () => {
     const [isShow, setIsShow] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
     const [usersPerPage, setUserPerPages] = useState(5);
+    const [taskDetails, setTaskDetails] = useState();
 
     const displayUsers = allTasks_by_id?.slice(
         currentPage * usersPerPage,
@@ -64,7 +65,7 @@ const BoatTracker = () => {
                     y: [new Date(new Date(item?.date_scheduled_from)).getTime(),
                     new Date(new Date(item?.date_scheduled_to).setHours(23, 59, 59, 999)).getTime()
                     ],
-                    fillColor: item?.status == 1 ? "#060606" : "#305CDE"
+                    fillColor: item?.status == 1 ? "#6929FF" : "#ffb429"
                 })
             ))
             setSeries([{
@@ -97,6 +98,7 @@ const BoatTracker = () => {
                                         <th className="ct_ff_roboto">Supplier</th>
                                         <th className="ct_ff_roboto">Date Scheduled</th>
                                         <th className="ct_ff_roboto">Staff Allocated</th>
+                                        <th className="ct_ff_roboto">Action</th>
                                     </tr>
                                 </thead>
                                 {
@@ -106,11 +108,24 @@ const BoatTracker = () => {
                                                 displayUsers?.length != 0 && displayUsers?.map((item, i) => (
                                                     <tr>
                                                         <td>{i + 1}</td>
-                                                        <td>{item?.description ?? ''}</td>
+                                                        <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 && "..."}` : ''}</td>
                                                         <td>{item?.boat?.rego ?? ''}</td>
                                                         <td>{item?.supplier?.company_name ?? ''}</td>
                                                         <td className="ct_fw_600">{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
-                                                        <td className="text-end ct_fw_600">{item?.staff?.full_name ?? ''}</td>
+                                                        <td className="ct_fw_600">{item?.staff?.full_name ?? ''}</td>
+                                                        <td className="text-end ct_fw_600">
+                                                            <i className="fa-solid fa-eye me-2"
+                                                                onClick={() => setTaskDetails({
+                                                                    description: item?.description,
+                                                                    rego: item?.boat?.rego,
+                                                                    company_name: item?.supplier?.company_name,
+                                                                    staff: item?.staff?.full_name,
+                                                                    date_scheduled_from: item?.date_scheduled_from,
+                                                                    date_scheduled_to: item?.date_scheduled_to
+                                                                })}
+                                                                data-bs-toggle="modal" data-bs-target="#ct_view_task12"
+                                                            ></i>
+                                                        </td>
                                                     </tr>
                                                 ))
                                             }
@@ -148,6 +163,10 @@ const BoatTracker = () => {
                             }
                         </div>
                         <div className="ct_white_bg_1">
+                            <div className='d-flex align-items-center gap-2'>
+                                <p className='mb-0 d-flex align-items-center gap-2'>Completed: <span className='ct_graph_legend ct_complete_graph_clr'></span></p>
+                                <p className='mb-0 d-flex align-items-center gap-2'>Ongoing: <span className='ct_graph_legend ct_inprogress_graph_clr'></span></p>
+                            </div>
                             {options && isShow == true &&
                                 <Chart options={options} series={series} type="rangeBar" height={350} />
                             }
@@ -155,6 +174,82 @@ const BoatTracker = () => {
                     </div>
                 </div>
             </div>
+
+            <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Maintenance Task Details</strong></h4>
+                                {taskDetails &&
+                                    <form>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
+                                                    <textarea
+                                                        value={taskDetails.description}
+                                                        className="form-control"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Boat Registration</strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        type="text"
+                                                        id="time_alloted"
+                                                        className="form-control"
+                                                        value={taskDetails.rego}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Supplier</strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        id="quoted_value"
+                                                        value={taskDetails.company_name}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Staff Allocated	</strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        id="quoted_value"
+                                                        value={taskDetails.staff}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Date Scheduled	</strong> <span className="ct_required_star">*</span></label>
+                                                    <p>{pipViewDate(taskDetails?.date_scheduled_from)}{" "}-{" "}{pipViewDate(taskDetails?.date_scheduled_to)}</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="modal-footer justify-content-center border-0">
+                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal"
+                                                    onClick={() => setTaskDetails()}
+                                                >Close</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div >
     )
 }
