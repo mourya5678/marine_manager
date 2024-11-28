@@ -31,3 +31,105 @@
 .ct_inprogress_graph_clr {
   background-color: #ffb429;
 }
+
+/* page not found css start */
+
+.ct_page_not_found_bg {
+  background-color: #e7ffff;
+  height: 100vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.wrapper.ct_main_dashboard.topbar_open nav.navbar {
+  margin-top: 76px;
+}
+
+.ct_page_not_found_section {
+  padding: 4rem 2rem;
+}
+
+.ct_page_not_found_section .ct_page_not_found_error {
+  font-size: 150px;
+  color: #008b62;
+  text-shadow: 1px 1px 1px #00593e, 2px 2px 1px #00593e, 3px 3px 1px #00593e,
+    4px 4px 1px #00593e, 5px 5px 1px #00593e, 6px 6px 1px #00593e,
+    7px 7px 1px #00593e, 8px 8px 1px #00593e, 25px 25px 8px rgba(0, 0, 0, 0.2);
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 40px;
+}
+
+.ct_page_not_found_page {
+  margin: 2rem 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #444;
+  font-family: "Roboto", sans-serif;
+}
+
+.back-home {
+  display: inline-block;
+  border: 2px solid #222;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.75rem 1rem 0.6rem;
+  transition: all 0.2s linear;
+  box-shadow: 0 15px 15px -11px rgba(0, 0, 0, 0.4);
+  background: #222;
+  border-radius: 6px;
+}
+
+.back-home:hover {
+  background: #222;
+  color: #ddd;
+}
+
+.ct_pointer_curser {
+  cursor: pointer;
+}
+
+.ct_small_num_box.ct_mx_0 {
+  margin-inline: 0px !important;
+}
+
+.ct_fs_16 {
+  font-size: 16px;
+}
+
+.ct_back_btn {
+  color: #000;
+  transition: 0.4s ease all;
+  font-size: 18px;
+}
+
+.ct_line_height_0 {
+  line-height: 0px;
+}
+
+.ct_custom_table th {
+  background-color: transparent;
+  border-bottom: 0px;
+  background-color: #1f2430;
+  color: #fff;
+  padding: 15px 15px;
+  white-space: nowrap;
+  text-align: center;
+  text-align: start;
+}
+
+.ct_custom_table td {
+  text-align: start;
+}
+
+.ct_custom_table th:first-child {
+  border-radius: 10px 0px 0px 10px;
+}
+
+.ct_custom_table th:last-child {
+  border-radius: 0px 10px 10px 0px;
+}
+
+/* page not found css end */

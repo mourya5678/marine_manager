@@ -29,6 +29,7 @@ import UpdateDocsks from "../pages/UpdateDocsks";
 
 export const pageRoutes = {
     dashboard: '/',
+    page_not_found: '*',
     login: '/login',
     signup: '/signup',
     forgot_password: '/forgot-password',

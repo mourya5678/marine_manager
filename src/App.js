@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ForgotPassword from "./pages/ForgotPassword";
 import './App.css';
+import PageNotFound from "./layout/PageNotFound";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path={pageRoutes.login} exact element={<Login />} />
         <Route path={pageRoutes.signup} exact element={<SignUp />} />
         <Route path={pageRoutes.forgot_password} exact element={<ForgotPassword />} />
+        <Route path={pageRoutes.page_not_found} exact element={<PageNotFound />} />
       </Routes>
     </div>
   );
