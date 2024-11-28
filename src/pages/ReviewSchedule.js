@@ -76,13 +76,14 @@ const ReviewSchedule = () => {
                                             <h4 class="ct_ff_roboto ct_fw_600 ct_fs_16 mb-0">All Boats</h4>
                                         </div>
                                         <ul class="mt-4">
-                                            {boatTaskData?.length != 0 &&
+                                            {boatTaskData?.length != 0 ?
                                                 boatTaskData?.map((item) => (
                                                     <li>
                                                         <p class="mb-0 ct_fs_14 ct_fw_600 d-flex align-items-center gap-1 ct_orange_text ct_text_decoration_none ct_fw_600"><span class="ct_event_dot ct_dot_clr"></span>{item?.rego}</p>
                                                         <a href="javascript:void(0)"><p class="mb-0 ct_fs_14 ct_fw_600" onClick={() => handleViewBoatTask(item)}>View</p></a>
                                                     </li>
                                                 ))
+                                                : "No boat found"
                                             }
                                         </ul>
                                     </div>

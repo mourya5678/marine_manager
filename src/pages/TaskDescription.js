@@ -14,7 +14,9 @@ const TaskDescription = () => {
     const { state } = useLocation();
     const [isToggle, setIsToggle] = useState(false);
     const { isLoading1, allTasks_by_id } = useSelector((state) => state?.maintainedReducer);
-
+    const displayUsers = allTasks_by_id?.filter((item) => (
+        item?.status == 1 && item
+    ));
 
     const onHandleClick = () => {
         setIsToggle(!isToggle);
@@ -24,7 +26,6 @@ const TaskDescription = () => {
         dispatch(getAllTaskByID({ payload: state?.data?.id }))
     }, []);
 
-    console.log(state?.data)
     if (isLoading1) {
         return <Loader />
     }
@@ -47,8 +48,9 @@ const TaskDescription = () => {
                                 <div className="ct_purchase_form mt-4">
                                     <div className="ct_multiple_purchase_line">
                                         <table className="table">
-                                            {allTasks_by_id?.length != 0 &&
-                                                allTasks_by_id?.map((item, i) => (
+                                            {displayUsers?.length != 0 ?
+                                                displayUsers?.length != 0 &&
+                                                displayUsers?.map((item, i) => (
                                                     item?.status == 1 &&
                                                     <tr>
                                                         <td className="px-2">
@@ -65,6 +67,16 @@ const TaskDescription = () => {
                                                         </td>
                                                     </tr>
                                                 ))
+                                                :
+                                                <tfoot>
+                                                    <tr>
+                                                        <td className="text-center bg-transparent border-0" colSpan="7">
+                                                            <div className="text-center">
+                                                                <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">Task not completed yet</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
                                             }
                                         </table>
                                     </div>

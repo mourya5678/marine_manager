@@ -108,7 +108,7 @@ const BoatTracker = () => {
                                                 displayUsers?.length != 0 && displayUsers?.map((item, i) => (
                                                     <tr>
                                                         <td>{i + 1}</td>
-                                                        <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 && "..."}` : ''}</td>
+                                                        <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length > 28 && "..."}` : ''}</td>
                                                         <td>{item?.boat?.rego ?? ''}</td>
                                                         <td>{item?.supplier?.company_name ?? ''}</td>
                                                         <td className="ct_fw_600">{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>

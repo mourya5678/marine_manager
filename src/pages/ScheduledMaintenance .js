@@ -120,14 +120,16 @@ const ScheduledMaintenance = () => {
                             <div className="ct_grid_3_1">
                                 <div className="ct_dark_grey_bg">
                                     <div className="ct_btn_group">
-                                        <select className="form-control ct_input_h_44">
-                                            {
-                                                boatTaskData?.length != 0 &&
-                                                boatTaskData?.map((item, i) => (
-                                                    <option value={item?.id}>{item?.rego}</option>
-                                                ))
-                                            }
-                                        </select>
+                                        {boatTaskData?.length != 0 &&
+                                            <select className="form-control ct_input_h_44">
+                                                {
+                                                    boatTaskData?.length != 0 &&
+                                                    boatTaskData?.map((item, i) => (
+                                                        <option value={item?.id}>{item?.rego}</option>
+                                                    ))
+                                                }
+                                            </select>
+                                        }
                                         <a href="javascript:void(0)" onClick={() => navigate(pageRoutes.task_review)} className=" w-100 ct_white_space_nowrap ct_input_h_44 ct_custom_btm ct_line_height_22 " style={{ paddingBlock: "12px" }}>Generate Invoice</a>
                                     </div>
                                 </div>

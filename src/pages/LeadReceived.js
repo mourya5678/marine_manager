@@ -113,28 +113,40 @@ const LeadReceived = () => {
                                         <th className="ct_ff_roboto">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {displayUsers?.length != 0 && displayUsers?.map((item, i) => (
+                                {displayUsers?.length != 0 ?
+                                    <tbody>
+                                        {displayUsers?.length != 0 && displayUsers?.map((item, i) => (
+                                            <tr>
+                                                <td className="ct_fw_600">{i + 1}</td>
+                                                <td className="ct_fw_600">{item?.client_name ?? ''}</td>
+                                                <td className="ct_fw_600">{item?.client_contact_number ?? ''}</td>
+                                                <td className="ct_fw_600">{item?.status == 0 ? "Open" : item?.status == 1 ? "Actioned" : item?.status == 2 && "Contacted"}</td>
+                                                <td className="text-end ct_fw_600">
+                                                    <a href="javascript:void(0)"><i className="fa-solid fa-pen"
+                                                        onClick={() => setLeadDetails({
+                                                            id: item?.id,
+                                                            client_name: item?.client_name,
+                                                            client_contact_number: item?.client_contact_number,
+                                                            status: item?.status
+                                                        })}
+                                                        data-bs-toggle="modal" data-bs-target="#ct_update_lead"
+                                                    ></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                    :
+                                    <tfoot>
                                         <tr>
-                                            <td className="ct_fw_600">{i + 1}</td>
-                                            <td className="ct_fw_600">{item?.client_name ?? ''}</td>
-                                            <td className="ct_fw_600">{item?.client_contact_number ?? ''}</td>
-                                            <td className="ct_fw_600">{item?.status == 0 ? "Open" : item?.status == 1 ? "Actioned" : item?.status == 2 && "Contacted"}</td>
-                                            <td className="text-end ct_fw_600">
-                                                <a href="javascript:void(0)"><i className="fa-solid fa-pen"
-                                                    onClick={() => setLeadDetails({
-                                                        id: item?.id,
-                                                        client_name: item?.client_name,
-                                                        client_contact_number: item?.client_contact_number,
-                                                        status: item?.status
-                                                    })}
-                                                    data-bs-toggle="modal" data-bs-target="#ct_update_lead"
-                                                ></i>
-                                                </a>
+                                            <td className="text-center bg-transparent border-0" colSpan="7">
+                                                <div className="text-center">
+                                                    <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">Leads Not Found</p>
+                                                </div>
                                             </td>
                                         </tr>
-                                    ))}
-                                </tbody>
+                                    </tfoot>
+                                }
                             </table>
                         </div>
                         <div className="mt-3">
@@ -191,7 +203,7 @@ const LeadReceived = () => {
                                             <tr>
                                                 <td className="text-center bg-transparent border-0" colSpan="7">
                                                     <div className="text-center">
-                                                        <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">Leads Not Found</p>
+                                                        <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">No Upcoming Business Reminder</p>
                                                     </div>
                                                 </td>
                                             </tr>
