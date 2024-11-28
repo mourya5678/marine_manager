@@ -105,7 +105,7 @@ const Dashboard = () => {
                                 {dashBoardData?.boatsUnderMaintanence?.length != 0 ? dashBoardData?.boatsUnderMaintanence?.slice(0, 5)?.map((item, i) => (
                                     <div className="col-lg-3 col-md-6 mb-4">
                                         <a href="javascript:void(0)" className="text-dark"
-                                            onClick={() => navigate(pageRoutes.boat_tracer)}>
+                                            onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
                                             <div className="ct_light_shadow_card">
                                                 <p className="mb-2 ct_fs_18 ct_fw_700">No. {i + 1}</p>
                                                 <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""

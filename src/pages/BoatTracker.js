@@ -55,24 +55,22 @@ const BoatTracker = () => {
     }, []);
 
     useEffect(() => {
-        if (allTasks_by_id?.length != 0) {
-            setIsShow(false)
-            let data12 = [];
-            console.log({ allTasks_by_id }, "allTasks_by_id")
-            allTasks_by_id.map((item, i) => (
-                data12?.push({
-                    x: `${item?.boat?.rego} ${i + 1}`,
-                    y: [new Date(new Date(item?.date_scheduled_from)).getTime(),
-                    new Date(new Date(item?.date_scheduled_to).setHours(23, 59, 59, 999)).getTime()
-                    ],
-                    fillColor: item?.status == 1 ? "#6929FF" : "#ffb429"
-                })
-            ))
-            setSeries([{
-                data: data12
-            }]);
-            setIsShow(true)
-        }
+        setIsShow(false)
+        let data12 = [];
+        console.log({ allTasks_by_id }, "allTasks_by_id")
+        allTasks_by_id.map((item, i) => (
+            data12?.push({
+                x: `${item?.boat?.rego} ${i + 1}`,
+                y: [new Date(new Date(item?.date_scheduled_from)).getTime(),
+                new Date(new Date(item?.date_scheduled_to).setHours(23, 59, 59, 999)).getTime()
+                ],
+                fillColor: item?.status == 1 ? "#6929FF" : "#ffb429"
+            })
+        ))
+        setSeries([{
+            data: data12
+        }]);
+        setIsShow(true)
     }, [allTasks_by_id])
 
     if (isLoading1) {
