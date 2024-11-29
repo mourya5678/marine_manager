@@ -60,7 +60,7 @@ const BoatTracker = () => {
         console.log({ allTasks_by_id }, "allTasks_by_id")
         allTasks_by_id.map((item, i) => (
             data12?.push({
-                x: `${item?.boat?.rego} ${i + 1}`,
+                x: `${item?.description?.slice(0, 20)} ${i + 1}`,
                 y: [new Date(new Date(item?.date_scheduled_from)).getTime(),
                 new Date(new Date(item?.date_scheduled_to).setHours(23, 59, 59, 999)).getTime()
                 ],
