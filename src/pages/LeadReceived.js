@@ -170,7 +170,7 @@ const LeadReceived = () => {
                         </div>
                         <div className="mt-4">
                             <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap">
-                                <h4 className="mb-0 ct_fs_24 ct_fw_600">Recouring Business Reminder </h4>
+                                <h4 className="mb-0 ct_fs_24 ct_fw_600">Recurring Business Reminder </h4>
                             </div>
                             <div className="table-responsive mt-3">
                                 <table className="table ct_project_table ct_custom_table_main">
