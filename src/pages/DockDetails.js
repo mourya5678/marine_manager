@@ -13,7 +13,6 @@ const DockDetails = () => {
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
-    console.log({ state }, "state");
 
     return (
         <div className="ct_dashbaord_bg">

@@ -270,10 +270,10 @@ export const CreateTaskSchema = Yup.object().shape({
     time_alloted: Yup.string().trim()
         .min(1, "Time allocated must be at least 1 character long")
         .max(5, "Time allocated must be at most 5 characters long")
-        .required("Please enter time allocated"),
+        .required("Please enter time allocated").test('not-zero', 'Time allocated cannot be zero', value => value !== '0'),
     quoted_value: Yup.string().trim()
         .min(1, "Quoted value must be at least 1 character long")
-        .max(5, "Quoted value must be at most 5 characters long").required("Please enter quoted value"),
+        .max(5, "Quoted value must be at most 5 characters long").required("Please enter quoted value").test('not-zero', 'Quoted value cannot be zero', value => value !== '0'),
     boatId: Yup.string().trim().required("Please select boat registration"),
     assignStaffId: Yup.string().trim().required("Please select staff member"),
     supplierId: Yup.string().trim().required("Please select supplier"),

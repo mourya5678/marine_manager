@@ -62,7 +62,7 @@ const ScheduledMaintenance = () => {
             if (response.success) dispatch(getAllTask());;
         };
         const data = {
-            description: values?.description,
+            description: values?.description?.trim(),
             time_alloted: `${values?.time_alloted}`,
             quoted_value: `${values?.quoted_value}`,
             boatId: values?.boatId,
@@ -86,7 +86,7 @@ const ScheduledMaintenance = () => {
         };
         const data = {
             id: values.id,
-            description: values?.description,
+            description: values?.description?.trim(),
             time_alloted: `${values?.time_alloted}`,
             quoted_value: `${values?.quoted_value}`,
             boatId: values?.boatId,
@@ -159,7 +159,7 @@ const ScheduledMaintenance = () => {
                                             displayUsers?.map((item, i) => (
                                                 <tr>{console.log(item?.description?.length, "item?.description")}
                                                     <td>{i + 1}</td>
-                                                    <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 && "..."}` : ''}</td>
+                                                    <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 ? "..." : ""}` : ''}</td>
                                                     <td>{item?.boat?.rego ?? ''}</td>
                                                     <td>{item?.supplier?.company_name ?? ''}</td>
                                                     <td>{item?.staff?.full_name ?? ''}</td>
@@ -288,7 +288,7 @@ const ScheduledMaintenance = () => {
                                                     <div className="col-md-12">
                                                         <div className="form-group mb-3">
                                                             <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
-                                                            <input
+                                                            <textarea
                                                                 id="description"
                                                                 value={values.description}
                                                                 onBlur={handleBlur}
@@ -532,7 +532,7 @@ const ScheduledMaintenance = () => {
                                                 <div className="col-md-12">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
-                                                        <input
+                                                        <textarea
                                                             id="description"
                                                             value={values.description}
                                                             onBlur={handleBlur}

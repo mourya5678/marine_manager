@@ -17,13 +17,13 @@ const BoatDocks = () => {
     const [filterByDate, setFilterByDate] = useState();
     const onHandleClick = () => {
         setIsToggle(!isToggle);
-    }
+    };
 
     const displayBoatData = all_docks?.filter((item) => {
         const filterDatass = filterData ? item?.name?.toLowerCase()?.includes(filterData?.toLowerCase()) : true;
         const dateMatch = filterByDate ? pipViewDate4(item?.book_to) == filterByDate : true;
         return filterDatass && dateMatch;
-    })
+    });
 
     useEffect(() => {
         dispatch(getDockData());

@@ -58,7 +58,7 @@ const UpdateBoatDetails = () => {
         formData.append('make', values.make.trim());
         formData.append('rego', values.rego.trim());
         formData.append('model', values.model.trim());
-        formData.append('email', values.email);
+        formData.append('email', values.email?.trim());
         formData.append('length', values.length);
         formData.append('book_to', values.book_to);
         formData.append('app_date', values.app_date);
@@ -352,7 +352,6 @@ const UpdateBoatDetails = () => {
                                                         onChange={handleChange}
                                                         onKeyDown={(e) => e.preventDefault()}
                                                         type="date"
-                                                        onKeyDown={(e) => e.preventDefault()}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         className="form-control"
                                                     />
@@ -376,7 +375,6 @@ const UpdateBoatDetails = () => {
                                                         onChange={handleChange}
                                                         onKeyDown={(e) => e.preventDefault()}
                                                         type="date"
-                                                        onKeyDown={(e) => e.preventDefault()}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         className="form-control"
                                                     />
@@ -457,7 +455,6 @@ const UpdateBoatDetails = () => {
                                                     <label className="ct_file_upload">
                                                         <input
                                                             type="file"
-                                                            id="name"
                                                             onChange={onHandleImageChange}
                                                             id="ct_file_upload1"
                                                             className="d-none"

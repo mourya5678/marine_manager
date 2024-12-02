@@ -38,7 +38,7 @@ const SignUp = () => {
             first_name: values?.first_name.trim(),
             last_name: values?.last_name?.trim(),
             company_name: values?.company_name.trim(),
-            email: values?.email,
+            email: values?.email?.trim(),
             phone_no: values?.phone_no,
             password: values?.password,
             confirm_password: values?.confirm_password,
@@ -225,7 +225,7 @@ const SignUp = () => {
                                                         <label for="ct_checkbox_cbx" className="ct_checkbox_cbx"></label>
                                                     </div>
                                                     <p className="mb-0">I am a company that gives permission to create a account for and for Marine Managerto collect,
-                                                    use and disclose the information about my as set forth in the Terms of Use and Privacy Policy.
+                                                        use and disclose the information about my as set forth in the Terms of Use and Privacy Policy.
                                                     </p>
                                                 </div>
                                             </div>

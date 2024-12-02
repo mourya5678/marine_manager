@@ -47,12 +47,12 @@ const CreateBoat = () => {
         };
         if (avatar_url) {
             const formData = new FormData();
-            formData.append('vin', values.vin.trim());
-            formData.append('name', values.name.trim());
-            formData.append('make', values.make.trim());
-            formData.append('rego', values.rego.trim());
-            formData.append('model', values.model.trim());
-            formData.append('email', values.email);
+            formData.append('vin', values.vin?.trim());
+            formData.append('name', values.name?.trim());
+            formData.append('make', values.make?.trim());
+            formData.append('rego', values.rego?.trim());
+            formData.append('model', values.model?.trim());
+            formData.append('email', values.email?.trim());
             formData.append('length', values.length);
             formData.append('book_to', values.book_to);
             formData.append('app_date', values.app_date);
