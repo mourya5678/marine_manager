@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { pipViewDate, pipViewDate4 } from '../auth/Pip';
+import { pipViewDate } from '../auth/Pip';
 import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTaskByID } from '../redux/actions/maintainedBoatsActions';
@@ -36,9 +36,13 @@ const BoatTracker = () => {
     const [series, setSeries] = useState();
 
     const options = {
+
         chart: {
             height: 350,
-            type: 'rangeBar'
+            type: 'rangeBar',
+            toolbar: {
+                show: false,
+            },
         },
         plotOptions: {
             bar: {
