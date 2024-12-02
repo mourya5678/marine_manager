@@ -110,7 +110,7 @@ const BoatDetails = () => {
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">When adding a new boat through the app</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Boat profile created date</p>
                                         <p className="ct_fs_16 mb-2">{state?.data?.app_date && pipViewDate(state?.data?.app_date)}</p>
                                     </div>
                                 </div>

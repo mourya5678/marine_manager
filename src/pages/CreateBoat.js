@@ -320,7 +320,7 @@ const CreateBoat = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>When adding a new boat through the app</strong>
+                                                    ><strong>Boat profile created date</strong>
                                                         {/* <span className="ct_required_star">*</span> */}
                                                     </label>
                                                     <input
