@@ -141,7 +141,7 @@ const LeadReceived = () => {
                                         <tr>
                                             <td className="text-center bg-transparent border-0" colSpan="7">
                                                 <div className="text-center">
-                                                    <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">Leads not found</p>
+                                                    <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">Leads not found</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -203,7 +203,7 @@ const LeadReceived = () => {
                                             <tr>
                                                 <td className="text-center bg-transparent border-0" colSpan="7">
                                                     <div className="text-center">
-                                                        <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">No upcoming business reminder</p>
+                                                        <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">No upcoming business reminder</p>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -146,7 +146,7 @@ const CreateStaff = () => {
                                             <tr>
                                                 <td className="text-center bg-transparent border-0" colSpan="7">
                                                     <div className="text-center">
-                                                        <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">No staff member found</p>
+                                                        <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">No staff member found</p>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -177,6 +177,7 @@ const CreateStaff = () => {
                     </div>
                 </div>
             </div>
+
             <div className="modal fade Committed_Price" id="ct_add_member" tabindex="-1" aria-labelledby="ct_add_memberLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
@@ -601,7 +602,6 @@ const CreateStaff = () => {
                     </div>
                 </div>
             </div>
-
 
         </div >
     )
