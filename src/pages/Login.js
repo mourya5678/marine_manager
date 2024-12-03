@@ -29,7 +29,6 @@ const Login = () => {
             Cookies.set('admin_user_password', values?.password, { expires: 365 });
         }
         const callback = (response) => {
-            console.log({ response }, "response")
             if (response.success) {
                 navigate(pageRoutes.dashboard);
             }

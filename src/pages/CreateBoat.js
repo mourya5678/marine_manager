@@ -71,7 +71,6 @@ const CreateBoat = () => {
     };
 
     const onHandleImageChange = (e) => {
-        console.log(e.target.files[0]);
         setAvtarUrl(e.target.files[0]);
         setAvtarUrlError();
     };

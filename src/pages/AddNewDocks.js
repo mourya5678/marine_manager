@@ -41,7 +41,6 @@ const AddNewDocks = () => {
         const callback = (response) => {
             if (response.success) navigate(pageRoutes.boat_docks);
         };
-        console.log("values?.boatId", values?.boatId);
         const data = {
             name: values?.name.trim(),
             email: values?.email.trim(),

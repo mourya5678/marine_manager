@@ -45,7 +45,6 @@ const UpdateBoatDetails = () => {
         setAvtarUrl(e.target.files[0]);
     };
 
-    console.log(state?.data, "state?.data", state?.data?.docking_date);
     const createBoatData = async (values, { setSubmitting }) => {
         setSubmitting(false);
         const callback = (response) => {

@@ -155,7 +155,6 @@ const UpdateBusinessProfile = () => {
             const data = profileData?.InsuranceFile?.filter((item) => item?.id != index)
             const callback = (response) => {
                 if (response.success) {
-                    console.log(profileData)
                     setProfileData({ ...profileData, InsuranceFile: data })
                 }
             };

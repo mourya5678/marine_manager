@@ -60,7 +60,6 @@ const BoatTracker = () => {
     useEffect(() => {
         setIsShow(false)
         let data12 = [];
-        console.log({ allTasks_by_id }, "allTasks_by_id")
         allTasks_by_id.map((item, i) => (
             data12?.push({
                 x: `${item?.description?.slice(0, 20)} ${i + 1}`,

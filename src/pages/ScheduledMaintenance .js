@@ -157,7 +157,7 @@ const ScheduledMaintenance = () => {
                                     <tbody>
                                         {displayUsers?.length != 0 &&
                                             displayUsers?.map((item, i) => (
-                                                <tr>{console.log(item?.description?.length, "item?.description")}
+                                                <tr>
                                                     <td>{i + 1}</td>
                                                     <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 ? "..." : ""}` : ''}</td>
                                                     <td>{item?.boat?.rego ?? ''}</td>
@@ -451,7 +451,6 @@ const ScheduledMaintenance = () => {
                                                     <div className='col-md-6'>
                                                         <div className='form-group mb-3'>
                                                             <label>&nbsp;</label>
-                                                            {console.log(values.ct_checkbox_cbx)}
                                                             <div className="ct_checkbox_main"><div>
                                                                 <input
                                                                     type="checkbox"

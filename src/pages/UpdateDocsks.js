@@ -42,7 +42,6 @@ const UpdateDocsks = () => {
 
     const onHandleUpdateDockData = async (values, { setSubmitting }) => {
         setSubmitting(false);
-        console.log({ values })
         const data = {
             address: `${values?.address}`,
             boatId: values?.boatId ? values?.boatId : 0,
