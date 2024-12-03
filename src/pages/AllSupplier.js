@@ -89,18 +89,6 @@ const AllSupplier = () => {
         dispatch(updateSupplierDetails({ payload: data, callback }))
     };
 
-    const onHandleSearchData = (e) => {
-        setSearchData(e.target.value)
-        if (e?.target?.value != '') {
-            const data = supplier_data.filter((item) => {
-                if (item?.company_name?.toLowerCase().includes(e?.target?.value?.toLowerCase())) { return item; }
-            })
-            setAllSupplierData(data);
-        } else {
-            setAllSupplierData(supplier_data);
-        }
-    };
-
     if (isLoading) {
         return <Loader />
     }
@@ -547,6 +535,7 @@ const AllSupplier = () => {
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }

@@ -234,6 +234,7 @@ const LeadReceived = () => {
                     </div>
                 </div>
             </div>
+
             <div className="modal fade Committed_Price" id="ct_new_lead" tabindex="-1" aria-labelledby="ct_new_leadLabel" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
@@ -410,6 +411,7 @@ const LeadReceived = () => {
                     </div>
                 </div>
             </div>
+
         </div >
     )
 }
