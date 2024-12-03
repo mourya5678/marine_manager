@@ -325,12 +325,13 @@ const UpdateBoatDetails = () => {
                                                     <input
                                                         id="app_date"
                                                         value={values.app_date}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
+                                                        // onBlur={handleBlur}
+                                                        // onChange={handleChange}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         type="date"
                                                         onKeyDown={(e) => e.preventDefault()}
                                                         className="form-control"
+                                                        readOnly
                                                     />
                                                     <ErrorMessage
                                                         errors={errors}

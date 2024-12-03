@@ -36,7 +36,6 @@ const BoatTracker = () => {
     const [series, setSeries] = useState();
 
     const options = {
-
         chart: {
             height: 350,
             type: 'rangeBar',
