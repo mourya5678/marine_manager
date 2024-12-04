@@ -107,7 +107,8 @@ const ScheduledMaintenance = () => {
 
     if (isLoading || isLoading1) {
         return <Loader />
-    }
+    };
+    
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
