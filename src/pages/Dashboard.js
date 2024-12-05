@@ -142,12 +142,12 @@ const Dashboard = () => {
                                             <div className="ct_light_shadow_card" data-bs-toggle="modal" data-bs-target="#ct_view_task12"
                                                 onClick={() => setTaskDetails({
                                                     id: item?.id,
-                                                    boatId: item?.boatId,
+                                                    boatId: `${(item?.boat?.rego ?? '')} - ${(item?.boat?.name ?? '')}`,
                                                     description: item?.description,
                                                     time_alloted: item?.time_alloted,
                                                     quoted_value: item?.quoted_value,
                                                     assignStaffId: item?.assign_to,
-                                                    supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplierId : item?.assign_to == "STAFF" && item?.assignStaffId,
+                                                    supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplier?.company_name : item?.assign_to == "STAFF" && `${(item?.staff?.full_name ?? '')} - ${(item?.staff?.role ?? '')}`,
                                                     date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
                                                     date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
                                                     completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
@@ -229,13 +229,11 @@ const Dashboard = () => {
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
-                                                    <input
+                                                    <textarea
                                                         type="text"
                                                         id="boatId"
                                                         className="form-control"
-                                                        value={all_boats && all_boats?.map((item) => (
-                                                            item?.id == taskDetails.boatId && `${(item?.rego ?? '')} - ${(item?.name ?? '')}`
-                                                        ))}
+                                                        value={taskDetails.boatId ?? ''}
                                                         readOnly
                                                     />
                                                 </div>
@@ -250,9 +248,7 @@ const Dashboard = () => {
                                                                 type="text"
                                                                 id="supplierId"
                                                                 className="form-control"
-                                                                value={staff_data && staff_data?.map((item) => (
-                                                                    item?.id == taskDetails?.supplierId && `${(item?.full_name ?? '')} - ${(item?.role ?? '')}`
-                                                                ))}
+                                                                value={taskDetails?.supplierId ?? ''}
                                                                 readOnly
                                                             />
                                                         </div>
@@ -267,9 +263,7 @@ const Dashboard = () => {
                                                                 type="text"
                                                                 id="supplierId"
                                                                 className="form-control"
-                                                                value={supplier_data && supplier_data?.map((item) => (
-                                                                    item?.id == taskDetails?.supplierId && item?.company_name
-                                                                ))}
+                                                                value={taskDetails?.supplierId ?? ''}
                                                                 readOnly
                                                             />
                                                         </div>

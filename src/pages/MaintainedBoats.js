@@ -67,7 +67,7 @@ const MaintainedBoats = () => {
                                         {displayUsers?.length != 0 && displayUsers?.map((item, i) => (
                                             <tr className="ct_pointer_curser" onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
                                                 <td>{i + 1}</td>
-                                                <td>{item?.rego ?? ''}</td>
+                                                <td>{`${(item?.rego ?? '')} - ${(item?.name ?? '')}`}</td>
                                                 <td>{item?.lastServiceDate ? pipViewDate(item?.lastServiceDate) : 'OnGoing'}</td>
                                                 <td>{item?.owners_name ?? ''}</td>
                                                 <td className="ct_fw_600">{item?.email ?? ''}</td>

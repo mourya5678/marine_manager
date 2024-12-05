@@ -199,7 +199,7 @@ const ScheduledMaintenance = () => {
                                                 <tr>
                                                     <td>{i + 1}</td>
                                                     <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 ? "..." : ""}` : ''}</td>
-                                                    <td>{item?.boat?.rego ?? ''}</td>
+                                                    <td>{`${(item?.boat?.rego ?? '')} - ${(item?.boat?.name ?? '')}` ?? ''}</td>
                                                     <td className={item?.supplier?.company_name ? "" : "ct_fw_600"}>{item?.supplier?.company_name ?? 'STAFF'}</td>
                                                     <td className={item?.staff?.full_name ? "" : "ct_fw_600"}>{item?.staff?.full_name ?? 'OUTSOURCED'}</td>
                                                     <td>{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
@@ -225,12 +225,12 @@ const ScheduledMaintenance = () => {
                                                             data-bs-toggle="modal" data-bs-target="#ct_view_task12"
                                                             onClick={() => setTaskDetails({
                                                                 id: item?.id,
-                                                                boatId: item?.boatId,
+                                                                boatId: item?.boat?.rego,
                                                                 description: item?.description,
                                                                 time_alloted: item?.time_alloted,
                                                                 quoted_value: item?.quoted_value,
                                                                 assignStaffId: item?.assign_to,
-                                                                supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplierId : item?.assign_to == "STAFF" && item?.assignStaffId,
+                                                                supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplier?.company_name : item?.assign_to == "STAFF" && item?.staff?.full_name,
                                                                 date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
                                                                 date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
                                                                 completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
@@ -854,13 +854,11 @@ const ScheduledMaintenance = () => {
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
-                                                    <input
+                                                    <textarea
                                                         type="text"
                                                         id="boatId"
                                                         className="form-control"
-                                                        value={all_boats && all_boats?.map((item) => (
-                                                            item?.id == taskDetails.boatId && `${(item?.rego ?? '')} - ${(item?.name ?? '')}`
-                                                        ))}
+                                                        value={taskDetails.boatId ?? ''}
                                                         readOnly
                                                     />
                                                 </div>
@@ -875,9 +873,7 @@ const ScheduledMaintenance = () => {
                                                                 type="text"
                                                                 id="supplierId"
                                                                 className="form-control"
-                                                                value={staff_data && staff_data?.map((item) => (
-                                                                    item?.id == taskDetails?.supplierId && `${(item?.full_name ?? '')} - ${(item?.role ?? '')}`
-                                                                ))}
+                                                                value={taskDetails?.supplierId ?? ''}
                                                                 readOnly
                                                             />
                                                         </div>
@@ -892,9 +888,7 @@ const ScheduledMaintenance = () => {
                                                                 type="text"
                                                                 id="supplierId"
                                                                 className="form-control"
-                                                                value={supplier_data && supplier_data?.map((item) => (
-                                                                    item?.id == taskDetails?.supplierId && item?.company_name
-                                                                ))}
+                                                                value={taskDetails?.supplierId ?? ''}
                                                                 readOnly
                                                             />
                                                         </div>
