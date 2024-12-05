@@ -124,7 +124,7 @@ const CreateStaff = () => {
                                                     <td>{item?.role ?? 'NA'}</td>
                                                     <td>{item?.email ?? 'NA'}</td>
                                                     <td className="ct_fw_600">{item?.phone_no ?? 'NA'}</td>
-                                                    <td className=" ct_fw_600 ct_green_text">{item?.status == 1 ? 'Active' : 'Inactive'}</td>
+                                                    <td className={`ct_fw_600 ${item?.status == 1 ? "ct_green_text" : "ct_red_text"}`}>{item?.status == 1 ? 'Active' : 'Inactive'}</td>
                                                     <td className="text-end ct_action_btns" onClick={() => setStaffDetails({
                                                         id: item?.id,
                                                         full_name: item?.full_name,
