@@ -80,7 +80,7 @@ const UpdateBoatDetails = () => {
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
-                <Sidebar path="create-boat" />
+                <Sidebar path="update-boat" />
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">

@@ -160,7 +160,7 @@ const ScheduledMaintenance = () => {
                                 <div className="ct_dark_grey_bg">
                                     <div className="ct_btn_group">
                                         {boatTaskData?.length != 0 &&
-                                            <select className="form-control ct_input_h_44">
+                                            <select className="form-control ct_input_h_44 ab_pointer">
                                                 {
                                                     boatTaskData?.length != 0 &&
                                                     boatTaskData?.map((item, i) => (
@@ -205,22 +205,23 @@ const ScheduledMaintenance = () => {
                                                     <td>{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
                                                     <td className="ct_fw_600">{item?.status == 1 ? 'Completed' : 'Active'}</td>
                                                     <td className="text-end ct_action_btns">
-                                                        {item?.status != 1 && <i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_edit_task12" onClick={() => setTaskDetails({
-                                                            id: item?.id,
-                                                            boatId: item?.boatId,
-                                                            description: item?.description,
-                                                            time_alloted: item?.time_alloted,
-                                                            quoted_value: item?.quoted_value,
-                                                            assignStaffId: item?.assign_to,
-                                                            supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplierId : item?.assign_to == "STAFF" && item?.assignStaffId,
-                                                            date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
-                                                            date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
-                                                            completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
-                                                            status: item?.status,
-                                                            ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
-                                                        })}></i>
+                                                        {item?.status != 1 && <i className="fa-solid fa-pen ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_edit_task12"
+                                                            onClick={() => setTaskDetails({
+                                                                id: item?.id,
+                                                                boatId: item?.boatId,
+                                                                description: item?.description,
+                                                                time_alloted: item?.time_alloted,
+                                                                quoted_value: item?.quoted_value,
+                                                                assignStaffId: item?.assign_to,
+                                                                supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplierId : item?.assign_to == "STAFF" && item?.assignStaffId,
+                                                                date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
+                                                                date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
+                                                                completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
+                                                                status: item?.status,
+                                                                ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
+                                                            })}></i>
                                                         }
-                                                        <i className="fa-solid fa-eye ms-2"
+                                                        <i className="fa-solid fa-eye ms-2 ab_pointer"
                                                             data-bs-toggle="modal" data-bs-target="#ct_view_task12"
                                                             onClick={() => setTaskDetails({
                                                                 id: item?.id,

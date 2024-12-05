@@ -118,7 +118,7 @@ const BoatTracker = () => {
                                                         <td className={item?.supplier?.company_name ? "" : "ct_fw_600"}>{item?.supplier?.company_name ?? 'STAFF'}</td>
                                                         <td className={item?.staff?.full_name ? "" : "ct_fw_600"}>{item?.staff?.full_name ?? 'OUTSOURCED'}</td>
                                                         <td className="ct_fw_600">{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
-                                                        <td className="text-end ct_fw_600">
+                                                        <td className="text-end ct_fw_600 ab_pointer">
                                                             <i className="fa-solid fa-eye me-2"
                                                                 onClick={() => setTaskDetails({
                                                                     id: item?.id,
@@ -154,7 +154,7 @@ const BoatTracker = () => {
                                             <tr>
                                                 <td className="text-center bg-transparent border-0" colSpan="7">
                                                     <div className="text-center">
-                                                        <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">Task Not Found</p>
+                                                        <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">Task not found</p>
                                                     </div>
                                                 </td>
                                             </tr>

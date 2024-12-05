@@ -9,6 +9,7 @@ import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
 import { addBoatDetails, getBoatData } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
+import { pipViewDate4 } from '../auth/Pip';
 
 const CreateBoat = () => {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ const CreateBoat = () => {
         email: '',
         length: '',
         book_to: '',
-        app_date: '',
+        app_date: new Date(),
         phone_no: '',
         engine_no: '',
         book_from: '',
@@ -55,7 +56,7 @@ const CreateBoat = () => {
             formData.append('email', values.email?.trim());
             formData.append('length', values.length);
             formData.append('book_to', values.book_to);
-            formData.append('app_date', values.app_date);
+            formData.append('app_date', pipViewDate4(values.app_date));
             formData.append('phone_no', values.phone_no);
             formData.append('engine_no', values.engine_no);
             formData.append('book_from', values.book_from);
@@ -316,11 +317,10 @@ const CreateBoat = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            {/* <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Boat profile created date</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
                                                     </label>
                                                     <input
                                                         id="app_date"
@@ -338,7 +338,7 @@ const CreateBoat = () => {
                                                         fieldName="app_date"
                                                     />
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
@@ -450,7 +450,7 @@ const CreateBoat = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            <div className="col-md-6 mt-4">
                                                 <div className="form-group mb-3">
                                                     <label className="ct_file_upload">
                                                         <input
@@ -460,7 +460,7 @@ const CreateBoat = () => {
                                                             className="d-none"
                                                             accept="image/*"
                                                         />
-                                                        <span>
+                                                        <span className='ab_pointer'>
                                                             <i className="fa-solid fa-paperclip"></i> Picture of Boat
                                                         </span>
                                                     </label>

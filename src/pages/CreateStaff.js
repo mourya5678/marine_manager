@@ -135,8 +135,8 @@ const CreateStaff = () => {
                                                         home_address: item?.home_address,
                                                         status: item?.status == 0 ? false : true
                                                     })}>
-                                                        <i className="fa-solid fa-eye me-2" data-bs-toggle="modal" data-bs-target="#ct_view_member"></i>
-                                                        <i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
+                                                        <i className="fa-solid fa-eye me-2 ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_view_member"></i>
+                                                        <i className="fa-solid fa-pen ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_update_member"></i>
                                                     </td>
                                                 </tr>
                                             ))}
@@ -267,7 +267,7 @@ const CreateStaff = () => {
                                                                 type={isEye2 ? "text" : "password"}
                                                                 className="form-control"
                                                             />
-                                                            <Eye isEye={isEye2} onClick={() => setIsEye2(!isEye2)} />
+                                                            <Eye className="ab_pointer" isEye={isEye2} onClick={() => setIsEye2(!isEye2)} />
                                                         </div>
                                                         <ErrorMessage
                                                             errors={errors}
@@ -415,7 +415,7 @@ const CreateStaff = () => {
                                                                     onChange={handleChange}
                                                                     value={values?.password}
                                                                 />
-                                                                <Eye isEye={isEye1} onClick={() => setIsEye1(!isEye1)} />
+                                                                <Eye className="ab_pointer" isEye={isEye1} onClick={() => setIsEye1(!isEye1)} />
                                                             </div>
                                                             <ErrorMessage
                                                                 errors={errors}
@@ -555,7 +555,7 @@ const CreateStaff = () => {
                                                             value={staffDetails?.password ?? ''}
                                                             readOnly
                                                         />
-                                                        <Eye isEye={isEye} onClick={() => setIsEye(!isEye)} />
+                                                        <Eye className="ab_pointer" isEye={isEye} onClick={() => setIsEye(!isEye)} />
                                                     </div>
                                                 </div>
                                             </div>

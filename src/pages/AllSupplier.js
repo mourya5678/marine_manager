@@ -143,8 +143,8 @@ const AllSupplier = () => {
                                                         id: item?.id
                                                     })}
                                                 >
-                                                    <i className="fa-solid fa-eye me-2" data-bs-toggle="modal" data-bs-target="#ct_view_supplier"></i>
-                                                    <i className="fa-solid fa-pen" data-bs-toggle="modal" data-bs-target="#ct_update_supplier"></i>
+                                                    <i className="fa-solid fa-eye me-2 ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_view_supplier"></i>
+                                                    <i className="fa-solid fa-pen ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_update_supplier"></i>
                                                 </td>
                                             </tr>
                                         ))}

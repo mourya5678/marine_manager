@@ -44,7 +44,7 @@ const Dashboard = () => {
                         </div>
                         <div className="ct_grid_3_card ct_mt_20">
                             <div>
-                                <div className="ct_dash_card">
+                                <div className="ct_dash_card ab_pointer">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#AE19DE" }}>
                                         <i className="bi bi-bar-chart"></i>
                                     </div>
@@ -54,7 +54,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div onClick={() => navigate(pageRoutes.scheduled_boat)}>
+                            <div className='ab_pointer' onClick={() => navigate(pageRoutes.scheduled_boat)}>
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#EB5419" }}>
                                         <i className="bi bi-briefcase"></i>
@@ -65,7 +65,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div onClick={() => navigate(pageRoutes.today_invoice)}>
+                            <div className='ab_pointer' onClick={() => navigate(pageRoutes.today_invoice)}>
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#1A6FE7" }}>
                                         <i className="bi bi-clock"></i>
@@ -76,7 +76,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div onClick={() => navigate(pageRoutes.staff_productivity)}>
+                            <div className='ab_pointer' onClick={() => navigate(pageRoutes.staff_productivity)}>
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#ED9C11" }}>
                                         <i className="bi bi-person"></i>
@@ -87,7 +87,7 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div onClick={() => navigate(pageRoutes.quick_lead)}>
+                            <div className='ab_pointer' onClick={() => navigate(pageRoutes.quick_lead)}>
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#8611ED" }}>
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -138,7 +138,7 @@ const Dashboard = () => {
                             <div className="row">
                                 {dashBoardData?.tasksForTommorrow != 0 ?
                                     dashBoardData?.tasksForTommorrow?.map((item, i) => (
-                                        <div className="col-lg-3 col-md-6 mb-4">
+                                        <div className="col-lg-3 col-md-6 mb-4 ab_pointer">
                                             <div className="ct_light_shadow_card" data-bs-toggle="modal" data-bs-target="#ct_view_task12"
                                                 onClick={() => setTaskDetails({
                                                     id: item?.id,

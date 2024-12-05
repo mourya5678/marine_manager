@@ -886,6 +886,10 @@ input[type="number"] {
   height: 100%;
 }
 
+.ab_pointer {
+  cursor: pointer;
+}
+
 .ct_fs_24 {
   font-size: 24px;
 }
