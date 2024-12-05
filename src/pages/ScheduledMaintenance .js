@@ -108,9 +108,10 @@ const ScheduledMaintenance = () => {
     if (isLoading || isLoading1) {
         return <Loader />
     };
-    
+
     return (
         <div className="ct_dashbaord_bg">
+            
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="maintenance" />
                 <div className="ct_content_right">
@@ -208,7 +209,7 @@ const ScheduledMaintenance = () => {
                                         <tr>
                                             <td className="text-center bg-transparent border-0" colSpan="7">
                                                 <div className="text-center">
-                                                    <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">No Maintenance Found</p>
+                                                    <p className="mb-0 mt-3 ct_fs_16 ct_fw_600 ct_ff_poppin ct_clr_8C98A9 text-center">No maintenance found</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -518,9 +519,11 @@ const ScheduledMaintenance = () => {
                                                             onChange={handleChange}
                                                         >
                                                             <option value="">----Select Staff Member----</option>
-                                                            {staff_data && staff_data?.map((item) => (
+                                                            <option value="INTERNAL STAFF">Internal Staff</option>
+                                                            <option value="OUT SOURCE">Out Source</option>
+                                                            {/* {staff_data && staff_data?.map((item) => (
                                                                 <option value={item?.id}>{item?.full_name ?? ''} - {item?.role ?? ''}</option>
-                                                            ))}
+                                                            ))} */}
                                                         </select>
                                                         <ErrorMessage
                                                             errors={errors}
