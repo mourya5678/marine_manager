@@ -13,7 +13,7 @@ import ReactPagination from '../layout/ReactPagination';
 import PaginationDropdown from '../layout/PaginationDropdown';
 
 const CreateStaff = () => {
-    const { isLoading, staff_data } = useSelector((state) => state?.staffReducer);
+    const { isLoading1, staff_data } = useSelector((state) => state?.staffReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isEye, setIsEye] = useState(false);
@@ -87,7 +87,7 @@ const CreateStaff = () => {
     };
 
 
-    if (isLoading) {
+    if (isLoading1) {
         return <Loader />
     }
     return (

@@ -14,7 +14,7 @@ const MaintainedBoats = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [isToggle, setIsToggle] = useState(false);
-    const { isLoading1, boatTaskData } = useSelector((state) => state?.maintainedReducer);
+    const { isLoading2, boatTaskData } = useSelector((state) => state?.maintainedReducer);
     const [currentPage, setCurrentPage] = useState(0);
     const [usersPerPage, setUserPerPages] = useState(5);
 
@@ -36,7 +36,7 @@ const MaintainedBoats = () => {
     }, []);
 
 
-    if (isLoading1) {
+    if (isLoading2) {
         return <Loader />
     }
     return (

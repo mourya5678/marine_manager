@@ -15,7 +15,7 @@ import {
 } from "../actions/staffActions";
 
 const initialState = {
-    isLoading: false,
+    isLoading1: false,
     staff_data: [],
     supplier_data: [],
     all_boats: [],
@@ -30,144 +30,144 @@ export const staffSlice = createSlice({
     extraReducers: (builder) => {
         // addStaffDetails
         builder.addCase(addStaffDetails.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(addStaffDetails.fulfilled, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(addStaffDetails.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // getStaffData
         builder.addCase(getStaffData.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(getStaffData.fulfilled, (state, action) => {
             const { data } = action?.payload || [];
             state.staff_data = data ?? []
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(getStaffData.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // getSupplierData
         builder.addCase(getSupplierData.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(getSupplierData.fulfilled, (state, action) => {
             const { data } = action?.payload || [];
             state.supplier_data = data ?? []
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(getSupplierData.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // addSupplierDetails
         builder.addCase(addSupplierDetails.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(addSupplierDetails.fulfilled, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(addSupplierDetails.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // addDockDetails
         builder.addCase(addDockDetails.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(addDockDetails.fulfilled, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(addDockDetails.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // getBoatData
         builder.addCase(getBoatData.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(getBoatData.fulfilled, (state, action) => {
             const { data } = action?.payload || [];
             state.all_boats = data ?? []
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(getBoatData.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // addBoatDetails
         builder.addCase(addBoatDetails.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(addBoatDetails.fulfilled, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(addBoatDetails.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // getDockData
         builder.addCase(getDockData.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(getDockData.fulfilled, (state, action) => {
             const { data } = action?.payload || [];
             state.all_docks = data ?? []
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(getDockData.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // updateDocksDetails
         builder.addCase(updateDocksDetails.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(updateDocksDetails.fulfilled, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(updateDocksDetails.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // getAvailableBoats
         builder.addCase(getAvailableBoats.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(getAvailableBoats.fulfilled, (state, action) => {
             const { data } = action?.payload || [];
             state.available_boats = data ?? []
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(getAvailableBoats.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // updateSupplierDetails
         builder.addCase(updateSupplierDetails.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(updateSupplierDetails.fulfilled, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(updateSupplierDetails.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
 
         // updateBoatDetails
         builder.addCase(updateBoatDetails.pending, (state, action) => {
-            state.isLoading = true;
+            state.isLoading1 = true;
         });
         builder.addCase(updateBoatDetails.fulfilled, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
         builder.addCase(updateBoatDetails.rejected, (state, action) => {
-            state.isLoading = false;
+            state.isLoading1 = false;
         });
     },
 });

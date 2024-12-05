@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { pipViewDate } from '../auth/Pip';
+import { pipViewDate, pipViewDate4 } from '../auth/Pip';
 import Chart from "react-apexcharts";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllTaskByID } from '../redux/actions/maintainedBoatsActions';
 import Loader from '../components/Loader';
 import ReactPagination from '../layout/ReactPagination';
 import PaginationDropdown from '../layout/PaginationDropdown';
+import { getBoatData, getStaffData, getSupplierData } from '../redux/actions/staffActions';
 
 const BoatTracker = () => {
     const navigate = useNavigate();
     const { state } = useLocation()
     const [isToggle, setIsToggle] = useState(false);
-    const { isLoading1, allTasks_by_id } = useSelector((state) => state?.maintainedReducer);
+    const { isLoading2, allTasks_by_id } = useSelector((state) => state?.maintainedReducer);
+    const { isLoading1, staff_data, all_boats, supplier_data } = useSelector((state) => state?.staffReducer);
     const dispatch = useDispatch();
     const [isShow, setIsShow] = useState(false);
     const [currentPage, setCurrentPage] = useState(0);
@@ -54,7 +56,10 @@ const BoatTracker = () => {
     };
 
     useEffect(() => {
-        dispatch(getAllTaskByID({ payload: state?.data?.id }))
+        dispatch(getAllTaskByID({ payload: state?.data?.id }));
+        dispatch(getStaffData());
+        dispatch(getBoatData());
+        dispatch(getSupplierData());
     }, []);
 
     useEffect(() => {
@@ -75,7 +80,7 @@ const BoatTracker = () => {
         setIsShow(true)
     }, [allTasks_by_id])
 
-    if (isLoading1) {
+    if (isLoading2) {
         return <Loader />
     }
     return (
@@ -96,8 +101,8 @@ const BoatTracker = () => {
                                         <th className="ct_ff_roboto">Maintenance Item Description</th>
                                         <th className="ct_ff_roboto">Boat Registration</th>
                                         <th className="ct_ff_roboto">Supplier</th>
-                                        <th className="ct_ff_roboto">Date Scheduled</th>
                                         <th className="ct_ff_roboto">Staff Allocated</th>
+                                        <th className="ct_ff_roboto">Date Scheduled</th>
                                         <th className="ct_ff_roboto">Action</th>
                                     </tr>
                                 </thead>
@@ -110,19 +115,33 @@ const BoatTracker = () => {
                                                         <td>{i + 1}</td>
                                                         <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length > 28 ? "..." : ''}` : ''}</td>
                                                         <td>{item?.boat?.rego ?? ''}</td>
-                                                        <td>{item?.supplier?.company_name ?? ''}</td>
+                                                        <td className={item?.supplier?.company_name ? "" : "ct_fw_600"}>{item?.supplier?.company_name ?? 'STAFF'}</td>
+                                                        <td className={item?.staff?.full_name ? "" : "ct_fw_600"}>{item?.staff?.full_name ?? 'OUTSOURCED'}</td>
                                                         <td className="ct_fw_600">{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
-                                                        <td className="ct_fw_600">{item?.staff?.full_name ?? ''}</td>
                                                         <td className="text-end ct_fw_600">
                                                             <i className="fa-solid fa-eye me-2"
                                                                 onClick={() => setTaskDetails({
+                                                                    id: item?.id,
+                                                                    boatId: item?.boatId,
                                                                     description: item?.description,
-                                                                    rego: item?.boat?.rego,
-                                                                    company_name: item?.supplier?.company_name,
-                                                                    staff: item?.staff?.full_name,
-                                                                    date_scheduled_from: item?.date_scheduled_from,
-                                                                    date_scheduled_to: item?.date_scheduled_to
+                                                                    time_alloted: item?.time_alloted,
+                                                                    quoted_value: item?.quoted_value,
+                                                                    assignStaffId: item?.assign_to,
+                                                                    supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplierId : item?.assign_to == "STAFF" && item?.assignStaffId,
+                                                                    date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
+                                                                    date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
+                                                                    completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
+                                                                    status: item?.status,
+                                                                    ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
                                                                 })}
+                                                                // onClick={() => setTaskDetails({
+                                                                //     description: item?.description,
+                                                                //     rego: item?.boat?.rego,
+                                                                //     company_name: item?.supplier?.company_name,
+                                                                //     staff: item?.staff?.full_name,
+                                                                //     date_scheduled_from: item?.date_scheduled_from,
+                                                                //     date_scheduled_to: item?.date_scheduled_to
+                                                                // })}
                                                                 data-bs-toggle="modal" data-bs-target="#ct_view_task12"
                                                             ></i>
                                                         </td>
@@ -175,7 +194,7 @@ const BoatTracker = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
+            {/* <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">
@@ -240,6 +259,175 @@ const BoatTracker = () => {
                                                 <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal"
                                                     onClick={() => setTaskDetails()}
                                                 >Close</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> */}
+
+            <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Maintenance Task Details</strong></h4>
+                                {taskDetails &&
+                                    <form>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Assign To </strong><span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        type="text"
+                                                        id="assignStaffId"
+                                                        className="form-control"
+                                                        value={taskDetails.assignStaffId == "STAFF" ? "Internal Staff" : taskDetails.assignStaffId == "OUTSOURCED" ? "Out Source" : ''}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
+                                                    <textarea
+                                                        value={taskDetails.description}
+                                                        className="form-control"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Time Allocated(Hours)</strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        type="number"
+                                                        id="time_alloted"
+                                                        className="form-control"
+                                                        value={taskDetails.time_alloted}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Quoted Value </strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        id="quoted_value"
+                                                        value={taskDetails.quoted_value}
+                                                        type="number"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        type="text"
+                                                        id="boatId"
+                                                        className="form-control"
+                                                        value={all_boats && all_boats?.map((item) => (
+                                                            item?.id == taskDetails.boatId && `${(item?.rego ?? '')} - ${(item?.name ?? '')}`
+                                                        ))}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            {
+                                                taskDetails.assignStaffId == "STAFF" ?
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1">
+                                                                <strong>Staff</strong><span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                type="text"
+                                                                id="supplierId"
+                                                                className="form-control"
+                                                                value={staff_data && staff_data?.map((item) => (
+                                                                    item?.id == taskDetails?.supplierId && `${(item?.full_name ?? '')} - ${(item?.role ?? '')}`
+                                                                ))}
+                                                                readOnly
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    :
+                                                    taskDetails.assignStaffId == "OUTSOURCED" &&
+                                                    < div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1">
+                                                                <strong>Supplier</strong><span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                type="text"
+                                                                id="supplierId"
+                                                                className="form-control"
+                                                                value={supplier_data && supplier_data?.map((item) => (
+                                                                    item?.id == taskDetails?.supplierId && item?.company_name
+                                                                ))}
+                                                                readOnly
+                                                            />
+                                                        </div>
+                                                    </div>
+                                            }
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        id="date_scheduled_from"
+                                                        type="date"
+                                                        className="form-control"
+                                                        value={taskDetails.date_scheduled_from}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Date Scheduled To </strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        id="date_scheduled_to"
+                                                        type="date"
+                                                        className="form-control"
+                                                        value={taskDetails.date_scheduled_to}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Completed At </strong> <span className="ct_required_star">*</span></label>
+                                                    <input
+                                                        id="completed_at"
+                                                        type="date"
+                                                        className="form-control"
+                                                        value={taskDetails.completed_at}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+
+                                            </div>
+                                            <div className='col-md-6'>
+                                                <div className='form-group mb-3'>
+                                                    <label>&nbsp;</label>
+                                                    <div className="ct_checkbox_main"><div>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="ct_checkbox_cbx"
+                                                            className="ct_hidden-xs-up"
+                                                            value={taskDetails.ct_checkbox_cbx}
+                                                            checked={taskDetails.ct_checkbox_cbx}
+                                                            readOnly
+                                                        /><label for="ct_checkbox_cbx" className="ct_checkbox_cbx"></label></div><p className="mb-0">Is Recurring</p></div>
+                                                </div>
+                                            </div>
+                                            <div className="modal-footer justify-content-center border-0">
+                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal"
+                                                    onClick={() => setTaskDetails()}>Close</button>
                                             </div>
                                         </div>
                                     </form>

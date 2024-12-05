@@ -16,7 +16,7 @@ const LeadReceived = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
-    const { isLoading1, allLeads, recouringData } = useSelector((state) => state?.maintainedReducer);
+    const { isLoading2, allLeads, recouringData } = useSelector((state) => state?.maintainedReducer);
     const [leadDetails, setLeadDetails] = useState();
     const [currentPage, setCurrentPage] = useState(0);
     const [usersPerPage, setUserPerPages] = useState(5);
@@ -88,7 +88,7 @@ const LeadReceived = () => {
         setCurrentPage2(data.selected);
     };
 
-    if (isLoading1) {
+    if (isLoading2) {
         return <Loader />
     }
     return (

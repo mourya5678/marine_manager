@@ -10,7 +10,7 @@ import { pageRoutes } from '../routes/PageRoutes';
 const TodayService = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isLoading, all_boats } = useSelector((state) => state?.staffReducer);
+    const { isLoading1, all_boats } = useSelector((state) => state?.staffReducer);
     const [isToggle, setIsToggle] = useState(false);
     const [filterData, setFilterData] = useState();
 
@@ -27,7 +27,7 @@ const TodayService = () => {
         dispatch(getBoatData({ filter: "today" }));
     }, []);
 
-    if (isLoading) {
+    if (isLoading1) {
         return <Loader />
     }
     return (

@@ -11,7 +11,7 @@ import Loader from '../components/Loader';
 const ReviewSchedule = () => {
     const localizer = momentLocalizer(moment);
     const dispatch = useDispatch();
-    const { isLoading1, boatTaskData } = useSelector((state) => state?.maintainedReducer);
+    const { isLoading2, boatTaskData } = useSelector((state) => state?.maintainedReducer);
     const [isToggle, setIsToggle] = useState(false);
     const [calendarData, setCalendarData] = useState([]);
 
@@ -55,7 +55,7 @@ const ReviewSchedule = () => {
         setCalendarData(data13)
     };
 
-    if (isLoading1) {
+    if (isLoading2) {
         return <Loader />
     }
     return (

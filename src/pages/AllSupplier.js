@@ -11,7 +11,7 @@ import ReactPagination from '../layout/ReactPagination';
 import PaginationDropdown from '../layout/PaginationDropdown';
 
 const AllSupplier = () => {
-    const { isLoading, supplier_data } = useSelector((state) => state?.staffReducer);
+    const { isLoading1, supplier_data } = useSelector((state) => state?.staffReducer);
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
     const [searchData, setSearchData] = useState('');
@@ -89,7 +89,7 @@ const AllSupplier = () => {
         dispatch(updateSupplierDetails({ payload: data, callback }))
     };
 
-    if (isLoading) {
+    if (isLoading1) {
         return <Loader />
     }
     return (

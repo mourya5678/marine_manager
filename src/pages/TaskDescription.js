@@ -13,7 +13,7 @@ const TaskDescription = () => {
     const dispatch = useDispatch();
     const { state } = useLocation();
     const [isToggle, setIsToggle] = useState(false);
-    const { isLoading1, allTasks_by_id } = useSelector((state) => state?.maintainedReducer);
+    const { isLoading2, allTasks_by_id } = useSelector((state) => state?.maintainedReducer);
     const displayUsers = allTasks_by_id?.filter((item) => (
         item?.status == 1 && item
     ));
@@ -26,7 +26,7 @@ const TaskDescription = () => {
         dispatch(getAllTaskByID({ payload: state?.data?.id }))
     }, []);
 
-    if (isLoading1) {
+    if (isLoading2) {
         return <Loader />
     }
     return (

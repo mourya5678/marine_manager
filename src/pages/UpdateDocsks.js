@@ -14,7 +14,7 @@ import Loader from '../components/Loader';
 const UpdateDocsks = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isLoading, all_boats, available_boats } = useSelector((state) => state?.staffReducer);
+    const { isLoading1, all_boats, available_boats } = useSelector((state) => state?.staffReducer);
     const { state } = useLocation();
     const [isToggle, setIsToggle] = useState(false);
 
@@ -60,7 +60,7 @@ const UpdateDocsks = () => {
         dispatch(updateDocksDetails({ payload: data, callback }));
     }
 
-    if (isLoading) {
+    if (isLoading1) {
         return <Loader />
     }
     return (

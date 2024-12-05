@@ -15,7 +15,7 @@ const UpdateBoatDetails = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
     const dispatch = useDispatch();
-    const { isLoading } = useSelector((state) => state?.staffReducer);
+    const { isLoading1 } = useSelector((state) => state?.staffReducer);
     const [isToggle, setIsToggle] = useState(false);
     const [avatar_url, setAvtarUrl] = useState();
     const initialState = {
@@ -74,7 +74,7 @@ const UpdateBoatDetails = () => {
         dispatch(updateBoatDetails({ payload: formData, callback }));
     };
 
-    if (isLoading) {
+    if (isLoading1) {
         return <Loader />
     }
     return (

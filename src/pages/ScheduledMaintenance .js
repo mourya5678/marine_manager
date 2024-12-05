@@ -18,8 +18,8 @@ const ScheduledMaintenance = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
-    const { isLoading, staff_data, all_boats, supplier_data } = useSelector((state) => state?.staffReducer);
-    const { isLoading1, boatTaskData, allTasks } = useSelector((state) => state?.maintainedReducer);
+    const { isLoading1, staff_data, all_boats, supplier_data } = useSelector((state) => state?.staffReducer);
+    const { isLoading2, boatTaskData, allTasks } = useSelector((state) => state?.maintainedReducer);
     const [taskDetails, setTaskDetails] = useState();
     const [currentPage, setCurrentPage] = useState(0);
     const [usersPerPage, setUserPerPages] = useState(5);
@@ -61,19 +61,36 @@ const ScheduledMaintenance = () => {
         const callback = (response) => {
             if (response.success) dispatch(getAllTask());;
         };
-        const data = {
-            description: values?.description?.trim(),
-            time_alloted: `${values?.time_alloted}`,
-            quoted_value: `${values?.quoted_value}`,
-            boatId: values?.boatId,
-            assignStaffId: values?.assignStaffId,
-            supplierId: values?.supplierId,
-            date_scheduled_from: values?.date_scheduled_from,
-            date_scheduled_to: values?.date_scheduled_to,
-            isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
-            status: values?.completed_at ? 1 : 0,
-            completed_at: values?.completed_at
-        };
+        let data;
+        if (values?.assignStaffId == "STAFF") {
+            data = {
+                assigned_to: values?.assignStaffId,
+                description: values?.description?.trim(),
+                time_alloted: `${values?.time_alloted}`,
+                quoted_value: `${values?.quoted_value}`,
+                boatId: values?.boatId,
+                assignStaffId: values?.supplierId,
+                date_scheduled_from: values?.date_scheduled_from,
+                date_scheduled_to: values?.date_scheduled_to,
+                isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
+                status: values?.completed_at ? 1 : 0,
+                completed_at: values?.completed_at
+            };
+        } else if (values?.assignStaffId == "OUTSOURCED") {
+            data = {
+                assigned_to: values?.assignStaffId,
+                description: values?.description?.trim(),
+                time_alloted: `${values?.time_alloted}`,
+                quoted_value: `${values?.quoted_value}`,
+                boatId: values?.boatId,
+                supplierId: values?.supplierId,
+                date_scheduled_from: values?.date_scheduled_from,
+                date_scheduled_to: values?.date_scheduled_to,
+                isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
+                status: values?.completed_at ? 1 : 0,
+                completed_at: values?.completed_at
+            };
+        }
         dispatch(CreateTask({ payload: data, callback }));
     };
 
@@ -84,20 +101,40 @@ const ScheduledMaintenance = () => {
             setTaskDetails()
             resetForm();
         };
-        const data = {
-            id: values.id,
-            description: values?.description?.trim(),
-            time_alloted: `${values?.time_alloted}`,
-            quoted_value: `${values?.quoted_value}`,
-            boatId: values?.boatId,
-            assignStaffId: values?.assignStaffId,
-            supplierId: values?.supplierId,
-            date_scheduled_from: values?.date_scheduled_from,
-            date_scheduled_to: values?.date_scheduled_to,
-            isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
-            status: values?.completed_at ? 1 : 0,
-            completed_at: values?.completed_at
-        };
+        let data;
+        if (values?.assignStaffId == "STAFF") {
+            data = {
+                id: values.id,
+                // assigned_to: values?.assignStaffId,
+                description: values?.description?.trim(),
+                time_alloted: `${values?.time_alloted}`,
+                quoted_value: `${values?.quoted_value}`,
+                boatId: values?.boatId,
+                assignStaffId: values?.supplierId,
+                date_scheduled_from: values?.date_scheduled_from,
+                date_scheduled_to: values?.date_scheduled_to,
+                isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
+                status: values?.completed_at ? 1 : 0,
+                completed_at: values?.completed_at
+            };
+        } else if (values?.assignStaffId == "OUTSOURCED") {
+            data = {
+                id: values.id,
+                // assigned_to: values?.assignStaffId,
+                description: values?.description?.trim(),
+                time_alloted: `${values?.time_alloted}`,
+                quoted_value: `${values?.quoted_value}`,
+                boatId: values?.boatId,
+                supplierId: values?.supplierId,
+                date_scheduled_from: values?.date_scheduled_from,
+                date_scheduled_to: values?.date_scheduled_to,
+                isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
+                status: values?.completed_at ? 1 : 0,
+                completed_at: values?.completed_at
+            };
+        }
+        // const data = {
+        // };
         dispatch(UpdateTask({ payload: data, callback }));
     };
 
@@ -105,13 +142,13 @@ const ScheduledMaintenance = () => {
         setCurrentPage(data.selected);
     };
 
-    if (isLoading || isLoading1) {
+    if (isLoading1 || isLoading2) {
         return <Loader />
     };
 
     return (
         <div className="ct_dashbaord_bg">
-            
+
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="maintenance" />
                 <div className="ct_content_right">
@@ -163,8 +200,8 @@ const ScheduledMaintenance = () => {
                                                     <td>{i + 1}</td>
                                                     <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 ? "..." : ""}` : ''}</td>
                                                     <td>{item?.boat?.rego ?? ''}</td>
-                                                    <td>{item?.supplier?.company_name ?? ''}</td>
-                                                    <td>{item?.staff?.full_name ?? ''}</td>
+                                                    <td className={item?.supplier?.company_name ? "" : "ct_fw_600"}>{item?.supplier?.company_name ?? 'STAFF'}</td>
+                                                    <td className={item?.staff?.full_name ? "" : "ct_fw_600"}>{item?.staff?.full_name ?? 'OUTSOURCED'}</td>
                                                     <td>{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
                                                     <td className="ct_fw_600">{item?.status == 1 ? 'Completed' : 'Active'}</td>
                                                     <td className="text-end ct_action_btns">
@@ -174,8 +211,8 @@ const ScheduledMaintenance = () => {
                                                             description: item?.description,
                                                             time_alloted: item?.time_alloted,
                                                             quoted_value: item?.quoted_value,
-                                                            assignStaffId: item?.assignStaffId,
-                                                            supplierId: item?.supplierId,
+                                                            assignStaffId: item?.assign_to,
+                                                            supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplierId : item?.assign_to == "STAFF" && item?.assignStaffId,
                                                             date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
                                                             date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
                                                             completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
@@ -191,8 +228,8 @@ const ScheduledMaintenance = () => {
                                                                 description: item?.description,
                                                                 time_alloted: item?.time_alloted,
                                                                 quoted_value: item?.quoted_value,
-                                                                assignStaffId: item?.assignStaffId,
-                                                                supplierId: item?.supplierId,
+                                                                assignStaffId: item?.assign_to,
+                                                                supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplierId : item?.assign_to == "STAFF" && item?.assignStaffId,
                                                                 date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
                                                                 date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
                                                                 completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
@@ -268,18 +305,13 @@ const ScheduledMaintenance = () => {
                                                     <div className="col-md-12">
                                                         <div className="form-group mb-3">
                                                             <label className="mb-1"><strong>Assign To </strong><span className="ct_required_star">*</span></label>
-                                                            <select
+                                                            <input
+                                                                type="text"
                                                                 id="assignStaffId"
                                                                 className="form-control"
-                                                                value={values.assignStaffId}
-                                                                onBlur={handleBlur}
-                                                                onChange={handleChange}
-                                                            >
-                                                                <option value="">----Select Staff Member----</option>
-                                                                {staff_data && staff_data?.map((item) => (
-                                                                    <option value={item?.id}>{item?.full_name ?? ''} - {item?.role ?? ''}</option>
-                                                                ))}
-                                                            </select>
+                                                                value={taskDetails.assignStaffId == "STAFF" ? "Internal Staff" : taskDetails.assignStaffId == "OUTSOURCED" ? "Out Source" : ''}
+                                                                readOnly
+                                                            />
                                                             <ErrorMessage
                                                                 errors={errors}
                                                                 touched={touched}
@@ -365,29 +397,41 @@ const ScheduledMaintenance = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-12">
-                                                        <div className="form-group mb-3">
-                                                            <label className="mb-1">
-                                                                <strong>Supplier</strong><span className="ct_required_star">*</span></label>
-                                                            <select
-                                                                id="supplierId"
-                                                                className="form-control"
-                                                                value={values.supplierId}
-                                                                onBlur={handleBlur}
-                                                                onChange={handleChange}
-                                                            >
-                                                                <option value="">----Select Supplier----</option>
-                                                                {supplier_data && supplier_data?.map((item) => (
-                                                                    <option value={item?.id}>{item?.company_name ?? ''}</option>
-                                                                ))}
-                                                            </select>
-                                                            <ErrorMessage
-                                                                errors={errors}
-                                                                touched={touched}
-                                                                fieldName="supplierId"
-                                                            />
-                                                        </div>
-                                                    </div>
+                                                    {
+                                                        values.assignStaffId == "STAFF" ?
+                                                            <div className="col-md-12">
+                                                                <div className="form-group mb-3">
+                                                                    <label className="mb-1">
+                                                                        <strong>Staff</strong><span className="ct_required_star">*</span></label>
+                                                                    <input
+                                                                        type="text"
+                                                                        id="supplierId"
+                                                                        className="form-control"
+                                                                        value={staff_data && staff_data?.map((item) => (
+                                                                            item?.id == values?.supplierId && `${(item?.full_name ?? '')} - ${(item?.role ?? '')}`
+                                                                        ))}
+                                                                        readOnly
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            :
+                                                            values.assignStaffId == "OUTSOURCED" &&
+                                                            < div className="col-md-12">
+                                                                <div className="form-group mb-3">
+                                                                    <label className="mb-1">
+                                                                        <strong>Supplier</strong><span className="ct_required_star">*</span></label>
+                                                                    <input
+                                                                        type="text"
+                                                                        id="supplierId"
+                                                                        className="form-control"
+                                                                        value={supplier_data && supplier_data?.map((item) => (
+                                                                            item?.id == values?.supplierId && item?.company_name
+                                                                        ))}
+                                                                        readOnly
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                    }
                                                     <div className="col-md-6">
                                                         <div className="form-group mb-3">
                                                             <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>
@@ -518,12 +562,9 @@ const ScheduledMaintenance = () => {
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
                                                         >
-                                                            <option value="">----Select Staff Member----</option>
-                                                            <option value="INTERNAL STAFF">Internal Staff</option>
-                                                            <option value="OUT SOURCE">Out Source</option>
-                                                            {/* {staff_data && staff_data?.map((item) => (
-                                                                <option value={item?.id}>{item?.full_name ?? ''} - {item?.role ?? ''}</option>
-                                                            ))} */}
+                                                            <option value="">----Assign To----</option>
+                                                            <option value="STAFF">Internal Staff</option>
+                                                            <option value="OUTSOURCED">Out Source</option>
                                                         </select>
                                                         <ErrorMessage
                                                             errors={errors}
@@ -610,29 +651,57 @@ const ScheduledMaintenance = () => {
                                                         />
                                                     </div>
                                                 </div>
-                                                <div className="col-md-12">
-                                                    <div className="form-group mb-3">
-                                                        <label className="mb-1">
-                                                            <strong>Supplier</strong><span className="ct_required_star">*</span></label>
-                                                        <select
-                                                            id="supplierId"
-                                                            className="form-control"
-                                                            value={values.supplierId}
-                                                            onBlur={handleBlur}
-                                                            onChange={handleChange}
-                                                        >
-                                                            <option value="">----Select Supplier----</option>
-                                                            {supplier_data && supplier_data?.map((item) => (
-                                                                <option value={item?.id}>{item?.company_name ?? ''}</option>
-                                                            ))}
-                                                        </select>
-                                                        <ErrorMessage
-                                                            errors={errors}
-                                                            touched={touched}
-                                                            fieldName="supplierId"
-                                                        />
+                                                {values.assignStaffId != '' &&
+                                                    values.assignStaffId == "STAFF" ?
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1">
+                                                                <strong>Staff</strong><span className="ct_required_star">*</span></label>
+                                                            <select
+                                                                id="supplierId"
+                                                                className="form-control"
+                                                                value={values.supplierId}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            >
+                                                                <option value="">----Select Staff----</option>
+                                                                {staff_data && staff_data?.map((item) => (
+                                                                    <option value={item?.id}>{item?.full_name ?? ''} - {item?.role ?? ''}</option>
+                                                                ))}
+                                                            </select>
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="supplierId"
+                                                            />
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    :
+                                                    values.assignStaffId == "OUTSOURCED" &&
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1">
+                                                                <strong>Supplier</strong><span className="ct_required_star">*</span></label>
+                                                            <select
+                                                                id="supplierId"
+                                                                className="form-control"
+                                                                value={values.supplierId}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                            >
+                                                                <option value="">----Select Supplier----</option>
+                                                                {supplier_data && supplier_data?.map((item) => (
+                                                                    <option value={item?.id}>{item?.company_name ?? ''}</option>
+                                                                ))}
+                                                            </select>
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="supplierId"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                }
                                                 <div className="col-md-6">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>
@@ -739,16 +808,13 @@ const ScheduledMaintenance = () => {
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Assign To </strong><span className="ct_required_star">*</span></label>
-                                                    <select
+                                                    <input
+                                                        type="text"
                                                         id="assignStaffId"
                                                         className="form-control"
-                                                        value={taskDetails.assignStaffId}
-                                                    >
-                                                        <option value="">----Select Staff Member----</option>
-                                                        {staff_data && staff_data?.map((item) => (
-                                                            <option value={item?.id}>{item?.full_name ?? ''} - {item?.role ?? ''}</option>
-                                                        ))}
-                                                    </select>
+                                                        value={taskDetails.assignStaffId == "STAFF" ? "Internal Staff" : taskDetails.assignStaffId == "OUTSOURCED" ? "Out Source" : ''}
+                                                        readOnly
+                                                    />
                                                 </div>
                                             </div>
                                             <div className="col-md-12">
@@ -787,36 +853,52 @@ const ScheduledMaintenance = () => {
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
-                                                    <select
+                                                    <input
+                                                        type="text"
                                                         id="boatId"
                                                         className="form-control"
-                                                        value={taskDetails.boatId}
-                                                        readOnly
-                                                    >
-                                                        <option value="">----Select Boat----</option>
-                                                        {all_boats && all_boats?.map((item) => (
-                                                            <option value={item?.id}>{item?.rego ?? ''} - {item?.name ?? ''}</option>
+                                                        value={all_boats && all_boats?.map((item) => (
+                                                            item?.id == taskDetails.boatId && `${(item?.rego ?? '')} - ${(item?.name ?? '')}`
                                                         ))}
-                                                    </select>
+                                                        readOnly
+                                                    />
                                                 </div>
                                             </div>
-                                            <div className="col-md-12">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1">
-                                                        <strong>Supplier</strong><span className="ct_required_star">*</span></label>
-                                                    <select
-                                                        id="supplierId"
-                                                        className="form-control"
-                                                        value={taskDetails.supplierId}
-                                                        readOnly
-                                                    >
-                                                        <option value="">----Select Supplier----</option>
-                                                        {supplier_data && supplier_data?.map((item) => (
-                                                            <option value={item?.id}>{item?.company_name ?? ''}</option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                            </div>
+                                            {
+                                                taskDetails.assignStaffId == "STAFF" ?
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1">
+                                                                <strong>Staff</strong><span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                type="text"
+                                                                id="supplierId"
+                                                                className="form-control"
+                                                                value={staff_data && staff_data?.map((item) => (
+                                                                    item?.id == taskDetails?.supplierId && `${(item?.full_name ?? '')} - ${(item?.role ?? '')}`
+                                                                ))}
+                                                                readOnly
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    :
+                                                    taskDetails.assignStaffId == "OUTSOURCED" &&
+                                                    < div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1">
+                                                                <strong>Supplier</strong><span className="ct_required_star">*</span></label>
+                                                            <input
+                                                                type="text"
+                                                                id="supplierId"
+                                                                className="form-control"
+                                                                value={supplier_data && supplier_data?.map((item) => (
+                                                                    item?.id == taskDetails?.supplierId && item?.company_name
+                                                                ))}
+                                                                readOnly
+                                                            />
+                                                        </div>
+                                                    </div>
+                                            }
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>

@@ -11,7 +11,7 @@ import { pageRoutes } from '../routes/PageRoutes';
 const BoatInQue = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const { isLoading, all_boats } = useSelector((state) => state?.staffReducer);
+    const { isLoading1, all_boats } = useSelector((state) => state?.staffReducer);
     const [isToggle, setIsToggle] = useState(false);
     const [filterData, setFilterData] = useState();
     const [filterByDate, setFilterByDate] = useState();
@@ -30,7 +30,7 @@ const BoatInQue = () => {
         dispatch(getBoatData({ filter: "later" }));
     }, []);
 
-    if (isLoading) {
+    if (isLoading1) {
         return <Loader />
     }
     return (

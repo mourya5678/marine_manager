@@ -13,7 +13,7 @@ import { pageRoutes } from '../routes/PageRoutes';
 const CreateBoat = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isLoading, all_boats } = useSelector((state) => state?.staffReducer);
+    const { isLoading1, all_boats } = useSelector((state) => state?.staffReducer);
     const [isToggle, setIsToggle] = useState(false);
     const [avatar_url, setAvtarUrl] = useState();
     const [avatar_urlError, setAvtarUrlError] = useState();
@@ -75,7 +75,7 @@ const CreateBoat = () => {
         setAvtarUrlError();
     };
 
-    if (isLoading) {
+    if (isLoading1) {
         return <Loader />
     }
     return (

@@ -11,7 +11,7 @@ import { pageRoutes } from '../routes/PageRoutes';
 const BoatDocks = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isLoading, all_docks } = useSelector((state) => state?.staffReducer);
+    const { isLoading1, all_docks } = useSelector((state) => state?.staffReducer);
     const [isToggle, setIsToggle] = useState(false);
     const [filterData, setFilterData] = useState();
     const [filterByDate, setFilterByDate] = useState();
@@ -29,7 +29,7 @@ const BoatDocks = () => {
         dispatch(getDockData());
     }, []);
 
-    if (isLoading) {
+    if (isLoading1) {
         return <Loader />
     }
     return (
