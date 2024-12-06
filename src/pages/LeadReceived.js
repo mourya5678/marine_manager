@@ -411,8 +411,7 @@ const LeadReceived = () => {
                     </div>
                 </div>
             </div>
-
-        </div >
+        </div>
     )
 }
 
