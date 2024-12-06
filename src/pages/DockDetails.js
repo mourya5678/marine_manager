@@ -36,7 +36,7 @@ const DockDetails = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label className="mb-1"
-                                            ><strong>Choose Boat For This Dock</strong>
+                                            ><strong>Boat On This Dock</strong>
                                                 <span className="ct_required_star">*</span></label
                                             >
                                             <input type="text" className="form-control" value={state?.data?.boat?.name} readOnly />

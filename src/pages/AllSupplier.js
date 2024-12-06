@@ -116,10 +116,10 @@ const AllSupplier = () => {
                             <table className="table ct_project_table ct_custom_table_main">
                                 <thead>
                                     <tr>
-                                        <th>S.no.</th>
+                                        <th>S.No.</th>
                                         <th>Company Name</th>
                                         <th>E-mail Address </th>
-                                        <th>Contact no.</th>
+                                        <th>Contact No.</th>
                                         <th>City</th>
                                         <th>Action</th>
                                     </tr>
@@ -206,6 +206,7 @@ const AllSupplier = () => {
                                         handleChange,
                                         handleBlur,
                                         handleSubmit,
+                                        resetForm
                                     }) => (
                                         <form>
                                             <div className="row">
@@ -304,7 +305,7 @@ const AllSupplier = () => {
                                                 </div>
                                             </div>
                                             <div className="modal-footer justify-content-center border-0">
-                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal" onClick={() => setSupplierDetail()}>Cancel</button>
+                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal" onClick={() => resetForm()}>Cancel</button>
                                                 <button
                                                     type="submit ct_"
                                                     onClick={handleSubmit}
@@ -468,8 +469,7 @@ const AllSupplier = () => {
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Company Name</strong> <span
-                                                        className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Company Name</strong></label>
                                                     <input
                                                         value={supplierDetail?.company_name ?? ''}
                                                         type="text"
@@ -480,8 +480,7 @@ const AllSupplier = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>E-mail Address</strong> <span
-                                                        className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>E-mail Address</strong></label>
                                                     <input
                                                         value={supplierDetail?.email ?? ''}
                                                         type="text"
@@ -492,8 +491,7 @@ const AllSupplier = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Company Description</strong> <span
-                                                        className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Company Description</strong></label>
                                                     <textarea
                                                         value={supplierDetail?.company_description ?? ''}
                                                         className="form-control"
@@ -503,8 +501,7 @@ const AllSupplier = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Contact No. </strong> <span
-                                                        className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Contact No. </strong></label>
                                                     <input
                                                         value={supplierDetail?.phone_no ?? ''}
                                                         type="text"
@@ -515,7 +512,7 @@ const AllSupplier = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>City</strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>City</strong></label>
                                                     <input
                                                         value={supplierDetail?.city ?? ''}
                                                         type="text"

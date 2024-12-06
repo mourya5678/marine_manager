@@ -230,7 +230,7 @@ const UpdateBoatDetails = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>No. of Engine</strong>
+                                                    ><strong>No. Of Engine</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
                                                     <input
@@ -318,7 +318,7 @@ const UpdateBoatDetails = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Boat profile created date</strong>
+                                                    ><strong>Boat Profile Created Date</strong>
                                                         {/* <span className="ct_required_star">*</span> */}
                                                     </label>
                                                     <input
@@ -430,7 +430,7 @@ const UpdateBoatDetails = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Docking dates</strong>
+                                                    ><strong>Docking Dates</strong>
                                                         {/* <span className="ct_required_star">*</span> */}
                                                     </label>
                                                     <input
@@ -461,7 +461,7 @@ const UpdateBoatDetails = () => {
                                                             accept="image/*"
                                                         />
                                                         <span>
-                                                            <i className="fa-solid fa-paperclip"></i> Picture of Boat
+                                                            <i className="fa-solid fa-paperclip"></i> Picture Of Boat
                                                         </span>
                                                     </label>
                                                     <div className="ct_boat_dtl_img mt-2 text-center" data-bs-toggle="modal" data-bs-target="#ct_view_image">
@@ -475,7 +475,7 @@ const UpdateBoatDetails = () => {
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(-1)}>Back</button>
-                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save and update Boat</button>
+                                            <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={handleSubmit}>Save And Update Boat</button>
                                         </div>
                                     </form>
                                 )}

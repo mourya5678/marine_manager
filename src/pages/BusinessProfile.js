@@ -77,7 +77,6 @@ const BusinessProfile = () => {
                                             />
                                         </div>
                                     </div>
-
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label for="" className="mb-1"
@@ -90,7 +89,7 @@ const BusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label for="" className="mb-1"
-                                            ><strong>Company Phone number</strong>
+                                            ><strong>Company Phone Number</strong>
                                             </label
                                             >
                                             <input type="number" className="form-control" value={bussiness_profile?.phone_no} readOnly />
@@ -157,7 +156,7 @@ const BusinessProfile = () => {
                                     <div className="col-md-6 mb-3">
                                         <div className="form-group">
                                             <label className="mb-1"
-                                            ><strong>Trade Licenses if required</strong>
+                                            ><strong>Trade Licenses</strong>
                                             </label>
                                         </div>
                                         {bussiness_profile?.trade_license &&
@@ -173,7 +172,7 @@ const BusinessProfile = () => {
                                     <div className="col-md-12 mb-3">
                                         <div className="form-group">
                                             <label for="" className="mb-1"
-                                            ><strong>Professional indemnity insurance</strong>
+                                            ><strong>Professional Indemnity Insurance</strong>
                                             </label>
                                         </div>
 

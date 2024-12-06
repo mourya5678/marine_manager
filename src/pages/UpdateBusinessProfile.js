@@ -43,7 +43,7 @@ const UpdateBusinessProfile = () => {
             if (value) {
                 setPhoneNoError();
             } else {
-                setPhoneNoError('Please enter Phone Number');
+                setPhoneNoError('Please enter phone number');
             }
         } else if (key == "first_name") {
             if (value?.trim()) {
@@ -119,7 +119,7 @@ const UpdateBusinessProfile = () => {
             dispatch(updateBussinessProfile({ payload: formData, callback }));
         } else {
             if (!profileData.phone_no) {
-                setPhoneNoError('Please enter Phone number');
+                setPhoneNoError('Please enter phone number');
             }
             if (!profileData?.company_name) {
                 setCompanyNameError('Please enter company name');
@@ -187,9 +187,8 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label for="" className="mb-1"
-                                            ><strong>First Name</strong>
-                                            </label
-                                            >
+                                            ><strong>First Name</strong><span className="ct_required_star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -205,10 +204,8 @@ const UpdateBusinessProfile = () => {
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
-                                            <label className="mb-1"
-                                            ><strong>Last Name</strong>
-                                            </label
-                                            >
+                                            <label className="mb-1"><strong>Last Name</strong><span className="ct_required_star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -225,9 +222,8 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label for="" className="mb-1"
-                                            ><strong>Company Name</strong>
-                                            </label
-                                            >
+                                            ><strong>Company Name</strong><span className="ct_required_star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -244,18 +240,16 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label className="mb-1"
-                                            ><strong>Company Email</strong>
-                                            </label
-                                            >
+                                            ><strong>Company Email</strong><span className="ct_required_star">*</span>
+                                            </label>
                                             <input type="email" className="form-control" value={profileData?.email} readOnly />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label className="mb-1"
-                                            ><strong>Company Phone number</strong>
-                                            </label
-                                            >
+                                            ><strong>Company Phone Number</strong><span className="ct_required_star">*</span>
+                                            </label>
                                             <input
                                                 type="number"
                                                 className="form-control"
@@ -272,9 +266,8 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label className="mb-1"
-                                            ><strong>ABN</strong>
-                                            </label
-                                            >
+                                            ><strong>ABN</strong><span className="ct_required_star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -380,7 +373,7 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-6 mb-3">
                                         <div className="form-group">
                                             <label className="mb-1"
-                                            ><strong>Trade Licenses if required</strong>
+                                            ><strong>Trade Licenses</strong>
                                             </label>
                                             <label className="ct_file_upload">
                                                 <input type="file" id="ct_file_upload1" accept="image/*" className="d-none" onChange={(e) => onHandleTradeChange(e)} />
@@ -409,7 +402,7 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-12 mb-3">
                                         <div className="form-group">
                                             <label className="mb-1"
-                                            ><strong>Professional indemnity insurance (PDF format only)</strong>
+                                            ><strong>Professional Indemnity Insurance (PDF format only)</strong>
                                             </label>
                                             <label className="ct_file_upload">
                                                 <input

@@ -2,11 +2,11 @@ import * as Yup from 'yup';
 
 export const signInSchema = Yup.object().shape({
     email: Yup.string()
-        .email("Please enter a valid email address")
-        .required("Please enter a valid email address")
+        .email("Please enter a valid email")
+        .required("Please enter a valid email")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
-            "Please enter a valid email address"
+            "Please enter a valid email"
         ),
     password: Yup.string()
         .required("Please enter your password")
@@ -48,11 +48,11 @@ export const signUpSchema = Yup.object().shape({
 
 export const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
-        .email("Please enter a valid email address")
-        .required("Please enter a valid email address")
+        .email("Please enter a valid email")
+        .required("Please enter a valid email")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
-            "Please enter a valid email address"
+            "Please enter a valid email"
         )
 });
 
@@ -136,7 +136,7 @@ export const AddSupplierSchema = Yup.object().shape({
     company_description: Yup.string().trim().required("Please enter company description"),
     email: Yup.string()
         .email("Please enter a valid email")
-        .required("Please enter a valid email")
+        .required("Please enter email")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
             "Please enter a valid email"
@@ -160,34 +160,34 @@ export const AddBoatSchema = Yup.object().shape({
     model: Yup.string().trim().required("Please enter model"),
     engine_no: Yup.number()
         .required("Please enter engine number")
-        .positive("Length must be greater than 0")
-        .typeError("Length must be engine number"),
+        .positive("Engine length must be greater than 0")
+        .typeError("Engine length must be engine number"),
     engine_make: Yup.string().trim().required("Please enter engine make"),
     engine_model: Yup.string().trim().
         // required("Please enter engine model")
         optional()
     ,
     email: Yup.string()
-        .email("Please enter valid email address")
-        .required("Please enter valid email address")
+        .email("Please enter valid email")
+        .required("Please enter valid email")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
-            "Please enter valid email address"
+            "Please enter valid email"
         ),
     phone_no: Yup.string()
-        .matches(/^[0-9]+$/, "Mobile number must be number")
+        .matches(/^[0-9]+$/, "Phone number must be number")
         // .min(10, "Mobile number cannot be less then 10 digits").max(10, "Mobile number can not be more then 10 digits")
-        .required("Please enter your mobile number"),
+        .required("Please enter your phone number"),
     length: Yup.number()
-        .required("Please enter length")
-        .positive("Length must be greater than 0")
-        .typeError("Length must be number"),
+        .required("Please enter boat length")
+        .positive("Boat length must be greater than 0")
+        .typeError("Boat length must be number"),
     book_from: Yup.date()
         .typeError("Please select valid date")
         .optional(),
     book_to: Yup.date()
         // .required("Please select booking end date")
-        .min(Yup.ref('book_from'), "End date must be after the start date")
+        .min(Yup.ref('book_from'), "End date must be the same as or later than the book from date.")
         .typeError("Please select valid date")
         .optional(),
     app_date: Yup.date()
@@ -203,7 +203,7 @@ export const AddDockSchema = Yup.object().shape({
     name: Yup.string().trim().required("Please enter dock name"),
     email: Yup.string()
         .email("Please enter a valid email")
-        .required("Please enter a valid email")
+        .required("Please enter email")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
             "Please enter a valid email"
@@ -211,13 +211,13 @@ export const AddDockSchema = Yup.object().shape({
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
         // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
-        .required("Please enter your contact number"),
+        .required("Please enter contact number"),
     book_from: Yup.date()
         .required("Please select booking date")
         .typeError("Please select valid date"),
     book_to: Yup.date()
         .required("Please select booking end date")
-        .min(Yup.ref('book_from'), "End date must be after the start date")
+        .min(Yup.ref('book_from'), "End date must be the same as or later than the book from date.")
         .typeError("Please select valid date"),
     address: Yup.string().trim().required("Please enter storage address"),
     booking_cost: Yup.string()
@@ -268,12 +268,12 @@ export const AddLeadSchema = Yup.object().shape({
 export const CreateTaskSchema = Yup.object().shape({
     description: Yup.string().trim().required("Please enter maintenance item description"),
     time_alloted: Yup.string().trim()
-        .min(1, "Time allocated must be at least 1 character long")
-        .max(5, "Time allocated must be at most 5 characters long")
+        .min(1, "Time allocated must be at least 1 digit long")
+        .max(5, "Time allocated must be at most 5 digit long")
         .required("Please enter time allocated").test('not-zero', 'Time allocated cannot be zero', value => value !== '0'),
     quoted_value: Yup.string().trim()
-        .min(1, "Quoted value must be at least 1 character long")
-        .max(5, "Quoted value must be at most 5 characters long").required("Please enter quoted value").test('not-zero', 'Quoted value cannot be zero', value => value !== '0'),
+        .min(1, "Quoted value must be at least 1 digits long")
+        .max(5, "Quoted value must be at most 5 digits long").required("Please enter quoted value").test('not-zero', 'Quoted value cannot be zero', value => value !== '0'),
     boatId: Yup.string().trim().required("Please select boat registration"),
     assignStaffId: Yup.string().trim().required("Please select staff member"),
     supplierId: Yup.string().trim().required("Please select supplier"),

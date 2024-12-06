@@ -120,7 +120,7 @@ const Header = ({ onClick }) => {
                                     onClick={() => onHandleLogout()}
                                     type="button"
                                     data-bs-dismiss="modal"
-                                    className=" bg-danger  ct_blue_btn text-white justify-content-center  py-2 h-auto"
+                                    className="ct_b_red_btn text-white justify-content-center  py-2 h-auto"
                                     style={{ borderColor: "rgb(220, 53, 69)" }}
                                 >
                                     Logout

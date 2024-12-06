@@ -82,7 +82,7 @@ const Dashboard = () => {
                                         <i className="bi bi-person"></i>
                                     </div>
                                     <div className="ct_dash_card_info">
-                                        <span>Staff Standby</span>
+                                        <span>Staff standby</span>
                                         <h4>17 /<span> 120</span></h4>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@ const Dashboard = () => {
                                         </svg>
                                     </div>
                                     <div className="ct_dash_card_info">
-                                        <span>Quick Leads</span>
+                                        <span>Quick leads</span>
                                         <h4>{dashBoardData?.leadCount ?? 0}</h4>
                                     </div>
                                 </div>

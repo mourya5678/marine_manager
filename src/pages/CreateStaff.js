@@ -106,11 +106,11 @@ const CreateStaff = () => {
                                 <table className="table ct_project_table ct_custom_table_main">
                                     <thead>
                                         <tr>
-                                            <th className="border-0">S.no</th>
+                                            <th className="border-0">S.No.</th>
                                             <th className="ct_ff_roboto border-0">Name</th>
                                             <th className="ct_ff_roboto border-0">Job Role</th>
                                             <th className="ct_ff_roboto border-0">E-mail Address</th>
-                                            <th className="ct_ff_roboto border-0">Contact no.</th>
+                                            <th className="ct_ff_roboto border-0">Contact No.</th>
                                             <th className="ct_ff_roboto border-0">Status</th>
                                             <th className="ct_ff_roboto border-0">Action</th>
                                         </tr>
@@ -514,7 +514,7 @@ const CreateStaff = () => {
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Name</strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Name</strong></label>
                                                     <input
                                                         type="text"
                                                         className="form-control"
@@ -525,7 +525,7 @@ const CreateStaff = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Job Role</strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Job Role</strong></label>
                                                     <input
                                                         type="text"
                                                         className="form-control"
@@ -536,7 +536,7 @@ const CreateStaff = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Email </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Email </strong></label>
                                                     <input
                                                         type="email"
                                                         className="form-control"
@@ -547,7 +547,7 @@ const CreateStaff = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3 ">
-                                                    <label className="mb-1"><strong>Password </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Password </strong></label>
                                                     <div className="position-relative">
                                                         <input
                                                             type={isEye ? "text" : "password"}
@@ -561,7 +561,7 @@ const CreateStaff = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Contact no. </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Contact no. </strong></label>
                                                     <input
                                                         type="text"
                                                         className="form-control"
@@ -572,7 +572,7 @@ const CreateStaff = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Home Address </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Home Address </strong></label>
                                                     <textarea
                                                         className="form-control"
                                                         rows="4"

@@ -56,10 +56,10 @@ const MaintainedBoats = () => {
                                     <tr>
                                         <th>S.No.</th>
                                         <th className="ct_ff_roboto">Boat Registration</th>
-                                        <th className="ct_ff_roboto">Last Serviced</th>
                                         <th className="ct_ff_roboto">Owner's Name</th>
                                         <th className="ct_ff_roboto">Email</th>
                                         <th className="ct_ff_roboto">Contact No.</th>
+                                        <th className="ct_ff_roboto">Last Serviced</th>
                                     </tr>
                                 </thead>
                                 {displayUsers?.length != 0 ?
@@ -68,10 +68,10 @@ const MaintainedBoats = () => {
                                             <tr className="ct_pointer_curser" onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
                                                 <td>{i + 1}</td>
                                                 <td>{`${(item?.rego ?? '')} - ${(item?.name ?? '')}`}</td>
-                                                <td>{item?.lastServiceDate ? pipViewDate(item?.lastServiceDate) : 'OnGoing'}</td>
                                                 <td>{item?.owners_name ?? ''}</td>
-                                                <td className="ct_fw_600">{item?.email ?? ''}</td>
-                                                <td className="text-end ct_fw_600">{item?.phone_no ?? ''}</td>
+                                                <td>{item?.email ?? ''}</td>
+                                                <td>{item?.phone_no ?? ''}</td>
+                                                <td className='text-end'>{item?.lastServiceDate ? pipViewDate(item?.lastServiceDate) : 'OnGoing'}</td>
                                             </tr>
                                         ))}
                                     </tbody>

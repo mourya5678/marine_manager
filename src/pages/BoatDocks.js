@@ -43,7 +43,7 @@ const BoatDocks = () => {
                             <ul className="d-flex align-items-center gap-3  ">
                                 <li className="ct_fs_24 ct_fw_700 ct_list_style_none">All Docks</li>
                                 <li className=" ct_fw_700 ct_fs_24 ct_list_style_none ms-2"></li>
-                                <li className="ct_text_op_5 ct_fs_24 ct_fw_600">{all_docks?.length ?? 0} Docks</li>
+                                <li className="ct_text_op_5 ct_fs_24 ct_fw_600">{all_docks?.length ?? 0}{" "}{`${all_docks?.length <= 1 ? 'Dock' : 'Docks'}`} </li>
                             </ul>
                             <div className="d-flex align-items-center gap-4 ct_flex_wrap_767 ct_wrap_100_1_main">
                                 <div className="position-relative ct_search_input ct_wrap_100_1">

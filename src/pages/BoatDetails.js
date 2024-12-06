@@ -82,7 +82,7 @@ const BoatDetails = () => {
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">No. of Engine</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">No. Of Engine</p>
                                         <p className="ct_fs_16 mb-2">{state?.data?.engine_no}</p>
                                     </div>
                                 </div>
@@ -110,7 +110,7 @@ const BoatDetails = () => {
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Boat profile created date</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Boat Profile Created Date</p>
                                         <p className="ct_fs_16 mb-2">{state?.data?.app_date && pipViewDate(state?.data?.app_date)}</p>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@ const BoatDetails = () => {
                             <div className="row ct_mt_20 ct_border_bottom_1">
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Docking dates</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Docking Dates</p>
                                         <p className="ct_fs_16 mb-2">{state?.data?.docking_date && pipViewDate(state?.data?.docking_date)}</p>
                                     </div>
                                 </div>
@@ -132,13 +132,13 @@ const BoatDetails = () => {
                             <div className="row ct_mt_20 ct_border_bottom_1">
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Booking from</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Booking From</p>
                                         <p className="ct_fs_16 mb-2">{state?.data?.book_from && pipViewDate(state?.data?.book_from)}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Booking to</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Booking To</p>
                                         <p className="ct_fs_16 mb-2 ">{state?.data?.book_to && pipViewDate(state?.data?.book_to)}</p>
                                     </div>
                                 </div>

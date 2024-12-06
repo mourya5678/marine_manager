@@ -41,7 +41,8 @@ const TodayService = () => {
                             <ul className="d-flex align-items-center gap-3 ">
                                 <li className="ct_fs_24 ct_fw_700 ct_list_style_none">Today's Service Boats</li>
                                 <li className=" ct_fw_700 ct_fs_24 ct_list_style_none ms-2"></li>
-                                <li className="ct_text_op_5 ct_fs_24 ct_fw_600">{displayBoatData?.length ?? 0} Boats</li>
+                                <li className="ct_text_op_5 ct_fs_24 ct_fw_600">{displayBoatData?.length ?? 0}{" "}{`${displayBoatData?.length <= 1 ? 'Boat' : 'Boats'}`}
+                                </li>
                             </ul>
                             <div className="d-flex align-items-center gap-4">
                                 <div className="position-relative ct_search_input">

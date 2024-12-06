@@ -117,7 +117,7 @@ const BoatTracker = () => {
                                                         <td>{`${(item?.boat?.rego ?? '')} - ${(item?.boat?.name ?? '')}` ?? ''}</td>
                                                         <td className={item?.supplier?.company_name ? "" : "ct_fw_600"}>{item?.supplier?.company_name ?? 'STAFF'}</td>
                                                         <td className={item?.staff?.full_name ? "" : "ct_fw_600"}>{item?.staff?.full_name ?? 'OUTSOURCED'}</td>
-                                                        <td className="ct_fw_600">{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
+                                                        <td>{`${pipViewDate(item?.date_scheduled_from)} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
                                                         <td className="text-end ct_fw_600 ab_pointer">
                                                             <i className="fa-solid fa-eye me-2"
                                                                 onClick={() => setTaskDetails({
@@ -280,7 +280,7 @@ const BoatTracker = () => {
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Assign To </strong><span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Assign To </strong></label>
                                                     <input
                                                         type="text"
                                                         id="assignStaffId"
@@ -292,16 +292,17 @@ const BoatTracker = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Maintenance Item Description</strong></label>
                                                     <textarea
                                                         value={taskDetails.description}
                                                         className="form-control"
+                                                        readOnly
                                                     />
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Time Allocated(Hours)</strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Time Allocated(Hours)</strong></label>
                                                     <input
                                                         type="number"
                                                         id="time_alloted"
@@ -313,7 +314,7 @@ const BoatTracker = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Quoted Value </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Quoted Value </strong></label>
                                                     <input
                                                         id="quoted_value"
                                                         value={taskDetails.quoted_value}
@@ -325,7 +326,7 @@ const BoatTracker = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Boat Registration </strong></label>
                                                     <textarea
                                                         type="text"
                                                         id="boatId"
@@ -340,7 +341,7 @@ const BoatTracker = () => {
                                                     <div className="col-md-12">
                                                         <div className="form-group mb-3">
                                                             <label className="mb-1">
-                                                                <strong>Staff</strong><span className="ct_required_star">*</span></label>
+                                                                <strong>Staff</strong></label>
                                                             <input
                                                                 type="text"
                                                                 id="supplierId"
@@ -355,7 +356,7 @@ const BoatTracker = () => {
                                                     < div className="col-md-12">
                                                         <div className="form-group mb-3">
                                                             <label className="mb-1">
-                                                                <strong>Supplier</strong><span className="ct_required_star">*</span></label>
+                                                                <strong>Supplier</strong></label>
                                                             <input
                                                                 type="text"
                                                                 id="supplierId"
@@ -368,7 +369,7 @@ const BoatTracker = () => {
                                             }
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Date Scheduled From </strong></label>
                                                     <input
                                                         id="date_scheduled_from"
                                                         type="date"
@@ -380,7 +381,7 @@ const BoatTracker = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Date Scheduled To </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Date Scheduled To </strong></label>
                                                     <input
                                                         id="date_scheduled_to"
                                                         type="date"
@@ -392,7 +393,7 @@ const BoatTracker = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Completed At </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Completed At </strong></label>
                                                     <input
                                                         id="completed_at"
                                                         type="date"
@@ -416,7 +417,7 @@ const BoatTracker = () => {
                                                             value={taskDetails.ct_checkbox_cbx}
                                                             checked={taskDetails.ct_checkbox_cbx}
                                                             readOnly
-                                                        /><label for="ct_checkbox_cbx" className="ct_checkbox_cbx"></label></div><p className="mb-0">Is Recurring</p></div>
+                                                        /><label for="ct_checkbox_cbx" className="ct_checkbox_cbx"></label></div><p className="mb-0"><strong>Is Recurring</strong></p></div>
                                                 </div>
                                             </div>
                                             <div className="modal-footer justify-content-center border-0">

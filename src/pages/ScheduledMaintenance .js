@@ -808,7 +808,7 @@ const ScheduledMaintenance = () => {
                                         <div className="row">
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Assign To </strong><span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Assign To </strong></label>
                                                     <input
                                                         type="text"
                                                         id="assignStaffId"
@@ -820,7 +820,7 @@ const ScheduledMaintenance = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Maintenance Item Description</strong> </label>
                                                     <textarea
                                                         value={taskDetails.description}
                                                         className="form-control"
@@ -829,7 +829,7 @@ const ScheduledMaintenance = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Time Allocated(Hours)</strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Time Allocated(Hours)</strong> </label>
                                                     <input
                                                         type="number"
                                                         id="time_alloted"
@@ -841,7 +841,7 @@ const ScheduledMaintenance = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Quoted Value </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Quoted Value </strong> </label>
                                                     <input
                                                         id="quoted_value"
                                                         value={taskDetails.quoted_value}
@@ -853,7 +853,7 @@ const ScheduledMaintenance = () => {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Boat Registration </strong><span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Boat Registration </strong></label>
                                                     <textarea
                                                         type="text"
                                                         id="boatId"
@@ -868,7 +868,7 @@ const ScheduledMaintenance = () => {
                                                     <div className="col-md-12">
                                                         <div className="form-group mb-3">
                                                             <label className="mb-1">
-                                                                <strong>Staff</strong><span className="ct_required_star">*</span></label>
+                                                                <strong>Staff</strong></label>
                                                             <input
                                                                 type="text"
                                                                 id="supplierId"
@@ -883,7 +883,7 @@ const ScheduledMaintenance = () => {
                                                     < div className="col-md-12">
                                                         <div className="form-group mb-3">
                                                             <label className="mb-1">
-                                                                <strong>Supplier</strong><span className="ct_required_star">*</span></label>
+                                                                <strong>Supplier</strong></label>
                                                             <input
                                                                 type="text"
                                                                 id="supplierId"
@@ -896,7 +896,7 @@ const ScheduledMaintenance = () => {
                                             }
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Date Scheduled From </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Date Scheduled From </strong> </label>
                                                     <input
                                                         id="date_scheduled_from"
                                                         type="date"
@@ -908,7 +908,7 @@ const ScheduledMaintenance = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Date Scheduled To </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Date Scheduled To </strong> </label>
                                                     <input
                                                         id="date_scheduled_to"
                                                         type="date"
@@ -920,7 +920,7 @@ const ScheduledMaintenance = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Completed At </strong> <span className="ct_required_star">*</span></label>
+                                                    <label className="mb-1"><strong>Completed At </strong> </label>
                                                     <input
                                                         id="completed_at"
                                                         type="date"
