@@ -11,13 +11,15 @@ import {
     updateDocksDetails,
     getAvailableBoats,
     updateSupplierDetails,
-    updateBoatDetails
+    updateBoatDetails,
+    getActiveStaffData
 } from "../actions/staffActions";
 
 const initialState = {
     isLoading1: false,
     staff_data: [],
     supplier_data: [],
+    staff_active_data: [],
     all_boats: [],
     all_docks: [],
     available_boats: []
@@ -49,6 +51,19 @@ export const staffSlice = createSlice({
             state.isLoading1 = false;
         });
         builder.addCase(getStaffData.rejected, (state, action) => {
+            state.isLoading1 = false;
+        });
+
+        // getActiveStaffData
+        builder.addCase(getActiveStaffData.pending, (state, action) => {
+            state.isLoading1 = true;
+        });
+        builder.addCase(getActiveStaffData.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.staff_active_data = data ?? []
+            state.isLoading1 = false;
+        });
+        builder.addCase(getActiveStaffData.rejected, (state, action) => {
             state.isLoading1 = false;
         });
 

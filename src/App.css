@@ -158,7 +158,7 @@ button.btn-close.ct_cloose_btn {
   position: absolute;
   top: 15px;
   right: 15px;
-  background-color: var(--blue);
+  background-color: #060606;
   opacity: 1;
   background-image: none;
   display: flex;

@@ -133,7 +133,7 @@ const Dashboard = () => {
                         </div>
                         <div className="ct_mt_20">
                             <div className="d-flex align-items-center justify-content-between mb-4">
-                                <h4 className="mb-0 ct_fs_22">Maintenance task scheduled tomorrow </h4>
+                                <h4 className="mb-0 ct_fs_22">Maintenance tasks scheduled to be completed tomorrow</h4>
                             </div>
                             <div className="row">
                                 {dashBoardData?.tasksForTommorrow != 0 ?

@@ -3,6 +3,7 @@ import { API_REQUEST } from ".";
 import {
     addStaffEndPointURL,
     getStaffDataEndPointURL,
+    getActiveStaffDataEndPointURL,
     updateStaffEndPointURL,
     getSupplierEndPointURL,
     addSupplierEndPointURL,
@@ -42,6 +43,19 @@ export const getStaffData = createAsyncThunk("get-staff", async (props) => {
         console.log(error)
     }
 });
+
+export const getActiveStaffData = createAsyncThunk("get-active-staff", async (props) => {
+    try {
+        const response = await API_REQUEST({
+            url: getActiveStaffDataEndPointURL,
+            method: "GET",
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+});
+
 
 export const updateStaffDetails = createAsyncThunk("update-staff", async (props) => {
     const { payload, callback } = props;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
-import { getBoatData, getStaffData, getSupplierData } from '../redux/actions/staffActions';
+import { getActiveStaffData, getBoatData, getStaffData, getSupplierData } from '../redux/actions/staffActions';
 import { pageRoutes } from '../routes/PageRoutes';
 import { Formik } from 'formik';
 import { CreateTaskSchema } from '../auth/Schema';
@@ -18,7 +18,7 @@ const ScheduledMaintenance = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
-    const { isLoading1, staff_data, all_boats, supplier_data } = useSelector((state) => state?.staffReducer);
+    const { isLoading1, staff_active_data, all_boats, supplier_data } = useSelector((state) => state?.staffReducer);
     const { isLoading2, boatTaskData, allTasks } = useSelector((state) => state?.maintainedReducer);
     const [taskDetails, setTaskDetails] = useState();
     const [currentPage, setCurrentPage] = useState(0);
@@ -34,7 +34,7 @@ const ScheduledMaintenance = () => {
     };
 
     useEffect(() => {
-        dispatch(getStaffData());
+        dispatch(getActiveStaffData());
         dispatch(getBoatData());
         dispatch(getSupplierData());
         dispatch(getAllTask());
@@ -408,7 +408,7 @@ const ScheduledMaintenance = () => {
                                                                         type="text"
                                                                         id="supplierId"
                                                                         className="form-control"
-                                                                        value={staff_data && staff_data?.map((item) => (
+                                                                        value={staff_active_data && staff_active_data?.map((item) => (
                                                                             item?.id == values?.supplierId && `${(item?.full_name ?? '')} - ${(item?.role ?? '')}`
                                                                         ))}
                                                                         readOnly
@@ -666,7 +666,7 @@ const ScheduledMaintenance = () => {
                                                                 onChange={handleChange}
                                                             >
                                                                 <option value="">----Select Staff----</option>
-                                                                {staff_data && staff_data?.map((item) => (
+                                                                {staff_active_data && staff_active_data?.map((item) => (
                                                                     <option value={item?.id}>{item?.full_name ?? ''} - {item?.role ?? ''}</option>
                                                                 ))}
                                                             </select>
