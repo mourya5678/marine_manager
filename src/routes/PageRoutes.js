@@ -23,6 +23,7 @@ import TaskDescription from "../pages/TaskDescription";
 import TaskReview from "../pages/TaskReview";
 import TodayInvoice from "../pages/TodayInvoice";
 import TodayService from "../pages/TodayService";
+import TomorrowScheduledTask from "../pages/TomorrowScheduledTask";
 import UpdateBoatDetails from "../pages/UpdateBoatDetails";
 import UpdateBusinessProfile from "../pages/UpdateBusinessProfile";
 import UpdateDocsks from "../pages/UpdateDocsks";
@@ -59,7 +60,8 @@ export const pageRoutes = {
     invoice: '/invoice',
     today_invoice: '/todays-invoice',
     dock_details: '/dock-details',
-    update_boat: '/update-boat'
+    update_boat: '/update-boat',
+    tomorrow_scheduled_task: '/tomorrow-scheduled-task'
 };
 
 export const AllRoutes = [
@@ -229,6 +231,12 @@ export const AllRoutes = [
         name: 'TaskDescription',
         path: pageRoutes.task_description,
         element: <TaskDescription />,
+        isPrivate: true
+    },
+    {
+        name: 'TomorrowScheduledTask',
+        path: pageRoutes.tomorrow_scheduled_task,
+        element: <TomorrowScheduledTask />,
         isPrivate: true
     }
 ]

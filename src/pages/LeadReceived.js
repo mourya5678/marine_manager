@@ -5,10 +5,10 @@ import Sidebar from '../components/Sidebar';
 import { Formik } from 'formik';
 import { AddLeadSchema } from '../auth/Schema';
 import ErrorMessage from '../components/ErrorMessage';
-import { AddLeads, getAllLeadsData, recouringReminder, UpdateLeads } from '../redux/actions/maintainedBoatsActions';
+import { AddLeads, getAllLeadsData, recouringReminder, UpdateLeads, UpdateRecouring } from '../redux/actions/maintainedBoatsActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
-import { pipViewDate } from '../auth/Pip';
+import { pipViewDate, pipViewDate4 } from '../auth/Pip';
 import ReactPagination from '../layout/ReactPagination';
 import PaginationDropdown from '../layout/PaginationDropdown';
 
@@ -19,6 +19,7 @@ const LeadReceived = () => {
     const { isLoading2, allLeads, recouringData } = useSelector((state) => state?.maintainedReducer);
     const [leadDetails, setLeadDetails] = useState();
     const [currentPage, setCurrentPage] = useState(0);
+    const [taskDetails, setTaskDetails] = useState();
     const [usersPerPage, setUserPerPages] = useState(5);
     const [currentPage2, setCurrentPage2] = useState(0);
     const [usersPerPage2, setUserPerPages2] = useState(5);
@@ -86,6 +87,20 @@ const LeadReceived = () => {
 
     const handlePageClick2 = (data) => {
         setCurrentPage2(data.selected);
+    };
+
+    const handleChangeStatus = (val, item) => {
+        console.log({ val, item }, "val, item")
+        const callback = (response) => {
+            if (response.success) {
+                dispatch(recouringReminder());
+            }
+        };
+        const data = {
+            id: item?.id,
+            status: val
+        }
+        dispatch(UpdateRecouring({ payload: data, callback }));
     };
 
     if (isLoading2) {
@@ -181,19 +196,50 @@ const LeadReceived = () => {
                                             <th className="ct_ff_roboto">Contact Number</th>
                                             <th>Task Completed</th>
                                             <th>Date</th>
-
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     {displayUsers2?.length != 0 ?
                                         <tbody>
                                             {displayUsers2?.length != 0 &&
                                                 displayUsers2?.map((item, i) => (
-                                                    <tr>
+                                                    <tr
+                                                        onClick={() => setTaskDetails({
+                                                            id: item?.id,
+                                                            boatId: item?.boat?.rego,
+                                                            description: item?.description,
+                                                            time_alloted: item?.time_alloted,
+                                                            quoted_value: item?.quoted_value,
+                                                            assignStaffId: item?.assign_to,
+                                                            supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplier?.company_name : item?.assign_to == "STAFF" && item?.staff?.full_name,
+                                                            date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
+                                                            date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
+                                                            completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
+                                                            status: item?.status,
+                                                            ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
+                                                        })}>
                                                         <td className="ct_fw_600">{i + 1}</td>
                                                         <td className="ct_fw_600">{item?.boat?.owners_name ?? ''}</td>
                                                         <td className="ct_fw_600">{item?.boat?.phone_no ?? ''}</td>
                                                         <td className="ct_fw_600">{item?.description ?? ''}</td>
-                                                        <td className="text-end ct_fw_600">{pipViewDate(item?.completed_at)}</td>
+                                                        <td className="ct_fw_600">{pipViewDate(item?.completed_at)}</td>
+                                                        <td className="ct_fw_600">
+                                                            <div className='d-flex align-items-center gap-3'>
+                                                                <select
+                                                                    className="form-control"
+                                                                    id="status"
+                                                                    value={item?.contacted_status}
+                                                                    onChange={(e) => handleChangeStatus(e.target.value, item)}
+                                                                >
+                                                                    <option value="0">Open</option>
+                                                                    <option value="1">Actioned</option>
+                                                                    <option value="2">Contacted</option>
+                                                                </select>
+                                                                {/* </td>
+                                                        <td className="text-end"> */}
+                                                                <i className="fa-solid fa-eye" style={{ cursor: "pointer" }} data-bs-toggle="modal" data-bs-target="#ct_view_task12"></i>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 ))
                                             }
@@ -411,6 +457,172 @@ const LeadReceived = () => {
                     </div>
                 </div>
             </div>
+
+            <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Maintenance Task Details</strong></h4>
+                                {taskDetails &&
+                                    <form>
+                                        <div className="row">
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Assign To </strong></label>
+                                                    <input
+                                                        type="text"
+                                                        id="assignStaffId"
+                                                        className="form-control"
+                                                        value={taskDetails.assignStaffId == "STAFF" ? "Internal Staff" : taskDetails.assignStaffId == "OUTSOURCED" ? "Out Source" : ''}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Maintenance Item Description</strong> </label>
+                                                    <textarea
+                                                        value={taskDetails.description}
+                                                        className="form-control"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Time Allocated(Hours)</strong> </label>
+                                                    <input
+                                                        type="number"
+                                                        id="time_alloted"
+                                                        className="form-control"
+                                                        value={taskDetails.time_alloted}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Quoted Value </strong> </label>
+                                                    <input
+                                                        id="quoted_value"
+                                                        value={taskDetails.quoted_value}
+                                                        type="number"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Boat Registration </strong></label>
+                                                    <textarea
+                                                        type="text"
+                                                        id="boatId"
+                                                        className="form-control"
+                                                        value={taskDetails.boatId ?? ''}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            {
+                                                taskDetails.assignStaffId == "STAFF" ?
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1">
+                                                                <strong>Staff</strong></label>
+                                                            <input
+                                                                type="text"
+                                                                id="supplierId"
+                                                                className="form-control"
+                                                                value={taskDetails?.supplierId ?? ''}
+                                                                readOnly
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    :
+                                                    taskDetails.assignStaffId == "OUTSOURCED" &&
+                                                    < div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1">
+                                                                <strong>Supplier</strong></label>
+                                                            <input
+                                                                type="text"
+                                                                id="supplierId"
+                                                                className="form-control"
+                                                                value={taskDetails?.supplierId ?? ''}
+                                                                readOnly
+                                                            />
+                                                        </div>
+                                                    </div>
+                                            }
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Date Scheduled From </strong> </label>
+                                                    <input
+                                                        id="date_scheduled_from"
+                                                        type="date"
+                                                        className="form-control"
+                                                        value={taskDetails.date_scheduled_from}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Date Scheduled To </strong> </label>
+                                                    <input
+                                                        id="date_scheduled_to"
+                                                        type="date"
+                                                        className="form-control"
+                                                        value={taskDetails.date_scheduled_to}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Completed At </strong> </label>
+                                                    <input
+                                                        id="completed_at"
+                                                        type="date"
+                                                        className="form-control"
+                                                        value={taskDetails.completed_at}
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                {/* <div className="form-group mb-3">
+
+                                                    </div> */}
+                                            </div>
+                                            <div className='col-md-6'>
+                                                <div className='form-group mb-3'>
+                                                    <label>&nbsp;</label>
+                                                    <div className="ct_checkbox_main"><div>
+                                                        <input
+                                                            type="checkbox"
+                                                            id="ct_checkbox_cbx"
+                                                            className="ct_hidden-xs-up"
+                                                            value={taskDetails.ct_checkbox_cbx}
+                                                            checked={taskDetails.ct_checkbox_cbx}
+                                                            readOnly
+                                                        /><label for="ct_checkbox_cbx" className="ct_checkbox_cbx"></label></div><p className="mb-0">Is Recurring</p></div>
+                                                </div>
+                                            </div>
+                                            <div className="modal-footer justify-content-center border-0">
+                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal"
+                                                    onClick={() => setTaskDetails()}>Close</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     )
 }

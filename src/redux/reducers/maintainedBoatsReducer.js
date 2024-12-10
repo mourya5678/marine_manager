@@ -8,7 +8,8 @@ import {
     CreateTask,
     getAllTask,
     UpdateTask,
-    recouringReminder
+    recouringReminder,
+    UpdateRecouring
 } from "../actions/maintainedBoatsActions";
 
 const initialState = {
@@ -131,6 +132,17 @@ export const maintainedSlice = createSlice({
             state.isLoading2 = false;
         });
         builder.addCase(recouringReminder.rejected, (state, action) => {
+            state.isLoading2 = false;
+        });
+
+        // UpdateRecouring
+        builder.addCase(UpdateRecouring.pending, (state, action) => {
+            state.isLoading2 = true;
+        });
+        builder.addCase(UpdateRecouring.fulfilled, (state, action) => {
+            state.isLoading2 = false;
+        });
+        builder.addCase(UpdateRecouring.rejected, (state, action) => {
             state.isLoading2 = false;
         });
     }

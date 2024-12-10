@@ -66,6 +66,7 @@ const BoatTracker = () => {
         setIsShow(false)
         let data12 = [];
         allTasks_by_id.map((item, i) => (
+            item?.status != 1 &&
             data12?.push({
                 x: `${item?.description?.slice(0, 20)} ${i + 1}`,
                 y: [new Date(new Date(item?.date_scheduled_from)).getTime(),
@@ -134,14 +135,6 @@ const BoatTracker = () => {
                                                                     status: item?.status,
                                                                     ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
                                                                 })}
-                                                                // onClick={() => setTaskDetails({
-                                                                //     description: item?.description,
-                                                                //     rego: item?.boat?.rego,
-                                                                //     company_name: item?.supplier?.company_name,
-                                                                //     staff: item?.staff?.full_name,
-                                                                //     date_scheduled_from: item?.date_scheduled_from,
-                                                                //     date_scheduled_to: item?.date_scheduled_to
-                                                                // })}
                                                                 data-bs-toggle="modal" data-bs-target="#ct_view_task12"
                                                             ></i>
                                                         </td>
@@ -183,7 +176,7 @@ const BoatTracker = () => {
                         </div>
                         <div className="ct_white_bg_1">
                             <div className='d-flex align-items-center gap-2'>
-                                <p className='mb-0 d-flex align-items-center gap-2'>Completed: <span className='ct_graph_legend ct_complete_graph_clr'></span></p>
+                                {/* <p className='mb-0 d-flex align-items-center gap-2'>Completed: <span className='ct_graph_legend ct_complete_graph_clr'></span></p> */}
                                 <p className='mb-0 d-flex align-items-center gap-2'>Ongoing: <span className='ct_graph_legend ct_inprogress_graph_clr'></span></p>
                             </div>
                             {options && isShow == true &&

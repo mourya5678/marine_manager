@@ -1,6 +1,6 @@
-export const BASE_URL = "http://192.168.29.19:4001/";   // Local 
+// export const BASE_URL = "http://192.168.29.19:4001/";   // Local 
 
-// export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
+export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
 
 // auth user
 export const signupEndPointURL = "users/signup";
@@ -9,6 +9,7 @@ export const forgotPasswordEndPointURL = "users/forgetPassword";
 
 // Dashboard Data
 export const getDashboardDataEndPointURL = "home/getHome";
+export const getTomorrowTaskEndPointURL = "home/tasksForTommorrow"
 
 // Bussiness profile
 export const bussinessProfileEndPointURL = "users/myProfile";
@@ -51,3 +52,4 @@ export const getAllLeaddataEndPointURL = "quickLeads/getAllQuickLeads";
 export const AddLeaddataEndPointURL = "quickLeads/addQuickLeads";
 export const UpdateLeaddataEndPointURL = "quickLeads/updateQuickLeads";
 export const RecouringReminderEndPointURL = "quickLeads/getDueRecurringTasks";
+export const UpdateRecouringEndPointURL = "quickLeads/updateRecurringTask";
