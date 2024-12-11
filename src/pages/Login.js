@@ -38,7 +38,7 @@ const Login = () => {
 
     if (isLoading) {
         return <Loader />
-    }
+    };
     return (
         <section className="ct_login_main_div">
             <div className="container-fluid px-0">

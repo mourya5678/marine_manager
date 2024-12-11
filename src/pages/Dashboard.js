@@ -134,7 +134,7 @@ const Dashboard = () => {
                         <div className="ct_mt_20">
                             <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
                                 <h4 className="mb-0 ct_fs_22">Maintenance tasks scheduled to be completed tomorrow</h4>
-                                {dashBoardData?.tasksForTommorrow?.length > 4 &&
+                                {dashBoardData?.tasksForTommorrow?.length == 4 &&
                                     <button className='ct_custom_btm  ct_btn_fit ct_news_ltr_btn h-auto' style={{ borderRadius: "5px" }} onClick={() => navigate(pageRoutes.tomorrow_scheduled_task)}>View All</button>
                                 }
                             </div>
