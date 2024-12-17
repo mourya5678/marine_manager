@@ -286,5 +286,6 @@ export const CreateTaskSchema = Yup.object().shape({
         .typeError("Please select valid date"),
     completed_at: Yup.date()
         .min(Yup.ref('date_scheduled_from'), "Completed At must be the same as or later than the scheduled from date.")
+        .max(Yup.ref('date_scheduled_to'), "Completed At must be the same as or before than the scheduled to date.")
         .typeError("Please select valid date"),
 });
