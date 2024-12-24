@@ -79,7 +79,7 @@ const CreateBoat = () => {
     if (isLoading1) {
         return <Loader />
     }
-    return (
+    return ( 
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
                 <Sidebar path="create-boat" />
