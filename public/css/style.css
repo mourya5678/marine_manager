@@ -91,8 +91,8 @@ img {
   border: 1px solid var(--orange);
 }
 
-.ct_input:focus~label,
-.ct_input:valid~label {
+.ct_input:focus ~ label,
+.ct_input:valid ~ label {
   transform: translateY(-50%) scale(0.8);
   background-color: #fff;
   padding: 0 0.2em;
@@ -238,13 +238,13 @@ img {
   cursor: pointer;
 }
 
-#ct_checkbox_cbx:checked~.ct_checkbox_cbx {
+#ct_checkbox_cbx:checked ~ .ct_checkbox_cbx {
   border-color: transparent;
   background: var(--orange);
   animation: jelly 0.6s ease;
 }
 
-#ct_checkbox_cbx:checked~.ct_checkbox_cbx:after {
+#ct_checkbox_cbx:checked ~ .ct_checkbox_cbx:after {
   opacity: 1;
   transform: rotate(45deg) scale(1);
 }
@@ -452,7 +452,7 @@ img {
   border-radius: 100px;
 }
 
-.ct_toggle_icon span+span {
+.ct_toggle_icon span + span {
   margin-top: 4px;
 }
 
@@ -1011,7 +1011,7 @@ footer {
   margin-top: 15px;
 }
 
-.ct_footer_item a+a {
+.ct_footer_item a + a {
   border-bottom: 2px solid var(--orange);
   width: fit-content;
 }
@@ -1273,6 +1273,9 @@ footer {
 .pagination li.active {
   background: #e65f2b;
 }
+.ct_textclr_7E7E7E {
+  color: #7e7e7e;
+}
 
 .pagination li a {
   color: #fff !important;
@@ -1280,4 +1283,192 @@ footer {
 
 .pagination li.active a {
   color: #000 !important;
+}
+
+.ct_boat_info_icon_1 {
+  width: 33px;
+  height: 33px;
+  border-radius: 5px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 0px 1px 14px 0px #e65f2b29;
+}
+.ct_boat_info_title {
+  display: grid;
+  grid-template-columns: 33px auto;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ct_green_status {
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  display: inline-block;
+  background-color: #00ab7b;
+  box-shadow: 0px 0px 0px 4px #00ab7b33;
+}
+.ct_bringle_status {
+  width: 8px;
+  height: 8px;
+  border-radius: 100px;
+  display: inline-block;
+  background-color: #5e5bf9;
+  box-shadow: 0px 0px 0px 4px #5e5bf933;
+}
+.ct_boat_detail_12 ul {
+  list-style: none;
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+
+.ct_boat_white_bg {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  transition: 0.4s ease all;
+}
+
+.ct_boat_detail_12 {
+  padding: 10px 20px;
+  border: 1px solid #e65f2b80;
+  border-radius: 8px;
+}
+.ct_boat_detail_12 ul {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  list-style: none;
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.ct_boat_detail_12 ul li {
+  font-size: 14px;
+}
+
+.ct_orange_link {
+  color: var(--orange);
+  text-decoration: underline;
+  font-weight: 600;
+}
+.ct_notify_cation_icon_1 {
+  width: 44px;
+  height: 44px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  position: relative;
+}
+.ct_notify_cation_icon_1 span {
+  position: absolute;
+  top: 0px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 100px;
+  background-color: #ff122e;
+  display: inline-block;
+}
+
+.ct_notification_modal_12 ul {
+  list-style: none;
+}
+
+.ct_notification_modal_12 {
+  max-width: 500px;
+  width: auto;
+  min-width: 500px;
+  border: 1px solid #eceef1;
+  border-radius: 10px;
+}
+
+.ct_notification_head {
+  padding: 15px;
+  border-bottom: 1px solid #eceef1;
+}
+.ct_fs_18 {
+  font-size: 18px;
+}
+.ct_current_date_notification_bg {
+  padding: 8px;
+  background-color: #f8f9fd;
+  text-align: center;
+}
+.ct_notification_modal_12 {
+  margin-top: 8px !important;
+}
+.ct_notification_user_icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #fff;
+}
+.ct_notification_list_item {
+  padding: 21px 14px;
+  border-bottom: 1px solid #eceef1;
+}
+.ct_notification_list_item {
+  display: grid;
+  grid-template-columns: 36px auto 50px;
+  align-items: center;
+  gap: 10px;
+}
+.ct_notification_modal_12:before {
+  content: "";
+  position: absolute;
+  border: 8px solid #fff;
+  width: 8px;
+  height: 8px;
+  top: 0px;
+  right: 15px;
+  border-right-color: transparent;
+  border-left-color: transparent;
+  border-top-color: transparent;
+  top: -15px;
+  border-radius: 5px;
+}
+.ct_border_1_btm_grey {
+  border-bottom: 1px solid #efefef;
+}
+.ct_py_20 {
+  padding-block: 20px;
+}
+.ct_mt_20 {
+  margin-top: 20px;
+}
+.ct_border_grey_12 {
+  border-color: #efefef;
+}
+.ct_grid_tem_5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  gap: 15px;
+}
+@media screen and (max-width: 767px) {
+  .ct_notification_modal_12 {
+    max-width: 400px;
+    min-width: 400px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .ct_notification_modal_12 {
+    max-width: 320px;
+    min-width: 320px;
+  }
+}
+@media screen and (max-width: 455px) {
+  .ct_notification_modal_12:before {
+    right: 41%;
+  }
 }
