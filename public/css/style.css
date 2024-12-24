@@ -1455,10 +1455,50 @@ footer {
   align-items: center;
   gap: 15px;
 }
+.ct_cds_img_w_60 {
+  position: relative;
+  overflow: hidden;
+}
+.ct_cds_img_w_60 img {
+  width: 70px;
+  height: 60px;
+  border-radius: 6px;
+}
+.ct_boat_cds_img_group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.ct_cds_img_w_60 span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 15px;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  background-color: #00000099;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+@media screen and (max-width: 1400px) {
+  .ct_grid_tem_5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 @media screen and (max-width: 767px) {
   .ct_notification_modal_12 {
     max-width: 400px;
     min-width: 400px;
+  }
+  .ct_grid_tem_5 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 @media screen and (max-width: 575px) {
@@ -1470,5 +1510,8 @@ footer {
 @media screen and (max-width: 455px) {
   .ct_notification_modal_12:before {
     right: 41%;
+  }
+  .ct_grid_tem_5 {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

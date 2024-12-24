@@ -180,7 +180,11 @@ const BoatDocks = () => {
                               </p>
                             </div>
                           </div>
-                          <button className="ct_custom_btm w-auto px-4 py-2 ct_fw_500">
+                          <button
+                            className="ct_custom_btm w-auto px-4 py-2 ct_fw_500"
+                            data-bs-toggle="modal"
+                            data-bs-target="#ct_assign_boat"
+                          >
                             Assign Boat
                           </button>
                         </div>
@@ -215,6 +219,73 @@ const BoatDocks = () => {
                   <p className="mt-5 ct_fs_18 ct_fw_700">Dock not found</p>
                 </div>
               )}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade Committed_Price"
+        id="ct_assign_boat"
+        tabindex="-1"
+        aria-labelledby="ct_assign_boatLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-lg modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-body">
+              <div className="py-4">
+                <h4 className="mb-4 text-center">
+                  <strong>Assign Boat </strong>
+                </h4>
+
+                <form>
+                  <div className="row">
+                    <div className="col-md-12">
+                      <div className="form-group mb-3">
+                        <label className="mb-1">
+                          <strong>Select Boat</strong>{" "}
+                          <span className="ct_required_star">*</span>
+                        </label>
+                        <select className="form-control">
+                          <option>Boat 1</option>
+                          <option>Boat 1</option>
+                          <option>Boat 1</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="col-md-12">
+                      <div className="form-group mb-3">
+                        <label className="mb-1">
+                          <strong>Select Date Range </strong>{" "}
+                          <span className="ct_required_star">*</span>
+                        </label>
+                        <div className="d-flex align-items-center gap-2 ct_flex_wrap_575">
+                          <input type="date" className="form-control" />
+                          <p className="mb-0">To</p>
+                          <input type="date" className="form-control" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="modal-footer justify-content-center border-0 pb-0 px-0">
+                    <button
+                      type="button"
+                      className="ct_outline_btn ct_outline_orange"
+                      data-bs-dismiss="modal"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                      data-bs-dismiss="modal"
+                    >
+                      Assign Boat
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

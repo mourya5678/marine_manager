@@ -228,6 +228,323 @@ const CdsJobService = () => {
                 </div>
               </div>
             </div>
+
+            <div className="ct_boat_white_bg mt-4">
+              <div className="ct_boat_detail_12  ct_border_grey_12">
+                <div className="row mb-3">
+                  <div className="col-md-4 mb-2 mb-md-0">
+                    <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                      Work carried out
+                    </p>
+                  </div>
+                  <div className="col-md-4 mb-2 mb-md-0">
+                    <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                      Inspect engine performance and resolve noise issue.
+                    </p>
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <div className="col-md-4 mb-2 mb-md-0">
+                    <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                      Work carried out with materials
+                    </p>
+                  </div>
+                  <div className="col-md-4 mb-2 mb-md-0">
+                    <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                      Replaced fuel filter | Cleaned air intake system
+                    </p>
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <div className="col-md-4 mb-2 mb-md-0">
+                    <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                      Further Actions
+                    </p>
+                  </div>
+                  <div className="col-md-4 mb-2 mb-md-0">
+                    <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                      Monitor fuel efficiency for 2 weeks.
+                    </p>
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <div className="col-md-4 mb-2 mb-md-0">
+                    <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                      CDS Signature
+                    </p>
+                  </div>
+                  <div className="col-md-4 mb-2 mb-md-0">
+                    <img
+                      src="img/signature_png.png"
+                      style={{ width: "110px" }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4">
+              <h4 className="ct_fs_24 ct_fw_600 mb-3">Maintenance Task</h4>
+              <div className="ct_grid_tem_5">
+                <div className="ct_boat_white_bg">
+                  <div className="ct_boat_info_title mb-0">
+                    <div className="ct_boat_info_icon_1">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14.6834 8.0166H10.3083C9.96668 8.0166 9.68335 7.73327 9.68335 7.3916C9.68335 7.04993 9.96668 6.7666 10.3083 6.7666H14.6834C15.025 6.7666 15.3084 7.04993 15.3084 7.3916C15.3084 7.73327 15.0334 8.0166 14.6834 8.0166Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M5.93322 8.65002C5.77489 8.65002 5.61655 8.59168 5.49155 8.46668L4.86655 7.84168C4.62489 7.60002 4.62489 7.20002 4.86655 6.95835C5.10822 6.71668 5.50822 6.71668 5.74989 6.95835L5.93322 7.14168L7.36655 5.70835C7.60822 5.46668 8.00822 5.46668 8.24989 5.70835C8.49155 5.95002 8.49155 6.35002 8.24989 6.59168L6.37489 8.46668C6.25822 8.58335 6.09989 8.65002 5.93322 8.65002Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M14.6834 13.8501H10.3083C9.96668 13.8501 9.68335 13.5668 9.68335 13.2251C9.68335 12.8834 9.96668 12.6001 10.3083 12.6001H14.6834C15.025 12.6001 15.3084 12.8834 15.3084 13.2251C15.3084 13.5668 15.0334 13.8501 14.6834 13.8501Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M5.93322 14.4833C5.77489 14.4833 5.61655 14.4249 5.49155 14.2999L4.86655 13.6749C4.62489 13.4333 4.62489 13.0333 4.86655 12.7916C5.10822 12.5499 5.50822 12.5499 5.74989 12.7916L5.93322 12.9749L7.36655 11.5416C7.60822 11.2999 8.00822 11.2999 8.24989 11.5416C8.49155 11.7833 8.49155 12.1833 8.24989 12.4249L6.37489 14.2999C6.25822 14.4166 6.09989 14.4833 5.93322 14.4833Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M12.5001 18.9584H7.50008C2.97508 18.9584 1.04175 17.0251 1.04175 12.5001V7.50008C1.04175 2.97508 2.97508 1.04175 7.50008 1.04175H12.5001C17.0251 1.04175 18.9584 2.97508 18.9584 7.50008V12.5001C18.9584 17.0251 17.0251 18.9584 12.5001 18.9584ZM7.50008 2.29175C3.65841 2.29175 2.29175 3.65841 2.29175 7.50008V12.5001C2.29175 16.3417 3.65841 17.7084 7.50008 17.7084H12.5001C16.3417 17.7084 17.7084 16.3417 17.7084 12.5001V7.50008C17.7084 3.65841 16.3417 2.29175 12.5001 2.29175H7.50008Z"
+                          fill="#E65F2B"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <p
+                        className="ct_fs_20  ct_fw_500  mb-1"
+                        style={{ color: "#6D6D6D" }}
+                      >
+                        Task Description
+                      </p>
+                      <p className=" mb-0 ct_fw_600">Engine Oil Replacement</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="ct_boat_white_bg">
+                  <div className="ct_boat_info_title mb-0">
+                    <div className="ct_boat_info_icon_1">
+                      <svg
+                        width="19"
+                        height="19"
+                        viewBox="0 0 19 19"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6 0.75V3.375"
+                          stroke="#E65F2B"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M13 0.75V3.375"
+                          stroke="#E65F2B"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M2.0625 6.95386H16.9375"
+                          stroke="#E65F2B"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M17.375 6.4375V13.875C17.375 16.5 16.0625 18.25 13 18.25H6C2.9375 18.25 1.625 16.5 1.625 13.875V6.4375C1.625 3.8125 2.9375 2.0625 6 2.0625H13C16.0625 2.0625 17.375 3.8125 17.375 6.4375Z"
+                          stroke="#E65F2B"
+                          stroke-width="1.5"
+                          stroke-miterlimit="10"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M9.49617 10.9875H9.50403"
+                          stroke="#E65F2B"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.2574 10.9875H6.26526"
+                          stroke="#E65F2B"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                        <path
+                          d="M6.2574 13.6125H6.26526"
+                          stroke="#E65F2B"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <p
+                        className=" ct_fw_500 mb-1"
+                        style={{ color: "#6D6D6D" }}
+                      >
+                        Start Date
+                      </p>
+                      <p className=" mb-0 ct_fw_600">12/07/2024</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="ct_boat_white_bg">
+                  <div className="ct_boat_info_title mb-0">
+                    <div className="ct_boat_info_icon_1">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.66675 4.79175C6.32508 4.79175 6.04175 4.50841 6.04175 4.16675V1.66675C6.04175 1.32508 6.32508 1.04175 6.66675 1.04175C7.00841 1.04175 7.29175 1.32508 7.29175 1.66675V4.16675C7.29175 4.50841 7.00841 4.79175 6.66675 4.79175Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M13.3333 4.79175C12.9916 4.79175 12.7083 4.50841 12.7083 4.16675V1.66675C12.7083 1.32508 12.9916 1.04175 13.3333 1.04175C13.6749 1.04175 13.9583 1.32508 13.9583 1.66675V4.16675C13.9583 4.50841 13.6749 4.79175 13.3333 4.79175Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M7.08333 12.0832C6.86667 12.0832 6.65 11.9916 6.49167 11.8416C6.34167 11.6832 6.25 11.4749 6.25 11.2499C6.25 11.1416 6.275 11.0332 6.31667 10.9332C6.35833 10.8332 6.41667 10.7416 6.49167 10.6583C6.8 10.3499 7.35833 10.3499 7.675 10.6583C7.825 10.8166 7.91667 11.0332 7.91667 11.2499C7.91667 11.2999 7.90834 11.3583 7.9 11.4166C7.89167 11.4666 7.875 11.5166 7.85 11.5666C7.83333 11.6166 7.80833 11.6666 7.775 11.7166C7.74167 11.7582 7.70833 11.7999 7.675 11.8416C7.51667 11.9916 7.3 12.0832 7.08333 12.0832Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M10.0001 12.0834C9.89175 12.0834 9.78342 12.0584 9.68342 12.0168C9.57508 11.9751 9.49175 11.9168 9.40842 11.8418C9.25842 11.6834 9.16675 11.4751 9.16675 11.2501C9.16675 11.1418 9.19175 11.0334 9.23342 10.9334C9.27508 10.8334 9.33342 10.7418 9.40842 10.6584C9.49175 10.5834 9.57508 10.5251 9.68342 10.4834C9.99175 10.3584 10.3584 10.4251 10.5917 10.6584C10.7417 10.8168 10.8334 11.0334 10.8334 11.2501C10.8334 11.3001 10.8251 11.3584 10.8168 11.4168C10.8084 11.4668 10.7917 11.5168 10.7667 11.5668C10.7501 11.6168 10.7251 11.6668 10.6917 11.7168C10.6667 11.7584 10.6251 11.8001 10.5917 11.8418C10.4334 11.9918 10.2167 12.0834 10.0001 12.0834Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M7.08333 14.9999C6.975 14.9999 6.86667 14.9749 6.76667 14.9332C6.65834 14.8916 6.56667 14.8332 6.49167 14.7582C6.41667 14.6832 6.35833 14.5916 6.31667 14.4832C6.275 14.3832 6.25 14.2749 6.25 14.1666C6.25 14.0582 6.275 13.9499 6.31667 13.8499C6.35833 13.7416 6.41667 13.6499 6.49167 13.5749C6.56667 13.4999 6.65834 13.4416 6.76667 13.3999C6.96667 13.3166 7.2 13.3082 7.4 13.3999C7.50833 13.4416 7.6 13.4999 7.675 13.5749C7.75 13.6499 7.80833 13.7416 7.85 13.8499C7.89166 13.9499 7.91667 14.0582 7.91667 14.1666C7.91667 14.2749 7.89166 14.3832 7.85 14.4832C7.80833 14.5916 7.75 14.6832 7.675 14.7582C7.6 14.8332 7.50833 14.8916 7.4 14.9332C7.3 14.9749 7.19167 14.9999 7.08333 14.9999Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M17.0834 8.19995H2.91675C2.57508 8.19995 2.29175 7.91662 2.29175 7.57495C2.29175 7.23328 2.57508 6.94995 2.91675 6.94995H17.0834C17.4251 6.94995 17.7084 7.23328 17.7084 7.57495C17.7084 7.91662 17.4251 8.19995 17.0834 8.19995Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M15.0001 19.7917C14.0251 19.7917 13.1001 19.4417 12.3918 18.8C12.0918 18.55 11.8251 18.2333 11.6084 17.8667C11.2417 17.2667 11.0417 16.5583 11.0417 15.8333C11.0417 13.65 12.8167 11.875 15.0001 11.875C16.1334 11.875 17.2167 12.3667 17.9667 13.2167C18.6084 13.95 18.9584 14.875 18.9584 15.8333C18.9584 16.5583 18.7584 17.2667 18.3834 17.875C17.6834 19.0583 16.3834 19.7917 15.0001 19.7917ZM15.0001 13.125C13.5084 13.125 12.2917 14.3417 12.2917 15.8333C12.2917 16.325 12.4251 16.8083 12.6834 17.225C12.8251 17.475 13.0084 17.6833 13.2084 17.8583C13.7084 18.3083 14.3334 18.5417 15.0001 18.5417C15.9584 18.5417 16.8251 18.05 17.3167 17.2333C17.5751 16.8083 17.7084 16.3333 17.7084 15.8333C17.7084 15.1833 17.4668 14.55 17.0334 14.0417C16.5168 13.4583 15.7751 13.125 15.0001 13.125Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M14.5248 17.2834C14.3665 17.2834 14.2082 17.225 14.0832 17.1L13.2582 16.275C13.0165 16.0334 13.0165 15.6334 13.2582 15.3917C13.4998 15.15 13.8998 15.15 14.1415 15.3917L14.5415 15.7917L15.8748 14.5584C16.1248 14.325 16.5248 14.3417 16.7582 14.5917C16.9915 14.8417 16.9748 15.2417 16.7248 15.475L14.9498 17.1167C14.8248 17.225 14.6748 17.2834 14.5248 17.2834Z"
+                          fill="#E65F2B"
+                        />
+                        <path
+                          d="M12.8083 18.9584H6.66667C3.625 18.9584 1.875 17.2084 1.875 14.1667V7.08342C1.875 4.04175 3.625 2.29175 6.66667 2.29175H13.3333C16.375 2.29175 18.125 4.04175 18.125 7.08342V13.6334C18.125 13.8917 17.9667 14.1251 17.7167 14.2167C17.475 14.3084 17.2 14.2418 17.025 14.0418C16.5083 13.4584 15.7667 13.1251 14.9917 13.1251C13.5 13.1251 12.2833 14.3417 12.2833 15.8334C12.2833 16.3251 12.4167 16.8084 12.675 17.2251C12.8167 17.4751 13 17.6834 13.2 17.8584C13.4 18.0251 13.475 18.3001 13.3833 18.5501C13.3083 18.7918 13.075 18.9584 12.8083 18.9584ZM6.66667 3.54175C4.28333 3.54175 3.125 4.70008 3.125 7.08342V14.1667C3.125 16.5501 4.28333 17.7084 6.66667 17.7084H11.5167C11.2083 17.1417 11.0417 16.5001 11.0417 15.8334C11.0417 13.6501 12.8167 11.8751 15 11.8751C15.6583 11.8751 16.3083 12.0418 16.875 12.3501V7.08342C16.875 4.70008 15.7167 3.54175 13.3333 3.54175H6.66667Z"
+                          fill="#E65F2B"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <p
+                        className="ct_fs_20 ct_fw_500  mb-1"
+                        style={{ color: "#6D6D6D" }}
+                      >
+                        End Date
+                      </p>
+                      <p className=" mb-0 ct_fw_600">21/10/2024</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="ct_boat_white_bg mt-4">
+                <div className="ct_boat_detail_12  ct_border_grey_12">
+                  <div className="row mb-3">
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                        Task Info:
+                      </p>
+                    </div>
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                        Replaced engine oil with Shell 5W-40.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                        Notes from Supplier:
+                      </p>
+                    </div>
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                        Check for leakage after 2 days.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                        Future Watch List:
+                      </p>
+                    </div>
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                        Next oil replacement due in 6 months.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                        Recommended Due Date:
+                      </p>
+                    </div>
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                        12/12/2024
+                      </p>
+                    </div>
+                  </div>
+                  <div className="row mb-3">
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <p className="mb-0" style={{ color: "#6D6D6D" }}>
+                        Photos
+                      </p>
+                    </div>
+                    <div className="col-md-4 mb-2 mb-md-0">
+                      <div className="ct_boat_cds_img_group">
+                        <div className="ct_cds_img_w_60">
+                          <img src="img/cds_img_1.png" />
+                        </div>
+                        <div className="ct_cds_img_w_60">
+                          <img src="img/cds_img_1.png" />
+                        </div>
+                        <div className="ct_cds_img_w_60">
+                          <img src="img/cds_img_1.png" />
+                          <span>25 More</span>
+                        </div>
+                        <div className="ct_cds_img_w_60">
+                          <a href="#" className="mb-0 ct_orange_link">
+                            View All
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
