@@ -25,8 +25,9 @@ const DockDetails = () => {
               <a
                 href="javascript:void(0)"
                 className="ct_fs_18 ct_fw_700 text-dark ct_ff_roboto"
+                onClick={() => navigate(-1)}
               >
-                <i className="fa-solid fa-arrow-left-long"></i> Back to docks
+                <i className="fa-solid fa-arrow-left-long"></i> Back
               </a>
             </div>
             <div className="ct_boat_white_bg mt-4">
@@ -73,27 +74,14 @@ const DockDetails = () => {
                     </svg>
                   </div>
                   <div>
-                    <h4 className="ct_fs_20 ct_fw_600 mb-1">Dock 01</h4>
-                    <p className="ct_text_op_5 mb-0 ct_fw_500">30 x 40 m</p>
+                    <h4 className="ct_fs_20 ct_fw_600 mb-1">{state?.data?.name ?? 'NA'}</h4>
                   </div>
                 </div>
-                <button className="ct_custom_btm w-auto px-4 py-2 ct_fw_500">
+                <button className="ct_custom_btm w-auto px-4 py-2 ct_fw_500" onClick={() => navigate(pageRoutes.update_docks, { state: { data: state?.data } })}>
                   Edit Detail
                 </button>
               </div>
               <div className="ct_boat_detail_12 ct_mt_20 ct_border_grey_12">
-                <div className="row mb-3">
-                  <div className="col-md-4 mb-2 mb-md-0">
-                    <p className="mb-0" style={{ color: "#6D6D6D" }}>
-                      Storage Details
-                    </p>
-                  </div>
-                  <div className="col-md-4 mb-2 mb-md-0">
-                    <p className="mb-0" style={{ color: "#6D6D6D" }}>
-                      221 B Pearl Harbour
-                    </p>
-                  </div>
-                </div>
                 <div className="row mb-3">
                   <div className="col-md-4 mb-2 mb-md-0">
                     <p className="mb-0" style={{ color: "#6D6D6D" }}>
@@ -102,7 +90,7 @@ const DockDetails = () => {
                   </div>
                   <div className="col-md-4 mb-2 mb-md-0">
                     <p className="mb-0" style={{ color: "#6D6D6D" }}>
-                      dockonw@gmail.com
+                      {state?.data?.address ?? ''}
                     </p>
                   </div>
                 </div>
@@ -114,7 +102,7 @@ const DockDetails = () => {
                   </div>
                   <div className="col-md-4 mb-2 mb-md-0">
                     <p className="mb-0" style={{ color: "#6D6D6D" }}>
-                      +531 877 8455 4554
+                      {state?.data?.phone_no ?? ''}
                     </p>
                   </div>
                 </div>
@@ -126,7 +114,7 @@ const DockDetails = () => {
                   </div>
                   <div className="col-md-4 mb-2 mb-md-0">
                     <p className="mb-0" style={{ color: "#6D6D6D" }}>
-                      $112
+                      ${state?.data?.booking_cost_per_day ?? 0}
                     </p>
                   </div>
                 </div>
@@ -138,7 +126,7 @@ const DockDetails = () => {
                   </div>
                   <div className="col-md-4 mb-2 mb-md-0">
                     <p className="mb-0" style={{ color: "#6D6D6D" }}>
-                      $45
+                      ${state?.data?.booking_cost ?? 0}
                     </p>
                   </div>
                 </div>
@@ -148,101 +136,79 @@ const DockDetails = () => {
             <div className="mt-4">
               <h4 className="ct_fs_24 ct_fw_600 mb-3">Boats Scheduled</h4>
               <div className="row mt-3">
-                <div className="col-md-6 mb-4 mb-md-0">
-                  <div className="ct_boat_detail_12 ct_boat_white_bg">
-                    <span className="ct_text_op_5">Boat No. 362</span>
-                    <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
-                      Dock 01
-                    </h4>
-                    <ul>
-                      <li className="ct_textclr_7E7E7E">
-                        <span className="ct_green_status me-2"></span>
-                        Scheduled for today
-                      </li>
-                      <li>|</li>
-                      <li className="ct_textclr_7E7E7E">
-                        Releasing - 29/10/2024
-                      </li>
-                    </ul>
+                {state?.data?.DockBooking != 0 ?
+                  state?.data?.DockBooking?.slice(0, 1)?.map((item, i) => (
+                    <div className="col-md-6 mb-4 mb-md-0" onClick={() => navigate(pageRoutes.boat_detail, { state: { data: item?.boat } })}>
+                      <div className="ct_boat_detail_12 ct_boat_white_bg">
+                        <span className="ct_text_op_5">Boat No. {i + 1}</span>
+                        <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
+                          {item?.boat?.name ?? ''}
+                        </h4>
+                        <ul>
+                          <li className="ct_textclr_7E7E7E">
+                            <span className={`me-2 ${new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "ct_green_status" :
+                              new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                "ct_bringle_status"
+                                :
+                                new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                  `ct_bringle_status` : item?.book_to ? `ct_bringle_status` : `ct_bringle_status`
+                              }`}></span>
+                            Scheduled for {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                              new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                "Scheduled for tomorrow"
+                                :
+                                new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                  `Scheduled at ${pipViewDate(item?.book_to)}` : item?.book_to ? `Scheduled on ${pipViewDate(item?.book_to)}` : `Not scheduled yet`
+                            }
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  ))
+                  :
+                  <div className="col-md-6 mb-4 mb-md-0 me-2 ct_fw_600">
+                    No boats scheduled yet
                   </div>
-                </div>
+                }
               </div>
             </div>
             <div className="mt-4">
               <h4 className="ct_fs_24 ct_fw_600 mb-3">Upcomming</h4>
               <div className="row mt-3">
-                <div className="col-md-6 mb-4">
-                  <div className="ct_boat_detail_12 ct_boat_white_bg border-0">
-                    <span className="ct_text_op_5">Boat No. 362</span>
-                    <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
-                      Dock 01
-                    </h4>
-                    <ul>
-                      <li className="ct_textclr_7E7E7E">
-                        <span className="ct_bringle_status me-2"></span>
-                        Scheduled for today
-                      </li>
-                      <li>|</li>
-                      <li className="ct_textclr_7E7E7E">
-                        Releasing - 29/10/2024
-                      </li>
-                    </ul>
+                {state?.data?.DockBooking?.length > 1 ?
+                  state?.data?.DockBooking?.slice(1, state?.data?.DockBooking?.length)?.map((item, i) => (
+                    <div className="col-md-6 mb-4 mb-md-0" onClick={() => navigate(pageRoutes.boat_detail, { state: { data: item?.boat } })}>
+                      <div className="ct_boat_detail_12 ct_boat_white_bg">
+                        <span className="ct_text_op_5">Boat No. {i + 2}</span>
+                        <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
+                          {item?.boat?.name ?? ''}
+                        </h4>
+                        <ul>
+                          <li className="ct_textclr_7E7E7E">
+                            <span className={`me-2 ${new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "ct_green_status" :
+                              new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                "ct_bringle_status"
+                                :
+                                new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                  `ct_bringle_status` : item?.book_to ? `ct_bringle_status` : `ct_bringle_status`
+                              }`}></span>
+                            Scheduled for {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                              new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                "Scheduled for tomorrow"
+                                :
+                                new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                  `Scheduled at ${pipViewDate(item?.book_to)}` : item?.book_to ? `Scheduled on ${pipViewDate(item?.book_to)}` : `Not scheduled yet`
+                            }
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  ))
+                  :
+                  <div className="col-md-6 mb-4 mb-md-0 me-2 ct_fw_600">
+                    No upcomming boats scheduled yet
                   </div>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <div className="ct_boat_detail_12 ct_boat_white_bg border-0">
-                    <span className="ct_text_op_5">Boat No. 362</span>
-                    <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
-                      Dock 01
-                    </h4>
-                    <ul>
-                      <li className="ct_textclr_7E7E7E">
-                        <span className="ct_bringle_status me-2"></span>
-                        Scheduled for today
-                      </li>
-                      <li>|</li>
-                      <li className="ct_textclr_7E7E7E">
-                        Releasing - 29/10/2024
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="col-md-6 mb-4 ">
-                  <div className="ct_boat_detail_12 ct_boat_white_bg border-0">
-                    <span className="ct_text_op_5">Boat No. 362</span>
-                    <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
-                      Dock 01
-                    </h4>
-                    <ul>
-                      <li className="ct_textclr_7E7E7E">
-                        <span className="ct_bringle_status me-2"></span>
-                        Scheduled for today
-                      </li>
-                      <li>|</li>
-                      <li className="ct_textclr_7E7E7E">
-                        Releasing - 29/10/2024
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className="col-md-6 mb-4">
-                  <div className="ct_boat_detail_12 ct_boat_white_bg border-0">
-                    <span className="ct_text_op_5">Boat No. 362</span>
-                    <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
-                      Dock 01
-                    </h4>
-                    <ul>
-                      <li className="ct_textclr_7E7E7E">
-                        <span className="ct_bringle_status me-2"></span>
-                        Scheduled for today
-                      </li>
-                      <li>|</li>
-                      <li className="ct_textclr_7E7E7E">
-                        Releasing - 29/10/2024
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+                }
               </div>
             </div>
           </div>

@@ -18,16 +18,15 @@ const UpdateDocsks = () => {
     const { state } = useLocation();
     const [isToggle, setIsToggle] = useState(false);
 
+    console.log({ state }, "state");
+
     const initialState = {
         name: state?.data?.name ?? '',
         email: state?.data?.email ?? '',
         phone_no: state?.data?.phone_no ?? '',
         booking_cost: state?.data?.booking_cost ?? '',
         booking_cost_per_day: state?.data?.booking_cost_per_day ?? '',
-        book_from: state?.data?.book_from ? pipViewDate4(state?.data?.book_from) : '',
-        book_to: state?.data?.book_to ? pipViewDate4(state?.data?.book_to) : '',
         address: state?.data?.address ?? '',
-        boatId: state?.data?.boat?.id ?? '',
         id: state?.data?.id ?? ''
     };
 
@@ -39,14 +38,10 @@ const UpdateDocsks = () => {
         dispatch(getAvailableBoats());
     }, []);
 
-
     const onHandleUpdateDockData = async (values, { setSubmitting }) => {
         setSubmitting(false);
         const data = {
             address: `${values?.address}`,
-            boatId: values?.boatId ? values?.boatId : 0,
-            book_from: `${values?.book_from}`,
-            book_to: `${values?.book_to}`,
             booking_cost: `${values?.booking_cost}`,
             booking_cost_per_day: `${values?.booking_cost_per_day}`,
             email: `${values?.email}`,
@@ -89,7 +84,7 @@ const UpdateDocsks = () => {
                                 }) => (
                                     <form>
                                         <div className="row">
-                                            <div className="col-md-6">
+                                            <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1">
                                                         <strong>Dock Name</strong>
@@ -110,7 +105,7 @@ const UpdateDocsks = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            {/* <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1">
                                                         <strong>Choose Boat For This Dock</strong>
@@ -134,7 +129,7 @@ const UpdateDocsks = () => {
                                                         fieldName="boatId"
                                                     />
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1">
@@ -246,6 +241,7 @@ const UpdateDocsks = () => {
                                                     </div>
                                                 </div>
                                             </div>
+                                            {/*
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1">
@@ -255,8 +251,8 @@ const UpdateDocsks = () => {
                                                     <input
                                                         type="date"
                                                         className="form-control"
-                                                        onKeyDown={(e) => e.preventDefault()}
                                                         id="book_from"
+                                                        onKeyDown={(e) => e.preventDefault()}
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         value={values.book_from}
                                                         onBlur={handleBlur}
@@ -291,7 +287,8 @@ const UpdateDocsks = () => {
                                                         fieldName="book_to"
                                                     />
                                                 </div>
-                                            </div>
+                                            </div> 
+                                        */}
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(-1)}>Cancel</button>

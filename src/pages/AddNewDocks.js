@@ -19,11 +19,8 @@ const AddNewDocks = () => {
     const initialState = {
         name: '',
         email: '',
-        boatId: '',
         address: '',
-        book_to: '',
         phone_no: '',
-        book_from: '',
         booking_cost: '',
         booking_cost_per_day: '',
     };
@@ -44,7 +41,6 @@ const AddNewDocks = () => {
         const data = {
             name: values?.name.trim(),
             email: values?.email.trim(),
-            boatId: values?.boatId ? values?.boatId : 0,
             address: values?.address.trim(),
             book_to: values?.book_to,
             phone_no: values?.phone_no,
@@ -84,7 +80,7 @@ const AddNewDocks = () => {
                                 }) => (
                                     <form>
                                         <div className="row">
-                                            <div className="col-md-6">
+                                            <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Dock Name</strong>
@@ -105,11 +101,10 @@ const AddNewDocks = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            {/* <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1">
                                                         <strong>Choose Boat For This Dock</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
                                                     </label>
                                                     <select
                                                         className="form-control"
@@ -129,7 +124,7 @@ const AddNewDocks = () => {
                                                         fieldName="boatId"
                                                     />
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
@@ -243,7 +238,7 @@ const AddNewDocks = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            {/* <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Book From</strong>
@@ -288,7 +283,7 @@ const AddNewDocks = () => {
                                                         fieldName="book_to"
                                                     />
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(pageRoutes.boat_docks)}>Cancel</button>

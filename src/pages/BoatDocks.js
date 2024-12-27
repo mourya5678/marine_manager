@@ -5,19 +5,33 @@ import { pipViewDate, pipViewDate4 } from "../auth/Pip";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
 import Sidebar from "../components/Sidebar";
-import { getDockData } from "../redux/actions/staffActions";
+import { assignBoatToDock, getAvailableBoats, getDockData } from "../redux/actions/staffActions";
 import { pageRoutes } from "../routes/PageRoutes";
+import { Formik } from "formik";
+import { AssignBoatSchema } from "../auth/Schema";
+// import { DateRangePicker } from "react-date-range";
+// import { addDays } from "date-fns"
+// import 'react-date-range/dist/styles.css';
+// import 'react-date-range/dist/theme/default.css';
+import ErrorMessage from "../components/ErrorMessage";
+
 
 const BoatDocks = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading1, all_docks } = useSelector((state) => state?.staffReducer);
+  const { isLoading1, all_docks, available_boats } = useSelector((state) => state?.staffReducer);
   const [isToggle, setIsToggle] = useState(false);
   const [filterData, setFilterData] = useState();
   const [filterByDate, setFilterByDate] = useState();
+  const [dockId, setDockId] = useState();
   const onHandleClick = () => {
     setIsToggle(!isToggle);
   };
+  const initialState = {
+    book_from: '',
+    book_to: '',
+    boatId: '',
+  }
 
   const displayBoatData = all_docks?.filter((item) => {
     const filterDatass = filterData
@@ -31,7 +45,26 @@ const BoatDocks = () => {
 
   useEffect(() => {
     dispatch(getDockData());
+    dispatch(getAvailableBoats());
   }, []);
+
+  const handleBoatAssign = async (values, { setSubmitting, resetForm }) => {
+    setSubmitting(false);
+    resetForm();
+    const callback = (response) => {
+      if (response.success) {
+        dispatch(getDockData());
+        dispatch(getAvailableBoats());
+      }
+    };
+    const data = {
+      boatId: values?.boatId,
+      book_from: values?.book_from,
+      book_to: values?.book_to,
+      dockId: dockId
+    }
+    dispatch(assignBoatToDock({ payload: data, callback }));
+  };
 
   if (isLoading1) {
     return <Loader />;
@@ -55,14 +88,6 @@ const BoatDocks = () => {
                 </li>
               </ul>
               <div className="d-flex align-items-center gap-4 ct_flex_wrap_767 ct_wrap_100_1_main">
-                {/* <div className="position-relative ct_search_input ct_wrap_100_1">
-                  <input
-                    value={filterByDate}
-                    onChange={(e) => setFilterByDate(e.target.value)}
-                    type="date"
-                    className="form-control ct_flex_1"
-                  />
-                </div> */}
                 <div className="position-relative ct_search_input ct_wrap_100_1">
                   <input
                     value={filterData}
@@ -86,49 +111,8 @@ const BoatDocks = () => {
               {displayBoatData?.length != 0 ? (
                 displayBoatData?.map((item, i) => (
                   <div className="col-xl-6 mb-4">
-                    {/* <a href="javascript:void(0)" className="text-dark">
-                                            <div className="ct_boat_card">
-                                                <ul className="ct_list_style_none">
-                                                    <li className="flex-wrap gap-2">
-                                                        <p className="mb-0 ct_fs_14">Dock Name</p>
-                                                        <p className="mb-0 ct_fs_18 ct_fw_700 ct_orange_text ct_text_decoration_none">{item?.name ?? 'NA'}</p>
-                                                    </li>
-                                                    <li className="flex-wrap gap-2">
-                                                        <p className="mb-0 ct_fs_14">Size</p>
-                                                        <p className="mb-0 ct_fs_14 ct_fw_700 ct_text_op_5">30 x 40 m</p>
-                                                    </li>
-                                                    <li className="flex-wrap gap-2">
-                                                        <p className="mb-0 ct_fs_14">Release Date</p>
-                                                        <p className="mb-0 ct_fs_14 ct_fw_700 ct_text_op_5">{item?.book_to ? pipViewDate(item?.book_to) : 'NA'}</p>
-                                                    </li>
-                                                </ul>
-                                                {item?.boat ?
-                                                    <div className="ct_boat_inner_bg ct_mt_20" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })}>
-                                                        <p className="mb-2 ct_fs_18 ct_fw_700">No. {i + 1}</p>
-                                                        <p className="d-flex align-items-center gap-1 mb-3">
-                                                            <img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{item?.boat?.owners_name ?? 'NA'}</p>
-                                                        <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.boat?.name ?? 'NA'}</h4>
-                                                        <p className="mb-0 mt-3 pb-3 ct_fs_14">{new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
-                                                            new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
-                                                                "Scheduled for tomorrow"
-                                                                :
-                                                                new Date(item?.boat?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
-                                                                    `Scheduled at ${pipViewDate(item?.boat?.book_to)}` : item?.boat?.book_to ? `Scheduled on ${pipViewDate(item?.boat?.book_to)}` : `Not scheduled yet`
-                                                            //     new Date(item?.boat.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() - 1)).setHours(0, 0, 0, 0) ?
-                                                            // "Scheduled" :
-                                                            // item?.boat?.book_to ? `Scheduled for ${pipViewDate(item?.boat?.book_to)}` : `Not scheduled yet`
-                                                        }</p>
-                                                    </div>
-                                                    :
-                                                    <div class="ct_boat_inner_bg ct_mt_20 ct_empty_box_padd_66" onClick={() => navigate(pageRoutes.update_docks, { state: { data: item } })}>
-                                                        <p class="mb-2 ct_fs_18 ct_fw_500 ct_text_op_5">Click here to</p>
-                                                        <h4 class="mb-0 ct_fs_28 ct_fw_700 ct_text_op_5">Allot a boat</h4>
-                                                    </div>
-                                                }
-                                            </div>
-                                        </a> */}
                     <div className="ct_boat_white_bg">
-                      <a href="#" className="text-dark">
+                      <a className="text-dark">
                         <div className="d-flex gap-2 flex-wrap align-items-start justify-content-between">
                           <div className="ct_boat_info_title">
                             <div className="ct_boat_info_icon_1">
@@ -173,44 +157,57 @@ const BoatDocks = () => {
                             </div>
                             <div>
                               <h4 className="ct_fs_20 ct_fw_600 mb-1">
-                                Dock 01
+                                {item?.name ?? 'NA'}
                               </h4>
-                              <p className="ct_text_op_5 mb-0 ct_fw_500">
-                                30 x 40 m
-                              </p>
                             </div>
                           </div>
                           <button
                             className="ct_custom_btm w-auto px-4 py-2 ct_fw_500"
+                            onClick={() => setDockId(item?.id)}
                             data-bs-toggle="modal"
                             data-bs-target="#ct_assign_boat"
                           >
                             Assign Boat
                           </button>
                         </div>
-                        <div className="ct_boat_detail_12">
-                          <span className="ct_text_op_5">Boat No. 362</span>
-                          <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
-                            Dock 01
-                          </h4>
-                          <ul>
-                            <li className="ct_textclr_7E7E7E">
-                              <span className="ct_green_status me-2"></span>
-                              Scheduled for today
-                            </li>
-                            <li>|</li>
-                            <li className="ct_textclr_7E7E7E">
-                              Releasing - 29/10/2024
-                            </li>
-                          </ul>
-                        </div>
+                        {item?.DockBooking?.length != 0 ?
+                          <div className="ab_pointer ct_boat_detail_12" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })}>
+                            <span className="ct_text_op_5">Boat No. {i + 1}</span>
+                            <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
+                              {item?.DockBooking[0]?.boat?.name}
+                            </h4>
+                            <ul>
+                              <li className="ct_textclr_7E7E7E">
+                                <span className={`me-2 ${new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "ct_green_status" :
+                                  new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                    "ct_bringle_status"
+                                    :
+                                    new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                      `ct_bringle_status` : item?.DockBooking[0]?.book_to ? `ct_bringle_status` : `ct_bringle_status`
+                                  }`}></span>
+                                Scheduled for {new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                                  new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                    "Scheduled for tomorrow"
+                                    :
+                                    new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                      `Scheduled at ${pipViewDate(item?.DockBooking[0]?.book_to)}` : item?.DockBooking[0]?.book_to ? `Scheduled on ${pipViewDate(item?.DockBooking[0]?.book_to)}` : `Not scheduled yet`
+                                }
+                              </li>
+                            </ul>
+                          </div>
+                          :
+                          <div className="ct_boat_detail_12">
+                            Boat not assigned yet!
+                          </div>
+                        }
                       </a>
-
-                      <div className="mt-2">
-                        <a href="" className="ct_orange_link">
-                          Upcoming 3 boats
-                        </a>
-                      </div>
+                      {item?.DockBooking?.length > 1 ?
+                        <div className="mt-2">
+                          <a href="javascript:void(0)" className="ct_orange_link" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })}>
+                            Upcoming {item?.DockBooking?.length - 1} boats
+                          </a>
+                        </div>
+                        : ""}
                     </div>
                   </div>
                 ))
@@ -227,7 +224,7 @@ const BoatDocks = () => {
         className="modal fade Committed_Price"
         id="ct_assign_boat"
         tabindex="-1"
-        aria-labelledby="ct_assign_boatLabel"
+        aria-labelledby="ct_assign_boatLabel" data-bs-backdrop='static' data-bs-keyboard="false"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -237,8 +234,127 @@ const BoatDocks = () => {
                 <h4 className="mb-4 text-center">
                   <strong>Assign Boat </strong>
                 </h4>
-
-                <form>
+                <Formik
+                  initialValues={initialState}
+                  validationSchema={AssignBoatSchema}
+                  onSubmit={(values, action) => {
+                    handleBoatAssign(values, action)
+                  }}
+                >{({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  resetForm
+                }) => (
+                  <form>
+                    <div className="row">
+                      <div className="col-md-12">
+                        <div className="form-group mb-3">
+                          <label className="mb-1">
+                            <strong>Select Boat</strong>{" "}
+                            <span className="ct_required_star">*</span>
+                          </label>
+                          <select
+                            className="form-control"
+                            id="boatId"
+                            value={values?.boatId}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                          >
+                            <option value="">----Select Boat----</option>
+                            {available_boats && available_boats?.map((item) => (
+                              <option value={item.id}>{item.name}</option>
+                            ))}
+                          </select>
+                          <ErrorMessage className="d-block"
+                            errors={errors}
+                            touched={touched}
+                            fieldName="boatId"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-12">
+                        <div className="form-group mb-3">
+                          <label className="mb-1">
+                            <strong>Select Date Range </strong>{" "}
+                            <span className="ct_required_star">*</span>
+                          </label>
+                          <div className="d-flex gap-2 ct_flex_wrap_575">
+                            <div>
+                              {/* <DateRangePicker
+                                className="ct_range_calendar"
+                                // onChange={(item) => hanleDate(item)}
+                                showSelectionPreview={true}
+                                moveRangeOnFirstSelection={false}
+                                months={1}
+                                // ranges={state}
+                                rangeColors={"red"}
+                                direction="horizontal"
+                                minDate={new Date()}
+                              /> */}
+                              <input
+                                id="book_from"
+                                type="date"
+                                className="form-control"
+                                onKeyDown={(e) => e.preventDefault()}
+                                min={new Date()?.toISOString()?.split("T")[0]}
+                                value={values.book_from}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                              />
+                              <ErrorMessage className="d-block"
+                                errors={errors}
+                                touched={touched}
+                                fieldName="book_from"
+                              />
+                            </div>
+                            <p className="mb-0 mt-2">To</p>
+                            <div>
+                              <input
+                                id="book_to"
+                                type="date"
+                                className="form-control"
+                                onKeyDown={(e) => e.preventDefault()}
+                                min={new Date()?.toISOString()?.split("T")[0]}
+                                value={values.book_to}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                              />
+                              <ErrorMessage className="d-block"
+                                errors={errors}
+                                touched={touched}
+                                fieldName="book_to"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="modal-footer justify-content-center border-0 pb-0 px-0">
+                      <button
+                        type="button"
+                        className="ct_outline_btn ct_outline_orange"
+                        data-bs-dismiss="modal"
+                        onClick={() => resetForm()}
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                        onClick={handleSubmit}
+                        data-bs-dismiss={values?.boatId != '' && Object?.keys(errors)?.length == 0 && "modal"}
+                      >
+                        Assign Boat
+                      </button>
+                    </div>
+                  </form>
+                )}
+                </Formik>
+                {/* <form>
                   <div className="row">
                     <div className="col-md-12">
                       <div className="form-group mb-3">
@@ -247,9 +363,10 @@ const BoatDocks = () => {
                           <span className="ct_required_star">*</span>
                         </label>
                         <select className="form-control">
-                          <option>Boat 1</option>
-                          <option>Boat 1</option>
-                          <option>Boat 1</option>
+                          <option value="">----Select Boat----</option>
+                          {available_boats && available_boats?.map((item) => (
+                            <option value={item.id}>{item.name}</option>
+                          ))}
                         </select>
                       </div>
                     </div>
@@ -284,7 +401,7 @@ const BoatDocks = () => {
                       Assign Boat
                     </button>
                   </div>
-                </form>
+                </form> */}
               </div>
             </div>
           </div>

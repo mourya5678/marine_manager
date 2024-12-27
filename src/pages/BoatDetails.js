@@ -9,6 +9,7 @@ const BoatDetails = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
     const [isToggle, setIsToggle] = useState(false);
+
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };

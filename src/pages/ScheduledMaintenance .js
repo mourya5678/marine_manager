@@ -86,8 +86,8 @@ const ScheduledMaintenance = () => {
         date_scheduled_from: values?.date_scheduled_from,
         date_scheduled_to: values?.date_scheduled_to,
         isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
-        status: values?.completed_at ? 1 : 0,
-        completed_at: values?.completed_at,
+        // status: values?.completed_at ? 1 : 0,
+        // completed_at: values?.completed_at,
       };
     } else if (values?.assignStaffId == "OUTSOURCED") {
       data = {
@@ -100,8 +100,8 @@ const ScheduledMaintenance = () => {
         date_scheduled_from: values?.date_scheduled_from,
         date_scheduled_to: values?.date_scheduled_to,
         isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
-        status: values?.completed_at ? 1 : 0,
-        completed_at: values?.completed_at,
+        // status: values?.completed_at ? 1 : 0,
+        // completed_at: values?.completed_at,
       };
     }
     dispatch(CreateTask({ payload: data, callback }));
@@ -127,8 +127,8 @@ const ScheduledMaintenance = () => {
         date_scheduled_from: values?.date_scheduled_from,
         date_scheduled_to: values?.date_scheduled_to,
         isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
-        status: values?.completed_at ? 1 : 0,
-        completed_at: values?.completed_at,
+        // status: values?.completed_at ? 1 : 0,
+        // completed_at: values?.completed_at,
       };
     } else if (values?.assignStaffId == "OUTSOURCED") {
       data = {
@@ -142,8 +142,8 @@ const ScheduledMaintenance = () => {
         date_scheduled_from: values?.date_scheduled_from,
         date_scheduled_to: values?.date_scheduled_to,
         isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
-        status: values?.completed_at ? 1 : 0,
-        completed_at: values?.completed_at,
+        // status: values?.completed_at ? 1 : 0,
+        // completed_at: values?.completed_at,
       };
     }
     // const data = {
@@ -233,15 +233,13 @@ const ScheduledMaintenance = () => {
                           <td>{i + 1}</td>
                           <td>
                             {item?.description
-                              ? `${item?.description?.slice(0, 28)}${
-                                  item?.description?.length >= 28 ? "..." : ""
-                                }`
+                              ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 ? "..." : ""
+                              }`
                               : ""}
                           </td>
                           <td>
-                            {`${item?.boat?.rego ?? ""} - ${
-                              item?.boat?.name ?? ""
-                            }` ?? ""}
+                            {`${item?.boat?.rego ?? ""} - ${item?.boat?.name ?? ""
+                              }` ?? ""}
                           </td>
                           <td
                             className={
@@ -281,17 +279,13 @@ const ScheduledMaintenance = () => {
                                       item?.assign_to == "OUTSOURCED"
                                         ? item?.supplierId
                                         : item?.assign_to == "STAFF" &&
-                                          item?.assignStaffId,
+                                        item?.assignStaffId,
                                     date_scheduled_from: pipViewDate4(
                                       item?.date_scheduled_from
                                     ),
                                     date_scheduled_to: pipViewDate4(
                                       item?.date_scheduled_to
                                     ),
-                                    completed_at: item?.completed_at
-                                      ? pipViewDate4(item?.completed_at)
-                                      : "",
-                                    status: item?.status,
                                     ct_checkbox_cbx:
                                       item?.isRecurring == 0 ? false : true,
                                   })
@@ -314,17 +308,13 @@ const ScheduledMaintenance = () => {
                                     item?.assign_to == "OUTSOURCED"
                                       ? item?.supplier?.company_name
                                       : item?.assign_to == "STAFF" &&
-                                        item?.staff?.full_name,
+                                      item?.staff?.full_name,
                                   date_scheduled_from: pipViewDate4(
                                     item?.date_scheduled_from
                                   ),
                                   date_scheduled_to: pipViewDate4(
                                     item?.date_scheduled_to
                                   ),
-                                  completed_at: item?.completed_at
-                                    ? pipViewDate4(item?.completed_at)
-                                    : "",
-                                  status: item?.status,
                                   ct_checkbox_cbx:
                                     item?.isRecurring == 0 ? false : true,
                                 })
@@ -420,8 +410,8 @@ const ScheduledMaintenance = () => {
                                   taskDetails.assignStaffId == "STAFF"
                                     ? "Internal Staff"
                                     : taskDetails.assignStaffId == "OUTSOURCED"
-                                    ? "Out Source"
-                                    : ""
+                                      ? "Out Source"
+                                      : ""
                                 }
                                 readOnly
                               />
@@ -541,8 +531,7 @@ const ScheduledMaintenance = () => {
                                     staff_active_data?.map(
                                       (item) =>
                                         item?.id == values?.supplierId &&
-                                        `${item?.full_name ?? ""} - ${
-                                          item?.role ?? ""
+                                        `${item?.full_name ?? ""} - ${item?.role ?? ""
                                         }`
                                     )
                                   }
@@ -620,7 +609,7 @@ const ScheduledMaintenance = () => {
                               />
                             </div>
                           </div>
-                          <div className="col-md-6">
+                          {/* <div className="col-md-6">
                             <div className="form-group mb-3">
                               <label className="mb-1">
                                 <strong>Completed At </strong>{" "}
@@ -641,12 +630,7 @@ const ScheduledMaintenance = () => {
                                 fieldName="completed_at"
                               />
                             </div>
-                          </div>
-                          <div className="col-md-6">
-                            {/* <div className="form-group mb-3">
-
-                                                    </div> */}
-                          </div>
+                          </div> */}
                           <div className="col-md-6">
                             <div className="form-group mb-3">
                               <label>&nbsp;</label>
@@ -853,7 +837,7 @@ const ScheduledMaintenance = () => {
                           </div>
                         </div>
                         {values.assignStaffId != "" &&
-                        values.assignStaffId == "STAFF" ? (
+                          values.assignStaffId == "STAFF" ? (
                           <div className="col-md-12">
                             <div className="form-group mb-3">
                               <label className="mb-1">
@@ -961,7 +945,7 @@ const ScheduledMaintenance = () => {
                             />
                           </div>
                         </div>
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                           <div className="form-group mb-3">
                             <label className="mb-1">
                               <strong>Completed At </strong>{" "}
@@ -984,10 +968,7 @@ const ScheduledMaintenance = () => {
                           </div>
                         </div>
                         <div className="col-md-6">
-                          {/* <div className="form-group mb-3">
-
-                                                    </div> */}
-                        </div>
+                        </div> */}
                         <div className="col-md-6">
                           <div className="form-group mb-3">
                             <label>&nbsp;</label>
@@ -1072,8 +1053,8 @@ const ScheduledMaintenance = () => {
                               taskDetails.assignStaffId == "STAFF"
                                 ? "Internal Staff"
                                 : taskDetails.assignStaffId == "OUTSOURCED"
-                                ? "Out Source"
-                                : ""
+                                  ? "Out Source"
+                                  : ""
                             }
                             readOnly
                           />
@@ -1193,6 +1174,7 @@ const ScheduledMaintenance = () => {
                           />
                         </div>
                       </div>
+                      {/* 
                       <div className="col-md-6">
                         <div className="form-group mb-3">
                           <label className="mb-1">
@@ -1208,10 +1190,8 @@ const ScheduledMaintenance = () => {
                         </div>
                       </div>
                       <div className="col-md-6">
-                        {/* <div className="form-group mb-3">
-
-                                                    </div> */}
-                      </div>
+                      </div> 
+                    */}
                       <div className="col-md-6">
                         <div className="form-group mb-3">
                           <label>&nbsp;</label>
@@ -1259,7 +1239,7 @@ const ScheduledMaintenance = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

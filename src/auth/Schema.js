@@ -212,13 +212,13 @@ export const AddDockSchema = Yup.object().shape({
         .matches(/^[0-9]+$/, "Contact number must be number")
         // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
         .required("Please enter contact number"),
-    book_from: Yup.date()
-        .required("Please select booking date")
-        .typeError("Please select valid date"),
-    book_to: Yup.date()
-        .required("Please select booking end date")
-        .min(Yup.ref('book_from'), "End date must be the same as or later than the book from date.")
-        .typeError("Please select valid date"),
+    // book_from: Yup.date()
+    //     .required("Please select booking date")
+    //     .typeError("Please select valid date"),
+    // book_to: Yup.date()
+    //     .required("Please select booking end date")
+    //     .min(Yup.ref('book_from'), "End date must be the same as or later than the book from date.")
+    //     .typeError("Please select valid date"),
     address: Yup.string().trim().required("Please enter storage address"),
     booking_cost: Yup.string()
         .matches(
@@ -244,7 +244,6 @@ export const AddDockSchema = Yup.object().shape({
             value => !isNaN(parseFloat(value))
         )
         .min(1, "Cost must be greater than 0"),
-    boatId: Yup.string().required("Please select boat").optional()
 });
 
 export const UpdateSupplierSchema = Yup.object().shape({
@@ -288,4 +287,15 @@ export const CreateTaskSchema = Yup.object().shape({
         .min(Yup.ref('date_scheduled_from'), "Completed At must be the same as or later than the scheduled from date.")
         .max(Yup.ref('date_scheduled_to'), "Completed At must be the same as or before than the scheduled to date.")
         .typeError("Please select valid date"),
+});
+
+export const AssignBoatSchema = Yup.object().shape({
+    book_from: Yup.date()
+        .required("Please select booking date")
+        .typeError("Please select valid date"),
+    book_to: Yup.date()
+        .required("Please select booking end date")
+        .min(Yup.ref('book_from'), "End date must be the same as or later than the book from date.")
+        .typeError("Please select valid date"),
+    boatId: Yup.string().required("Please select boat")
 });

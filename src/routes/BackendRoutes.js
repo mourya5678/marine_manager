@@ -1,6 +1,6 @@
-// export const BASE_URL = "http://192.168.29.19:4001/";   // Local 
+export const BASE_URL = "http://192.168.29.19:4001/";   // Local 
 
-export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
+// export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
 
 // auth user
 export const signupEndPointURL = "users/signup";
@@ -30,7 +30,8 @@ export const updateSupplierEndPointURL = "supplier/editsupllier";
 export const addDockDetailsEndPointURL = "dock/addDock";
 export const getDockDetailsEndPointURL = "dock/getAllDock";
 export const updateDockDetailsEndPointURL = "dock/updateDock";
-export const getAvailableBoatsEndPointURL = "dock/availableBoats"
+export const getAvailableBoatsEndPointURL = "dock/availableBoats";
+export const assignBoatsToDockEndPointURL = "dock/assignBoat";
 
 
 // Boats

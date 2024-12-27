@@ -189,10 +189,9 @@ const CreateBoat = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"
-                                                    ><strong>Model</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                    <label className="mb-1">
+                                                        <strong>Model</strong>
+                                                        <span className="ct_required_star">*</span></label>
                                                     <input
                                                         id="model"
                                                         value={values.model}

@@ -131,7 +131,6 @@ const BoatTracker = () => {
                                                                     supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplier?.company_name : item?.assign_to == "STAFF" && `${(item?.staff?.full_name ?? '')} - ${(item?.staff?.role ?? '')}`,
                                                                     date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
                                                                     date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
-                                                                    completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
                                                                     status: item?.status,
                                                                     ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
                                                                 })}
@@ -186,81 +185,6 @@ const BoatTracker = () => {
                     </div>
                 </div>
             </div>
-
-            {/* <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
-                <div className="modal-dialog modal-lg modal-dialog-centered">
-                    <div className="modal-content">
-                        <div className="modal-body">
-                            <div className="pt-4">
-                                <h4 className="mb-4 text-center"><strong>Maintenance Task Details</strong></h4>
-                                {taskDetails &&
-                                    <form>
-                                        <div className="row">
-                                            <div className="col-md-12">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Maintenance Item Description</strong> <span className="ct_required_star">*</span></label>
-                                                    <textarea
-                                                        value={taskDetails.description}
-                                                        className="form-control"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Boat Registration</strong> <span className="ct_required_star">*</span></label>
-                                                    <input
-                                                        type="text"
-                                                        id="time_alloted"
-                                                        className="form-control"
-                                                        value={taskDetails.rego}
-                                                        readOnly
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Supplier</strong> <span className="ct_required_star">*</span></label>
-                                                    <input
-                                                        id="quoted_value"
-                                                        value={taskDetails.company_name}
-                                                        type="text"
-                                                        className="form-control"
-                                                        readOnly
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Staff Allocated	</strong> <span className="ct_required_star">*</span></label>
-                                                    <input
-                                                        id="quoted_value"
-                                                        value={taskDetails.staff}
-                                                        type="text"
-                                                        className="form-control"
-                                                        readOnly
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Date Scheduled	</strong> <span className="ct_required_star">*</span></label>
-                                                    <p>{pipViewDate(taskDetails?.date_scheduled_from)}{" "}-{" "}{pipViewDate(taskDetails?.date_scheduled_to)}</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="modal-footer justify-content-center border-0">
-                                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal"
-                                                    onClick={() => setTaskDetails()}
-                                                >Close</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
             <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
@@ -383,21 +307,6 @@ const BoatTracker = () => {
                                                         readOnly
                                                     />
                                                 </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Completed At </strong></label>
-                                                    <input
-                                                        id="completed_at"
-                                                        type="date"
-                                                        className="form-control"
-                                                        value={taskDetails.completed_at}
-                                                        readOnly
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-
                                             </div>
                                             <div className='col-md-6'>
                                                 <div className='form-group mb-3'>

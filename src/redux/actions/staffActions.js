@@ -15,7 +15,8 @@ import {
     getAvailableBoatsEndPointURL,
     updateSupplierEndPointURL,
     updateBoatDetailsEndPointURL,
-    getTomorrowTaskEndPointURL
+    getTomorrowTaskEndPointURL,
+    assignBoatsToDockEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const addStaffDetails = createAsyncThunk("add-staff", async (props) => {
@@ -222,5 +223,20 @@ export const getTomorrowTasks = createAsyncThunk("tomorrow-task", async (props) 
         return response;
     } catch (error) {
         console.log(error)
+    }
+});
+
+export const assignBoatToDock = createAsyncThunk("assign-boat", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: assignBoatsToDockEndPointURL,
+            method: "POST",
+            data: payload,
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
     }
 });

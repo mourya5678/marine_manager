@@ -13,7 +13,8 @@ import {
     updateSupplierDetails,
     updateBoatDetails,
     getActiveStaffData,
-    getTomorrowTasks
+    getTomorrowTasks,
+    assignBoatToDock
 } from "../actions/staffActions";
 
 const initialState = {
@@ -197,6 +198,17 @@ export const staffSlice = createSlice({
             state.isLoading1 = false;
         });
         builder.addCase(getTomorrowTasks.rejected, (state, action) => {
+            state.isLoading1 = false;
+        });
+
+        // assignBoatToDock
+        builder.addCase(assignBoatToDock.pending, (state, action) => {
+            state.isLoading1 = true;
+        });
+        builder.addCase(assignBoatToDock.fulfilled, (state, action) => {
+            state.isLoading1 = false;
+        });
+        builder.addCase(assignBoatToDock.rejected, (state, action) => {
             state.isLoading1 = false;
         });
     },
