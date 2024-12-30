@@ -14,12 +14,17 @@ const initialState = {
     isToggle: false,
     bussiness_profile: [],
     dashBoardData: {},
+    fcm: ''
 };
 
 export const authSlice = createSlice({
     name: "Auth",
     initialState: initialState,
-    reducers: {},
+    reducers: {
+        saveFcmToken: (state, acton) => {
+            state.fcm = acton?.payload;
+        },
+    },
     extraReducers: (builder) => {
         // userSignUp
         builder.addCase(userSignUp.pending, (state, action) => {
@@ -104,4 +109,6 @@ export const authSlice = createSlice({
     },
 });
 
+
+export const { saveFcmToken } = authSlice.actions;
 export default authSlice.reducer;

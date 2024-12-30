@@ -11,7 +11,7 @@ import ErrorMessage from '../components/ErrorMessage';
 import Loader from '../components/Loader';
 
 const Login = () => {
-    const { isLoading } = useSelector((state) => state?.authReducer);
+    const { isLoading, fcm } = useSelector((state) => state?.authReducer);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isEye, setIsEye] = useState(false);
@@ -33,7 +33,14 @@ const Login = () => {
                 navigate(pageRoutes.dashboard);
             }
         };
-        dispatch(userLogin({ payload: values, callback }));
+        const local = JSON.parse(localStorage.getItem('MarinfcmToken'))
+        console.log(local);
+        const data = {
+            email: values?.email,
+            password: values?.password,
+            fcm_token: local
+        }
+        dispatch(userLogin({ payload: data, callback }));
     };
 
     if (isLoading) {

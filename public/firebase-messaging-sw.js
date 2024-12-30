@@ -1,28 +1,31 @@
-importScripts("https://www.gstatic.com/firebasejs/9.24.0/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/9.24.0/firebase-messaging-compat.js");
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID",
+    apiKey: "AIzaSyCJD2CFeBhHgPGLfcKk4x3kAVATUdfcxGI",
+    authDomain: "marinemanager-943fb.firebaseapp.com",
+    projectId: "marinemanager-943fb",
+    storageBucket: "marinemanager-943fb.firebasestorage.app",
+    messagingSenderId: "26494334722",
+    appId: "1:26494334722:web:a4ececa97e26a54aff341b",
+    measurementId: "G-DC7Y6ESZ9J"
 };
-
 
 firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage((payload) => {
-    console.log("Received background message: ", payload);
+console.log({ messaging })
 
-    const notificationTitle = payload.notification.title || "Background Notification";
+messaging.onBackgroundMessage((payload) => {
+    console.log('Received background message:--- ', payload.notification);
+
+    const notificationTitle = payload.notification.title || "Default Title"; // Fallback title
     const notificationOptions = {
-        body: payload.notification.body || "You have a new message.",
-        icon: payload.notification.icon || "/firebase-logo.png",
+        body: payload.notification.body || "Default body message.", // Fallback body
+        icon: payload.notification.icon || 'YOUR_NOTIFICATION_ICON_URL', // Optional icon
     };
 
+    // Show the notification
     self.registration.showNotification(notificationTitle, notificationOptions);
 });
