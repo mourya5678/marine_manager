@@ -11,11 +11,13 @@ import Loader from '../components/Loader';
 import { pipViewDate, pipViewDate4 } from '../auth/Pip';
 import ReactPagination from '../layout/ReactPagination';
 import PaginationDropdown from '../layout/PaginationDropdown';
+import { pageRoutes } from '../routes/PageRoutes';
 
 const LeadReceived = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
+    const [cdsData, setCdsData] = useState();
     const { isLoading2, allLeads, recouringData } = useSelector((state) => state?.maintainedReducer);
     const [leadDetails, setLeadDetails] = useState();
     const [currentPage, setCurrentPage] = useState(0);
@@ -237,7 +239,7 @@ const LeadReceived = () => {
                                                                 </select>
                                                                 {/* </td>
                                                         <td className="text-end"> */}
-                                                                <i className="fa-solid fa-eye" style={{ cursor: "pointer" }} data-bs-toggle="modal" data-bs-target="#ct_view_task12"></i>
+                                                                <i className="fa-solid fa-eye" style={{ cursor: "pointer" }} data-bs-toggle="modal" data-bs-target="#ct_view_task12" onClick={() => setCdsData(item)}></i>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -613,6 +615,14 @@ const LeadReceived = () => {
                                             <div className="modal-footer justify-content-center border-0">
                                                 <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal"
                                                     onClick={() => setTaskDetails()}>Close</button>
+                                                <button
+                                                    type="button ct_"
+                                                    className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                                                    onClick={() => navigate(pageRoutes?.cds_job_service, { state: { data: cdsData, isShow: false } })}
+                                                    data-bs-dismiss="modal"
+                                                >
+                                                    View CDS Jobsheet
+                                                </button>
                                             </div>
                                         </div>
                                     </form>

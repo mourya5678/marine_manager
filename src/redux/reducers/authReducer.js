@@ -6,7 +6,8 @@ import {
     getBussinessProfileData,
     updateBussinessProfile,
     getDashboardData,
-    updateBussinessImage
+    updateBussinessImage,
+    getNotificationData
 } from "../actions/authActions";
 
 const initialState = {
@@ -14,7 +15,8 @@ const initialState = {
     isToggle: false,
     bussiness_profile: [],
     dashBoardData: {},
-    fcm: ''
+    fcm: '',
+    notificationData: []
 };
 
 export const authSlice = createSlice({
@@ -104,6 +106,19 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(updateBussinessImage.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // getNotificationData
+        builder.addCase(getNotificationData.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getNotificationData.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.notificationData = data?.notifications ?? [];
+            state.isLoading = false;
+        });
+        builder.addCase(getNotificationData.rejected, (state, action) => {
             state.isLoading = false;
         });
     },

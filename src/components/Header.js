@@ -53,17 +53,16 @@ const Header = ({ onClick }) => {
           <span></span>
           <span></span>
         </div>
+
         <div className="ct_dashboard_head">
           <div className="ms-auto d-flex align-items-center gap-3 justify-content-end">
             <div className="dropdown">
               <a
                 href="javascript:void(0)"
                 className="ct_notify_cation_icon_1"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+                onClick={() => navigate(pageRoutes.notification)}
               >
-                <span></span>
+                {/* <span></span> */}
                 <svg
                   width="24"
                   height="24"
@@ -94,86 +93,6 @@ const Header = ({ onClick }) => {
                   />
                 </svg>
               </a>
-              <div
-                class="dropdown-menu ct_notification_modal_12"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <div className="ct_notification_head">
-                  <h4 className="mb-0  ct_fs_20 ct_fw_600">Notification (1)</h4>
-                </div>
-                <div className="ct_current_date_notification_bg">
-                  <h4 className="ct_fs_18 mb-0">Today</h4>
-                </div>
-                <ul>
-                  <li>
-                    <div className="ct_notification_list_item">
-                      <div
-                        className="ct_notification_user_icon"
-                        style={{ backgroundColor: "#00AB7B" }}
-                      >
-                        MG
-                      </div>
-                      <div>
-                        <p className="mb-0">
-                          <span className="ct_fw_600">Michael Green</span>{" "}
-                          completed
-                          <span className="ct_fw_600">'GPS Calibration'</span>
-                          task from the maintenance schedule.
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-0">Now</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="ct_notification_list_item">
-                      <div
-                        className="ct_notification_user_icon"
-                        style={{ backgroundColor: "#5E5BF9" }}
-                      >
-                        PW
-                      </div>
-                      <div>
-                        {" "}
-                        <p className="mb-0">
-                          <span className="ct_fw_600">Paul Walker</span> marked
-                          the task
-                          <span className="ct_fw_600">
-                            'Propeller Maintenance'
-                          </span>
-                          completed.
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-0">15 min ago</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li className="border-0">
-                    <div className="ct_notification_list_item">
-                      <div
-                        className="ct_notification_user_icon"
-                        style={{ backgroundColor: "#82C2FEF2" }}
-                      >
-                        CE
-                      </div>
-                      <div>
-                        <p className="mb-0">
-                          <span className="ct_fw_600">
-                            Emergency Drill Preparation
-                          </span>{" "}
-                          status updated to done by
-                          <span className="ct_fw_600"> Chris Evans.</span>
-                        </p>
-                      </div>
-                      <div>
-                        <p className="mb-0">Now</p>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
             </div>
             <a href="javascript:void(0)" className="ct_logout_btn ct_white_btn">
               <img
@@ -206,6 +125,7 @@ const Header = ({ onClick }) => {
           </div>
         </div>
       </div>
+
       <div
         className="modal fade ct_assets_modal"
         id="ct_logout_modal"
@@ -267,6 +187,7 @@ const Header = ({ onClick }) => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

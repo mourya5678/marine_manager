@@ -54,3 +54,6 @@ export const AddLeaddataEndPointURL = "quickLeads/addQuickLeads";
 export const UpdateLeaddataEndPointURL = "quickLeads/updateQuickLeads";
 export const RecouringReminderEndPointURL = "quickLeads/getDueRecurringTasks";
 export const UpdateRecouringEndPointURL = "quickLeads/updateRecurringTask";
+
+// Notification
+export const notificationEndPointURL = "notification";

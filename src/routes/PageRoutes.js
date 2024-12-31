@@ -17,6 +17,7 @@ import JobService from "../pages/JobService";
 import LeadReceived from "../pages/LeadReceived";
 import MaintainedBoats from "../pages/MaintainedBoats";
 import MentenanceTask from "../pages/MentenanceTask";
+import Notification from "../pages/Notification";
 import ReviewSchedule from "../pages/ReviewSchedule";
 import ScheduledMaintenance from "../pages/ScheduledMaintenance ";
 import StaffProductivity from "../pages/StaffProductivity";
@@ -64,6 +65,7 @@ export const pageRoutes = {
   update_boat: "/update-boat",
   tomorrow_scheduled_task: "/tomorrow-scheduled-task",
   cds_job_service: "/cds-job-service",
+  notification: "/notification",
 };
 
 export const AllRoutes = [
@@ -245,6 +247,12 @@ export const AllRoutes = [
     name: "CdsJob_Srvice",
     path: pageRoutes.cds_job_service,
     element: <CdsJobService />,
+    isPrivate: true,
+  },
+  {
+    name: "Notification",
+    path: pageRoutes.notification,
+    element: <Notification />,
     isPrivate: true,
   },
 ];

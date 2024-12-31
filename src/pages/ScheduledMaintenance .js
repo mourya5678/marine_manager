@@ -33,6 +33,7 @@ const ScheduledMaintenance = () => {
   const { isLoading2, boatTaskData, allTasks } = useSelector(
     (state) => state?.maintainedReducer
   );
+  const [cdsData, setCdsData] = useState();
   const [taskDetails, setTaskDetails] = useState();
   const [currentPage, setCurrentPage] = useState(0);
   const [usersPerPage, setUserPerPages] = useState(5);
@@ -112,6 +113,7 @@ const ScheduledMaintenance = () => {
     const callback = (response) => {
       if (response.success) dispatch(getAllTask());
       setTaskDetails();
+      setCdsData();
       resetForm();
     };
     let data;
@@ -296,7 +298,8 @@ const ScheduledMaintenance = () => {
                               className="fa-solid fa-eye ms-2 ab_pointer"
                               data-bs-toggle="modal"
                               data-bs-target="#ct_view_task12"
-                              onClick={() =>
+                              onClick={() => {
+                                setCdsData(item);
                                 setTaskDetails({
                                   id: item?.id,
                                   boatId: item?.boat?.rego,
@@ -318,7 +321,7 @@ const ScheduledMaintenance = () => {
                                   ct_checkbox_cbx:
                                     item?.isRecurring == 0 ? false : true,
                                 })
-                              }
+                              }}
                             ></i>
                           </td>
                         </tr>
@@ -1174,24 +1177,6 @@ const ScheduledMaintenance = () => {
                           />
                         </div>
                       </div>
-                      {/* 
-                      <div className="col-md-6">
-                        <div className="form-group mb-3">
-                          <label className="mb-1">
-                            <strong>Completed At </strong>{" "}
-                          </label>
-                          <input
-                            id="completed_at"
-                            type="date"
-                            className="form-control"
-                            value={taskDetails.completed_at}
-                            readOnly
-                          />
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                      </div> 
-                    */}
                       <div className="col-md-6">
                         <div className="form-group mb-3">
                           <label>&nbsp;</label>
@@ -1219,13 +1204,16 @@ const ScheduledMaintenance = () => {
                           type="button"
                           className="ct_outline_btn ct_outline_orange"
                           data-bs-dismiss="modal"
-                          onClick={() => setTaskDetails()}
+                          onClick={() =>
+                            setTaskDetails()
+                          }
                         >
                           Close
                         </button>
                         <button
                           type="button ct_"
                           className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                          onClick={() => navigate(pageRoutes?.cds_job_service, { state: { data: cdsData, isShow: true } })}
                           data-bs-dismiss="modal"
                         >
                           View CDS Jobsheet

@@ -9,6 +9,7 @@ import {
     updateBussinessProfileEndPointURL,
     getDashboardDataEndPointURL,
     deleteImageEndPointURL,
+    notificationEndPointURL,
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
@@ -110,5 +111,17 @@ export const updateBussinessImage = createAsyncThunk("update-img", async (props)
         return response;
     } catch (error) {
         callback(null, error);
+    }
+});
+
+export const getNotificationData = createAsyncThunk("notification-data", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: notificationEndPointURL,
+            method: "GET",
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
     }
 });
