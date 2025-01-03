@@ -255,7 +255,7 @@ const BoatDocks = () => {
                                       new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
                                         `ct_bringle_status` : item?.DockBooking[0]?.book_to ? `ct_bringle_status` : `ct_bringle_status`
                                     }`}></span>
-                                  Scheduled for {new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                                  {new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
                                     new Date(item?.DockBooking[0]?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
                                       "Scheduled for tomorrow"
                                       :
@@ -266,7 +266,7 @@ const BoatDocks = () => {
                               </ul>
                             </div>
                             :
-                            <div className="ct_boat_detail_12">
+                            <div className="ct_boat_detail_12" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })}>
                               Boat not assigned yet!
                             </div>
                           }
@@ -396,7 +396,7 @@ const BoatDocks = () => {
                         type="button"
                         className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
                         onClick={handleSubmit}
-                        data-bs-dismiss={values?.boatId != '' && setDateError == '' && "modal"}
+                        data-bs-dismiss={values?.boatId != '' && dateValue && "modal"}
                       >
                         Assign Boat
                       </button>

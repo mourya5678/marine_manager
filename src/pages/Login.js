@@ -9,6 +9,7 @@ import { signInSchema } from '../auth/Schema';
 import { userLogin } from '../redux/actions/authActions';
 import ErrorMessage from '../components/ErrorMessage';
 import Loader from '../components/Loader';
+import { pipSaveProfile } from '../auth/Pip';
 
 const Login = () => {
     const { isLoading, fcm } = useSelector((state) => state?.authReducer);
@@ -30,6 +31,12 @@ const Login = () => {
         }
         const callback = (response) => {
             if (response.success) {
+                const data = {
+                    name: response?.data?.userData?.first_name ?? "",
+                    company_name: response?.data?.userData?.company_name ?? "",
+                };
+                console.log({ data }, { response });
+                pipSaveProfile(data);
                 navigate(pageRoutes.dashboard);
             }
         };

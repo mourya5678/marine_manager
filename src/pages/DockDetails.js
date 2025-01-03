@@ -78,7 +78,7 @@ const DockDetails = () => {
                   </div>
                 </div>
                 <button className="ct_custom_btm w-auto px-4 py-2 ct_fw_500" onClick={() => navigate(pageRoutes.update_docks, { state: { data: state?.data } })}>
-                  Edit Detail
+                  Edit Dock
                 </button>
               </div>
               <div className="ct_boat_detail_12 ct_mt_20 ct_border_grey_12">
@@ -153,7 +153,7 @@ const DockDetails = () => {
                                 new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
                                   `ct_bringle_status` : item?.book_to ? `ct_bringle_status` : `ct_bringle_status`
                               }`}></span>
-                            Scheduled for {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                            {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
                               new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
                                 "Scheduled for tomorrow"
                                 :
@@ -173,7 +173,7 @@ const DockDetails = () => {
               </div>
             </div>
             <div className="mt-4">
-              <h4 className="ct_fs_24 ct_fw_600 mb-3">Upcomming</h4>
+              <h4 className="ct_fs_24 ct_fw_600 mb-3">Upcoming</h4>
               <div className="row mt-3">
                 {state?.data?.DockBooking?.length > 1 ?
                   state?.data?.DockBooking?.slice(1, state?.data?.DockBooking?.length)?.map((item, i) => (
@@ -192,7 +192,7 @@ const DockDetails = () => {
                                 new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
                                   `ct_bringle_status` : item?.book_to ? `ct_bringle_status` : `ct_bringle_status`
                               }`}></span>
-                            Scheduled for {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                            {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
                               new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
                                 "Scheduled for tomorrow"
                                 :
@@ -206,7 +206,7 @@ const DockDetails = () => {
                   ))
                   :
                   <div className="col-md-6 mb-4 mb-md-0 me-2 ct_fw_600">
-                    No upcomming boats scheduled yet
+                    No upcoming boats scheduled yet
                   </div>
                 }
               </div>

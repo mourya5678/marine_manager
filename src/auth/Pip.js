@@ -52,10 +52,10 @@ export const pipErrorMessage = (message) => {
 export const pipSaveProfile = (profile) => {
     if (!profile)
         return;
-    localStorage.setItem('user_data', JSON.stringify(profile));
+    localStorage.setItem('m_user_data', JSON.stringify(profile));
 };
 
 export const pipGetProfile = () => {
-    return JSON.parse(localStorage.getItem('user_data'));
+    return JSON.parse(localStorage.getItem('m_user_data'));
 };
 
