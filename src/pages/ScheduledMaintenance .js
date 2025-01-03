@@ -582,6 +582,7 @@ const ScheduledMaintenance = () => {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 onKeyDown={(e) => e.preventDefault()}
+                                min={new Date()?.toISOString()?.split("T")[0]}
                               />
                               <ErrorMessage
                                 errors={errors}
@@ -604,6 +605,7 @@ const ScheduledMaintenance = () => {
                                 onBlur={handleBlur}
                                 onChange={handleChange}
                                 onKeyDown={(e) => e.preventDefault()}
+                                min={new Date()?.toISOString()?.split("T")[0]}
                               />
                               <ErrorMessage
                                 errors={errors}
@@ -918,6 +920,7 @@ const ScheduledMaintenance = () => {
                               onBlur={handleBlur}
                               onChange={handleChange}
                               onKeyDown={(e) => e.preventDefault()}
+                              min={new Date()?.toISOString()?.split("T")[0]}
                             />
                             <ErrorMessage
                               errors={errors}
@@ -940,6 +943,7 @@ const ScheduledMaintenance = () => {
                               onBlur={handleBlur}
                               onChange={handleChange}
                               onKeyDown={(e) => e.preventDefault()}
+                              min={new Date()?.toISOString()?.split("T")[0]}
                             />
                             <ErrorMessage
                               errors={errors}

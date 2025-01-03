@@ -177,7 +177,7 @@ const DockDetails = () => {
               <div className="row mt-3">
                 {state?.data?.DockBooking?.length > 1 ?
                   state?.data?.DockBooking?.slice(1, state?.data?.DockBooking?.length)?.map((item, i) => (
-                    <div className="col-md-6 mb-4 mb-md-0" onClick={() => navigate(pageRoutes.boat_detail, { state: { data: item?.boat } })}>
+                    <div className="col-md-6 mb-4" onClick={() => navigate(pageRoutes.boat_detail, { state: { data: item?.boat } })}>
                       <div className="ct_boat_detail_12 ct_boat_white_bg">
                         <span className="ct_text_op_5">Boat No. {i + 2}</span>
                         <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">

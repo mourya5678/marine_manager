@@ -21,7 +21,7 @@ const BoatDocks = () => {
   const [dateValue, setDateValue] = useState();
   const [filterData, setFilterData] = useState();
   const [filterByDate, setFilterByDate] = useState();
-  const [setDateError, setDataError] = useState();
+  const [setDateError, setDataError] = useState('');
   const [dockId, setDockId] = useState();
   const [disabledRanges, setDisableRages] = useState([]);
   const onHandleClick = () => {
@@ -74,7 +74,6 @@ const BoatDocks = () => {
 
   const handleBoatAssign = async (values, { setSubmitting, resetForm }) => {
     setSubmitting(false);
-    resetForm();
     const callback = (response) => {
       if (response.success) {
         dispatch(getDockData());
@@ -82,7 +81,8 @@ const BoatDocks = () => {
       }
     };
     if (dateValue) {
-
+      resetForm();
+      setDataError('');
       const data = {
         boatId: values?.boatId,
         book_from: dateValue[0],
@@ -91,7 +91,7 @@ const BoatDocks = () => {
       }
       dispatch(assignBoatToDock({ payload: data, callback }));
     } else {
-
+      setDataError("Please select the date");
     }
   };
 
@@ -122,6 +122,7 @@ const BoatDocks = () => {
       }
       newSelection.push(new Date(dateObject));
     }
+    setDataError('');
     if (newSelection?.length > 1) {
       const date_selected = [newSelection[0], newSelection[newSelection?.length - 1]]
       setDateValue(date_selected);
@@ -353,8 +354,8 @@ const BoatDocks = () => {
                             <strong>Select Date Range </strong>{" "}
                             <span className="ct_required_star">*</span>
                           </label>
-                          <div className="d-flex gap-2 ct_flex_wrap_575">
-                            <DatePicker className="form-control"
+                          <div className="d-flex gap-2 ct_flex_wrap_575 position-relative">
+                            <DatePicker className="form-control" style={{ cursor: "pointer" }}
                               mapDays={({ date, disabled }) => {
                                 const isDisabled = disableMultiRanges(date);
                                 return {
@@ -370,9 +371,12 @@ const BoatDocks = () => {
                               rangeHover={false}
                               numberOfMonths={2}
                               onChange={handleSelection}
-
                             />
+                            <i class="fa-regular fa-calendar ct_date_icon_top_123"></i>
                           </div>
+                          <span style={{ color: "red" }}>
+                            {setDateError}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -381,7 +385,10 @@ const BoatDocks = () => {
                         type="button"
                         className="ct_outline_btn ct_outline_orange"
                         data-bs-dismiss="modal"
-                        onClick={() => resetForm()}
+                        onClick={() => {
+                          setDateValue()
+                          resetForm()
+                        }}
                       >
                         Cancel
                       </button>
@@ -389,7 +396,7 @@ const BoatDocks = () => {
                         type="button"
                         className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
                         onClick={handleSubmit}
-                        data-bs-dismiss={values?.boatId != '' && Object?.keys(errors)?.length == 0 && "modal"}
+                        data-bs-dismiss={values?.boatId != '' && setDateError == '' && "modal"}
                       >
                         Assign Boat
                       </button>

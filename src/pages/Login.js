@@ -33,12 +33,11 @@ const Login = () => {
                 navigate(pageRoutes.dashboard);
             }
         };
-        const local = JSON.parse(localStorage.getItem('MarinfcmToken'))
-        console.log(local);
+        // const local = JSON.parse(localStorage.getItem('MarinfcmToken'))
         const data = {
             email: values?.email,
             password: values?.password,
-            fcm_token: local
+            // fcm_token: local
         }
         dispatch(userLogin({ payload: data, callback }));
     };

@@ -343,3 +343,12 @@ main {
 .ct_b_red_btn:hover {
   background-color: #ff4d4d;
 }
+
+.ct_date_icon_top_123 {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  cursor: pointer;
+}
