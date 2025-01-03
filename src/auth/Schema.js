@@ -290,12 +290,5 @@ export const CreateTaskSchema = Yup.object().shape({
 });
 
 export const AssignBoatSchema = Yup.object().shape({
-    book_from: Yup.date()
-        .required("Please select booking date")
-        .typeError("Please select valid date"),
-    book_to: Yup.date()
-        .required("Please select booking end date")
-        .min(Yup.ref('book_from'), "End date must be the same as or later than the book from date.")
-        .typeError("Please select valid date"),
     boatId: Yup.string().required("Please select boat")
 });

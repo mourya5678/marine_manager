@@ -52,6 +52,15 @@ img {
   color: var(--orange);
 }
 
+.rmdp-container input.rmdp-input {
+  height: 38px;
+  width: 100% !important;
+}
+
+.rmdp-container {
+  width: 100% !important;
+}
+
 .ct_input-group {
   position: relative;
 }

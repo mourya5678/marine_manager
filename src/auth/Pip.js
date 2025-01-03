@@ -28,6 +28,10 @@ export const pipViewDate4 = (date) => {
     return moment.utc(date).format("YYYY-MM-DD");
 };
 
+export const pipViewDate5 = (date) => {
+    return moment.utc(date).format("YYYY,MM,DD");
+};
+
 export const pipDeleteToken = () => {
     localStorage.clear();
     message.success("Successfully logged out");
