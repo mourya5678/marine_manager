@@ -65,7 +65,7 @@ const UpdateBusinessProfile = () => {
                 if (!value?.trim()) {
                     setAbnError('Please enter ABN');
                 } else {
-                    setAbnError('ABN must be at least 11 characters');
+                    setAbnError('ABN must contain exactly 11 characters.');
                 }
             }
         }
@@ -133,7 +133,7 @@ const UpdateBusinessProfile = () => {
             if (!profileData.abn) {
                 setAbnError('Please enter ABN');
             } else if (!regex?.test(profileData.abn)) {
-                setAbnError('ABN must be at least 11 characters');
+                setAbnError('ABN must contain exactly 11 characters.');
             }
         }
 

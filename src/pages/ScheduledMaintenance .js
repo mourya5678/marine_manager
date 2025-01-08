@@ -1218,7 +1218,7 @@ const ScheduledMaintenance = () => {
                           type="button ct_"
                           className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
                           onClick={() => navigate(pageRoutes?.cds_job_service, { state: { data: cdsData, isShow: true } })}
-                          data-bs-dismiss="modal"
+                          data-bs-dismiss="modal" 
                         >
                           View CDS Jobsheet
                         </button>

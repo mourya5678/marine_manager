@@ -244,7 +244,7 @@ const SignUp = () => {
                                                     <span className="text">Sign Up</span>
                                                 </button>
                                             </div>
-                                            <p className="mb-0 mt-3 ct_login_btm">Already have an account? <a onClick={() => navigate(pageRoutes.login)} href="javscript:void(0)">Login</a></p>
+                                            <p className="mb-0 mt-3 ct_login_btm">Already have an account? <a onClick={() => navigate(pageRoutes.login)} href="javascript:void(0)">Login</a></p>
                                         </form>
                                     )}
                                 </Formik>

@@ -55,14 +55,22 @@ const TaskDescription = () => {
                                                     <tr>
                                                         <td className="px-2">
                                                             <div className="form-group">
-                                                                <label for="" className="mb-2 ct_fw_600">Task Description <span className="ct_required_star">*</span></label>
+                                                                <label for="" className="mb-2 ct_fw_600">Task Description</label>
                                                                 <textarea value={item?.description ?? ''} className="form-control" readOnly />
                                                             </div>
                                                         </td>
                                                         <td className="px-2">
                                                             <div className="form-group">
-                                                                <label for="" className="mb-2 ct_fw_600">Date Completed <span className="ct_required_star">*</span></label>
+                                                                <label for="" className="mb-2 ct_fw_600">Date Completed</label>
                                                                 <input type="text" className="form-control" value={pipViewDate(item?.completed_at)} readOnly />
+                                                            </div>
+                                                        </td>
+                                                        <td className="px-2 text-start">
+                                                            <div>
+                                                                <label className="mb-2 ct_fw_600">Action</label>
+                                                                <button type="button" className="ct_custom_btm ct_wrap_100_1 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22"
+                                                                    onClick={() => navigate(pageRoutes?.cds_job_service, { state: { data: item, isShow: true } })}
+                                                                >View CDS job sheet</button>
                                                             </div>
                                                         </td>
                                                     </tr>

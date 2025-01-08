@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 export const signInSchema = Yup.object().shape({
     email: Yup.string()
         .email("Please enter a valid email")
-        .required("Please enter a valid email")
+        .required("Please enter email")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
             "Please enter a valid email"
@@ -23,15 +23,15 @@ export const signUpSchema = Yup.object().shape({
     company_name: Yup.string().trim().required("Please enter your company name"),
     email: Yup.string()
         .email("Please enter a valid email")
-        .required("Please enter a valid email")
+        .required("Please enter email")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
             "Please enter a valid email"
         ),
     phone_no: Yup.string()
-        .matches(/^[0-9]+$/, "Mobile number must be number")
+        .matches(/^[0-9]+$/, "Phone number must be number")
         // .min(10, "Mobile number cannot be less then 10 digits").max(10, "Mobile number can not be more then 10 digits")
-        .required("Please enter your mobile number"),
+        .required("Please enter your phone number"),
     password: Yup.string()
         .required("Please enter your password")
         .min(8, "Password cannot be less then 8 characters")
@@ -49,7 +49,7 @@ export const signUpSchema = Yup.object().shape({
 export const ForgotPasswordSchema = Yup.object().shape({
     email: Yup.string()
         .email("Please enter a valid email")
-        .required("Please enter a valid email")
+        .required("Please enter email")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
             "Please enter a valid email"
@@ -150,7 +150,7 @@ export const AddSupplierSchema = Yup.object().shape({
 
 export const AddBoatSchema = Yup.object().shape({
     name: Yup.string().trim().required("Please enter boat name"),
-    owners_name: Yup.string().trim().required("Please enter owners name"),
+    owners_name: Yup.string().trim().required("Please enter owner's name"),
     rego: Yup.string().trim().required("Please enter rego"),
     vin: Yup.string().trim()
         // .length(17, 'VIN must be exactly 17 characters long')

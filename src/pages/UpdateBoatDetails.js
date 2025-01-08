@@ -105,7 +105,7 @@ const UpdateBoatDetails = () => {
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label for="" className="mb-1"><strong>Owners Name</strong>
+                                                    <label for="" className="mb-1"><strong>Owner&apos;s Name</strong>
                                                         <span className="ct_required_star">*</span></label>
                                                     <input
                                                         id="owners_name"

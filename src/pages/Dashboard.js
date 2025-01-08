@@ -106,71 +106,75 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="ct_mt_20">
-                            <div className="d-flex align-items-center justify-content-between mb-4">
-                                <h4 className="mb-0 ct_fs_22">Boats under maintenance</h4>
-                            </div>
-                            <div className="row">
-                                {dashBoardData?.boatsUnderMaintanence?.length != 0 ? dashBoardData?.boatsUnderMaintanence?.slice(0, 5)?.map((item, i) => (
-                                    <div className="col-lg-3 col-md-6 mb-4">
-                                        <a href="javascript:void(0)" className="text-dark"
-                                            onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
-                                            <div className="ct_light_shadow_card">
-                                                <p className="mb-2 ct_fs_18 ct_fw_700">No. {i + 1}</p>
-                                                <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
-                                                    style={{ width: "12px" }} />{item?.owners_name ?? 'NA'}</p>
-                                                <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.name ?? 'NA'}</h4>
-                                            </div>
-                                        </a>
-                                    </div>
-                                ))
-                                    :
-                                    <div className="col-md-12 mb-4">
-                                        <p className="mb-2 ct_fs_18 ct_fw_700 text-center">No boat found in under maintanence</p>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        <div className="ct_mt_20">
-                            <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
-                                <h4 className="mb-0 ct_fs_22">Maintenance tasks scheduled to be completed tomorrow</h4>
-                                {dashBoardData?.tasksForTommorrow?.length == 4 &&
-                                    <button className='ct_custom_btm  ct_btn_fit ct_news_ltr_btn h-auto' style={{ borderRadius: "5px" }} onClick={() => navigate(pageRoutes.tomorrow_scheduled_task)}>View All</button>
-                                }
-                            </div>
-                            <div className="row">
-                                {dashBoardData?.tasksForTommorrow != 0 ?
-                                    dashBoardData?.tasksForTommorrow?.map((item, i) => (
-                                        <div className="col-lg-3 col-md-6 mb-4 ab_pointer">
-                                            <div className="ct_light_shadow_card" data-bs-toggle="modal" data-bs-target="#ct_view_task12"
-                                                onClick={() => setTaskDetails({
-                                                    id: item?.id,
-                                                    boatId: `${(item?.boat?.rego ?? '')} - ${(item?.boat?.name ?? '')}`,
-                                                    description: item?.description,
-                                                    time_alloted: item?.time_alloted,
-                                                    quoted_value: item?.quoted_value,
-                                                    assignStaffId: item?.assign_to,
-                                                    supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplier?.company_name : item?.assign_to == "STAFF" && `${(item?.staff?.full_name ?? '')} - ${(item?.staff?.role ?? '')}`,
-                                                    date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
-                                                    date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
-                                                    completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
-                                                    status: item?.status,
-                                                    ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
-                                                })}>
-                                                <p className="mb-2 ct_fs_18 ct_fw_700">No. {i + 1}</p>
-                                                <p className="d-flex align-items-center gap-1 mb-3 ct_fw_700"><img src="img/boat_icon.svg.png" alt=""
-                                                    style={{ width: "12px" }} />{item?.boat?.name ?? ''}</p>
-                                                <p className="mb-0">{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length > 28 ? "..." : ''}` : ''}</p>
-                                            </div>
+                        {dashBoardData?.boatsUnderMaintanence?.length != 0 &&
+                            <div className="ct_mt_20">
+                                <div className="d-flex align-items-center justify-content-between mb-4">
+                                    <h4 className="mb-0 ct_fs_22">Boats under maintenance</h4>
+                                </div>
+                                <div className="row">
+                                    {dashBoardData?.boatsUnderMaintanence?.length != 0 ? dashBoardData?.boatsUnderMaintanence?.slice(0, 5)?.map((item, i) => (
+                                        <div className="col-lg-3 col-md-6 mb-4">
+                                            <a href="javascript:void(0)" className="text-dark"
+                                                onClick={() => navigate(pageRoutes.boat_tracer, { state: { data: item } })}>
+                                                <div className="ct_light_shadow_card">
+                                                    <p className="mb-2 ct_fs_18 ct_fw_700">No. {i + 1}</p>
+                                                    <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt=""
+                                                        style={{ width: "12px" }} />{item?.owners_name ?? 'NA'}</p>
+                                                    <h4 className="mb-0 ct_fs_28 ct_fw_700">{item?.name ?? 'NA'}</h4>
+                                                </div>
+                                            </a>
                                         </div>
                                     ))
-                                    :
-                                    <div className="col-md-12 mb-4">
-                                        <p className="mb-2 ct_fs_18 ct_fw_700 text-center">No task scheduled for tomorrow</p>
-                                    </div>
-                                }
+                                        :
+                                        <div className="col-md-12 mb-4">
+                                            <p className="mb-2 ct_fs_18 ct_fw_700 text-center">No boat found in under maintanence</p>
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                        </div>
+                        }
+                        {dashBoardData?.tasksForTommorrow?.length != 0 &&
+                            <div className="ct_mt_20">
+                                <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+                                    <h4 className="mb-0 ct_fs_22">Maintenance tasks scheduled to be completed tomorrow</h4>
+                                    {dashBoardData?.tasksForTommorrow?.length == 4 &&
+                                        <button className='ct_custom_btm  ct_btn_fit ct_news_ltr_btn h-auto' style={{ borderRadius: "5px" }} onClick={() => navigate(pageRoutes.tomorrow_scheduled_task)}>View All</button>
+                                    }
+                                </div>
+                                <div className="row">
+                                    {dashBoardData?.tasksForTommorrow != 0 ?
+                                        dashBoardData?.tasksForTommorrow?.map((item, i) => (
+                                            <div className="col-lg-3 col-md-6 mb-4 ab_pointer">
+                                                <div className="ct_light_shadow_card" data-bs-toggle="modal" data-bs-target="#ct_view_task12"
+                                                    onClick={() => setTaskDetails({
+                                                        id: item?.id,
+                                                        boatId: `${(item?.boat?.rego ?? '')} - ${(item?.boat?.name ?? '')}`,
+                                                        description: item?.description,
+                                                        time_alloted: item?.time_alloted,
+                                                        quoted_value: item?.quoted_value,
+                                                        assignStaffId: item?.assign_to,
+                                                        supplierId: item?.assign_to == "OUTSOURCED" ? item?.supplier?.company_name : item?.assign_to == "STAFF" && `${(item?.staff?.full_name ?? '')} - ${(item?.staff?.role ?? '')}`,
+                                                        date_scheduled_from: pipViewDate4(item?.date_scheduled_from),
+                                                        date_scheduled_to: pipViewDate4(item?.date_scheduled_to),
+                                                        completed_at: item?.completed_at ? pipViewDate4(item?.completed_at) : '',
+                                                        status: item?.status,
+                                                        ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
+                                                    })}>
+                                                    <p className="mb-2 ct_fs_18 ct_fw_700">No. {i + 1}</p>
+                                                    <p className="d-flex align-items-center gap-1 mb-3 ct_fw_700"><img src="img/boat_icon.svg.png" alt=""
+                                                        style={{ width: "12px" }} />{item?.boat?.name ?? ''}</p>
+                                                    <p className="mb-0">{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length > 28 ? "..." : ''}` : ''}</p>
+                                                </div>
+                                            </div>
+                                        ))
+                                        :
+                                        <div className="col-md-12 mb-4">
+                                            <p className="mb-2 ct_fs_18 ct_fw_700 text-center">No task scheduled for tomorrow</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

@@ -3,6 +3,8 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { useLocation } from "react-router-dom";
 import { pipViewDate } from "../auth/Pip";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const CdsJobService = () => {
   const [isToggle, setIsToggle] = useState(false);
@@ -16,13 +18,30 @@ const CdsJobService = () => {
     setIsToggle(!isToggle);
   };
 
+  const printDocument = () => {
+    const input = document.getElementById("divToPrint");
+    const originalWidth = input.style.width;
+    const originalHeight = input.style.height;
+    html2canvas(input).then((canvas) => {
+      input.style.width = originalWidth;
+      input.style.height = originalHeight;
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF({
+        format: [canvas.width, canvas.height]
+      });
+      pdf.addImage(imgData, "JPEG", 0, 0, canvas.width, canvas.height);
+      pdf.save("download.pdf");
+    });
+  };
+
   return (
     <div className="ct_dashbaord_bg">
       <div className={`ct_dashbaord_main ${isToggle == false && "ct_active"}`}>
         <Sidebar path="cds" />
         <div className="ct_content_right">
           <Header onClick={onHandleClick} />
-          <div className="ct_dashbaord_middle">
+          <button className="ct_custom_btm ct_wrap_100_1 ms-auto mt-4 mx-4 ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={printDocument}>Export Pdf</button>
+          <div className="ct_dashbaord_middle" id="divToPrint">
             <h4 className="ct_fs_24 ct_fw_600 mb-3">CDS Job/Service Sheet</h4>
             <div className="ct_grid_tem_5">
               <div className="ct_boat_white_bg">

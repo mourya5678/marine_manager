@@ -44,7 +44,7 @@ const Notification = () => {
                     <div className="ct_dashbaord_middle">
                         <div className="ct_white_bg_1 py-5">
                             <div className="d-flex align-items-center justify-content-between flex-wrap gap-2">
-                                <h4 className="ct_fs_24 text-start ct_fw_700 mb-3">All Notification</h4>
+                                <h4 className="ct_fs_24 text-start ct_fw_700 mb-3">All Notifications</h4>
                             </div>
                             <div className="table-responsive mt-3">
                                 <table className="table ct_project_table ct_custom_table_main">

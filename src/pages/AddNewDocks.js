@@ -13,7 +13,7 @@ import { pageRoutes } from '../routes/PageRoutes';
 const AddNewDocks = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { isLoading1, all_boats, available_boats } = useSelector((state) => state?.staffReducer);
+    const { isLoading1 } = useSelector((state) => state?.staffReducer);
     const [isToggle, setIsToggle] = useState(false);
 
     const initialState = {
