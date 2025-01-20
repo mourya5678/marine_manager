@@ -16,7 +16,8 @@ import {
     updateSupplierEndPointURL,
     updateBoatDetailsEndPointURL,
     getTomorrowTaskEndPointURL,
-    assignBoatsToDockEndPointURL
+    assignBoatsToDockEndPointURL,
+    getStaffTaskEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const addStaffDetails = createAsyncThunk("add-staff", async (props) => {
@@ -39,6 +40,7 @@ export const getStaffData = createAsyncThunk("get-staff", async (props) => {
         const response = await API_REQUEST({
             url: getStaffDataEndPointURL,
             method: "GET",
+            isErrorToast: false
         });
         return response;
     } catch (error) {
@@ -51,13 +53,13 @@ export const getActiveStaffData = createAsyncThunk("get-active-staff", async (pr
         const response = await API_REQUEST({
             url: getActiveStaffDataEndPointURL,
             method: "GET",
+            isErrorToast: false
         });
         return response;
     } catch (error) {
         console.log(error)
     }
 });
-
 
 export const updateStaffDetails = createAsyncThunk("update-staff", async (props) => {
     const { payload, callback } = props;
@@ -79,6 +81,7 @@ export const getSupplierData = createAsyncThunk("get-supplier", async (props) =>
         const response = await API_REQUEST({
             url: getSupplierEndPointURL,
             method: "GET",
+            isErrorToast: false
         });
         return response;
     } catch (error) {
@@ -121,7 +124,8 @@ export const getBoatData = createAsyncThunk("get-boat", async (props) => {
         const response = await API_REQUEST({
             url: getAllBoatsDataEndPointURL,
             method: "GET",
-            params: props
+            params: props,
+            isErrorToast: false
         });
         return response;
     } catch (error) {
@@ -149,6 +153,7 @@ export const getDockData = createAsyncThunk("dock-data", async () => {
         const response = await API_REQUEST({
             url: getDockDetailsEndPointURL,
             method: "GET",
+            isErrorToast: false
         });
         return response;
     } catch (error) {
@@ -176,6 +181,7 @@ export const getAvailableBoats = createAsyncThunk("boat-available", async () => 
         const response = await API_REQUEST({
             url: getAvailableBoatsEndPointURL,
             method: "GET",
+            isErrorToast: false
         });
         return response;
     } catch (error) {
@@ -218,7 +224,8 @@ export const getTomorrowTasks = createAsyncThunk("tomorrow-task", async (props) 
         const response = await API_REQUEST({
             url: getTomorrowTaskEndPointURL,
             method: "GET",
-            params: props
+            params: props,
+            isErrorToast: false
         });
         return response;
     } catch (error) {
@@ -238,5 +245,19 @@ export const assignBoatToDock = createAsyncThunk("assign-boat", async (props) =>
         return response;
     } catch (error) {
         callback(null, error);
+    }
+});
+
+export const getStaffTasks = createAsyncThunk("staff-task", async (props) => {
+    try {
+        const response = await API_REQUEST({
+            url: getStaffTaskEndPointURL,
+            method: "GET",
+            params: props,
+            isErrorToast: false
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
     }
 });

@@ -491,7 +491,6 @@ const CdsJobService = () => {
                     </div>
                   </div>
                 </div>
-
                 <div className="ct_boat_white_bg mt-4">
                   <div className="ct_boat_detail_12  ct_border_grey_12">
                     <div className="row mb-3">
@@ -586,7 +585,7 @@ const CdsJobService = () => {
         </div>
       </div>
 
-      <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
+      <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
         <div className="modal-dialog modal-md modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-body p-2">

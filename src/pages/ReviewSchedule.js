@@ -32,7 +32,7 @@ const ReviewSchedule = () => {
                         {
                             title: `${items?.description}`,
                             start: new Date(new Date(items?.date_scheduled_from).getFullYear(), new Date(items?.date_scheduled_from).getMonth(), new Date(items?.date_scheduled_from).getDate()),
-                            end: new Date(new Date(items?.date_scheduled_to).getFullYear(), new Date(items?.date_scheduled_to).getMonth(), new Date(items?.date_scheduled_to).getDate()),
+                            end: new Date(new Date(items?.date_scheduled_to).getFullYear(), new Date(items?.date_scheduled_to).getMonth(), new Date(items?.date_scheduled_to).getDate(), 23, 59),
                         }
                     )
                 ))

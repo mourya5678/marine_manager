@@ -1,6 +1,6 @@
-// export const BASE_URL = "http://192.168.29.19:4001/";   // Local 
+export const BASE_URL = "http://192.168.29.19:4001/";   // Local 
 
-export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
+// export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
 
 // auth user
 export const signupEndPointURL = "users/signup";
@@ -9,7 +9,8 @@ export const forgotPasswordEndPointURL = "users/forgetPassword";
 
 // Dashboard Data
 export const getDashboardDataEndPointURL = "home/getHome";
-export const getTomorrowTaskEndPointURL = "home/tasksForTommorrow"
+export const getTomorrowTaskEndPointURL = "home/tasksForTommorrow";
+export const getStaffTaskEndPointURL = "home/staffMembers";
 
 // Bussiness profile
 export const bussinessProfileEndPointURL = "users/myProfile";
@@ -22,7 +23,7 @@ export const updateStaffEndPointURL = "staff/editStaffMember";
 export const getActiveStaffDataEndPointURL = "staff/activeStaffMembers";
 
 // supplier
-export const getSupplierEndPointURL = "supplier";
+export const getSupplierEndPointURL = "supplier/getAllSupplier";
 export const addSupplierEndPointURL = "supplier/addsupllier";
 export const updateSupplierEndPointURL = "supplier/editsupllier";
 

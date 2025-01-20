@@ -279,9 +279,12 @@ const ScheduledMaintenance = () => {
                                     assignStaffId: item?.assign_to,
                                     supplierId:
                                       item?.assign_to == "OUTSOURCED"
-                                        ? item?.supplierId
+                                        ? item?.supplier?.company_name
                                         : item?.assign_to == "STAFF" &&
-                                        item?.assignStaffId,
+                                        item?.staff?.full_name,
+                                    date_scheduled_from: pipViewDate4(
+                                      item?.date_scheduled_from
+                                    ),
                                     date_scheduled_from: pipViewDate4(
                                       item?.date_scheduled_from
                                     ),
@@ -368,6 +371,8 @@ const ScheduledMaintenance = () => {
 
       <div
         className="modal fade Committed_Price"
+        data-bs-backdrop='static'
+        data-bs-keyboard="false"
         id="ct_edit_task12"
         tabindex="-1"
         aria-labelledby="ct_edit_task12Label"
@@ -474,15 +479,18 @@ const ScheduledMaintenance = () => {
                                 <strong>Quoted Value </strong>{" "}
                                 <span className="ct_required_star">*</span>
                               </label>
-                              <input
-                                id="quoted_value"
-                                value={values.quoted_value}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                type="number"
-                                className="form-control"
-                                onWheel={() => document.activeElement.blur()}
-                              />
+                              <div className="position-relative">
+                                <input
+                                  id="quoted_value"
+                                  value={values.quoted_value}
+                                  onBlur={handleBlur}
+                                  onChange={handleChange}
+                                  type="number"
+                                  className="form-control ct_text_indent_15"
+                                  onWheel={() => document.activeElement.blur()}
+                                />
+                                <span className="ct_dollar_sign">$</span>
+                              </div>
                               <ErrorMessage
                                 errors={errors}
                                 touched={touched}
@@ -522,22 +530,14 @@ const ScheduledMaintenance = () => {
                             <div className="col-md-12">
                               <div className="form-group mb-3">
                                 <label className="mb-1">
-                                  <strong>Staff</strong>
+                                  <strong>Staff </strong>
                                   <span className="ct_required_star">*</span>
                                 </label>
                                 <input
                                   type="text"
                                   id="supplierId"
                                   className="form-control"
-                                  value={
-                                    staff_active_data &&
-                                    staff_active_data?.map(
-                                      (item) =>
-                                        item?.id == values?.supplierId &&
-                                        `${item?.full_name ?? ""} - ${item?.role ?? ""
-                                        }`
-                                    )
-                                  }
+                                  value={values?.supplierId}
                                   readOnly
                                 />
                               </div>
@@ -547,21 +547,14 @@ const ScheduledMaintenance = () => {
                               <div className="col-md-12">
                                 <div className="form-group mb-3">
                                   <label className="mb-1">
-                                    <strong>Supplier</strong>
+                                    <strong>Supplier </strong>
                                     <span className="ct_required_star">*</span>
                                   </label>
                                   <input
                                     type="text"
                                     id="supplierId"
                                     className="form-control"
-                                    value={
-                                      supplier_data &&
-                                      supplier_data?.map(
-                                        (item) =>
-                                          item?.id == values?.supplierId &&
-                                          item?.company_name
-                                      )
-                                    }
+                                    value={values?.supplierId}
                                     readOnly
                                   />
                                 </div>
@@ -614,28 +607,6 @@ const ScheduledMaintenance = () => {
                               />
                             </div>
                           </div>
-                          {/* <div className="col-md-6">
-                            <div className="form-group mb-3">
-                              <label className="mb-1">
-                                <strong>Completed At </strong>{" "}
-                                <span className="ct_required_star">*</span>
-                              </label>
-                              <input
-                                id="completed_at"
-                                type="date"
-                                className="form-control"
-                                value={values.completed_at}
-                                onBlur={handleBlur}
-                                onChange={handleChange}
-                                onKeyDown={(e) => e.preventDefault()}
-                              />
-                              <ErrorMessage
-                                errors={errors}
-                                touched={touched}
-                                fieldName="completed_at"
-                              />
-                            </div>
-                          </div> */}
                           <div className="col-md-6">
                             <div className="form-group mb-3">
                               <label>&nbsp;</label>
@@ -698,6 +669,8 @@ const ScheduledMaintenance = () => {
         tabindex="-1"
         aria-labelledby="ct_generate_invoiceLabel"
         aria-hidden="true"
+        data-bs-backdrop='static'
+        data-bs-keyboard="false"
       >
         <div className="modal-dialog modal-lg modal-dialog-centered">
           <div className="modal-content">
@@ -797,15 +770,18 @@ const ScheduledMaintenance = () => {
                               <strong>Quoted Value </strong>{" "}
                               <span className="ct_required_star">*</span>
                             </label>
-                            <input
-                              id="quoted_value"
-                              value={values.quoted_value}
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              type="number"
-                              className="form-control"
-                              onWheel={() => document.activeElement.blur()}
-                            />
+                            <div className="position-relative">
+                              <input
+                                id="quoted_value"
+                                value={values.quoted_value}
+                                onBlur={handleBlur}
+                                onChange={handleChange}
+                                type="number"
+                                className="form-control ct_text_indent_15"
+                                onWheel={() => document.activeElement.blur()}
+                              />
+                              <span className="ct_dollar_sign">$</span>
+                            </div>
                             <ErrorMessage
                               errors={errors}
                               touched={touched}
@@ -846,7 +822,7 @@ const ScheduledMaintenance = () => {
                           <div className="col-md-12">
                             <div className="form-group mb-3">
                               <label className="mb-1">
-                                <strong>Staff</strong>
+                                <strong>Staff </strong>
                                 <span className="ct_required_star">*</span>
                               </label>
                               <select
@@ -877,7 +853,7 @@ const ScheduledMaintenance = () => {
                             <div className="col-md-12">
                               <div className="form-group mb-3">
                                 <label className="mb-1">
-                                  <strong>Supplier</strong>
+                                  <strong>Supplier </strong>
                                   <span className="ct_required_star">*</span>
                                 </label>
                                 <select
@@ -892,8 +868,8 @@ const ScheduledMaintenance = () => {
                                   </option>
                                   {supplier_data &&
                                     supplier_data?.map((item) => (
-                                      <option value={item?.id}>
-                                        {item?.company_name ?? ""}
+                                      <option value={item?.supplier?.id}>
+                                        {item?.supplier?.email ?? ""}
                                       </option>
                                     ))}
                                 </select>
@@ -1034,6 +1010,8 @@ const ScheduledMaintenance = () => {
         className="modal fade Committed_Price"
         id="ct_view_task12"
         tabindex="-1"
+        data-bs-backdrop='static'
+        data-bs-keyboard="false"
         aria-labelledby="ct_view_task12Label"
         aria-hidden="true"
       >
@@ -1097,13 +1075,16 @@ const ScheduledMaintenance = () => {
                           <label className="mb-1">
                             <strong>Quoted Value </strong>{" "}
                           </label>
-                          <input
-                            id="quoted_value"
-                            value={taskDetails.quoted_value}
-                            type="number"
-                            className="form-control"
-                            readOnly
-                          />
+                          <div className="position-relative">
+                            <input
+                              id="quoted_value"
+                              value={taskDetails.quoted_value}
+                              type="number"
+                              className="form-control ct_text_indent_15"
+                              readOnly
+                            />
+                            <span className="ct_dollar_sign">$</span>
+                          </div>
                         </div>
                       </div>
                       <div className="col-md-12">
@@ -1218,7 +1199,7 @@ const ScheduledMaintenance = () => {
                           type="button ct_"
                           className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
                           onClick={() => navigate(pageRoutes?.cds_job_service, { state: { data: cdsData, isShow: true } })}
-                          data-bs-dismiss="modal" 
+                          data-bs-dismiss="modal"
                         >
                           View CDS Jobsheet
                         </button>

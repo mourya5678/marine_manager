@@ -168,7 +168,7 @@ const UpdateBusinessProfile = () => {
     };
 
     if (isLoading) {
-        return <Loader />
+        return <Loader />;
     };
     return (
         <div className="ct_dashbaord_bg">
@@ -182,7 +182,7 @@ const UpdateBusinessProfile = () => {
                             <button className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22 mx-0" onClick={() => navigate(-1)}>Cancel</button>
                         </div>
                         <div className="ct_white_bg_1">
-                            <form action="">
+                            <form>
                                 <div className="row">
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">

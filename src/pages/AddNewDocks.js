@@ -191,9 +191,8 @@ const AddNewDocks = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Enter Booking Cost/Day</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                    ><strong>Booking Cost/Day</strong>
+                                                        <span className="ct_required_star">*</span></label>
                                                     <div className="position-relative">
                                                         <input
                                                             type="number"
@@ -216,7 +215,7 @@ const AddNewDocks = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Enter Booking Cost</strong>
+                                                    ><strong>Booking Cost</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
                                                     <div className="position-relative">

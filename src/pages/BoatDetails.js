@@ -10,6 +10,7 @@ const BoatDetails = () => {
     const { state } = useLocation();
     const [isToggle, setIsToggle] = useState(false);
 
+    console.log(state?.data, { state })
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
@@ -36,41 +37,27 @@ const BoatDetails = () => {
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Owner&apos;s Name</p>
-                                        <p className="ct_fs_16 mb-2 ">{state?.data?.owners_name}</p>
+                                        <p className="ct_fs_16 mb-2 ">{state?.data?.owners_name ?? ''}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Email</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.email}</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.email ?? ''}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="row ct_mt_20 ct_border_bottom_1">
+                                <div className="col-md-6 mb-3 mb-md-0">
+                                    <div className="ct_boat_dtl_left_cnt">
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Phone No.</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.phone_no ?? ''}</p>
+                                    </div>
+                                </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Rego</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.rego}</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 mb-3 mb-md-0">
-                                    <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">VIN</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.vin}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row ct_mt_20 ct_border_bottom_1">
-                                <div className="col-md-6 mb-3 mb-md-0">
-                                    <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Make</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.make}</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 mb-3 mb-md-0">
-                                    <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Model</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.model}</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.rego ?? ''}</p>
                                     </div>
                                 </div>
                             </div>
@@ -78,13 +65,41 @@ const BoatDetails = () => {
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Boat Name</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.name}</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.name ?? ''}</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-6 mb-3 mb-md-0">
+                                    <div className="ct_boat_dtl_left_cnt">
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Boat Type</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.boat_type ?? ''}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row ct_mt_20 ct_border_bottom_1">
+                                <div className="col-md-6 mb-3 mb-md-0">
+                                    <div className="ct_boat_dtl_left_cnt">
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">VIN</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.vin ?? ''}</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-6 mb-3 mb-md-0">
+                                    <div className="ct_boat_dtl_left_cnt">
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Make</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.make}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row ct_mt_20 ct_border_bottom_1">
+                                <div className="col-md-6 mb-3 mb-md-0">
+                                    <div className="ct_boat_dtl_left_cnt">
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Model</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.model ?? ''}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">No. Of Engine</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.engine_no}</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.engine_no ?? ''}</p>
                                     </div>
                                 </div>
                             </div>
@@ -92,13 +107,13 @@ const BoatDetails = () => {
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Engine Make</p>
-                                        <p className="ct_fs_16 mb-2 ">{state?.data?.engine_make}</p>
+                                        <p className="ct_fs_16 mb-2 ">{state?.data?.engine_make ?? ''}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Engine Model</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.engine_model}</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.engine_model ?? ''}</p>
                                     </div>
                                 </div>
                             </div>
@@ -106,27 +121,13 @@ const BoatDetails = () => {
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Boat Length (Meter)</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.length}</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.length ?? ''}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Boat Profile Created Date</p>
                                         <p className="ct_fs_16 mb-2">{state?.data?.app_date && pipViewDate(state?.data?.app_date)}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row ct_mt_20 ct_border_bottom_1">
-                                <div className="col-md-6 mb-3 mb-md-0">
-                                    <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Docking Dates</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.docking_date && pipViewDate(state?.data?.docking_date)}</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 mb-3 mb-md-0">
-                                    <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Phone No.</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.phone_no}</p>
                                     </div>
                                 </div>
                             </div>
@@ -141,6 +142,14 @@ const BoatDetails = () => {
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Booking To</p>
                                         <p className="ct_fs_16 mb-2 ">{state?.data?.book_to && pipViewDate(state?.data?.book_to)}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row ct_mt_20 ct_border_bottom_1">
+                                <div className="col-md-6 mb-3 mb-md-0">
+                                    <div className="ct_boat_dtl_left_cnt">
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Docking Dates</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.docking_date ? pipViewDate(state?.data?.docking_date) : ''}</p>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +175,7 @@ const BoatDetails = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-md modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body p-2">

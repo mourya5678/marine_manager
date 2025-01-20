@@ -80,7 +80,7 @@ const MaintainedBoats = () => {
                                         <tr>
                                             <td className="text-center bg-transparent border-0" colSpan="7">
                                                 <div className="text-center">
-                                                    <p className="mb-0 mt-3 ct_fs_16 ct_fw_600 ct_ff_poppin ct_clr_8C98A9 text-center">Maintained boats not found</p>
+                                                    <p className="mb-0 mt-3 ct_fs_16 ct_fw_600 ct_ff_poppin ct_clr_8C98A9 text-center">No maintained boats found</p>
                                                 </div>
                                             </td>
                                         </tr>

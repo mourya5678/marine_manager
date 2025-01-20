@@ -123,7 +123,7 @@ const CreateStaff = () => {
                                                     <td>{item?.full_name ?? 'NA'}</td>
                                                     <td>{item?.role ?? 'NA'}</td>
                                                     <td>{item?.email ?? 'NA'}</td>
-                                                    <td className="ct_fw_600">{item?.phone_no ?? 'NA'}</td>
+                                                    <td>{item?.phone_no ?? 'NA'}</td>
                                                     <td className={`ct_fw_600 ${item?.status == 1 ? "ct_green_text" : "ct_red_text"}`}>{item?.status == 1 ? 'Active' : 'Inactive'}</td>
                                                     <td className="text-end ct_action_btns" onClick={() => setStaffDetails({
                                                         id: item?.id,
@@ -178,7 +178,7 @@ const CreateStaff = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_add_member" tabindex="-1" aria-labelledby="ct_add_memberLabel" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_add_member" tabindex="-1" aria-labelledby="ct_add_memberLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">
@@ -326,7 +326,7 @@ const CreateStaff = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_update_member" tabindex="-1" aria-labelledby="ct_update_memberLabel" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_update_member" tabindex="-1" aria-labelledby="ct_update_memberLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">
@@ -503,7 +503,7 @@ const CreateStaff = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_member" tabindex="-1" aria-labelledby="ct_view_memberLabel" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_view_member" tabindex="-1" aria-labelledby="ct_view_memberLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">

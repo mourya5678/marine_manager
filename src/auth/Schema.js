@@ -132,25 +132,26 @@ export const UpdateStaffSchema = Yup.object().shape({
 });
 
 export const AddSupplierSchema = Yup.object().shape({
-    company_name: Yup.string().trim().required("Please enter company name"),
-    company_description: Yup.string().trim().required("Please enter company description"),
+    // company_name: Yup.string().trim().required("Please enter company name"),
+    // company_description: Yup.string().trim().required("Please enter company description"),
     email: Yup.string()
-        .email("Please enter a valid email")
-        .required("Please enter email")
+        .email("Please enter a valid email address")
+        .required("Please enter email address")
         .matches(
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
-            "Please enter a valid email"
+            "Please enter a valid email address"
         ),
-    city: Yup.string().trim().required("Please enter city"),
-    phone_no: Yup.string()
-        .matches(/^[0-9]+$/, "Contact number must be number")
-        // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
-        .required("Please enter contact number")
+    // city: Yup.string().trim().required("Please enter city"),
+    // phone_no: Yup.string()
+    //     .matches(/^[0-9]+$/, "Contact number must be number")
+    //     // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
+    //     .required("Please enter contact number")
 });
 
 export const AddBoatSchema = Yup.object().shape({
     name: Yup.string().trim().required("Please enter boat name"),
     owners_name: Yup.string().trim().required("Please enter owner's name"),
+    boat_type: Yup.string().trim().required("Please select boat type"),
     rego: Yup.string().trim().required("Please enter rego"),
     vin: Yup.string().trim()
         // .length(17, 'VIN must be exactly 17 characters long')
@@ -159,7 +160,7 @@ export const AddBoatSchema = Yup.object().shape({
     make: Yup.string().trim().required("Please enter make"),
     model: Yup.string().trim().required("Please enter model"),
     engine_no: Yup.number()
-        .required("Please enter engine number")
+        .required("Please enter number of engine")
         .positive("Engine length must be greater than 0")
         .typeError("Engine length must be engine number"),
     engine_make: Yup.string().trim().required("Please enter engine make"),
@@ -186,7 +187,6 @@ export const AddBoatSchema = Yup.object().shape({
         .typeError("Please select valid date")
         .optional(),
     book_to: Yup.date()
-        // .required("Please select booking end date")
         .min(Yup.ref('book_from'), "End date must be the same as or later than the book from date.")
         .typeError("Please select valid date")
         .optional(),

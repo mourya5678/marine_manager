@@ -134,10 +134,10 @@ const LeadReceived = () => {
                                     <tbody>
                                         {displayUsers?.length != 0 && displayUsers?.map((item, i) => (
                                             <tr>
-                                                <td className="ct_fw_600">{i + 1}</td>
-                                                <td className="ct_fw_600">{item?.client_name ?? ''}</td>
-                                                <td className="ct_fw_600">{item?.client_contact_number ?? ''}</td>
-                                                <td className="ct_fw_600">{item?.status == 0 ? "Open" : item?.status == 1 ? "Actioned" : item?.status == 2 && "Contacted"}</td>
+                                                <td>{i + 1}</td>
+                                                <td>{item?.client_name ?? ''}</td>
+                                                <td>{item?.client_contact_number ?? ''}</td>
+                                                <td>{item?.status == 0 ? "Open" : item?.status == 1 ? "Actioned" : item?.status == 2 && "Contacted"}</td>
                                                 <td className="text-end ct_fw_600">
                                                     <a href="javascript:void(0)"><i className="fa-solid fa-pen"
                                                         onClick={() => setLeadDetails({
@@ -158,7 +158,7 @@ const LeadReceived = () => {
                                         <tr>
                                             <td className="text-center bg-transparent border-0" colSpan="7">
                                                 <div className="text-center">
-                                                    <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">Leads not found</p>
+                                                    <p className="mb-0 mt-3 text-center">No leads found</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -220,12 +220,12 @@ const LeadReceived = () => {
                                                             status: item?.status,
                                                             ct_checkbox_cbx: item?.isRecurring == 0 ? false : true
                                                         })}>
-                                                        <td className="ct_fw_600">{i + 1}</td>
-                                                        <td className="ct_fw_600">{item?.boat?.owners_name ?? ''}</td>
-                                                        <td className="ct_fw_600">{item?.boat?.phone_no ?? ''}</td>
-                                                        <td className="ct_fw_600">{item?.description ?? ''}</td>
-                                                        <td className="ct_fw_600">{pipViewDate(item?.completed_at)}</td>
-                                                        <td className="ct_fw_600">
+                                                        <td>{i + 1}</td>
+                                                        <td>{item?.boat?.owners_name ?? ''}</td>
+                                                        <td>{item?.boat?.phone_no ?? ''}</td>
+                                                        <td>{item?.description ?? ''}</td>
+                                                        <td>{pipViewDate(item?.completed_at)}</td>
+                                                        <td>
                                                             <div className='d-flex align-items-center gap-3'>
                                                                 <select
                                                                     className="form-control"
@@ -251,7 +251,7 @@ const LeadReceived = () => {
                                             <tr>
                                                 <td className="text-center bg-transparent border-0" colSpan="7">
                                                     <div className="text-center">
-                                                        <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">No upcoming business reminder</p>
+                                                        <p className="mb-0 mt-3 text-center">No upcoming business reminder</p>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -283,7 +283,7 @@ const LeadReceived = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_new_lead" tabindex="-1" aria-labelledby="ct_new_leadLabel" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_new_lead" tabindex="-1" aria-labelledby="ct_new_leadLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">
@@ -360,7 +360,7 @@ const LeadReceived = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_update_lead" tabindex="-1" aria-labelledby="ct_update_leadLabel" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_update_lead" tabindex="-1" aria-labelledby="ct_update_leadLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">
@@ -460,7 +460,7 @@ const LeadReceived = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">
@@ -633,7 +633,7 @@ const LeadReceived = () => {
                 </div>
             </div>
 
-        </div>
+        </div >
     )
 }
 

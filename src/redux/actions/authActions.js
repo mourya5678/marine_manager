@@ -63,6 +63,7 @@ export const getBussinessProfileData = createAsyncThunk("get-profile", async (pr
         const response = await API_REQUEST({
             url: bussinessProfileEndPointURL,
             method: "GET",
+            isErrorToast: false
         });
         return response;
     } catch (error) {
@@ -93,6 +94,7 @@ export const getDashboardData = createAsyncThunk("dashboard-data", async () => {
         const response = await API_REQUEST({
             url: getDashboardDataEndPointURL,
             method: "GET",
+            isErrorToast: false
         });
         return response;
     } catch (error) {
@@ -119,6 +121,7 @@ export const getNotificationData = createAsyncThunk("notification-data", async (
         const response = await API_REQUEST({
             url: notificationEndPointURL,
             method: "GET",
+            isErrorToast: false
         });
         return response;
     } catch (error) {

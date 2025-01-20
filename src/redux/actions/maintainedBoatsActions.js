@@ -17,6 +17,7 @@ export const getAllBoatTask = createAsyncThunk("boat-task", async () => {
         const response = await API_REQUEST({
             url: getAllBoatWithTasksEndPointURL,
             method: "GET",
+            isErrorToast: false
             // data: payload,
         });
         return response;
@@ -31,6 +32,7 @@ export const getAllTaskByID = createAsyncThunk("all-task-by-id", async (props) =
         const response = await API_REQUEST({
             url: getAllTaskDataEndPointURL + `?boatId=${payload}`,
             method: "GET",
+            isErrorToast: false
             // data: payload,
         });
         return response;
@@ -44,6 +46,7 @@ export const getAllLeadsData = createAsyncThunk("all-lead", async () => {
         const response = await API_REQUEST({
             url: getAllLeaddataEndPointURL,
             method: "GET",
+            isErrorToast: false,
         });
         return response;
     } catch (error) {
@@ -98,6 +101,7 @@ export const getAllTask = createAsyncThunk("all-task", async () => {
         const response = await API_REQUEST({
             url: getAllTaskDataEndPointURL,
             method: "GET",
+            isErrorToast: false,
         });
         return response;
     } catch (error) {

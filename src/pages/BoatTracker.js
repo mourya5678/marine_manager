@@ -146,7 +146,7 @@ const BoatTracker = () => {
                                             <tr>
                                                 <td className="text-center bg-transparent border-0" colSpan="7">
                                                     <div className="text-center">
-                                                        <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">Task not found</p>
+                                                        <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">No task found</p>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -186,7 +186,7 @@ const BoatTracker = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">
@@ -334,7 +334,6 @@ const BoatTracker = () => {
                     </div>
                 </div>
             </div>
-
         </div >
     )
 }

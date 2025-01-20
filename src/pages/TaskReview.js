@@ -7,9 +7,10 @@ import { pageRoutes } from '../routes/PageRoutes';
 const TaskReview = () => {
     const navigate = useNavigate();
     const [isToggle, setIsToggle] = useState(false);
+
     const onHandleClick = () => {
         setIsToggle(!isToggle);
-    }
+    };
 
     return (
         <div className="ct_dashbaord_bg">
@@ -21,7 +22,9 @@ const TaskReview = () => {
                         <div className="d-flex align-items-center justify-content-between">
                             <h4 className="mb-0 ct_fs_24 ct_fw_600">Task Review</h4>
                             <div className="">
-                                <a href="javascript:void(0)" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={() => navigate(pageRoutes.invoice)}>Next</a>
+                                <a href="javascript:void(0)" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={() => navigate(pageRoutes.invoice)}>
+                                    Next
+                                </a>
                             </div>
                         </div>
                         <div className="table-responsive mt-3">

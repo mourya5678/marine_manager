@@ -7,28 +7,23 @@ import Sidebar from '../components/Sidebar';
 import { getDashboardData } from '../redux/actions/authActions';
 import { pageRoutes } from '../routes/PageRoutes';
 import { pipViewDate4 } from '../auth/Pip';
-import { getBoatData, getStaffData, getSupplierData } from '../redux/actions/staffActions';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [isToggle, setIsToggle] = useState(false);
     const [taskDetails, setTaskDetails] = useState();
-    const { isLoading1, staff_data, all_boats, supplier_data } = useSelector((state) => state?.staffReducer);
-
     const { isLoading, dashBoardData } = useSelector((state) => state?.authReducer);
+
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
 
     useEffect(() => {
         dispatch(getDashboardData());
-        dispatch(getStaffData());
-        dispatch(getBoatData());
-        dispatch(getSupplierData());
     }, []);
 
-    if (isLoading || isLoading1) {
+    if (isLoading) {
         return <Loader />
     };
 
@@ -76,14 +71,14 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='ab_pointer' onClick={() => navigate(pageRoutes.staff_productivity)}>
+                            <div className='ab_pointer' onClick={() => navigate(pageRoutes.staff_productivity, { state: { data: dashBoardData?.taskWithStaffMember ?? [] } })}>
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#ED9C11" }}>
                                         <i className="bi bi-person"></i>
                                     </div>
                                     <div className="ct_dash_card_info">
                                         <span>Staff standby</span>
-                                        <h4>17 /<span> 120</span></h4>
+                                        <h4>{dashBoardData?.staffMembersWithTasks ?? 0} /<span> {dashBoardData?.totalStaffMembers ?? 0}</span></h4>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +174,14 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_task12" tabindex="-1" aria-labelledby="ct_view_task12Label" aria-hidden="true">
+            <div
+                className="modal fade Committed_Price"
+                id="ct_view_task12"
+                data-bs-backdrop='static'
+                data-bs-keyboard="false"
+                tabindex="-1"
+                aria-labelledby="ct_view_task12Label"
+                aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body">
@@ -341,6 +343,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+
         </div >
     )
 }

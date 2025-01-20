@@ -90,7 +90,7 @@ const DockDetails = () => {
                   </div>
                   <div className="col-md-4 mb-2 mb-md-0">
                     <p className="mb-0" style={{ color: "#6D6D6D" }}>
-                      {state?.data?.address ?? ''}
+                      {state?.data?.email ?? ''}
                     </p>
                   </div>
                 </div>
@@ -132,85 +132,88 @@ const DockDetails = () => {
                 </div>
               </div>
             </div>
-
-            <div className="mt-4">
-              <h4 className="ct_fs_24 ct_fw_600 mb-3">Boats Scheduled</h4>
-              <div className="row mt-3">
-                {state?.data?.DockBooking != 0 ?
-                  state?.data?.DockBooking?.slice(0, 1)?.map((item, i) => (
-                    <div className="col-md-6 mb-4 mb-md-0" onClick={() => navigate(pageRoutes.boat_detail, { state: { data: item?.boat } })}>
-                      <div className="ct_boat_detail_12 ct_boat_white_bg">
-                        <span className="ct_text_op_5">Boat No. {i + 1}</span>
-                        <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
-                          {item?.boat?.name ?? ''}
-                        </h4>
-                        <ul>
-                          <li className="ct_textclr_7E7E7E">
-                            <span className={`me-2 ${new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "ct_green_status" :
-                              new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
-                                "ct_bringle_status"
-                                :
-                                new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
-                                  `ct_bringle_status` : item?.book_to ? `ct_bringle_status` : `ct_bringle_status`
-                              }`}></span>
-                            {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
-                              new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
-                                "Scheduled for tomorrow"
-                                :
-                                new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
-                                  `Scheduled at ${pipViewDate(item?.book_to)}` : item?.book_to ? `Scheduled on ${pipViewDate(item?.book_to)}` : `Not scheduled yet`
-                            }
-                          </li>
-                        </ul>
+            {state?.data?.DockBooking != 0 &&
+              <div className="mt-4">
+                <h4 className="ct_fs_24 ct_fw_600 mb-3">Scheduled Boats</h4>
+                <div className="row mt-3">
+                  {state?.data?.DockBooking != 0 ?
+                    state?.data?.DockBooking?.slice(0, 1)?.map((item, i) => (
+                      <div className="col-md-6 mb-4 mb-md-0" onClick={() => navigate(pageRoutes.boat_detail, { state: { data: item?.boat } })}>
+                        <div className="ct_boat_detail_12 ct_boat_white_bg">
+                          <span className="ct_text_op_5">Boat No. {i + 1}</span>
+                          <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
+                            {item?.boat?.name ?? ''}
+                          </h4>
+                          <ul>
+                            <li className="ct_textclr_7E7E7E">
+                              <span className={`me-2 ${new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "ct_green_status" :
+                                new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                  "ct_bringle_status"
+                                  :
+                                  new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                    `ct_bringle_status` : item?.book_to ? `ct_bringle_status` : `ct_bringle_status`
+                                }`}></span>
+                              {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                                new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                  "Scheduled for tomorrow"
+                                  :
+                                  new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                    `Scheduled at ${pipViewDate(item?.book_to)}` : item?.book_to ? `Scheduled on ${pipViewDate(item?.book_to)}` : `Not scheduled yet`
+                              }
+                            </li>
+                          </ul>
+                        </div>
                       </div>
+                    ))
+                    :
+                    <div className="col-md-6 mb-4 mb-md-0 me-2 ct_fw_600">
+                      No boats scheduled yet
                     </div>
-                  ))
-                  :
-                  <div className="col-md-6 mb-4 mb-md-0 me-2 ct_fw_600">
-                    No boats scheduled yet
-                  </div>
-                }
+                  }
+                </div>
               </div>
-            </div>
-            <div className="mt-4">
-              <h4 className="ct_fs_24 ct_fw_600 mb-3">Upcoming</h4>
-              <div className="row mt-3">
-                {state?.data?.DockBooking?.length > 1 ?
-                  state?.data?.DockBooking?.slice(1, state?.data?.DockBooking?.length)?.map((item, i) => (
-                    <div className="col-md-6 mb-4" onClick={() => navigate(pageRoutes.boat_detail, { state: { data: item?.boat } })}>
-                      <div className="ct_boat_detail_12 ct_boat_white_bg">
-                        <span className="ct_text_op_5">Boat No. {i + 2}</span>
-                        <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
-                          {item?.boat?.name ?? ''}
-                        </h4>
-                        <ul>
-                          <li className="ct_textclr_7E7E7E">
-                            <span className={`me-2 ${new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "ct_green_status" :
-                              new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
-                                "ct_bringle_status"
-                                :
-                                new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
-                                  `ct_bringle_status` : item?.book_to ? `ct_bringle_status` : `ct_bringle_status`
-                              }`}></span>
-                            {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
-                              new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
-                                "Scheduled for tomorrow"
-                                :
-                                new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
-                                  `Scheduled at ${pipViewDate(item?.book_to)}` : item?.book_to ? `Scheduled on ${pipViewDate(item?.book_to)}` : `Not scheduled yet`
-                            }
-                          </li>
-                        </ul>
+            }
+            {state?.data?.DockBooking?.length != 0 &&
+              <div className="mt-4">
+                <h4 className="ct_fs_24 ct_fw_600 mb-3">Upcoming Scheduled Boats</h4>
+                <div className="row mt-3">
+                  {state?.data?.DockBooking?.length > 1 ?
+                    state?.data?.DockBooking?.slice(1, state?.data?.DockBooking?.length)?.map((item, i) => (
+                      <div className="col-md-6 mb-4" onClick={() => navigate(pageRoutes.boat_detail, { state: { data: item?.boat } })}>
+                        <div className="ct_boat_detail_12 ct_boat_white_bg">
+                          <span className="ct_text_op_5">Boat No. {i + 2}</span>
+                          <h4 className="ct_fs_20 ct_fw_600 mb-1 ct_fw_500">
+                            {item?.boat?.name ?? ''}
+                          </h4>
+                          <ul>
+                            <li className="ct_textclr_7E7E7E">
+                              <span className={`me-2 ${new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "ct_green_status" :
+                                new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                  "ct_bringle_status"
+                                  :
+                                  new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                    `ct_bringle_status` : item?.book_to ? `ct_bringle_status` : `ct_bringle_status`
+                                }`}></span>
+                              {new Date(item?.book_to).setHours(0, 0, 0, 0) == new Date().setHours(0, 0, 0, 0) ? "Scheduled for today" :
+                                new Date(item?.book_to).setHours(0, 0, 0, 0) === new Date(new Date().setDate(new Date().getDate() + 1)).setHours(0, 0, 0, 0) ?
+                                  "Scheduled for tomorrow"
+                                  :
+                                  new Date(item?.book_to).setHours(0, 0, 0, 0) < new Date().setHours(0, 0, 0, 0) ?
+                                    `Scheduled at ${pipViewDate(item?.book_to)}` : item?.book_to ? `Scheduled on ${pipViewDate(item?.book_to)}` : `Not scheduled yet`
+                              }
+                            </li>
+                          </ul>
+                        </div>
                       </div>
+                    ))
+                    :
+                    <div className="col-md-6 mb-4 mb-md-0 me-2 ct_fw_600">
+                      No upcoming boats scheduled yet
                     </div>
-                  ))
-                  :
-                  <div className="col-md-6 mb-4 mb-md-0 me-2 ct_fw_600">
-                    No upcoming boats scheduled yet
-                  </div>
-                }
+                  }
+                </div>
               </div>
-            </div>
+            }
           </div>
         </div>
       </div>

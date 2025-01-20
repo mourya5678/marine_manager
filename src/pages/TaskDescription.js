@@ -27,8 +27,8 @@ const TaskDescription = () => {
     }, []);
 
     if (isLoading2) {
-        return <Loader />
-    }
+        return <Loader />;
+    };
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -80,7 +80,7 @@ const TaskDescription = () => {
                                                     <tr>
                                                         <td className="text-center bg-transparent border-0" colSpan="7">
                                                             <div className="text-center">
-                                                                <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">Task not completed yet</p>
+                                                                <p className="mb-0 mt-3 ct_fs_24 ct_fw_400 ct_ff_poppin ct_clr_8C98A9 text-center">No task completed yet</p>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -88,29 +88,9 @@ const TaskDescription = () => {
                                             }
                                         </table>
                                     </div>
-                                    {/* <div className="text-end">
-                                        <button className="ct_outline_orange ct_custom_btm ct_outline_btn text-center  "><strong>+ Add Line</strong></button>
-                                    </div> */}
-                                    {/* <div className="col-md-12 mt-4">
-                                        <div className="form-group mb-3">
-                                            <label for="ct_file_upload2" className="ct_file_upload_big">
-                                                <input
-                                                    type="file"
-                                                    id="ct_file_upload2"
-                                                    className="d-none"
-                                                />
-                                                <span
-                                                >
-                                                    <h5 className="ct_fs_14 ct_fw_700">Drag photos here</h5>
-                                                    <p className="ct_fs_14 mb-0">Max upload file 10 MB</p>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </div> */}
                                     <div className="d-flex align-items-center gap-3 mt-5 ct_flex_wrap_575">
                                         <button type="button" onClick={() => navigate(pageRoutes.all_boats)} className="ct_outline_btn ct_outline_orange w-100">Cancel</button>
                                         <button type="button"
-                                            // onClick={() => navigate(pageRoutes.all_boats)}
                                             className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100">Save and Push to First Mate App</button>
                                     </div>
                                 </div>

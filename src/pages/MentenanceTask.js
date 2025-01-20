@@ -9,7 +9,7 @@ const MentenanceTask = () => {
     const [isToggle, setIsToggle] = useState(false);
     const onHandleClick = () => {
         setIsToggle(!isToggle);
-    }
+    };
 
     return (
         <div className="ct_dashbaord_bg">

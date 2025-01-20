@@ -80,7 +80,7 @@ const Notification = () => {
                                             <tr>
                                                 <td className="text-center bg-transparent border-0" colSpan="7">
                                                     <div className="text-center">
-                                                        <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">No staff member found</p>
+                                                        <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">No notifications found</p>
                                                     </div>
                                                 </td>
                                             </tr>

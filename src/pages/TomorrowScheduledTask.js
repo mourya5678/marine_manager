@@ -72,7 +72,7 @@ const TomorrowScheduledTask = () => {
                             ))
                                 :
                                 <div className="col-xl-12 col-lg-12 text-center">
-                                    <p className="mt-5 ct_fs_18 ct_fw_700">Tomorrow scheduled task not found</p>
+                                    <p className="mt-5 ct_fs_18 ct_fw_700">No task scheduled for Tomorrow</p>
                                 </div>
                             }
                         </div>

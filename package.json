@@ -11,7 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "ag-charts-enterprise": "^10.3.3",
     "ag-charts-react": "^10.3.3",
-    "antd": "^5.20.6",
+    "antd": "^5.20.6", 
     "apexcharts": "^4.1.0",
     "axios": "^1.7.7",
     "date-fns": "^4.1.0",

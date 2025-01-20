@@ -29,6 +29,7 @@ const UpdateBoatDetails = () => {
         book_to: state?.data?.book_to ? pipViewDate4(state?.data?.book_to) : '',
         app_date: state?.data?.app_date ? pipViewDate4(state?.data?.app_date) : '',
         phone_no: state?.data?.phone_no ?? '',
+        boat_type: state?.data?.boat_type ?? '',
         engine_no: state?.data?.engine_no ?? '',
         book_from: state?.data?.book_from ? pipViewDate4(state?.data?.book_from) : '',
         engine_make: state?.data?.engine_make ?? '',
@@ -125,6 +126,48 @@ const UpdateBoatDetails = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
+                                                    ><strong>Email</strong>
+                                                        <span className="ct_required_star">*</span></label
+                                                    >
+                                                    <input
+                                                        type="email"
+                                                        className="form-control"
+                                                        id="email"
+                                                        value={values.email}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="email"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"
+                                                    ><strong>Phone No.</strong>
+                                                        <span className="ct_required_star">*</span></label
+                                                    >
+                                                    <input
+                                                        type="number"
+                                                        className="form-control"
+                                                        id="phone_no"
+                                                        value={values.phone_no}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="phone_no"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"
                                                     ><strong>Rego</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
@@ -140,6 +183,52 @@ const UpdateBoatDetails = () => {
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="rego"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"
+                                                    ><strong>Boat Name</strong>
+                                                        <span className="ct_required_star">*</span></label
+                                                    >
+                                                    <input
+                                                        id="name"
+                                                        value={values.name}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="text"
+                                                        className="form-control"
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="name"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"
+                                                    ><strong>Boat type</strong>
+                                                        <span className="ct_required_star">*</span></label
+                                                    >
+                                                    <select
+                                                        name="boat_type"
+                                                        className="form-control"
+                                                        value={values.boat_type}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                    >
+                                                        <option value="">Select Boat Type</option>
+                                                        <option value="Trailer Boat">Trailer Boat</option>
+                                                        <option value="Yacht ">Yacht</option>
+                                                        <option value="Jetski">Jetski </option>
+                                                    </select>
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="boat_type"
                                                     />
                                                 </div>
                                             </div>
@@ -209,27 +298,6 @@ const UpdateBoatDetails = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Boat Name</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
-                                                    <input
-                                                        id="name"
-                                                        value={values.name}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        type="text"
-                                                        className="form-control"
-                                                    />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="name"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"
                                                     ><strong>No. Of Engine</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
@@ -275,7 +343,7 @@ const UpdateBoatDetails = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Engine Model</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
+                                                        <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
                                                         id="engine_model"
@@ -319,7 +387,7 @@ const UpdateBoatDetails = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Boat Profile Created Date</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
+                                                        <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
                                                         id="app_date"
@@ -343,7 +411,7 @@ const UpdateBoatDetails = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Book From</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
+                                                        <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
                                                         id="book_from"
@@ -366,7 +434,7 @@ const UpdateBoatDetails = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Book To</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
+                                                        <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
                                                         id="book_to"
@@ -388,50 +456,8 @@ const UpdateBoatDetails = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Email</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
-                                                    <input
-                                                        type="email"
-                                                        className="form-control"
-                                                        id="email"
-                                                        value={values.email}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="email"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"
-                                                    ><strong>Phone No.</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
-                                                    <input
-                                                        type="number"
-                                                        className="form-control"
-                                                        id="phone_no"
-                                                        value={values.phone_no}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="phone_no"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"
                                                     ><strong>Docking Dates</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
+                                                        <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
                                                         type="date"
@@ -448,6 +474,10 @@ const UpdateBoatDetails = () => {
                                                         touched={touched}
                                                         fieldName="docking_date"
                                                     />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -485,7 +515,7 @@ const UpdateBoatDetails = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-md modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body p-2">

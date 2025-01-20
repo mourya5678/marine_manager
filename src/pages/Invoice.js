@@ -184,7 +184,6 @@ const Invoice = () => {
                   <a href="javascript:void(0)" contenteditable="false" className="ct_custom_btm  ct_news_ltr_btn" data-bs-toggle="modal" data-bs-target="#confirm_save">Save</a>
                 </div>
               </div>
-
             </div>
           </section>
         </div>

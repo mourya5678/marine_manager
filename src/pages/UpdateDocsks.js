@@ -105,31 +105,6 @@ const UpdateDocsks = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            {/* <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1">
-                                                        <strong>Choose Boat For This Dock</strong>
-                                                        <span className="ct_required_star">*</span>
-                                                    </label>
-                                                    <select
-                                                        id="boatId"
-                                                        value={values.boatId}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        className="form-control"
-                                                    >
-                                                        {state?.data?.boat?.id ? <option value={state?.data?.boat?.id}>{state?.data?.boat?.name}</option> : <option value="">----Select Boat----</option>}
-                                                        {available_boats && available_boats?.map((item) => (
-                                                            <option value={item.id}>{item.name}</option>
-                                                        ))}
-                                                    </select>
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="boatId"
-                                                    />
-                                                </div>
-                                            </div> */}
                                             <div className="col-md-12">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1">
@@ -196,7 +171,7 @@ const UpdateDocsks = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1">
-                                                        <strong>Enter Booking Cost/day</strong>
+                                                        <strong>Booking Cost/day</strong>
                                                         <span className="ct_required_star">*</span>
                                                     </label>
                                                     <div className="position-relative">
@@ -220,7 +195,7 @@ const UpdateDocsks = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1">
-                                                        <strong>Enter Booking Cost</strong>
+                                                        <strong>Booking Cost</strong>
                                                         <span className="ct_required_star">*</span>
                                                     </label>
                                                     <div className="position-relative">
@@ -241,54 +216,6 @@ const UpdateDocsks = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            {/*
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1">
-                                                        <strong>Book From</strong>
-                                                        <span className="ct_required_star">*</span>
-                                                    </label>
-                                                    <input
-                                                        type="date"
-                                                        className="form-control"
-                                                        id="book_from"
-                                                        onKeyDown={(e) => e.preventDefault()}
-                                                        min={new Date()?.toISOString()?.split("T")[0]}
-                                                        value={values.book_from}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="book_from"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"
-                                                    ><strong>Book To</strong>
-                                                        <span className="ct_required_star">*</span>
-                                                    </label>
-                                                    <input
-                                                        type="date"
-                                                        className="form-control"
-                                                        onKeyDown={(e) => e.preventDefault()}
-                                                        id="book_to"
-                                                        min={new Date()?.toISOString()?.split("T")[0]}
-                                                        value={values.book_to}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="book_to"
-                                                    />
-                                                </div>
-                                            </div> 
-                                        */}
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_outline_btn ct_outline_orange w-100" onClick={() => navigate(-1)}>Cancel</button>

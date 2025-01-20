@@ -267,7 +267,7 @@ const BoatDocks = () => {
                             </div>
                             :
                             <div className="ct_boat_detail_12" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })}>
-                              Boat not assigned yet!
+                              No boat assigned yet!
                             </div>
                           }
                         </a>
@@ -283,7 +283,7 @@ const BoatDocks = () => {
                   ))
                 ) : (
                   <div className="col-xl-12 col-lg-12 text-center">
-                    <p className="mt-5 ct_fs_18 ct_fw_700">Dock not found</p>
+                    <p className="mt-5 ct_fs_18 ct_fw_700">No dock found</p>
                   </div>
                 )
               }

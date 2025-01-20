@@ -14,7 +14,8 @@ import {
     updateBoatDetails,
     getActiveStaffData,
     getTomorrowTasks,
-    assignBoatToDock
+    assignBoatToDock,
+    getStaffTasks
 } from "../actions/staffActions";
 
 const initialState = {
@@ -25,7 +26,8 @@ const initialState = {
     all_boats: [],
     all_docks: [],
     available_boats: [],
-    tomorrow_task: []
+    tomorrow_task: [],
+    staff_task: [],
 };
 
 export const staffSlice = createSlice({
@@ -209,6 +211,19 @@ export const staffSlice = createSlice({
             state.isLoading1 = false;
         });
         builder.addCase(assignBoatToDock.rejected, (state, action) => {
+            state.isLoading1 = false;
+        });
+
+        // getStaffTasks
+        builder.addCase(getStaffTasks.pending, (state, action) => {
+            state.isLoading1 = true;
+        });
+        builder.addCase(getStaffTasks.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.staff_task = data?.staffMembers ?? []
+            state.isLoading1 = false;
+        });
+        builder.addCase(getStaffTasks.rejected, (state, action) => {
             state.isLoading1 = false;
         });
     },

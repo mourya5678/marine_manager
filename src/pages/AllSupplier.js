@@ -21,7 +21,7 @@ const AllSupplier = () => {
     const [usersPerPage, setUserPerPages] = useState(5);
 
     const displayUsers = supplier_data?.filter((item) => {
-        return item?.company_name
+        return item?.supplier?.email
             ?.toLowerCase()
             ?.includes(searchData?.toLowerCase())
     }).slice(
@@ -34,11 +34,7 @@ const AllSupplier = () => {
     };
 
     const initialState = {
-        company_name: '',
-        company_description: '',
-        email: '',
-        city: '',
-        phone_no: '',
+        email: ''
     };
 
     useEffect(() => {
@@ -62,11 +58,7 @@ const AllSupplier = () => {
             }
         };
         const data = {
-            company_name: values?.company_name?.trim(),
-            company_description: values?.company_description.trim(),
-            email: values?.email,
-            city: values?.city?.trim(),
-            phone_no: `${values?.phone_no}`,
+            email: values?.email?.trim()
         }
         dispatch(addSupplierDetails({ payload: data, callback }))
     };
@@ -89,6 +81,8 @@ const AllSupplier = () => {
         dispatch(updateSupplierDetails({ payload: data, callback }))
     };
 
+    console.log({ supplier_data })
+
     if (isLoading1) {
         return <Loader />
     }
@@ -104,7 +98,7 @@ const AllSupplier = () => {
                                 <h4 className="mb-0 ct_fs_22">All Suppliers</h4>
                                 <div className="d-flex align-items-center gap-4">
                                     <div className="position-relative ct_search_input">
-                                        <input value={searchData} onChange={(e) => setSearchData(e.target.value)} type="text" className="form-control ct_flex_1 pe-5" placeholder="Search company name" />
+                                        <input value={searchData} onChange={(e) => setSearchData(e.target.value)} type="text" className="form-control ct_flex_1 pe-5" placeholder="Search supplier by email" />
                                         <i className="fa-solid fa-magnifying-glass "></i>
                                     </div>
                                     <button className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item"
@@ -117,10 +111,10 @@ const AllSupplier = () => {
                                 <thead>
                                     <tr>
                                         <th>S.No.</th>
-                                        <th>Company Name</th>
+                                        {/* <th>Company Name</th> */}
                                         <th>E-mail Address </th>
-                                        <th>Contact No.</th>
-                                        <th>City</th>
+                                        {/* <th>Contact No.</th>
+                                        <th>City</th> */}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -129,22 +123,27 @@ const AllSupplier = () => {
                                         {displayUsers?.map((item, i) => (
                                             <tr>
                                                 <td>{i + 1}</td>
-                                                <td>{item?.company_name ?? 'NA'}</td>
-                                                <td>{item?.email ?? 'NA'}</td>
-                                                <td>{item?.phone_no ?? 'NA'}</td>
-                                                <td>{item?.city ?? 'NA'}</td>
+                                                {/* <td>{item?.supplier?.company_name ?? 'NA'}</td> */}
+                                                <td>{item?.supplier?.email ?? 'NA'}</td>
+                                                {/* <td>{item?.supplier?.phone_no ?? 'NA'}</td>
+                                                <td>{item?.supplier?.city ?? 'NA'}</td> */}
                                                 <td className="text-end ct_action_btns"
                                                     onClick={() => setSupplierDetail({
-                                                        company_name: item?.company_name ?? '',
-                                                        company_description: item?.company_description ?? '',
-                                                        city: item?.city ?? '',
-                                                        email: item?.email ?? '',
-                                                        phone_no: item?.phone_no ?? '',
-                                                        id: item?.id
+                                                        company_name: item?.supplier?.company_name ?? '',
+                                                        company_description: item?.supplier?.company_description ?? '',
+                                                        city: item?.supplier?.city ?? '',
+                                                        email: item?.supplier?.email ?? '',
+                                                        phone_no: item?.supplier?.phone_no ?? '',
+                                                        id: item?.supplier?.id,
+                                                        abn: item?.supplier?.abn ?? '',
+                                                        about_us: item?.supplier?.about_us ?? '',
+                                                        first_name: item?.supplier?.first_name ?? '',
+                                                        last_name: item?.supplier?.last_name ?? '',
+                                                        phone_no: item?.supplier?.phone_no ?? ''
                                                     })}
                                                 >
                                                     <i className="fa-solid fa-eye me-2 ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_view_supplier"></i>
-                                                    <i className="fa-solid fa-pen ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_update_supplier"></i>
+                                                    {/* <i className="fa-solid fa-pen ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_update_supplier"></i> */}
                                                 </td>
                                             </tr>
                                         ))}
@@ -185,7 +184,9 @@ const AllSupplier = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_add_supplier" tabindex="-1" aria-labelledby="ct_add_supplierLabel"
+            <div className="modal fade Committed_Price" id="ct_add_supplier" tabindex="-1"
+                data-bs-backdrop='static' data-bs-keyboard="false"
+                aria-labelledby="ct_add_supplierLabel"
                 aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
@@ -210,7 +211,7 @@ const AllSupplier = () => {
                                     }) => (
                                         <form>
                                             <div className="row">
-                                                <div className="col-md-12">
+                                                {/* <div className="col-md-12">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Company Name</strong> <span
                                                             className="ct_required_star">*</span></label>
@@ -228,8 +229,8 @@ const AllSupplier = () => {
                                                             fieldName="company_name"
                                                         />
                                                     </div>
-                                                </div>
-                                                <div className="col-md-12">
+                                                </div> */}
+                                                {/* <div className="col-md-12">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Company Description</strong> <span
                                                             className="ct_required_star">*</span></label>
@@ -246,7 +247,7 @@ const AllSupplier = () => {
                                                             fieldName="company_description"
                                                         />
                                                     </div>
-                                                </div>
+                                                </div> */}
                                                 <div className="col-md-12">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Email Address </strong> <span
@@ -266,7 +267,7 @@ const AllSupplier = () => {
                                                         />
                                                     </div>
                                                 </div>
-                                                <div className="col-md-12">
+                                                {/* <div className="col-md-12">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Contact No. </strong> <span
                                                             className="ct_required_star">*</span></label>
@@ -284,8 +285,8 @@ const AllSupplier = () => {
                                                             fieldName="phone_no"
                                                         />
                                                     </div>
-                                                </div>
-                                                <div className="col-md-12">
+                                                </div> */}
+                                                {/* <div className="col-md-12">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>City</strong> <span className="ct_required_star">*</span></label>
                                                         <input
@@ -302,7 +303,7 @@ const AllSupplier = () => {
                                                             fieldName="city"
                                                         />
                                                     </div>
-                                                </div>
+                                                </div> */}
                                             </div>
                                             <div className="modal-footer justify-content-center border-0">
                                                 <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal" onClick={() => resetForm()}>Cancel</button>
@@ -458,6 +459,7 @@ const AllSupplier = () => {
             </div>
 
             <div className="modal fade Committed_Price" id="ct_view_supplier" tabindex="-1" aria-labelledby="ct_view_supplierLabel"
+                data-bs-backdrop='static' data-bs-keyboard="false"
                 aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">

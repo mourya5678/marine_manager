@@ -35,6 +35,7 @@ const CreateBoat = () => {
         owners_name: '',
         engine_model: '',
         docking_date: '',
+        boat_type: ''
     };
 
     const onHandleClick = () => {
@@ -51,6 +52,7 @@ const CreateBoat = () => {
             formData.append('vin', values.vin?.trim());
             formData.append('name', values.name?.trim());
             formData.append('make', values.make?.trim());
+            formData.append('boat_type', values.boat_type);
             formData.append('rego', values.rego?.trim());
             formData.append('model', values.model?.trim());
             formData.append('email', values.email?.trim());
@@ -126,6 +128,50 @@ const CreateBoat = () => {
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
+                                                    <label className="mb-1">
+                                                        <strong>Email</strong>
+                                                        <span className="ct_required_star">*</span>
+                                                    </label>
+                                                    <input
+                                                        type="email"
+                                                        className="form-control"
+                                                        id="email"
+                                                        value={values.email}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="email"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"
+                                                    ><strong>Phone No.</strong>
+                                                        <span className="ct_required_star">*</span></label
+                                                    >
+                                                    <input
+                                                        type="number"
+                                                        className="form-control"
+                                                        id="phone_no"
+                                                        value={values.phone_no}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
+                                                        onWheel={() => document.activeElement.blur()}
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="phone_no"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Rego</strong>
                                                         <span className="ct_required_star">*</span></label
@@ -142,6 +188,52 @@ const CreateBoat = () => {
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="rego"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"
+                                                    ><strong>Boat Name</strong>
+                                                        <span className="ct_required_star">*</span></label
+                                                    >
+                                                    <input
+                                                        id="name"
+                                                        value={values.name}
+                                                        onBlur={handleBlur}
+                                                        onChange={handleChange}
+                                                        type="text"
+                                                        className="form-control"
+                                                    />
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="name"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"
+                                                    ><strong>Boat Type</strong>
+                                                        <span className="ct_required_star">*</span></label
+                                                    >
+                                                    <select
+                                                        name="boat_type"
+                                                        className="form-control"
+                                                        value={values.boat_type}
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                    >
+                                                        <option value="">Select Boat Type</option>
+                                                        <option value="Trailer Boat">Trailer Boat</option>
+                                                        <option value="Yacht ">Yacht</option>
+                                                        <option value="Jetski">Jetski </option>
+                                                    </select>
+                                                    <ErrorMessage
+                                                        errors={errors}
+                                                        touched={touched}
+                                                        fieldName="boat_type"
                                                     />
                                                 </div>
                                             </div>
@@ -210,27 +302,6 @@ const CreateBoat = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Boat Name</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
-                                                    <input
-                                                        id="name"
-                                                        value={values.name}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                        type="text"
-                                                        className="form-control"
-                                                    />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="name"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"
                                                     ><strong>No. Of Engine</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
@@ -276,7 +347,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Engine Model</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
+                                                        <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
                                                         id="engine_model"
@@ -316,33 +387,34 @@ const CreateBoat = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            {/* <div className="col-md-6">
+                                            <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Boat profile created date</strong>
+                                                    ><strong>Docking Date</strong>
+                                                        <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
-                                                        id="app_date"
-                                                        value={values.app_date}
+                                                        type="date"
+                                                        className="form-control"
+                                                        onKeyDown={(e) => e.preventDefault()}
+                                                        id="docking_date"
+                                                        value={values.docking_date}
+                                                        min={new Date()?.toISOString()?.split("T")[0]}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
-                                                        min={new Date()?.toISOString()?.split("T")[0]}
-                                                        type="date"
-                                                        onKeyDown={(e) => e.preventDefault()}
-                                                        className="form-control"
                                                     />
                                                     <ErrorMessage
                                                         errors={errors}
                                                         touched={touched}
-                                                        fieldName="app_date"
+                                                        fieldName="docking_date"
                                                     />
                                                 </div>
-                                            </div> */}
+                                            </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Book From</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
+                                                        <span className="ct_required_star">*</span>
                                                     </label >
                                                     <input
                                                         id="book_from"
@@ -365,7 +437,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Book To</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
+                                                        <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
                                                         id="book_to"
@@ -381,71 +453,6 @@ const CreateBoat = () => {
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="book_to"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"
-                                                    ><strong>Email</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
-                                                    <input
-                                                        type="email"
-                                                        className="form-control"
-                                                        id="email"
-                                                        value={values.email}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="email"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"
-                                                    ><strong>Phone No.</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
-                                                    <input
-                                                        type="number"
-                                                        className="form-control"
-                                                        id="phone_no"
-                                                        value={values.phone_no}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="phone_no"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"
-                                                    ><strong>Docking Dates</strong>
-                                                        {/* <span className="ct_required_star">*</span> */}
-                                                    </label>
-                                                    <input
-                                                        type="date"
-                                                        className="form-control"
-                                                        onKeyDown={(e) => e.preventDefault()}
-                                                        id="docking_date"
-                                                        value={values.docking_date}
-                                                        min={new Date()?.toISOString()?.split("T")[0]}
-                                                        onBlur={handleBlur}
-                                                        onChange={handleChange}
-                                                    />
-                                                    <ErrorMessage
-                                                        errors={errors}
-                                                        touched={touched}
-                                                        fieldName="docking_date"
                                                     />
                                                 </div>
                                             </div>
@@ -486,7 +493,7 @@ const CreateBoat = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
+            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-md modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body p-2">
