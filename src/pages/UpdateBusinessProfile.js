@@ -254,6 +254,7 @@ const UpdateBusinessProfile = () => {
                                                 type="number"
                                                 className="form-control"
                                                 value={profileData?.phone_no}
+                                                onWheel={() => document.activeElement.blur()}
                                                 onChange={(e) => onHandleChangeValue('phone_no', e.target.value)}
                                             />
                                             {phoneNoError &&
@@ -322,7 +323,7 @@ const UpdateBusinessProfile = () => {
                                             ></textarea>
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label className="mb-1"
                                             ><strong>Services Offered</strong>

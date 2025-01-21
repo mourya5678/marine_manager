@@ -810,9 +810,9 @@ label.ct_file_upload {
   border: 2px dashed transparent;
 }
 
-.ct_white_bg_1:hover {
+/* .ct_white_bg_1:hover {
   border: 2px dashed var(--orange);
-}
+} */
 
 .ct_white_bg_1 i.fa-solid.fa-plus {
   font-size: 30px;

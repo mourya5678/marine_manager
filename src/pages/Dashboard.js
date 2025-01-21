@@ -219,6 +219,7 @@ const Dashboard = () => {
                                                         id="time_alloted"
                                                         className="form-control"
                                                         value={taskDetails.time_alloted}
+                                                        onWheel={() => document.activeElement.blur()}
                                                         readOnly
                                                     />
                                                 </div>
@@ -231,6 +232,7 @@ const Dashboard = () => {
                                                         value={taskDetails.quoted_value}
                                                         type="number"
                                                         className="form-control"
+                                                        onWheel={() => document.activeElement.blur()}
                                                         readOnly
                                                     />
                                                 </div>

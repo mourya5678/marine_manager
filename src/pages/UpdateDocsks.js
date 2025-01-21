@@ -182,6 +182,7 @@ const UpdateDocsks = () => {
                                                             value={values.booking_cost_per_day}
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
+                                                            onWheel={() => document.activeElement.blur()}
                                                         />
                                                         <span className="ct_dollar_sign">$</span>
                                                         <ErrorMessage
@@ -206,6 +207,7 @@ const UpdateDocsks = () => {
                                                             value={values.booking_cost}
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
+                                                            onWheel={() => document.activeElement.blur()}
                                                         />
                                                         <span className="ct_dollar_sign">$</span>
                                                         <ErrorMessage

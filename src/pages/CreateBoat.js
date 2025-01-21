@@ -311,7 +311,10 @@ const CreateBoat = () => {
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
                                                         type="number"
-                                                        onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
+                                                        onInput={(e) => {
+                                                            const value = e.target.value;
+                                                            e.target.value = value.replace(/[^0-9]/g, '');
+                                                        }}
                                                         onWheel={() => document.activeElement.blur()}
                                                         className="form-control"
                                                     />
@@ -372,7 +375,6 @@ const CreateBoat = () => {
                                                     >
                                                     <input
                                                         id="length"
-                                                        onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
                                                         onWheel={() => document.activeElement.blur()}
                                                         value={values.length}
                                                         onBlur={handleBlur}

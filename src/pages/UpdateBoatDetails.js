@@ -154,6 +154,7 @@ const UpdateBoatDetails = () => {
                                                         type="number"
                                                         className="form-control"
                                                         id="phone_no"
+                                                        onWheel={() => document.activeElement.blur()}
                                                         value={values.phone_no}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
@@ -307,7 +308,10 @@ const UpdateBoatDetails = () => {
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
                                                         type="number"
-                                                        onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
+                                                        onInput={(e) => {
+                                                            const value = e.target.value;
+                                                            e.target.value = value.replace(/[^0-9]/g, '');
+                                                        }}
                                                         onWheel={() => document.activeElement.blur()}
                                                         className="form-control"
                                                     />
@@ -368,7 +372,6 @@ const UpdateBoatDetails = () => {
                                                     >
                                                     <input
                                                         id="length"
-                                                        onInput={(e) => { e.target.value = Math.abs(e.target.value) }}
                                                         onWheel={() => document.activeElement.blur()}
                                                         value={values.length}
                                                         onBlur={handleBlur}

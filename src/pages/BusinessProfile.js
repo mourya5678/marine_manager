@@ -92,7 +92,13 @@ const BusinessProfile = () => {
                                             ><strong>Company Phone Number</strong>
                                             </label
                                             >
-                                            <input type="number" className="form-control" value={bussiness_profile?.phone_no} readOnly />
+                                            <input
+                                                type="number"
+                                                onWheel={() => document.activeElement.blur()}
+                                                className="form-control"
+                                                value={bussiness_profile?.phone_no}
+                                                readOnly
+                                            />
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -129,7 +135,7 @@ const BusinessProfile = () => {
                                             <textarea className="form-control" rows="3" value={bussiness_profile?.service_region} readOnly></textarea>
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
+                                    <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label for="" className="mb-1"
                                             ><strong>Services Offered</strong>

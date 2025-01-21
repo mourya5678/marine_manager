@@ -469,7 +469,29 @@ const AllSupplier = () => {
                                 {supplierDetail &&
                                     <form>
                                         <div className="row">
-                                            <div className="col-md-12">
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>First Name</strong></label>
+                                                    <input
+                                                        value={supplierDetail?.company_name ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Last Name</strong></label>
+                                                    <input
+                                                        value={supplierDetail?.company_name ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Company Name</strong></label>
                                                     <input
@@ -480,9 +502,9 @@ const AllSupplier = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-12">
+                                            <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>E-mail Address</strong></label>
+                                                    <label className="mb-1"><strong>Company Email</strong></label>
                                                     <input
                                                         value={supplierDetail?.email ?? ''}
                                                         type="text"
@@ -491,19 +513,19 @@ const AllSupplier = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-12">
+                                            <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Company Description</strong></label>
-                                                    <textarea
-                                                        value={supplierDetail?.company_description ?? ''}
+                                                    <label className="mb-1"><strong>Company Phone Number</strong></label>
+                                                    <input
+                                                        value={supplierDetail?.phone_no ?? ''}
                                                         className="form-control"
                                                         readOnly
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-12">
+                                            <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Contact No. </strong></label>
+                                                    <label className="mb-1"><strong>ABN</strong></label>
                                                     <input
                                                         value={supplierDetail?.phone_no ?? ''}
                                                         type="text"
@@ -512,9 +534,75 @@ const AllSupplier = () => {
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-12">
+                                            <div className="col-md-6">
                                                 <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>City</strong></label>
+                                                    <label className="mb-1"><strong>Accounting Software Used</strong></label>
+                                                    <textarea
+                                                        value={supplierDetail?.city ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>About Us</strong></label>
+                                                    <textarea
+                                                        value={supplierDetail?.city ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Services Region</strong></label>
+                                                    <textarea
+                                                        value={supplierDetail?.city ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Services Offered</strong></label>
+                                                    <textarea
+                                                        value={supplierDetail?.city ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Company Logo</strong></label>
+                                                    <input
+                                                        value={supplierDetail?.city ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Trade Licenses</strong></label>
+                                                    <input
+                                                        value={supplierDetail?.city ?? ''}
+                                                        type="text"
+                                                        className="form-control"
+                                                        readOnly
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <div className="form-group mb-3">
+                                                    <label className="mb-1"><strong>Professional Indemnity Insurance</strong></label>
                                                     <input
                                                         value={supplierDetail?.city ?? ''}
                                                         type="text"

@@ -497,6 +497,7 @@ const LeadReceived = () => {
                                                         type="number"
                                                         id="time_alloted"
                                                         className="form-control"
+                                                        onWheel={() => document.activeElement.blur()}
                                                         value={taskDetails.time_alloted}
                                                         readOnly
                                                     />
@@ -510,6 +511,7 @@ const LeadReceived = () => {
                                                         value={taskDetails.quoted_value}
                                                         type="number"
                                                         className="form-control"
+                                                        onWheel={() => document.activeElement.blur()}
                                                         readOnly
                                                     />
                                                 </div>

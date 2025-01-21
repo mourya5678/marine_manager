@@ -22,6 +22,7 @@ const BoatTracker = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [usersPerPage, setUserPerPages] = useState(5);
     const [taskDetails, setTaskDetails] = useState();
+    const [series, setSeries] = useState();
 
     const displayUsers = allTasks_by_id?.slice(
         currentPage * usersPerPage,
@@ -35,7 +36,6 @@ const BoatTracker = () => {
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
-    const [series, setSeries] = useState();
 
     const options = {
         chart: {
@@ -79,11 +79,11 @@ const BoatTracker = () => {
             data: data12
         }]);
         setIsShow(true)
-    }, [allTasks_by_id])
+    }, [allTasks_by_id]);
 
     if (isLoading2) {
-        return <Loader />
-    }
+        return <Loader />;
+    };
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -224,6 +224,7 @@ const BoatTracker = () => {
                                                         type="number"
                                                         id="time_alloted"
                                                         className="form-control"
+                                                        onWheel={() => document.activeElement.blur()}
                                                         value={taskDetails.time_alloted}
                                                         readOnly
                                                     />
@@ -236,6 +237,7 @@ const BoatTracker = () => {
                                                         id="quoted_value"
                                                         value={taskDetails.quoted_value}
                                                         type="number"
+                                                        onWheel={() => document.activeElement.blur()}
                                                         className="form-control"
                                                         readOnly
                                                     />
