@@ -139,7 +139,13 @@ const AllSupplier = () => {
                                                         about_us: item?.supplier?.about_us ?? '',
                                                         first_name: item?.supplier?.first_name ?? '',
                                                         last_name: item?.supplier?.last_name ?? '',
-                                                        phone_no: item?.supplier?.phone_no ?? ''
+                                                        phone_no: item?.supplier?.phone_no ?? '',
+                                                        accounting_software_used: item?.supplier?.accounting_software_used ?? '',
+                                                        service_region: item?.supplier?.service_region ?? '',
+                                                        services_offered: item?.supplier?.services_offered ?? '',
+                                                        company_logo: item?.supplier?.company_logo ?? '',
+                                                        trade_license: item?.supplier?.trade_license ?? '',
+                                                        SupplierInsuranceFile: item?.supplier?.SupplierInsuranceFile ?? []
                                                     })}
                                                 >
                                                     <i className="fa-solid fa-eye me-2 ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_view_supplier"></i>
@@ -527,7 +533,7 @@ const AllSupplier = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>ABN</strong></label>
                                                     <input
-                                                        value={supplierDetail?.phone_no ?? ''}
+                                                        value={supplierDetail?.abn ?? ''}
                                                         type="text"
                                                         className="form-control"
                                                         readOnly
@@ -538,7 +544,7 @@ const AllSupplier = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Accounting Software Used</strong></label>
                                                     <textarea
-                                                        value={supplierDetail?.city ?? ''}
+                                                        value={supplierDetail?.accounting_software_used ?? ''}
                                                         type="text"
                                                         className="form-control"
                                                         readOnly
@@ -549,7 +555,7 @@ const AllSupplier = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>About Us</strong></label>
                                                     <textarea
-                                                        value={supplierDetail?.city ?? ''}
+                                                        value={supplierDetail?.about_us ?? ''}
                                                         type="text"
                                                         className="form-control"
                                                         readOnly
@@ -560,7 +566,7 @@ const AllSupplier = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Services Region</strong></label>
                                                     <textarea
-                                                        value={supplierDetail?.city ?? ''}
+                                                        value={supplierDetail?.service_region ?? ''}
                                                         type="text"
                                                         className="form-control"
                                                         readOnly
@@ -571,46 +577,47 @@ const AllSupplier = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Services Offered</strong></label>
                                                     <textarea
-                                                        value={supplierDetail?.city ?? ''}
+                                                        value={supplierDetail?.services_offered ?? ''}
                                                         type="text"
                                                         className="form-control"
                                                         readOnly
                                                     />
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Company Logo</strong></label>
-                                                    <input
-                                                        value={supplierDetail?.city ?? ''}
-                                                        type="text"
-                                                        className="form-control"
-                                                        readOnly
-                                                    />
+                                            {supplierDetail?.company_logo &&
+                                                <div className="col-md-6">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Company Logo</strong></label>
+                                                        <img src={supplierDetail?.company_logo} data-bs-toggle="modal" data-bs-target="#ct_view_image" className='ct_upload_img_45' />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Trade Licenses</strong></label>
-                                                    <input
-                                                        value={supplierDetail?.city ?? ''}
-                                                        type="text"
-                                                        className="form-control"
-                                                        readOnly
-                                                    />
+                                            }
+                                            {supplierDetail?.trade_license &&
+                                                <div className="col-md-6">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Trade Licenses</strong></label>
+                                                        <img src={supplierDetail?.trade_license} data-bs-toggle="modal" data-bs-target="#ct_trade_image" className='ct_upload_img_45' />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-group mb-3">
-                                                    <label className="mb-1"><strong>Professional Indemnity Insurance</strong></label>
-                                                    <input
-                                                        value={supplierDetail?.city ?? ''}
-                                                        type="text"
-                                                        className="form-control"
-                                                        readOnly
-                                                    />
+                                            }
+                                            {supplierDetail?.SupplierInsuranceFile?.length != 0 &&
+                                                <div className="col-md-6">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Professional Indemnity Insurance</strong></label>
+                                                        {supplierDetail?.SupplierInsuranceFile?.map((item, i) => (
+                                                            <>
+                                                                <iframe
+                                                                    src={item?.filename}
+                                                                    title={`pdf-viewer-${i}`}
+                                                                    width="200"
+                                                                    height="200"
+                                                                />
+                                                                <button type="button" onClick={() => window.open(item?.filename, '_blank')} className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22 mx-0">View Pdf</button>
+                                                            </>
+                                                        ))}
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
                                         </div>
                                         <div className="modal-footer justify-content-center border-0">
                                             <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal" onClick={() => setSupplierDetail()}>Cancel</button>
@@ -622,8 +629,43 @@ const AllSupplier = () => {
                     </div>
                 </div>
             </div>
-
-        </div>
+            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
+                <div className="modal-dialog modal-md modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body p-2">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Image Preview </strong></h4>
+                                {supplierDetail?.company_logo && <img src={supplierDetail?.company_logo} style={{
+                                    height: "356px",
+                                    objectFit: "contain"
+                                }} />}
+                            </div>
+                            <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
+                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="modal fade Committed_Price" id="ct_trade_image" tabindex="-1" aria-labelledby="ct_trade_imageLabel" aria-hidden="true">
+                <div className="modal-dialog modal-md modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body p-2">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Image Preview </strong></h4>
+                                {supplierDetail?.trade_license && <img src={supplierDetail?.trade_license} style={{
+                                    height: "356px",
+                                    objectFit: "contain"
+                                }} />}
+                            </div>
+                            <div className="modal-footer justify-content-center border-0 ct_flex_wrap_575 gap-2">
+                                <button type="button" className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div >
     )
 }
 

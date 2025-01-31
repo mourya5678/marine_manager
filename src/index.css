@@ -133,3 +133,8 @@
 }
 
 /* page not found css end */
+.ct_upload_img_45 {
+  width: 100%;
+  height: 100px;
+  object-fit: contain;
+}

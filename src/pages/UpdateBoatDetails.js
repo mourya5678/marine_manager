@@ -60,6 +60,7 @@ const UpdateBoatDetails = () => {
         formData.append('model', values.model.trim());
         formData.append('email', values.email?.trim());
         formData.append('length', values.length);
+        formData.append('boat_type', values.boat_type);
         formData.append('book_to', values.book_to);
         formData.append('app_date', values.app_date);
         formData.append('phone_no', values.phone_no);
