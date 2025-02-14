@@ -156,7 +156,7 @@ export const AddBoatSchema = Yup.object().shape({
     vin: Yup.string().trim()
         // .length(17, 'VIN must be exactly 17 characters long')
         // .matches(/^[A-HJ-NPR-Z0-9]$/, 'Invalid VIN format') // Excludes I, O, and Q
-        .required('Please enter VIN'),
+        .required('Please enter HIN'),
     make: Yup.string().trim().required("Please enter make"),
     model: Yup.string().trim().required("Please enter model"),
     engine_no: Yup.number()

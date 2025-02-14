@@ -89,11 +89,18 @@ const BoatTracker = () => {
         allTasks_by_id.map((item, i) => (
             item?.status != 1 &&
             data12?.push({
-                label: `${item?.description?.slice(0, 20)} ${i + 1}`,
+                x: `${item?.description?.slice(0, 20)} ${i + 1}`,
                 y: [new Date(new Date(item?.date_scheduled_from)).getTime(),
                 new Date(new Date(item?.date_scheduled_to).setHours(23, 59, 59, 999)).getTime()
-                ]
+                ],
+                fillColor: item?.status == 1 ? "#6929FF" : "#ffb429"
             })
+            // data12?.push({
+            //     label: `${item?.description?.slice(0, 20)} ${i + 1}`,
+            //     y: [new Date(new Date(item?.date_scheduled_from)).getTime(),
+            //     new Date(new Date(item?.date_scheduled_to).setHours(23, 59, 59, 999)).getTime()
+            //     ]
+            // })
         ));
         // { label: "Minicompact Cars", y: [1450, 3550] },
         setSeries([{
@@ -210,12 +217,12 @@ const BoatTracker = () => {
                             {/* <div className='d-flex align-items-center gap-2'>
                                 <p className='mb-0 d-flex align-items-center gap-2'>Ongoing: <span className='ct_graph_legend ct_inprogress_graph_clr'></span></p>
                             </div> */}
-                            {/* {options && isShow == true &&
+                            {options && isShow == true &&
                                 <Chart options={options} series={series} type="rangeBar" height={350} />
-                            } */}
-                            {seriess && isShow == true &&
-                                <CanvasJSChart options={seriess} />
                             }
+                            {/* {seriess && isShow == true &&
+                                <CanvasJSChart options={seriess} />
+                            } */}
                         </div>
                     </div>
                 </div>

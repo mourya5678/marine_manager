@@ -240,7 +240,7 @@ const CreateBoat = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>VIN</strong>
+                                                    ><strong>HIN</strong>
                                                         <span className="ct_required_star">*</span></label
                                                     >
                                                     <input

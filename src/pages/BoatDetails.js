@@ -78,7 +78,7 @@ const BoatDetails = () => {
                             <div className="row ct_mt_20 ct_border_bottom_1">
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">VIN</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">HIN</p>
                                         <p className="ct_fs_16 mb-2">{state?.data?.vin ?? ''}</p>
                                     </div>
                                 </div>
