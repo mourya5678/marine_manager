@@ -65,7 +65,7 @@ const TomorrowScheduledTask = () => {
                                             })}>
                                             <p className="mb-2 ct_fs_18 ct_fw_700">No. {i + 1}</p>
                                             <p className="d-flex ct_fw_700 align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{item?.boat?.name ?? 'NA'}</p>
-                                            <p className="mb-0">{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length > 28 ? "..." : ''}` : ''}</p>
+                                            <p className="mb-0">{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length > 28 ? " ..." : ''}` : ''}</p>
                                         </div>
                                     </a>
                                 </div>

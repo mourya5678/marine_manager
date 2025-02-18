@@ -66,7 +66,7 @@ const StaffProductivity = () => {
                                                     <td>{i + 1}</td>
                                                     <td>{item?.staff?.full_name ?? ''}</td>
                                                     <td>{item?.description
-                                                        ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 ? "..." : ""
+                                                        ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 ? " ..." : ""
                                                         }`
                                                         : ""}</td>
                                                     <td>{item?.time_alloted ?? 0} Hours</td>

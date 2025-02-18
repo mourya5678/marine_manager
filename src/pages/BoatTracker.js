@@ -154,7 +154,7 @@ const BoatTracker = () => {
                                                 displayUsers?.length != 0 && displayUsers?.map((item, i) => (
                                                     <tr>
                                                         <td>{i + 1}</td>
-                                                        <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length > 28 ? "..." : ''}` : ''}</td>
+                                                        <td>{item?.description ? `${item?.description?.slice(0, 28)}${item?.description?.length > 28 ? " ..." : ''}` : ''}</td>
                                                         <td>{`${(item?.boat?.rego ?? '')} - ${(item?.boat?.name ?? '')}` ?? ''}</td>
                                                         <td className={item?.supplier?.company_name ? "" : "ct_fw_600"}>{item?.supplier?.company_name ?? 'STAFF'}</td>
                                                         <td className={item?.staff?.full_name ? "" : "ct_fw_600"}>{item?.staff?.full_name ?? 'OUTSOURCED'}</td>

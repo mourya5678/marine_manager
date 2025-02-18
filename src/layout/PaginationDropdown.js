@@ -1,6 +1,7 @@
 import React from 'react';
 
 const PaginationDropdown = ({ onChange }) => {
+
     return (
         <div className='d-flex align-items-center gap-2'>
             <select className='ct_pagination_select_21' onChange={(e) => onChange(e.target.value)}>

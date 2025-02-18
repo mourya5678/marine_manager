@@ -6,7 +6,6 @@ import Sidebar from "../components/Sidebar";
 import {
   getActiveStaffData,
   getBoatData,
-  getStaffData,
   getSupplierData,
 } from "../redux/actions/staffActions";
 import { pageRoutes } from "../routes/PageRoutes";
@@ -23,6 +22,7 @@ import {
 import { pipViewDate, pipViewDate4 } from "../auth/Pip";
 import ReactPagination from "../layout/ReactPagination";
 import PaginationDropdown from "../layout/PaginationDropdown";
+import { message } from "antd";
 
 const ScheduledMaintenance = () => {
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ const ScheduledMaintenance = () => {
   const [taskDetails, setTaskDetails] = useState();
   const [currentPage, setCurrentPage] = useState(0);
   const [usersPerPage, setUserPerPages] = useState(5);
+  const [selectBoadtId, setSelectBoatId] = useState('');
 
   const displayUsers = allTasks?.slice(
     currentPage * usersPerPage,
@@ -157,6 +158,14 @@ const ScheduledMaintenance = () => {
     setCurrentPage(data.selected);
   };
 
+  const handleGenerateInvoiceData = () => {
+    if (selectBoadtId != '') {
+      navigate(pageRoutes.task_review, { state: { data: selectBoadtId } })
+    } else {
+      message.error('Please select boat');
+    }
+  };
+
   if (isLoading1 || isLoading2) {
     return <Loader />;
   }
@@ -174,16 +183,17 @@ const ScheduledMaintenance = () => {
                 <div className="ct_dark_grey_bg">
                   <div className="ct_btn_group">
                     {boatTaskData?.length != 0 && (
-                      <select className="form-control ct_input_h_44 ab_pointer">
+                      <select className="form-control ct_input_h_44 ab_pointer" value={selectBoadtId} onChange={(e) => setSelectBoatId(e.target.value)}>
+                        <option value=''>Select Boat</option>
                         {boatTaskData?.length != 0 &&
                           boatTaskData?.map((item, i) => (
-                            <option value={item?.id}>{item?.rego}</option>
+                            <option value={item?.id}>{item?.rego ?? ''}</option>
                           ))}
                       </select>
                     )}
                     <a
                       href="javascript:void(0)"
-                      onClick={() => navigate(pageRoutes.task_review)}
+                      onClick={handleGenerateInvoiceData}
                       className=" w-100 ct_white_space_nowrap ct_input_h_44 ct_custom_btm ct_line_height_22 "
                       style={{ paddingBlock: "12px" }}
                     >
@@ -235,11 +245,11 @@ const ScheduledMaintenance = () => {
                           <td>{i + 1}</td>
                           <td>
                             {item?.description
-                              ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 ? "..." : ""
+                              ? `${item?.description?.slice(0, 28)}${item?.description?.length >= 28 ? " ..." : ""
                               }`
                               : ""}
                           </td>
-                          <td>
+                          <td style={{ whiteSpace: "normal", width: "250px" }}>
                             {`${item?.boat?.rego ?? ""} - ${item?.boat?.name ?? ""
                               }` ?? ""}
                           </td>

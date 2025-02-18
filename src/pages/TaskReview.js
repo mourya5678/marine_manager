@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import { pageRoutes } from '../routes/PageRoutes';
@@ -7,6 +7,8 @@ import { pageRoutes } from '../routes/PageRoutes';
 const TaskReview = () => {
     const navigate = useNavigate();
     const [isToggle, setIsToggle] = useState(false);
+    const { state } = useLocation();
+    console.log(state?.data, { state });
 
     const onHandleClick = () => {
         setIsToggle(!isToggle);
@@ -31,7 +33,7 @@ const TaskReview = () => {
                             <table className="table ct_project_table ct_custom_table_main">
                                 <thead>
                                     <tr>
-                                        <th></th>
+                                        <th>S.No.</th>
                                         <th className="ct_ff_roboto">Maintenance Item Description</th>
                                         <th className="ct_ff_roboto">Status</th>
                                         <th className="ct_ff_roboto">Quoted Amount</th>

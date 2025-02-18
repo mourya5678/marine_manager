@@ -64,8 +64,8 @@ const Notification = () => {
                                                     <td>{i + 1}</td>
                                                     <td>{item?.content ?? 'NA'}</td>
                                                     <td>{item?.task?.description
-                                                        ? `${item?.task?.description?.slice(0, 28)}${item?.task?.description?.length >= 28 ? "..." : ""
-                                                        }` : ""}</td>
+                                                        ? `${item?.task?.description?.slice(0, 28)}${item?.task?.description?.length >= 28 ? " ..." : ""
+                                                        }` : "NA"}</td>
                                                     <td>{item?.byStaff?.email ?? 'NA'}</td>
                                                     <td className='text-end'><i className="fa-solid fa-eye me-2 ab_pointer" data-bs-toggle="modal" data-bs-target="#ct_view_supplier" onClick={() => setNotificationDetails({
                                                         content: item?.content,
@@ -80,7 +80,7 @@ const Notification = () => {
                                             <tr>
                                                 <td className="text-center bg-transparent border-0" colSpan="7">
                                                     <div className="text-center">
-                                                        <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">No notifications found</p>
+                                                        <p className="mb-0 mt-3 ct_fs_18 text-center">No notifications found</p>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -88,7 +88,6 @@ const Notification = () => {
                                     }
                                 </table>
                             </div>
-
                             <div className="mt-3">
                                 {notificationData?.length >= 5 &&
                                     notificationData?.length > 0 && <div className="d-flex align-items-center flex-wrap justify-content-between gap-3 mb-3">

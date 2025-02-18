@@ -1,4 +1,4 @@
-// export const BASE_URL = "http://192.168.29.19:4001/";   // Local 
+// export const BASE_URL = "http://192.168.1.19:4001/";   // Local 
 
 export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
 
