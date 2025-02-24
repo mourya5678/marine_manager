@@ -101,7 +101,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
-                        {dashBoardData?.boatsUnderMaintanence?.length != 0 &&
+                        {dashBoardData?.boatsUnderMaintanence && dashBoardData?.boatsUnderMaintanence?.length != 0 &&
                             <div className="ct_mt_20">
                                 <div className="d-flex align-items-center justify-content-between mb-4">
                                     <h4 className="mb-0 ct_fs_22">Boats under maintenance</h4>
@@ -122,13 +122,13 @@ const Dashboard = () => {
                                     ))
                                         :
                                         <div className="col-md-12 mb-4">
-                                            <p className="mb-2 ct_fs_18 ct_fw_700 text-center">No boat found in under maintanence</p>
+                                            <p className="mb-2 ct_fs_18 text-center">No boat found in under maintanence</p>
                                         </div>
                                     }
                                 </div>
                             </div>
                         }
-                        {dashBoardData?.tasksForTommorrow?.length != 0 &&
+                        {dashBoardData?.tasksForTommorrow && dashBoardData?.tasksForTommorrow?.length != 0 &&
                             <div className="ct_mt_20">
                                 <div className="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
                                     <h4 className="mb-0 ct_fs_22">Maintenance tasks scheduled to be completed tomorrow</h4>

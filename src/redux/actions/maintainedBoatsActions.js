@@ -9,7 +9,11 @@ import {
     createTaskEndPointURL,
     updateTaskEndPointURL,
     RecouringReminderEndPointURL,
-    UpdateRecouringEndPointURL
+    UpdateRecouringEndPointURL,
+    getAllCompletedBoatTasksEndPointURL,
+    generateBoatInvoiceEndPointURL,
+    getGeneratedInvoiceEndPointURL,
+    getBoatListOfInvoiceEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const getAllBoatTask = createAsyncThunk("boat-task", async () => {
@@ -146,5 +150,63 @@ export const UpdateRecouring = createAsyncThunk("update-recouring", async (props
         return callback(response);
     } catch (error) {
         callback(null, error);
+    }
+});
+
+export const getCompletedBoatTask = createAsyncThunk("complete-task-list", async (props) => {
+    const { payload } = props;
+    try {
+        const response = await API_REQUEST({
+            url: getAllCompletedBoatTasksEndPointURL + payload,
+            method: "GET",
+            isErrorToast: false,
+        });
+        return response;
+    } catch (error) {
+        console.log('error');
+    }
+});
+
+export const createBoatInvoice = createAsyncThunk("create-boat-invoice", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: generateBoatInvoiceEndPointURL,
+            method: "POST",
+            data: payload,
+        });
+        return callback(response);
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const getGeneratedInvoiceData = createAsyncThunk("invoice-data", async (props) => {
+    const { payload } = props;
+    try {
+        const response = await API_REQUEST({
+            url: getGeneratedInvoiceEndPointURL + payload,
+            method: "GET",
+            isErrorToast: false,
+        });
+        return response;
+    } catch (error) {
+        console.log('error');
+    }
+});
+
+// getBoatListOfInvoiceEndPointURL
+
+export const getAllBoatInvoice = createAsyncThunk("boat-list", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: getBoatListOfInvoiceEndPointURL,
+            method: "GET",
+            isErrorToast: false
+            // data: payload,
+        });
+        return response;
+    } catch (error) {
+        console.log('error');
     }
 });

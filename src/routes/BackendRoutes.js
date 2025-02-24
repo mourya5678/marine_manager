@@ -1,6 +1,6 @@
-// export const BASE_URL = "http://192.168.1.19:4001/";   // Local 
+export const BASE_URL = "http://192.168.29.19:4001/";   // Local 
 
-export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
+// export const BASE_URL = "http://3.26.177.93:4000/";   // Live Url
 
 // auth user
 export const signupEndPointURL = "users/signup";
@@ -56,6 +56,8 @@ export const getAllBoatWithTasksEndPointURL = "task/getAllBoatsWithTasks";
 export const updateTaskEndPointURL = "task/updateTask";
 export const getAllTaskDataEndPointURL = "task/getAllTask";
 
+export const getAllCompletedBoatTasksEndPointURL = "invoice/getAllCompletedTask/";
+
 // Lead
 export const getAllLeaddataEndPointURL = "quickLeads/getAllQuickLeads";
 export const AddLeaddataEndPointURL = "quickLeads/addQuickLeads";
@@ -67,3 +69,9 @@ export const UpdateRecouringEndPointURL = "quickLeads/updateRecurringTask";
 
 // Notification
 export const notificationEndPointURL = "notification";
+
+// Invoice
+export const generateBoatInvoiceEndPointURL = "invoice/generateInvoice";
+export const getGeneratedInvoiceEndPointURL = "invoice/getInvoiceById/";
+
+export const getBoatListOfInvoiceEndPointURL = "invoice/getAllBoatsWithCompletedTasks";

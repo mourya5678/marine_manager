@@ -132,8 +132,7 @@ export const UpdateStaffSchema = Yup.object().shape({
 });
 
 export const AddSupplierSchema = Yup.object().shape({
-    // company_name: Yup.string().trim().required("Please enter company name"),
-    // company_description: Yup.string().trim().required("Please enter company description"),
+    name: Yup.string().trim().required("Please enter supplier name"),
     email: Yup.string()
         .email("Please enter a valid email address")
         .required("Please enter email address")
@@ -141,6 +140,8 @@ export const AddSupplierSchema = Yup.object().shape({
             /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
             "Please enter a valid email address"
         ),
+    // company_name: Yup.string().trim().required("Please enter company name"),
+    // company_description: Yup.string().trim().required("Please enter company description"),
     // city: Yup.string().trim().required("Please enter city"),
     // phone_no: Yup.string()
     //     .matches(/^[0-9]+$/, "Contact number must be number")

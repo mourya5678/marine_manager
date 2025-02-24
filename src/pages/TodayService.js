@@ -72,7 +72,7 @@ const TodayService = () => {
                             ))
                                 :
                                 <div className="col-xl-12 col-lg-12 text-center">
-                                    <p className="mt-5 ct_fs_18 ct_fw_700">No boat found</p>
+                                    <p className="mt-5 ct_fs_18">No boat found</p>
                                 </div>
                             }
                         </div>

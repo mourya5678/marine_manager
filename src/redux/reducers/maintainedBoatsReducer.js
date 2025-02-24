@@ -9,7 +9,11 @@ import {
     getAllTask,
     UpdateTask,
     recouringReminder,
-    UpdateRecouring
+    UpdateRecouring,
+    getCompletedBoatTask,
+    createBoatInvoice,
+    getGeneratedInvoiceData,
+    getAllBoatInvoice
 } from "../actions/maintainedBoatsActions";
 
 const initialState = {
@@ -18,7 +22,10 @@ const initialState = {
     allTasks_by_id: [],
     allTasks: [],
     allLeads: [],
-    recouringData: []
+    recouringData: [],
+    completedBoatTask: [],
+    getInvoiceData: [],
+    allBoatListInvoice: [],
 };
 
 export const maintainedSlice = createSlice({
@@ -143,6 +150,56 @@ export const maintainedSlice = createSlice({
             state.isLoading2 = false;
         });
         builder.addCase(UpdateRecouring.rejected, (state, action) => {
+            state.isLoading2 = false;
+        });
+
+        // getCompletedBoatTask
+        builder.addCase(getCompletedBoatTask.pending, (state, action) => {
+            state.isLoading2 = true;
+        });
+        builder.addCase(getCompletedBoatTask.fulfilled, (state, action) => {
+            const { data } = action.payload ?? [];
+            state.completedBoatTask = data ?? []
+            state.isLoading2 = false;
+        });
+        builder.addCase(getCompletedBoatTask.rejected, (state, action) => {
+            state.isLoading2 = false;
+        });
+
+        // createBoatInvoice
+        builder.addCase(createBoatInvoice.pending, (state, action) => {
+            state.isLoading2 = true;
+        });
+        builder.addCase(createBoatInvoice.fulfilled, (state, action) => {
+            state.isLoading2 = false;
+        });
+        builder.addCase(createBoatInvoice.rejected, (state, action) => {
+            state.isLoading2 = false;
+        });
+
+        // getGeneratedInvoiceData
+        builder.addCase(getGeneratedInvoiceData.pending, (state, action) => {
+            state.isLoading2 = true;
+        });
+        builder.addCase(getGeneratedInvoiceData.fulfilled, (state, action) => {
+            const { data } = action.payload ?? [];
+            state.getInvoiceData = data ?? []
+            state.isLoading2 = false;
+        });
+        builder.addCase(getGeneratedInvoiceData.rejected, (state, action) => {
+            state.isLoading2 = false;
+        });
+
+        // getAllBoatInvoice
+        builder.addCase(getAllBoatInvoice.pending, (state, action) => {
+            state.isLoading2 = true;
+        });
+        builder.addCase(getAllBoatInvoice.fulfilled, (state, action) => {
+            const { data } = action.payload ?? [];
+            state.allBoatListInvoice = data ?? []
+            state.isLoading2 = false;
+        });
+        builder.addCase(getAllBoatInvoice.rejected, (state, action) => {
             state.isLoading2 = false;
         });
     }

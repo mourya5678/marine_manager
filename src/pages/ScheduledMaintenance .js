@@ -15,6 +15,7 @@ import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import {
   CreateTask,
+  getAllBoatInvoice,
   getAllBoatTask,
   getAllTask,
   UpdateTask,
@@ -23,6 +24,7 @@ import { pipViewDate, pipViewDate4 } from "../auth/Pip";
 import ReactPagination from "../layout/ReactPagination";
 import PaginationDropdown from "../layout/PaginationDropdown";
 import { message } from "antd";
+import GenerateDateModal from "../components/GenerateDateModal";
 
 const ScheduledMaintenance = () => {
   const navigate = useNavigate();
@@ -30,13 +32,15 @@ const ScheduledMaintenance = () => {
   const [isToggle, setIsToggle] = useState(false);
   const { isLoading1, staff_active_data, all_boats, supplier_data } =
     useSelector((state) => state?.staffReducer);
-  const { isLoading2, boatTaskData, allTasks } = useSelector(
+  const { isLoading2, boatTaskData, allTasks, allBoatListInvoice } = useSelector(
     (state) => state?.maintainedReducer
   );
   const [cdsData, setCdsData] = useState();
   const [taskDetails, setTaskDetails] = useState();
   const [currentPage, setCurrentPage] = useState(0);
   const [usersPerPage, setUserPerPages] = useState(5);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectDate, setSelectDate] = useState('');
   const [selectBoadtId, setSelectBoatId] = useState('');
 
   const displayUsers = allTasks?.slice(
@@ -54,6 +58,7 @@ const ScheduledMaintenance = () => {
     dispatch(getSupplierData());
     dispatch(getAllTask());
     dispatch(getAllBoatTask());
+    dispatch(getAllBoatInvoice());
   }, []);
 
   const initialState = {
@@ -160,11 +165,20 @@ const ScheduledMaintenance = () => {
 
   const handleGenerateInvoiceData = () => {
     if (selectBoadtId != '') {
-      navigate(pageRoutes.task_review, { state: { data: selectBoadtId } })
+      // setIsModalVisible(true);
+      navigate(pageRoutes.task_review, { state: { boat_id: selectBoadtId } })
     } else {
       message.error('Please select boat');
     }
   };
+
+  // const handleGenrateInvoiceDate = () => {
+  //   if (selectDate != '') {
+  //     navigate(pageRoutes.task_review, { state: { boat_id: selectBoadtId, due_date: selectDate } })
+  //   } else {
+  //     message.error('Please select date');
+  //   }
+  // };
 
   if (isLoading1 || isLoading2) {
     return <Loader />;
@@ -182,11 +196,11 @@ const ScheduledMaintenance = () => {
               <div className="ct_grid_3_1">
                 <div className="ct_dark_grey_bg">
                   <div className="ct_btn_group">
-                    {boatTaskData?.length != 0 && (
+                    {allBoatListInvoice?.length != 0 && (
                       <select className="form-control ct_input_h_44 ab_pointer" value={selectBoadtId} onChange={(e) => setSelectBoatId(e.target.value)}>
                         <option value=''>Select Boat</option>
-                        {boatTaskData?.length != 0 &&
-                          boatTaskData?.map((item, i) => (
+                        {allBoatListInvoice?.length != 0 &&
+                          allBoatListInvoice?.map((item, i) => (
                             <option value={item?.id}>{item?.rego ?? ''}</option>
                           ))}
                       </select>
@@ -348,7 +362,7 @@ const ScheduledMaintenance = () => {
                         colSpan="7"
                       >
                         <div className="text-center">
-                          <p className="mb-0 mt-3 ct_fs_16 ct_fw_600 ct_ff_poppin ct_clr_8C98A9 text-center">
+                          <p className="mb-0 mt-3 ct_fs_16 text-center">
                             No maintenance found
                           </p>
                         </div>
@@ -1222,6 +1236,18 @@ const ScheduledMaintenance = () => {
           </div>
         </div>
       </div>
+
+      {/* {isModalVisible &&
+        <GenerateDateModal
+          onCancel={() => {
+            setIsModalVisible(false);
+            setSelectDate('');
+          }}
+          data={selectDate}
+          handleChange={(e) => setSelectDate(e.target.value)}
+          handleComplete={handleGenrateInvoiceDate}
+        />
+      } */}
     </div >
   );
 };

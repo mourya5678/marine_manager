@@ -34,7 +34,8 @@ const AllSupplier = () => {
     };
 
     const initialState = {
-        email: ''
+        email: '',
+        name: ''
     };
 
     useEffect(() => {
@@ -58,7 +59,8 @@ const AllSupplier = () => {
             }
         };
         const data = {
-            email: values?.email?.trim()
+            email: values?.email?.trim(),
+            name: values?.name?.trim()
         }
         dispatch(addSupplierDetails({ payload: data, callback }))
     };
@@ -80,8 +82,6 @@ const AllSupplier = () => {
         }
         dispatch(updateSupplierDetails({ payload: data, callback }))
     };
-
-    console.log({ supplier_data })
 
     if (isLoading1) {
         return <Loader />
@@ -111,7 +111,7 @@ const AllSupplier = () => {
                                 <thead>
                                     <tr>
                                         <th>S.No.</th>
-                                        {/* <th>Company Name</th> */}
+                                        <th>Supllier Name</th>
                                         <th>E-mail Address </th>
                                         {/* <th>Contact No.</th>
                                         <th>City</th> */}
@@ -123,7 +123,7 @@ const AllSupplier = () => {
                                         {displayUsers?.map((item, i) => (
                                             <tr>
                                                 <td>{i + 1}</td>
-                                                {/* <td>{item?.supplier?.company_name ?? 'NA'}</td> */}
+                                                <td>{item?.name ?? 'NA'}</td>
                                                 <td>{item?.supplier?.email ?? 'NA'}</td>
                                                 {/* <td>{item?.supplier?.phone_no ?? 'NA'}</td>
                                                 <td>{item?.supplier?.city ?? 'NA'}</td> */}
@@ -217,25 +217,25 @@ const AllSupplier = () => {
                                     }) => (
                                         <form>
                                             <div className="row">
-                                                {/* <div className="col-md-12">
+                                                <div className="col-md-12">
                                                     <div className="form-group mb-3">
-                                                        <label className="mb-1"><strong>Company Name</strong> <span
+                                                        <label className="mb-1"><strong>Supplier Name</strong> <span
                                                             className="ct_required_star">*</span></label>
                                                         <input
-                                                            id="company_name"
+                                                            id="name"
                                                             onBlur={handleBlur}
                                                             onChange={handleChange}
-                                                            value={values?.company_name}
+                                                            value={values?.name}
                                                             type="text"
                                                             className="form-control"
                                                         />
                                                         <ErrorMessage
                                                             errors={errors}
                                                             touched={touched}
-                                                            fieldName="company_name"
+                                                            fieldName="name"
                                                         />
                                                     </div>
-                                                </div> */}
+                                                </div>
                                                 {/* <div className="col-md-12">
                                                     <div className="form-group mb-3">
                                                         <label className="mb-1"><strong>Company Description</strong> <span

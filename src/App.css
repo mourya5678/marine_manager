@@ -352,3 +352,12 @@ main {
   pointer-events: none;
   cursor: pointer;
 }
+
+.ct_congratulation_modal_fade:before {
+  content: "";
+  position: absolute;
+  background: #000;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
