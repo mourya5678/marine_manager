@@ -389,8 +389,9 @@ ul.cti_tax_invoice_bg {
 .cti_basic_table tr td {
   padding: 2px 20px;
   font-size: 13px;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   font-weight: 600;
+  word-break: break-word;
 }
 
 .cti_border_radius_0 {

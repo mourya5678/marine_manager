@@ -341,7 +341,7 @@ const BoatDocks = () => {
                               numberOfMonths={2}
                               onChange={handleSelection}
                             />
-                            <i class="fa-regular fa-calendar ct_date_icon_top_123"></i>
+                            <i className="fa-regular fa-calendar ct_date_icon_top_123"></i>
                           </div>
                           <span style={{ color: "red" }}>
                             {setDateError}

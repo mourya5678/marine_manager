@@ -64,23 +64,23 @@ const ReviewSchedule = () => {
                 <Sidebar path="review" />
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
-                    <div class="ct_dashbaord_middle">
-                        <h4 class="ct_fs_24 ct_fw_700 mb-4 pb-1">Maintained Boats</h4>
-                        <div class="ct_white_bg_1 pb-5">
-                            <h4 class="ct_fs_24 text-start ct_fw_700 mb-1 ">Calendar</h4>
-                            <div class="row">
-                                <div class="col-xl-3 mb-4">
-                                    <div class="ct_event_detail_list mt-5">
-                                        <div class="d-flex align-items-center gap-3">
-                                            {/* <img src="img/calendar_img_12.png" alt="" class="ct_img_18" /> */}
-                                            <h4 class="ct_ff_roboto ct_fw_600 ct_fs_16 mb-0">All Boats</h4>
+                    <div className="ct_dashbaord_middle">
+                        <h4 className="ct_fs_24 ct_fw_700 mb-4 pb-1">Maintained Boats</h4>
+                        <div className="ct_white_bg_1 pb-5">
+                            <h4 className="ct_fs_24 text-start ct_fw_700 mb-1 ">Calendar</h4>
+                            <div className="row">
+                                <div className="col-xl-3 mb-4">
+                                    <div className="ct_event_detail_list mt-5">
+                                        <div className="d-flex align-items-center gap-3">
+                                            {/* <img src="img/calendar_img_12.png" alt="" className="ct_img_18" /> */}
+                                            <h4 className="ct_ff_roboto ct_fw_600 ct_fs_16 mb-0">All Boats</h4>
                                         </div>
-                                        <ul class="mt-4">
+                                        <ul className="mt-4">
                                             {boatTaskData?.length != 0 ?
                                                 boatTaskData?.map((item) => (
                                                     <li>
-                                                        <p class="mb-0 ct_fs_14 ct_fw_600 d-flex align-items-center gap-1 ct_orange_text ct_text_decoration_none ct_fw_600"><span class="ct_event_dot ct_dot_clr"></span>{item?.rego}</p>
-                                                        <a href="javascript:void(0)"><p class="mb-0 ct_fs_14 ct_fw_600" onClick={() => handleViewBoatTask(item)}>View</p></a>
+                                                        <p className="mb-0 ct_fs_14 ct_fw_600 d-flex align-items-center gap-1 ct_orange_text ct_text_decoration_none ct_fw_600"><span className="ct_event_dot ct_dot_clr"></span>{item?.rego}</p>
+                                                        <a href="javascript:void(0)"><p className="mb-0 ct_fs_14 ct_fw_600" onClick={() => handleViewBoatTask(item)}>View</p></a>
                                                     </li>
                                                 ))
                                                 : "No boat found"
@@ -89,7 +89,7 @@ const ReviewSchedule = () => {
                                     </div>
                                 </div>
                                 {calendarData &&
-                                    <div class="col-xl-9 mb-4">
+                                    <div className="col-xl-9 mb-4">
                                         <Calendar
                                             localizer={localizer}
                                             events={calendarData}

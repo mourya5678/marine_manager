@@ -241,72 +241,72 @@ const Invoice = () => {
             </div>
           </section> */}
           </>
-          <section class="px-3 mb-5">
+          <section className="px-3 mb-5">
             <div className='text-end mt-4'>
               <button className='ct_orange_btnct_custom_btm text-white ms-auto ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22' onClick={onHandleGeneratePDFFile}>Send Invoice</button>
             </div>
-            <div class="col-md-9 mx-auto" ref={targetRef}>
-              <div class="cti_invoice_bg">
-                <div class="cti_grid_2_1">
-                  <div class="cti_logo23">
-                    <img src="img/Logo_blue.png" class="mb-0" />
+            <div className="col-md-9 mx-auto" ref={targetRef}>
+              <div className="cti_invoice_bg">
+                <div className="cti_grid_2_1">
+                  <div className="cti_logo23">
+                    <img src="img/Logo_blue.png" className="mb-0" />
                   </div>
                   <div>
-                    <p class="mb-1">Phone No : {getInvoiceData?.boat?.phone_no ?? ''}</p>
-                    <p class="mb-1">Email : {getInvoiceData?.boat?.email ?? ''}</p>
-                    <p class="mb-0">HIN : {getInvoiceData?.boat?.vin ?? ''}</p>
-                    <p class="mb-0">Rego : {getInvoiceData?.boat?.rego ?? ''}</p>
+                    <p className="mb-1">Phone No : {getInvoiceData?.boat?.phone_no ?? ''}</p>
+                    <p className="mb-1">Email : {getInvoiceData?.boat?.email ?? ''}</p>
+                    <p className="mb-0">HIN : {getInvoiceData?.boat?.vin ?? ''}</p>
+                    <p className="mb-0">Rego : {getInvoiceData?.boat?.rego ?? ''}</p>
                   </div>
                 </div>
-                <div class="d-flex align-items-center gap-3 flex-wrap justify-content-between mt-5 pt-4">
-                  <p class="mb-0">{getInvoiceData?.boat?.owners_name ?? ''}
+                <div className="d-flex align-items-center gap-3 flex-wrap justify-content-between mt-5 pt-4">
+                  <p className="mb-0">{getInvoiceData?.boat?.owners_name ?? ''}
                   </p>
-                  <div class="cti_invoice_amoount_dtl">
+                  <div className="cti_invoice_amoount_dtl">
                     <ul>
                       <li>
-                        <p class="mb-1">PLEASE PAY BY
+                        <p className="mb-1">PLEASE PAY BY
                         </p>
-                        <h6 class="mb-0">{getInvoiceData?.pleasePayByDate ? moment(getInvoiceData?.pleasePayByDate).format('DD-MM-YYYY') : ''}
+                        <h6 className="mb-0">{getInvoiceData?.pleasePayByDate ? moment(getInvoiceData?.pleasePayByDate).format('DD-MM-YYYY') : ''}
                         </h6>
                       </li>
                       <li>
-                        <p class="mb-1">AMOUNT
+                        <p className="mb-1">AMOUNT
                         </p>
-                        <h6 class="mb-0">${getInvoiceData?.totalAmount ?? 0}
+                        <h6 className="mb-0">${getInvoiceData?.totalAmount ?? 0}
                         </h6>
                       </li>
                       <li>
-                        <p class="mb-1">INVOICE DATE
+                        <p className="mb-1">INVOICE DATE
                         </p>
-                        <h6 class="mb-0">{getInvoiceData?.createdAt ? moment(getInvoiceData?.createdAt).format('DD-MM-YYYY') : ''}
+                        <h6 className="mb-0">{getInvoiceData?.createdAt ? moment(getInvoiceData?.createdAt).format('DD-MM-YYYY') : ''}
                         </h6>
                       </li>
                     </ul>
                   </div>
                 </div>
-                <h5 class="text-end cti_fw_700 mt-4 mb-3">TAX INVOICE NO. {getInvoiceData?.invoiceNumber ?? 0}</h5>
+                <h5 className="text-end cti_fw_700 mt-4 mb-3">TAX INVOICE NO. {getInvoiceData?.invoiceNumber ?? 0}</h5>
                 {getInvoiceData?.tasks?.length != 0 && getInvoiceData?.tasks?.map((item, i) => (
                   <>
-                    <ul class="cti_tax_invoice_bg">
+                    <ul className="cti_tax_invoice_bg">
                       <li>
-                        <p class="mb-0 cti_fw_700">Job No.:
+                        <p className="mb-0 cti_fw_700">Job No.:
                         </p>
-                        <p class="mb-0">{item?.jobNumber ?? ''}</p>
+                        <p className="mb-0">{item?.jobNumber ?? ''}</p>
                       </li>
                       <li>
-                        <p class="mb-0 cti_fw_700">Invoice Terms:
+                        <p className="mb-0 cti_fw_700">Invoice Terms:
                         </p>
-                        <p class="mb-0">COD</p>
+                        <p className="mb-0">COD</p>
                       </li>
                     </ul>
-                    <div class="mt-3">
-                      <h4 class="cti_fs_14 cti_fw_700 mb-1">Description</h4>
-                      <h4 class="cti_fs_14 mb-0">{item?.description ?? ''}</h4>
+                    <div className="mt-3">
+                      <h4 className="cti_fs_14 cti_fw_700 mb-1">Description</h4>
+                      <h4 className="cti_fs_14 mb-0">{item?.description ?? ''}</h4>
                     </div>
-                    <div class="mt-3">
-                      <div class="mb-2">
-                        <div class="table-responsive">
-                          <table class="table cti_basic_table table-bordered">
+                    <div className="mt-3">
+                      <div className="mb-2">
+                        <div className="table-responsive">
+                          <table className="table cti_basic_table table-bordered">
                             <thead>
                               <tr>
                                 <th>S.No.</th>
@@ -322,20 +322,20 @@ const Invoice = () => {
                                 <td>{item?.taskInfo ?? ''}</td>
                                 <td>{item?.time_alloted ?? 0}</td>
                                 <td>${item?.quoted_value ?? 0}</td>
-                                <td class="right">${item?.quoted_value ?? 0}</td>
+                                <td className="right">${item?.quoted_value ?? 0}</td>
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
                       {item?.JobServiceSheet?.length != 0 && item?.JobServiceSheet?.map((items, index) => (
-                        <div class="mb-4">
-                          <p class="cti_fs_14 cti_fw_700 mb-2">Job Sheet Task</p>
-                          <div class="table-responsive mb-3">
-                            <table class="table cti_basic_table table-bordered">
+                        <div className="mb-4">
+                          <p className="cti_fs_14 cti_fw_700 mb-2">Job Sheet Task</p>
+                          <div className="table-responsive mb-3">
+                            <table className="table cti_basic_table table-bordered">
                               <thead>
                                 <tr>
-                                  <th>S.No.</th>
+                                  {/* <th>S.No.</th> */}
                                   <th>Person Attending</th>
                                   <th>Work Carried Out</th>
                                   <th>Work To Be Carried Out</th>
@@ -343,19 +343,19 @@ const Invoice = () => {
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td>{index + 1}</td>
+                                  {/* <td>{index + 1}</td> */}
                                   <td>{items?.personAttending ?? ''}</td>
                                   <td>{items?.workCarriedOut ?? ''}</td>
-                                  <td class="right">{items?.workToBeCarriedOut ?? ''}</td>
+                                  <td className="right">{items?.workToBeCarriedOut ?? ''}</td>
                                 </tr>
                               </tbody>
                             </table>
                           </div>
                           {items?.Material?.length != 0 &&
                             <>
-                              <p class="cti_fs_14 cti_fw_700 mb-2">Materials</p>
-                              <div class="table-responsive">
-                                <table class="table cti_basic_table table-bordered">
+                              <p className="cti_fs_14 cti_fw_700 mb-2">Materials</p>
+                              <div className="table-responsive">
+                                <table className="table cti_basic_table table-bordered">
                                   <thead>
                                     <tr>
                                       <th>S.No.</th>
@@ -371,8 +371,8 @@ const Invoice = () => {
                                         <td>{ind + 1}</td>
                                         <td>{val?.materialName ?? ''}</td>
                                         <td>{val?.unitsUsed ?? ''}</td>
-                                        <td>{val?.pricePerUnit ?? ''}</td>
-                                        <td class="right">{val?.totalPrice ?? ''}</td>
+                                        <td>${val?.pricePerUnit ?? ''}</td>
+                                        <td className="right">${val?.totalPrice ?? ''}</td>
                                       </tr>
                                     ))}
                                   </tbody>
@@ -391,20 +391,20 @@ const Invoice = () => {
         </div>
       </div>
 
-      <div class="modal fade" id="confirm_save" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirm_saveLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="confirm_saveLabel">Modal title</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div className="modal fade" id="confirm_save" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirm_saveLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="confirm_saveLabel">Modal title</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div className="modal-body">
               <img src="img/check_icon.png" alt="" />
               <h4>Confirm to Send</h4>
             </div>
-            <div class="modal-footer justify-content-center gap-4">
-              <button type="button" class="btn-secondary ct_custom_btm  ct_news_ltr_btn mx-0" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="ct_custom_btm  ct_news_ltr_btn mx-0" data-bs-dismiss="modal" onClick={() => navigate(pageRoutes.maintenance)}>Save</button>
+            <div className="modal-footer justify-content-center gap-4">
+              <button type="button" className="btn-secondary ct_custom_btm  ct_news_ltr_btn mx-0" data-bs-dismiss="modal">Close</button>
+              <button type="button" className="ct_custom_btm  ct_news_ltr_btn mx-0" data-bs-dismiss="modal" onClick={() => navigate(pageRoutes.maintenance)}>Save</button>
             </div>
           </div>
         </div>

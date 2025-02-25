@@ -33,8 +33,8 @@ const Notification = () => {
     };
 
     if (isLoading) {
-        return <Loader />
-    }
+        return <Loader />;
+    };
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -62,7 +62,8 @@ const Notification = () => {
                                             {displayUsers?.map((item, i) => (
                                                 <tr>
                                                     <td>{i + 1}</td>
-                                                    <td>{item?.content ?? 'NA'}</td>
+                                                    <td>{item?.content ? `${item?.content?.slice(0, 28)}${item?.content?.length >= 28 ? " ..." : ""
+                                                        }` : "NA"}</td>
                                                     <td>{item?.task?.description
                                                         ? `${item?.task?.description?.slice(0, 28)}${item?.task?.description?.length >= 28 ? " ..." : ""
                                                         }` : "NA"}</td>
@@ -116,8 +117,8 @@ const Notification = () => {
                 aria-hidden="true">
                 <div className="modal-dialog modal-lg modal-dialog-centered">
                     <div className="modal-content">
-                        <div class="modal-header border-0">
-                            <button onClick={() => setNotificationDetails()} type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div className="modal-header border-0">
+                            <button onClick={() => setNotificationDetails()} type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         {notificationDetails &&
                             <div className="modal-body px-4 pt-0">
