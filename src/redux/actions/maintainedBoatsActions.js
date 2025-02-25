@@ -13,7 +13,8 @@ import {
     getAllCompletedBoatTasksEndPointURL,
     generateBoatInvoiceEndPointURL,
     getGeneratedInvoiceEndPointURL,
-    getBoatListOfInvoiceEndPointURL
+    getBoatListOfInvoiceEndPointURL,
+    sendInvoicePdfToBoatOwnerEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const getAllBoatTask = createAsyncThunk("boat-task", async () => {
@@ -195,7 +196,23 @@ export const getGeneratedInvoiceData = createAsyncThunk("invoice-data", async (p
     }
 });
 
-// getBoatListOfInvoiceEndPointURL
+export const sendPdfToBoatOwner = createAsyncThunk("send-invoice-pdf", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: sendInvoicePdfToBoatOwnerEndPointURL,
+            method: "POST",
+            data: payload,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return callback(response);
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
 
 export const getAllBoatInvoice = createAsyncThunk("boat-list", async () => {
     try {

@@ -34,7 +34,7 @@ const TaskReview = () => {
             const callback = (response) => {
                 if (response.success) {
                     // dispatch(getGeneratedInvoiceData({ payload: response?.data?.invoiceId }));
-                    navigate(pageRoutes.invoice, { state: { invoice_id: response?.data?.invoiceId, due_date: selectDate } })
+                    navigate(pageRoutes.invoice, { state: { invoice_id: response?.data?.invoiceId, due_date: selectDate, boat_id: state?.boat_id } })
                 }
             };
             dispatch(createBoatInvoice({ payload: { boatId: state?.boat_id, pleasePayByDate: selectDate }, callback }));

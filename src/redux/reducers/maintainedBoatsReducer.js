@@ -13,7 +13,8 @@ import {
     getCompletedBoatTask,
     createBoatInvoice,
     getGeneratedInvoiceData,
-    getAllBoatInvoice
+    getAllBoatInvoice,
+    sendPdfToBoatOwner
 } from "../actions/maintainedBoatsActions";
 
 const initialState = {
@@ -200,6 +201,19 @@ export const maintainedSlice = createSlice({
             state.isLoading2 = false;
         });
         builder.addCase(getAllBoatInvoice.rejected, (state, action) => {
+            state.isLoading2 = false;
+        });
+
+        // sendPdfToBoatOwner
+        builder.addCase(sendPdfToBoatOwner.pending, (state, action) => {
+            state.isLoading2 = true;
+        });
+        builder.addCase(sendPdfToBoatOwner.fulfilled, (state, action) => {
+            const { data } = action.payload ?? [];
+            state.allBoatListInvoice = data ?? []
+            state.isLoading2 = false;
+        });
+        builder.addCase(sendPdfToBoatOwner.rejected, (state, action) => {
             state.isLoading2 = false;
         });
     }

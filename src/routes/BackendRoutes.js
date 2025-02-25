@@ -75,3 +75,4 @@ export const generateBoatInvoiceEndPointURL = "invoice/generateInvoice";
 export const getGeneratedInvoiceEndPointURL = "invoice/getInvoiceById/";
 
 export const getBoatListOfInvoiceEndPointURL = "invoice/getAllBoatsWithCompletedTasks";
+export const sendInvoicePdfToBoatOwnerEndPointURL = "invoice/sendPdfToBoatOwner";

@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import Header from '../components/Header';
 import '../Invoice.css';
 import Sidebar from '../components/Sidebar';
 import { pageRoutes } from '../routes/PageRoutes';
 import { useDispatch, useSelector } from 'react-redux';
-import { createBoatInvoice, getGeneratedInvoiceData } from '../redux/actions/maintainedBoatsActions';
+import { getGeneratedInvoiceData, sendPdfToBoatOwner } from '../redux/actions/maintainedBoatsActions';
 import Loader from '../components/Loader';
 import moment from 'moment';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const Invoice = () => {
   const navigate = useNavigate();
+  const targetRef = useRef();
   const dispatch = useDispatch();
   const [isToggle, setIsToggle] = useState(false);
   const { state } = useLocation();
@@ -18,6 +21,39 @@ const Invoice = () => {
     (state) => state?.maintainedReducer
   );
 
+  const onHandleGeneratePDFFile = async () => {
+    const element = targetRef.current;
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: document.documentElement.offsetWidth,
+      windowHeight: document.documentElement.offsetHeight,
+    });
+    const contentWidth = canvas.width;
+    const contentHeight = canvas.height;
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF({
+      orientation: contentWidth > contentHeight ? 'landscape' : 'portrait',
+      unit: 'px',
+      format: [contentWidth, contentHeight]
+    });
+    pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
+    const pdfBlob1 = pdf.output('blob');
+    const pdfFile = new File([pdfBlob1], 'BoatInvoice.pdf', { type: 'application/pdf' });
+    const callback = (response) => {
+      if (response.success) {
+        pdf.save('BoatInvoice.pdf');
+        navigate(pageRoutes.maintenance);
+      };
+    };
+    const formData = new FormData()
+    formData?.append("boatId", state?.boat_id);
+    formData?.append("invoice", pdfFile);
+    dispatch(sendPdfToBoatOwner({ payload: formData, callback }));
+  }
   const onHandleClick = () => {
     setIsToggle(!isToggle);
   };
@@ -25,8 +61,6 @@ const Invoice = () => {
   useEffect(() => {
     dispatch(getGeneratedInvoiceData({ payload: state?.invoice_id }));
   }, []);
-
-  console.log(getInvoiceData);
 
   if (isLoading2) {
     return <Loader />;
@@ -208,7 +242,10 @@ const Invoice = () => {
           </section> */}
           </>
           <section class="px-3 mb-5">
-            <div class="col-md-9 mx-auto">
+            <div className='text-end mt-4'>
+              <button className='ct_orange_btnct_custom_btm text-white ms-auto ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22' onClick={onHandleGeneratePDFFile}>Send Invoice</button>
+            </div>
+            <div class="col-md-9 mx-auto" ref={targetRef}>
               <div class="cti_invoice_bg">
                 <div class="cti_grid_2_1">
                   <div class="cti_logo23">
@@ -284,37 +321,9 @@ const Invoice = () => {
                                 <td>{i + 1}</td>
                                 <td>{item?.taskInfo ?? ''}</td>
                                 <td>{item?.time_alloted ?? 0}</td>
+                                <td>${item?.quoted_value ?? 0}</td>
                                 <td class="right">${item?.quoted_value ?? 0}</td>
-                                <td class="right">${item?.quoted_value ?? 0}</td>
                               </tr>
-                              {/* <tr>
-                                <td></td>
-                                <td colspan="3" class="bold">*WORKSHOP CONSUMABLES</td>
-                                <td class="right">$130.00</td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td colspan="3" class="bold">Mechanical Labour</td>
-                                <td class="right">$2,475.00</td>
-                              </tr>
-                              <tr>
-                                <td></td>
-                                <td colspan="3" class="bold">Apprentice Marine Mechanic</td>
-                                <td class="right">$330.00</td>
-                              </tr>
-                              <tr style={{ borderTop: "0px", borderBottom: "0px" }}>
-                                <td colspan="4" class="border-0 border-top: 0px; text-end ct_fw_700">Sub-Total
-                                  ex GST</td>
-                                <td style={{ borderBottom: "0px", borderTop: "0px" }}>$6,170.44</td>
-                              </tr>
-                              <tr style={{ borderTop: "0px", borderBottom: "0px" }}>
-                                <td colspan="4" class="border-0 text-end ct_fw_700">GST</td>
-                                <td class="right" style={{ borderBottom: "0px" }}>$617.04</td>
-                              </tr>
-                              <tr style={{ borderTop: "0px", borderBottom: "0px" }}>
-                                <td colspan="4" class="border-0 text-end ct_fw_700">Total</td>
-                                <td class="right ct_border_btm_1">$6,787.48</td>
-                              </tr> */}
                             </tbody>
                           </table>
                         </div>
@@ -350,18 +359,22 @@ const Invoice = () => {
                                   <thead>
                                     <tr>
                                       <th>S.No.</th>
-                                      <th>Person Attending</th>
-                                      <th>Work Carried Out</th>
-                                      <th>Work To Be Carried Out</th>
+                                      <th>Material</th>
+                                      <th>Units</th>
+                                      <th>Price Per Unit</th>
+                                      <th>Total</th>
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>{index + 1}</td>
-                                      <td>{items?.personAttending ?? ''}</td>
-                                      <td>{items?.workCarriedOut ?? ''}</td>
-                                      <td class="right">{items?.workToBeCarriedOut ?? ''}</td>
-                                    </tr>
+                                    {items?.Material?.map((val, ind) => (
+                                      <tr>
+                                        <td>{ind + 1}</td>
+                                        <td>{val?.materialName ?? ''}</td>
+                                        <td>{val?.unitsUsed ?? ''}</td>
+                                        <td>{val?.pricePerUnit ?? ''}</td>
+                                        <td class="right">{val?.totalPrice ?? ''}</td>
+                                      </tr>
+                                    ))}
                                   </tbody>
                                 </table>
                               </div>
