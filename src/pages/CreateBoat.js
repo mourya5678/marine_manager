@@ -151,8 +151,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Phone No.</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        <span className="ct_required_star">*</span></label>
                                                     <input
                                                         type="number"
                                                         className="form-control"
@@ -174,8 +173,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Rego</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        <span className="ct_required_star">*</span></label>
                                                     <input
                                                         id="rego"
                                                         value={values.rego}
@@ -195,8 +193,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Boat Name</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        <span className="ct_required_star">*</span></label>
                                                     <input
                                                         id="name"
                                                         value={values.name}
@@ -216,8 +213,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Boat Type</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        <span className="ct_required_star">*</span></label>
                                                     <select
                                                         name="boat_type"
                                                         className="form-control"
@@ -227,7 +223,7 @@ const CreateBoat = () => {
                                                     >
                                                         <option value="">Select Boat Type</option>
                                                         <option value="Trailer Boat">Trailer Boat</option>
-                                                        <option value="Yacht ">Yacht</option>
+                                                        <option value="Yacht">Yacht</option>
                                                         <option value="Jetski">Jetski </option>
                                                     </select>
                                                     <ErrorMessage
@@ -241,8 +237,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>HIN</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        <span className="ct_required_star">*</span></label>
                                                     <input
                                                         id="vin"
                                                         value={values.vin}
@@ -262,8 +257,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Make</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        <span className="ct_required_star">*</span></label>
                                                     <input
                                                         id="make"
                                                         value={values.make}
@@ -303,8 +297,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>No. Of Engine</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        <span className="ct_required_star">*</span></label>
                                                     <input
                                                         id="engine_no"
                                                         value={values.engine_no}
@@ -329,8 +322,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Engine Make</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        <span className="ct_required_star">*</span></label>
                                                     <input
                                                         id="engine_make"
                                                         value={values.engine_make}
@@ -371,8 +363,7 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Boat Length (Meter)</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        <span className="ct_required_star">*</span></label>
                                                     <input
                                                         id="length"
                                                         onWheel={() => document.activeElement.blur()}
