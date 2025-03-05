@@ -194,27 +194,29 @@ const ScheduledMaintenance = () => {
             <div className="ct_grid_2_1 justify-content-between">
               <h4 className="mb-0 ct_fs_24 ct_fw_600">All Maintenance </h4>
               <div className="ct_grid_3_1">
-                <div className="ct_dark_grey_bg">
-                  <div className="ct_btn_group">
-                    {allBoatListInvoice?.length != 0 && (
-                      <select className="form-control ct_input_h_44 ab_pointer" value={selectBoadtId} onChange={(e) => setSelectBoatId(e.target.value)}>
-                        <option value=''>Select Boat</option>
-                        {allBoatListInvoice?.length != 0 &&
-                          allBoatListInvoice?.map((item, i) => (
-                            <option value={item?.id}>{item?.rego ?? ''}</option>
-                          ))}
-                      </select>
-                    )}
-                    <a
-                      href="javascript:void(0)"
-                      onClick={handleGenerateInvoiceData}
-                      className=" w-100 ct_white_space_nowrap ct_input_h_44 ct_custom_btm ct_line_height_22 "
-                      style={{ paddingBlock: "12px" }}
-                    >
-                      Generate Invoice
-                    </a>
+                {allBoatListInvoice?.length != 0 &&
+                  <div className="ct_dark_grey_bg">
+                    <div className="ct_btn_group">
+                      {allBoatListInvoice?.length != 0 && (
+                        <select className="form-control ct_input_h_44 ab_pointer" value={selectBoadtId} onChange={(e) => setSelectBoatId(e.target.value)}>
+                          <option value=''>Select Boat</option>
+                          {allBoatListInvoice?.length != 0 &&
+                            allBoatListInvoice?.map((item, i) => (
+                              <option value={item?.id}>{item?.rego ?? ''}</option>
+                            ))}
+                        </select>
+                      )}
+                      <a
+                        href="javascript:void(0)"
+                        onClick={handleGenerateInvoiceData}
+                        className=" w-100 ct_white_space_nowrap ct_input_h_44 ct_custom_btm ct_line_height_22 "
+                        style={{ paddingBlock: "12px" }}
+                      >
+                        Generate Invoice
+                      </a>
+                    </div>
                   </div>
-                </div>
+                }
                 <div>
                   <a
                     href="javascript:void(0)"

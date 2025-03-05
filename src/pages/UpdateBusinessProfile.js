@@ -22,6 +22,8 @@ const UpdateBusinessProfile = () => {
     const [firstNameError, setFirstNameError] = useState();
     const [lastNameError, setLastNameError] = useState();
     const [abnError, setAbnError] = useState();
+    const [ACCError, setACCError] = useState();
+    const [BSBError, setBSBError] = useState();
     const [changeLogoImage, setChangeLogoImage] = useState();
     const [changeTradeImage, setChangeTradeImage] = useState();
     const [changeInsuranceImage, setChangeInsuranceImage] = useState([]);
@@ -69,6 +71,21 @@ const UpdateBusinessProfile = () => {
                 }
             }
         }
+        else if (key == "BSB") {
+            const data = /^[0-9]{10}$/
+            if (value) {
+                setBSBError();
+            } else {
+                setBSBError('Please enter BSB');
+            }
+        } else if (key == "ACC") {
+            const data = /^[0-9]{10}$/
+            if (value) {
+                setACCError();
+            } else {
+                setACCError('Please enter ACC');
+            }
+        }
     };
 
     const onHandleLogoChange = (e) => {
@@ -87,7 +104,7 @@ const UpdateBusinessProfile = () => {
     const onHandleSubmitUpdatedDetails = () => {
         const data = /^[0-9]{10}$/
         const regex = /^[A-Za-z0-9]{11}$/;
-        if (profileData.phone_no && profileData?.company_name.trim() && profileData?.first_name.trim() && profileData?.last_name.trim()
+        if (profileData.phone_no && profileData?.company_name.trim() && profileData.BSB && profileData.ACC && profileData?.first_name.trim() && profileData?.last_name.trim()
             && regex?.test(profileData.abn)) {
             const callback = (response) => {
                 if (response.success) {
@@ -105,6 +122,8 @@ const UpdateBusinessProfile = () => {
             formData.append('abn', profileData.abn?.trim());
             formData.append('company_name', profileData.company_name?.trim());
             formData.append('phone_no', profileData.phone_no);
+            formData.append('BSB', profileData.BSB);
+            formData.append('ACC', profileData.ACC);
             formData.append('accounting_software_used', profileData.accounting_software_used ? profileData.accounting_software_used?.trim() : '');
             formData.append('about_us', profileData?.about_us ? profileData?.about_us?.trim() : '');
             formData.append('services_offered', profileData?.services_offered ? profileData?.services_offered?.trim() : '');
@@ -312,6 +331,44 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label className="mb-1"
+                                            ><strong>BSB</strong>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                value={profileData?.BSB}
+                                                onWheel={() => document.activeElement.blur()}
+                                                onChange={(e) => onHandleChangeValue('BSB', e.target.value)}
+                                            />
+                                            {BSBError &&
+                                                <span style={{ color: "red" }}>
+                                                    {BSBError}
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label className="mb-1"
+                                            ><strong>ACC</strong>
+                                            </label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                value={profileData?.ACC}
+                                                onWheel={() => document.activeElement.blur()}
+                                                onChange={(e) => onHandleChangeValue('ACC', e.target.value)}
+                                            />
+                                            {ACCError &&
+                                                <span style={{ color: "red" }}>
+                                                    {ACCError}
+                                                </span>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label className="mb-1"
                                             ><strong>Service Region</strong>
                                             </label
                                             >
@@ -468,7 +525,7 @@ const UpdateBusinessProfile = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
 
             <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
                 <div className="modal-dialog modal-md modal-dialog-centered">

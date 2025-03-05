@@ -60,14 +60,16 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='ab_pointer' onClick={() => navigate(pageRoutes.today_invoice)}>
+                            <div className='ab_pointer'
+                            // onClick={() => navigate(pageRoutes.today_invoice)}
+                            >
                                 <div className="ct_dash_card">
                                     <div className="ct_small_icon" style={{ backgroundColor: "#1A6FE7" }}>
                                         <i className="bi bi-clock"></i>
                                     </div>
                                     <div className="ct_dash_card_info">
-                                        <span>Total invoice generated today</span>
-                                        <h4>$135000</h4>
+                                        <span>Work orders</span>
+                                        <h4>$ {dashBoardData?.totalAmountForUser ? dashBoardData?.totalAmountForUser.toFixed(2) : '0.00'}</h4>
                                     </div>
                                 </div>
                             </div>

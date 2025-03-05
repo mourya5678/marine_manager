@@ -126,6 +126,23 @@ const BusinessProfile = () => {
                                             <textarea className="form-control" rows="3" value={bussiness_profile?.about_us} readOnly></textarea>
                                         </div>
                                     </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label for="" className="mb-1"
+                                            ><strong>BSB</strong>
+                                            </label>
+                                            <input type="text" className="form-control" value={bussiness_profile?.BSB} readOnly />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group mb-3">
+                                            <label for="" className="mb-1"
+                                            ><strong>ACC</strong>
+                                            </label
+                                            >
+                                            <input className="form-control" value={bussiness_profile?.ACC} readOnly />
+                                        </div>
+                                    </div>
 
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">

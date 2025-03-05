@@ -162,7 +162,7 @@ const BoatDocks = () => {
                     className="form-control ct_flex_1 pe-5 py-2"
                     placeholder="Search by dock name"
                   />
-                  <i className="fa-solid fa-magnifying-glass "></i>
+                  <i className="fa-solid fa-magnifying-glass"></i>
                 </div>
                 <a
                   href="javascript:void(0)"
@@ -235,7 +235,7 @@ const BoatDocks = () => {
                               </ul>
                             </div>
                             :
-                            <div className="ct_boat_detail_12" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })}>
+                            <div className="ct_boat_detail_12 ct_pointer_curser" onClick={() => navigate(pageRoutes.dock_details, { state: { data: item } })}>
                               No boat assigned yet!
                             </div>
                           }
@@ -299,7 +299,7 @@ const BoatDocks = () => {
                             <span className="ct_required_star">*</span>
                           </label>
                           <select
-                            className="form-control"
+                            className="form-control ct_pointer_curser"
                             id="boatId"
                             value={values?.boatId}
                             onBlur={handleBlur}

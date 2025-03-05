@@ -276,7 +276,7 @@ export const CreateTaskSchema = Yup.object().shape({
         .max(5, "Quoted value must be at most 5 digits long").required("Please enter quoted value").test('not-zero', 'Quoted value cannot be zero', value => value !== '0'),
     boatId: Yup.string().trim().required("Please select boat registration"),
     assignStaffId: Yup.string().trim().required("Please select staff member"),
-    supplierId: Yup.string().trim().required("Please select supplier"),
+    supplierId: Yup.string().trim().required("Please select technician / staff"),
     date_scheduled_from: Yup.date()
         .required("Please select scheduled from")
         .typeError("Please select valid date"),
