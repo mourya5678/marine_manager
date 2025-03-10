@@ -137,6 +137,7 @@ const UpdateBoatDetails = () => {
                                                         value={values.email}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
+                                                        readOnly
                                                     />
                                                     <ErrorMessage
                                                         errors={errors}

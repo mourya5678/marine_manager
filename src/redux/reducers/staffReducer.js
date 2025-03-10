@@ -15,7 +15,9 @@ import {
     getActiveStaffData,
     getTomorrowTasks,
     assignBoatToDock,
-    getStaffTasks
+    getStaffTasks,
+    getAllInvoicedData,
+    getAllListInvoiceData
 } from "../actions/staffActions";
 
 const initialState = {
@@ -28,6 +30,8 @@ const initialState = {
     available_boats: [],
     tomorrow_task: [],
     staff_task: [],
+    all_invoice: [],
+    list_invoice_data: []
 };
 
 export const staffSlice = createSlice({
@@ -224,6 +228,32 @@ export const staffSlice = createSlice({
             state.isLoading1 = false;
         });
         builder.addCase(getStaffTasks.rejected, (state, action) => {
+            state.isLoading1 = false;
+        });
+
+        // getAllInvoicedData
+        builder.addCase(getAllInvoicedData.pending, (state, action) => {
+            state.isLoading1 = true;
+        });
+        builder.addCase(getAllInvoicedData.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.all_invoice = data ?? []
+            state.isLoading1 = false;
+        });
+        builder.addCase(getAllInvoicedData.rejected, (state, action) => {
+            state.isLoading1 = false;
+        });
+
+        // getAllListInvoiceData
+        builder.addCase(getAllListInvoiceData.pending, (state, action) => {
+            state.isLoading1 = true;
+        });
+        builder.addCase(getAllListInvoiceData.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.list_invoice_data = data ?? []
+            state.isLoading1 = false;
+        });
+        builder.addCase(getAllListInvoiceData.rejected, (state, action) => {
             state.isLoading1 = false;
         });
     },

@@ -72,19 +72,18 @@ const UpdateBusinessProfile = () => {
             }
         }
         else if (key == "BSB") {
-            const data = /^[0-9]{10}$/
-            if (value) {
-                setBSBError();
-            } else {
+            if (!value) {
                 setBSBError('Please enter BSB');
+            } else {
+                setBSBError('');
             }
         } else if (key == "ACC") {
-            const data = /^[0-9]{10}$/
-            if (value) {
-                setACCError();
-            } else {
+            if (!value) {
                 setACCError('Please enter ACC');
+            } else {
+                setACCError('');
             }
+
         }
     };
 
@@ -104,6 +103,7 @@ const UpdateBusinessProfile = () => {
     const onHandleSubmitUpdatedDetails = () => {
         const data = /^[0-9]{10}$/
         const regex = /^[A-Za-z0-9]{11}$/;
+        console.log({ profileData })
         if (profileData.phone_no && profileData?.company_name.trim() && profileData.BSB && profileData.ACC && profileData?.first_name.trim() && profileData?.last_name.trim()
             && regex?.test(profileData.abn)) {
             const callback = (response) => {
@@ -151,8 +151,15 @@ const UpdateBusinessProfile = () => {
             }
             if (!profileData.abn) {
                 setAbnError('Please enter ABN');
-            } else if (!regex?.test(profileData.abn)) {
+            }
+            else if (!regex?.test(profileData.abn)) {
                 setAbnError('ABN must contain exactly 11 characters.');
+            }
+            if (!profileData.BSB) {
+                setBSBError('Please enter BSB');
+            }
+            if (!profileData.ACC) {
+                setACCError('Please enter ACC');
             }
         }
 
@@ -331,10 +338,10 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label className="mb-1"
-                                            ><strong>BSB</strong>
+                                            ><strong>BSB</strong><span className="ct_required_star">*</span>
                                             </label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 className="form-control"
                                                 value={profileData?.BSB}
                                                 onWheel={() => document.activeElement.blur()}
@@ -350,10 +357,10 @@ const UpdateBusinessProfile = () => {
                                     <div className="col-md-6">
                                         <div className="form-group mb-3">
                                             <label className="mb-1"
-                                            ><strong>ACC</strong>
+                                            ><strong>ACC</strong><span className="ct_required_star">*</span>
                                             </label>
                                             <input
-                                                type="number"
+                                                type="text"
                                                 className="form-control"
                                                 value={profileData?.ACC}
                                                 onWheel={() => document.activeElement.blur()}

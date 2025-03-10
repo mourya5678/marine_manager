@@ -17,7 +17,8 @@ import {
     updateBoatDetailsEndPointURL,
     getTomorrowTaskEndPointURL,
     assignBoatsToDockEndPointURL,
-    getStaffTaskEndPointURL
+    getStaffTaskEndPointURL,
+    getAllInvoiceDataEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const addStaffDetails = createAsyncThunk("add-staff", async (props) => {
@@ -254,6 +255,32 @@ export const getStaffTasks = createAsyncThunk("staff-task", async (props) => {
             url: getStaffTaskEndPointURL,
             method: "GET",
             params: props,
+            isErrorToast: false
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+export const getAllInvoicedData = createAsyncThunk("invoice-data", async (props) => {
+    try {
+        const response = await API_REQUEST({
+            url: getAllInvoiceDataEndPointURL,
+            method: "GET",
+            isErrorToast: false
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+export const getAllListInvoiceData = createAsyncThunk("list-invoice-data", async (props) => {
+    try {
+        const response = await API_REQUEST({
+            url: getAllInvoiceDataEndPointURL,
+            method: "GET",
             isErrorToast: false
         });
         return response;

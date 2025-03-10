@@ -131,7 +131,7 @@ const ScheduledMaintenance = () => {
         time_alloted: `${values?.time_alloted}`,
         quoted_value: `${values?.quoted_value}`,
         boatId: values?.boatId,
-        assignStaffId: values?.supplierId,
+        // assignStaffId: values?.supplierId,
         date_scheduled_from: values?.date_scheduled_from,
         date_scheduled_to: values?.date_scheduled_to,
         isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
@@ -146,7 +146,7 @@ const ScheduledMaintenance = () => {
         time_alloted: `${values?.time_alloted}`,
         quoted_value: `${values?.quoted_value}`,
         boatId: values?.boatId,
-        supplierId: values?.supplierId,
+        // supplierId: values?.supplierId,
         date_scheduled_from: values?.date_scheduled_from,
         date_scheduled_to: values?.date_scheduled_to,
         isRecurring: values?.ct_checkbox_cbx == true ? 1 : 0,
@@ -202,7 +202,7 @@ const ScheduledMaintenance = () => {
                           <option value=''>Select Boat</option>
                           {allBoatListInvoice?.length != 0 &&
                             allBoatListInvoice?.map((item, i) => (
-                              <option value={item?.id}>{item?.rego ?? ''}</option>
+                              <option value={item?.id}>{item?.name ?? ''}</option>
                             ))}
                         </select>
                       )}
@@ -271,10 +271,10 @@ const ScheduledMaintenance = () => {
                           </td>
                           <td
                             className={
-                              item?.supplier?.company_name ? "" : "ct_fw_600"
+                              item?.supplier?.first_name || item?.supplier?.email ? "" : "ct_fw_600"
                             }
                           >
-                            {item?.supplier?.company_name ?? "STAFF"}
+                            {item?.supplier != null ? item?.supplier?.first_name ? `${item?.supplier?.first_name + ' ' + item?.supplier?.last_name}` : item?.supplier?.email : "STAFF"}
                           </td>
                           <td
                             className={
@@ -287,7 +287,7 @@ const ScheduledMaintenance = () => {
                             item?.date_scheduled_from
                           )} - ${pipViewDate(item?.date_scheduled_to)}`}</td>
                           <td className="ct_fw_600">
-                            {item?.status == 1 ? "Completed" : "Active"}
+                            {item?.status == 1 ? "Completed" : item?.status == 4 ? "Invoiced" : "Active"}
                           </td>
                           <td className="text-end ct_action_btns">
                             {item?.status != 1 && (
@@ -331,7 +331,7 @@ const ScheduledMaintenance = () => {
                                 setCdsData(item);
                                 setTaskDetails({
                                   id: item?.id,
-                                  boatId: item?.boat?.rego,
+                                  boatId: item?.boat?.rego + ' - ' + item?.boat?.name,
                                   description: item?.description,
                                   time_alloted: item?.time_alloted,
                                   quoted_value: item?.quoted_value,
@@ -1118,6 +1118,7 @@ const ScheduledMaintenance = () => {
                           <label className="mb-1">
                             <strong>Boat Registration </strong>
                           </label>
+                          {console.log({ taskDetails }, { taskDetails })}
                           <textarea
                             type="text"
                             id="boatId"

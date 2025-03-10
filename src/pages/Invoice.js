@@ -55,6 +55,7 @@ const Invoice = () => {
     formData?.append("invoice", pdfFile);
     dispatch(sendPdfToBoatOwner({ payload: formData, callback }));
   }
+
   const onHandleClick = () => {
     setIsToggle(!isToggle);
   };
@@ -63,9 +64,12 @@ const Invoice = () => {
     dispatch(getGeneratedInvoiceData({ payload: state?.invoice_id }));
   }, []);
 
+  console.log(getInvoiceData, "getInvoiceData");
+
   if (isLoading2) {
     return <Loader />;
   };
+
   return (
     <div className="ct_dashbaord_bg">
       <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -81,7 +85,7 @@ const Invoice = () => {
                 <div className="cti_invoice_bg">
                   <div className="cti_grid_2_1">
                     <div className="cti_logo23">
-                      <img src="img/Logo_blue.svg" className="mb-0" />
+                      <img src="img/Logo_blue.png" className="mb-0" />
                     </div>
                     <div>
                       <p className="mb-1">Phone No : {getInvoiceData?.boat?.phone_no ?? ''}</p>

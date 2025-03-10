@@ -111,7 +111,7 @@ const AllSupplier = () => {
                                 <thead>
                                     <tr>
                                         <th>S.No.</th>
-                                        <th>Supllier Name</th>
+                                        <th>Supplier Name</th>
                                         <th>E-mail Address </th>
                                         {/* <th>Contact No.</th>
                                         <th>City</th> */}
@@ -159,7 +159,7 @@ const AllSupplier = () => {
                                         <tr>
                                             <td className="text-center bg-transparent border-0" colSpan="7">
                                                 <div className="text-center">
-                                                    <p className="mb-0 mt-3 ct_fs_18 ct_fw_700 ct_ff_poppin ct_clr_8C98A9 text-center">No supplier found</p>
+                                                    <p className="mb-0 mt-3 text-center">No supplier found</p>
                                                 </div>
                                             </td>
                                         </tr>
@@ -479,7 +479,7 @@ const AllSupplier = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>First Name</strong></label>
                                                     <input
-                                                        value={supplierDetail?.company_name ?? ''}
+                                                        value={supplierDetail?.first_name ?? ''}
                                                         type="text"
                                                         className="form-control"
                                                         readOnly
@@ -490,7 +490,7 @@ const AllSupplier = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"><strong>Last Name</strong></label>
                                                     <input
-                                                        value={supplierDetail?.company_name ?? ''}
+                                                        value={supplierDetail?.last_name ?? ''}
                                                         type="text"
                                                         className="form-control"
                                                         readOnly

@@ -86,8 +86,8 @@ const TaskReview = () => {
                                         completedBoatTask?.map((item, i) => (
                                             <tr>
                                                 <td>{i + 1}</td>
-                                                <td>{item?.taskInfo ?? ''}</td>
-                                                <td>Completed</td>
+                                                <td style={{ wordBreak: "break-word", whiteSpace: "normal" }}>{item?.description ?? ''}</td>
+                                                <td className="ct_fw_600">Completed</td>
                                                 <td className="text-end">$ {item?.quoted_value ?? 0}</td>
                                             </tr>
                                         ))}

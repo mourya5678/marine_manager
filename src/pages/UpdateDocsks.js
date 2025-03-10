@@ -139,6 +139,7 @@ const UpdateDocsks = () => {
                                                         value={values.email}
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
+                                                        readOnly
                                                     />
                                                     <ErrorMessage
                                                         errors={errors}

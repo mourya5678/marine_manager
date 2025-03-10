@@ -40,7 +40,9 @@ const CdsJobService = () => {
         <Sidebar path="cds" />
         <div className="ct_content_right">
           <Header onClick={onHandleClick} />
-          <button className="ct_custom_btm ct_wrap_100_1 ms-auto mt-4 mx-4 ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={printDocument}>Export Pdf</button>
+          {state?.data?.JobServiceSheet?.length != 0 &&
+            <button className="ct_custom_btm ct_wrap_100_1 ms-auto mt-4 mx-4 ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={printDocument}>Export Pdf</button>
+          }
           <div className="ct_dashbaord_middle" id="divToPrint">
             <h4 className="ct_fs_24 ct_fw_600 mb-3">CDS Job/Service Sheet</h4>
             <div className="ct_grid_tem_5">

@@ -1,5 +1,6 @@
 import AddNewDocks from "../pages/AddNewDocks";
 import AllBoats from "../pages/AllBoats";
+import AllInvoices from "../pages/AllInvoices";
 import AllSupplier from "../pages/AllSupplier";
 import BoatDetails from "../pages/BoatDetails";
 import BoatDocks from "../pages/BoatDocks";
@@ -13,6 +14,8 @@ import Dashboard from "../pages/Dashboard";
 import DockDetails from "../pages/DockDetails";
 import GenerateInvoice from "../pages/GenerateInvoice";
 import Invoice from "../pages/Invoice";
+import InvoiceDataList from "../pages/InvoiceDataList";
+import InvoicedDetails from "../pages/InvoicedDetails";
 import JobService from "../pages/JobService";
 import LeadReceived from "../pages/LeadReceived";
 import MaintainedBoats from "../pages/MaintainedBoats";
@@ -66,6 +69,9 @@ export const pageRoutes = {
   tomorrow_scheduled_task: "/tomorrow-scheduled-task",
   cds_job_service: "/cds-job-service",
   notification: "/notification",
+  all_invoice: "/all-invoice",
+  invoice_detail: "/invoice-detail",
+  invoice_list_data: "/invoice-list"
 };
 
 export const AllRoutes = [
@@ -73,6 +79,18 @@ export const AllRoutes = [
     name: "Dashboard",
     path: pageRoutes.dashboard,
     element: <Dashboard />,
+    isPrivate: true,
+  },
+  {
+    name: "Invoice List",
+    path: pageRoutes.invoice_list_data,
+    element: <InvoiceDataList />,
+    isPrivate: true,
+  },
+  {
+    name: "Invoiced Details",
+    path: pageRoutes.invoice_detail,
+    element: <InvoicedDetails />,
     isPrivate: true,
   },
   {
@@ -109,6 +127,12 @@ export const AllRoutes = [
     name: "Invoice",
     path: pageRoutes.invoice,
     element: <Invoice />,
+    isPrivate: true,
+  },
+  {
+    name: "All Invoice",
+    path: pageRoutes.all_invoice,
+    element: <AllInvoices />,
     isPrivate: true,
   },
   {
