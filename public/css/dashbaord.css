@@ -1419,4 +1419,8 @@ label.ct_file_upload_big {
     width: 100%;
     gap: 10px !important;
   }
+
+  .ct_grid_3_card {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

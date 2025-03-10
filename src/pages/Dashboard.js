@@ -69,7 +69,7 @@ const Dashboard = () => {
                                     </div>
                                     <div className="ct_dash_card_info">
                                         <span>Work orders</span>
-                                        <h4>$ {dashBoardData?.totalAmountForUser ? dashBoardData?.totalAmountForUser.toFixed(2) : '0.00'}</h4>
+                                        <h4 className='ct_fs_20'>$ {dashBoardData?.totalAmountForUser ? dashBoardData?.totalAmountForUser.toFixed(2) : '0.00'}</h4>
                                     </div>
                                 </div>
                             </div>

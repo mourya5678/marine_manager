@@ -424,6 +424,11 @@ p {
   font-weight: 500;
 }
 
+.ct_dash_card_info h4,
+.ct_dash_card_info span {
+  white-space: nowrap;
+}
+
 @media screen and (max-width:1199px) {
   .cti_grid_2_1 {
     grid-template-columns: auto;

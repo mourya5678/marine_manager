@@ -72,13 +72,13 @@ const UpdateBusinessProfile = () => {
             }
         }
         else if (key == "BSB") {
-            if (!value) {
+            if (!value?.trim()) {
                 setBSBError('Please enter BSB');
             } else {
                 setBSBError('');
             }
         } else if (key == "ACC") {
-            if (!value) {
+            if (!value?.trim()) {
                 setACCError('Please enter ACC');
             } else {
                 setACCError('');
@@ -104,7 +104,7 @@ const UpdateBusinessProfile = () => {
         const data = /^[0-9]{10}$/
         const regex = /^[A-Za-z0-9]{11}$/;
         console.log({ profileData })
-        if (profileData.phone_no && profileData?.company_name.trim() && profileData.BSB && profileData.ACC && profileData?.first_name.trim() && profileData?.last_name.trim()
+        if (profileData.phone_no && profileData?.company_name.trim() && profileData.BSB.trim() && profileData.ACC.trim() && profileData?.first_name.trim() && profileData?.last_name.trim()
             && regex?.test(profileData.abn)) {
             const callback = (response) => {
                 if (response.success) {
@@ -155,10 +155,10 @@ const UpdateBusinessProfile = () => {
             else if (!regex?.test(profileData.abn)) {
                 setAbnError('ABN must contain exactly 11 characters.');
             }
-            if (!profileData.BSB) {
+            if (!profileData.BSB.trim()) {
                 setBSBError('Please enter BSB');
             }
-            if (!profileData.ACC) {
+            if (!profileData.ACC.trim()) {
                 setACCError('Please enter ACC');
             }
         }
