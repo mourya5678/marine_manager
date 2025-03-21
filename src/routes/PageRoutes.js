@@ -24,6 +24,7 @@ import Notification from "../pages/Notification";
 import ReviewSchedule from "../pages/ReviewSchedule";
 import ScheduledMaintenance from "../pages/ScheduledMaintenance ";
 import StaffProductivity from "../pages/StaffProductivity";
+import Subscription from "../pages/Subscription";
 import TaskDescription from "../pages/TaskDescription";
 import TaskReview from "../pages/TaskReview";
 import TodayInvoice from "../pages/TodayInvoice";
@@ -71,7 +72,8 @@ export const pageRoutes = {
   notification: "/notification",
   all_invoice: "/all-invoice",
   invoice_detail: "/invoice-detail",
-  invoice_list_data: "/invoice-list"
+  invoice_list_data: "/invoice-list",
+  subscription: '/subscription'
 };
 
 export const AllRoutes = [
@@ -85,6 +87,12 @@ export const AllRoutes = [
     name: "Invoice List",
     path: pageRoutes.invoice_list_data,
     element: <InvoiceDataList />,
+    isPrivate: true,
+  },
+  {
+    name: "Subscription",
+    path: pageRoutes.subscription,
+    element: <Subscription />,
     isPrivate: true,
   },
   {

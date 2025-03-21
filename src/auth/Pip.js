@@ -33,12 +33,15 @@ export const pipViewDate5 = (date) => {
 };
 
 export const pipDeleteToken = () => {
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem("m_user_data");
+    localStorage.removeItem("eg_token");
     message.success("Successfully logged out");
 };
 
 export const pipDeleteTokenAuth = () => {
-    localStorage.clear();
+    localStorage.removeItem("m_user_data");
+    localStorage.removeItem("eg_token");
 };
 
 export const pipSuccessMessage = (message) => {

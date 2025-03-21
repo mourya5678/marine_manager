@@ -342,7 +342,6 @@ const CreateBoat = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Engine Model</strong>
-                                                        <span className="ct_required_star">*</span>
                                                     </label>
                                                     <input
                                                         id="engine_model"

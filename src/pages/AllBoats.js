@@ -24,7 +24,7 @@ const AllBoats = () => {
         const filterDatass = filterData ? item?.name?.toLowerCase()?.includes(filterData?.toLowerCase()) : true;
         const dateMatch = filterByDate ? pipViewDate4(item?.book_to) == filterByDate : true;
         return filterDatass && dateMatch;
-    })
+    });
 
     useEffect(() => {
         dispatch(getBoatData());

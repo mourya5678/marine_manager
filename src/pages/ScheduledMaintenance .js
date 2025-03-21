@@ -303,9 +303,10 @@ const ScheduledMaintenance = () => {
                                     time_alloted: item?.time_alloted,
                                     quoted_value: item?.quoted_value,
                                     assignStaffId: item?.assign_to,
+                                    // {item?.supplier != null ? item?.supplier?.first_name ? `${item?.supplier?.first_name + ' ' + item?.supplier?.last_name}` : item?.supplier?.email : "STAFF"}
                                     supplierId:
                                       item?.assign_to == "OUTSOURCED"
-                                        ? item?.supplier?.company_name
+                                        ? item?.supplier?.email
                                         : item?.assign_to == "STAFF" &&
                                         item?.staff?.full_name,
                                     date_scheduled_from: pipViewDate4(
@@ -338,7 +339,7 @@ const ScheduledMaintenance = () => {
                                   assignStaffId: item?.assign_to,
                                   supplierId:
                                     item?.assign_to == "OUTSOURCED"
-                                      ? item?.supplier?.company_name
+                                      ? item?.supplier?.email
                                       : item?.assign_to == "STAFF" &&
                                       item?.staff?.full_name,
                                   date_scheduled_from: pipViewDate4(

@@ -9,7 +9,7 @@ export const signInSchema = Yup.object().shape({
             "Please enter a valid email"
         ),
     password: Yup.string()
-        .required("Please enter your password")
+        .required("Please enter password")
         .min(8, "Password cannot be less then 8 characters")
         .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
@@ -20,7 +20,7 @@ export const signInSchema = Yup.object().shape({
 export const signUpSchema = Yup.object().shape({
     first_name: Yup.string().trim().required("Please enter a first name"),
     last_name: Yup.string().trim().required("Please enter a last name"),
-    company_name: Yup.string().trim().required("Please enter your company name"),
+    company_name: Yup.string().trim().required("Please enter     company name"),
     email: Yup.string()
         .email("Please enter a valid email")
         .required("Please enter email")
@@ -31,9 +31,9 @@ export const signUpSchema = Yup.object().shape({
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Phone number must be number")
         // .min(10, "Mobile number cannot be less then 10 digits").max(10, "Mobile number can not be more then 10 digits")
-        .required("Please enter your phone number"),
+        .required("Please enter phone number"),
     password: Yup.string()
-        .required("Please enter your password")
+        .required("Please enter password")
         .min(8, "Password cannot be less then 8 characters")
         .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
@@ -41,7 +41,7 @@ export const signUpSchema = Yup.object().shape({
         ),
     confirm_password: Yup.string()
         .required("Please enter confirm password")
-        .oneOf([Yup.ref("password"), null], "Your password must match"),
+        .oneOf([Yup.ref("password"), null], "password must match"),
     ct_checkbox_cbx: Yup.boolean()
         .oneOf([true], 'Checkbox must be checked')
 });
@@ -57,21 +57,21 @@ export const ForgotPasswordSchema = Yup.object().shape({
 });
 
 export const UpdateUserSchema = Yup.object().shape({
-    full_name: Yup.string().trim().matches(/^[a-zA-Z]+(?:\s+[a-zA-Z]+)+$/, 'Please enter your full name (first and last name).')
+    full_name: Yup.string().trim().matches(/^[a-zA-Z]+(?:\s+[a-zA-Z]+)+$/, 'Please enter full name (first and last name).')
         .required("Please enter a full name"),
     username: Yup.string().trim().required("Please enter a user name")
 });
 
 export const ChangePasswordSchema = Yup.object().shape({
     currentPassword: Yup.string()
-        .required("Please enter your password")
+        .required("Please enter password")
         .min(8, "Password cannot be less then 8 characters")
         .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
             "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
         ),
     newPassword: Yup.string()
-        .required("Please enter your password")
+        .required("Please enter password")
         .min(8, "Password cannot be less then 8 characters")
         .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
@@ -79,7 +79,7 @@ export const ChangePasswordSchema = Yup.object().shape({
         ),
     confirmPassword: Yup.string()
         .required("Please enter confirm password")
-        .oneOf([Yup.ref("newPassword"), null], "Your password must match"),
+        .oneOf([Yup.ref("newPassword"), null], "password must match"),
 });
 
 export const AddStaffSchema = Yup.object().shape({
@@ -95,9 +95,9 @@ export const AddStaffSchema = Yup.object().shape({
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
         // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
-        .required("Please enter your contact number"),
+        .required("Please enter contact number"),
     password: Yup.string()
-        .required("Please enter your password")
+        .required("Please enter password")
         .min(8, "Password cannot be less then 8 characters")
         .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
@@ -119,9 +119,9 @@ export const UpdateStaffSchema = Yup.object().shape({
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Contact number must be number")
         // .min(10, "Contact number cannot be less then 10 digits").max(10, "Contact number can not be more then 10 digits")
-        .required("Please enter your contact number"),
+        .required("Please enter contact number"),
     password: Yup.string()
-        .required("Please enter your password")
+        .required("Please enter password")
         .min(8, "Password cannot be less then 8 characters")
         .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
@@ -179,7 +179,7 @@ export const AddBoatSchema = Yup.object().shape({
     phone_no: Yup.string()
         .matches(/^[0-9]+$/, "Phone number must be number")
         // .min(10, "Mobile number cannot be less then 10 digits").max(10, "Mobile number can not be more then 10 digits")
-        .required("Please enter your phone number"),
+        .required("Please enter phone number"),
     length: Yup.number()
         .required("Please enter boat length")
         .positive("Boat length must be greater than 0")

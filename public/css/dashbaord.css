@@ -3,6 +3,13 @@
 .ct_side_logo img {
   width: 100%;
   object-fit: contain;
+  max-width: 99px;
+  margin-inline: auto;
+  display: block;
+}
+
+img {
+  width: 100%;
 }
 
 h1,

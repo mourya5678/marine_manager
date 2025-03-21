@@ -71,6 +71,13 @@
   font-size: 14px;
 }
 
+.cti_logo233 img {
+  width: 100%;
+  max-width: 140px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
 .ct_invoice_table tr th,
 .ct_invoice_table tr:last-child td {
   border-bottom: 1px solid #e6e6e6;

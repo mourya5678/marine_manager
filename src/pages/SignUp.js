@@ -8,13 +8,26 @@ import { pageRoutes } from '../routes/PageRoutes';
 import { userSignUp } from '../redux/actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
+import SelectSubscription from '../components/SelectSubscription';
+import CardDeatilsModel from '../components/CardDeatilsModel';
 
 const SignUp = () => {
     const { isLoading } = useSelector((state) => state?.authReducer);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const [isEye, setIsEye] = useState(false);
     const [isEye1, setIsEye1] = useState(false);
+
+    const [isSubscription, setIsSubscription] = useState(false);
+    const [isCard, setIsCart] = useState(false);
+
+    const [subscriptionType, setSubscriptionType] = useState({});
+    const [planTypess, setPlanTypess] = useState('');
+
+    const [signUpValues, setSignUpValues] = useState();
+
 
     const initialState = {
         first_name: '',
@@ -29,22 +42,46 @@ const SignUp = () => {
 
     const handleSignUp = async (values, { setSubmitting }) => {
         setSubmitting(false);
-        delete values.ct_checkbox_cbx;
-        delete values.confirm_password;
-        const callback = (response) => {
-            if (response.success) navigate(pageRoutes?.login);
-        };
-        const data = {
-            first_name: values?.first_name.trim(),
-            last_name: values?.last_name?.trim(),
-            company_name: values?.company_name.trim(),
-            email: values?.email?.trim(),
-            phone_no: values?.phone_no,
-            password: values?.password,
-            confirm_password: values?.confirm_password,
-            ct_checkbox_cbx: values?.ct_checkbox_cbx,
-        };
-        dispatch(userSignUp({ payload: data, callback }));
+        setIsSubscription(true);
+        setIsCart(false);
+        setSignUpValues(values);
+        // delete values.ct_checkbox_cbx;
+        // delete values.confirm_password;
+        // const callback = (response) => {
+        //     if (response.success) navigate(pageRoutes?.login);
+        // };
+        // const data = {
+        //     first_name: values?.first_name.trim(),
+        //     last_name: values?.last_name?.trim(),
+        //     company_name: values?.company_name.trim(),
+        //     email: values?.email?.trim(),
+        //     phone_no: values?.phone_no,
+        //     password: values?.password,
+        //     confirm_password: values?.confirm_password,
+        //     ct_checkbox_cbx: values?.ct_checkbox_cbx,
+        // };
+        // dispatch(userSignUp({ payload: data, callback }));
+    };
+
+    const onSelectSubscription = (value, val) => {
+        setIsCart(true);
+        setIsSubscription(false);
+        setSubscriptionType(value);
+        setPlanTypess(val)
+    };
+
+    const handleClickBack = () => {
+        setIsSubscription(true);
+        setIsCart(false);
+    };
+
+    const handleCancel = () => {
+        setIsSubscription(false);
+        setIsCart(false);
+    };
+
+    const handleCartDetailsAdd = (val, err) => {
+        console.log({ val }, { err })
     };
 
     if (isLoading) {
@@ -60,7 +97,7 @@ const SignUp = () => {
                         <div className="col-lg-4 offset-0 offset-lg-1  mb-4 mb-lg-0">
                             <div className="ct_login_right_form w-60 mx-auto mx-lg-0">
                                 <div className="ct_login_logo mx-auto d-block text-center mb-4">
-                                    <img src="img/Logo_blue.png" alt="" />
+                                    <img src="img/Logo_blue.svg" alt="" />
                                 </div>
                                 <div className="mb-5 text-center">
                                     <h4 className="ct_fs_28 mb-2">Create an account for business</h4>
@@ -253,6 +290,20 @@ const SignUp = () => {
                     </div>
                 </div>
             </div>
+            {isSubscription && !isCard &&
+                <SelectSubscription
+                    onClick={onSelectSubscription}
+                    handleCancel={handleCancel}
+                    subscriptionType={subscriptionType}
+                    planTypess={planTypess}
+                />
+            }
+            {isCard && !isSubscription &&
+                <CardDeatilsModel
+                    onCancel={handleClickBack}
+                    onClick={handleCartDetailsAdd}
+                />
+            }
         </section>
     )
 }

@@ -543,7 +543,7 @@ const CdsJobService = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="row mb-3">
+                    {/* <div className="row mb-3">
                       <div className="col-md-4 mb-2 mb-md-0">
                         <p className="mb-0" style={{ color: "#6D6D6D" }}>
                           Photos
@@ -578,7 +578,7 @@ const CdsJobService = () => {
                           }
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

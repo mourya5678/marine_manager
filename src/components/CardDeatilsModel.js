@@ -1,37 +1,42 @@
 import React from 'react';
+import { loadStripe } from "@stripe/stripe-js";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
-const GenerateDateModal = ({ onCancel, data, handleChange, handleComplete }) => {
+const CardDeatilsModel = ({ onCancel, onClick }) => {
+    const stripe = useStripe();
+    const elements = useElements();
+
+    const onHandleSubmitCardDetails = async () => {
+        const { paymentMethod, error } = await stripe.createPaymentMethod({
+            type: "card",
+            card: elements.getElement(CardElement),
+        });
+        onClick(paymentMethod, error);
+    };
+
     return (
-        <div className="modal show d-block ct_congratulation_modal_fade" tabIndex="-1">
+        <div className="modal show d-block ct_congratulation_modal_fade modal-md" tabIndex="-1">
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content border-0">
                     <div className="modal-body text-center">
-                        <h4 className="modal-title mb-3 ct_fs_24 ct_fw_700 ct_blue_text">
-                            Select Due Date
+                        <h4 className="modal-title mb-4 ct_fs_24 ct_fw_700 ct_blue_text">
+                            Enter Card Details
                         </h4>
-                        <div className='mb-2 w-100'>
-                            <input
-                                className="form-control ct_flex_1 ct_input"
-                                type="date"
-                                onKeyDown={(e) => e.preventDefault()}
-                                min={new Date()?.toISOString()?.split("T")[0]}
-                                value={data}
-                                onChange={handleChange}
-                            />
+                        <div className='et_marrine_card mb-2'>
+                            <CardElement />
                         </div>
                         <div className='modal-footer justify-content-center border-0'>
                             <button
-                                style={{ marginRight: '10px' }}
                                 type="button"
                                 className="ct_outline_btn ct_outline_orange ml-4"
                                 onClick={onCancel}
                             >
-                                Cancel
+                                Back
                             </button>
                             <button
                                 type="button"
                                 className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
-                                onClick={handleComplete}
+                                onClick={onHandleSubmitCardDetails}
                             >
                                 Continue
                             </button>
@@ -41,5 +46,6 @@ const GenerateDateModal = ({ onCancel, data, handleChange, handleComplete }) => 
             </div>
         </div>
     )
-}
-export default GenerateDateModal;
+};
+
+export default CardDeatilsModel;

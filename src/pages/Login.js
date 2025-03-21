@@ -62,7 +62,7 @@ const Login = () => {
                         <div className="col-lg-4 offset-0 offset-lg-1">
                             <div className="ct_login_right_form w-60 mx-auto mx-lg-0">
                                 <div className="ct_login_logo mx-auto d-block text-center mb-4">
-                                    <img src="img/Logo_blue.png" alt="" />
+                                    <img src="img/Logo_blue.svg" alt="" />
                                 </div>
                                 <div className="mb-5 text-center">
                                     <h4 className="ct_fs_28 mb-2">Login to your Account</h4>

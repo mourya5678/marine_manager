@@ -312,6 +312,12 @@
   gap: 10px;
 }
 
+.et_marrine_card {
+  padding: 10px;
+  background-color: #e6e6e69c;
+  border-radius: 5px;
+}
+
 .cti_invoice_amoount_dtl {
   border: 1px solid #939598;
   border-radius: 10px;
@@ -430,17 +436,22 @@ p {
 }
 
 @media screen and (max-width:1199px) {
-  .cti_grid_2_1 {
+  /* .cti_grid_2_1 {
     grid-template-columns: auto;
-  }
+  } */
 }
 
-@media screen and (max-width:991px) {
+@media screen and (max-width:767px) {
   .cti_grid_2 {
     grid-template-columns: auto;
   }
 
   .cti_grid_2 ul {
     padding-left: 0px;
+  }
+
+  .cti_grid_2_1 {
+    grid-template-columns: auto;
+
   }
 }

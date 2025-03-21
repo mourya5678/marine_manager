@@ -25,7 +25,7 @@ const TodayInvoice = () => {
                                     <h4 className="ct_h4 text-center">Invoice</h4>
                                 </div>
                                 <div className="ct_logo23">
-                                    <img src="img/Logo_blue.png" />
+                                    <img src="img/Logo_blue.svg" />
                                 </div>
                                 <div className="row">
                                     <div className="col-md-8 mb-4">
@@ -42,12 +42,12 @@ const TodayInvoice = () => {
                                         <div className="ct_invoice_num_cnt">
                                             <h6 className="ct_fs_14">Date</h6>
                                             <p className="mb-2 ct_fs_14 ">26-02-2024
-                              </p>
+                                            </p>
                                         </div>
                                         <div className="ct_invoice_num_cnt">
                                             <h6 className="ct_fs_14">Invoice No.</h6>
                                             <p className="ct_fs_14">236599
-                              </p>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -56,14 +56,14 @@ const TodayInvoice = () => {
                                         <div className="ct_invoice_num_cnt">
                                             <h6 className="ct_fs_14">Bill to</h6>
                                             <p className="mb-1 ct_fs_14">Semit Nudroin
-                              </p>
+                                            </p>
                                             <p className="mb-1 ct_fs_14">Brezza BoatsPeris, 2356</p>
                                             <p className="mb-1 ct_fs_14">
                                                 +1 (256)369 8965
-                              </p>
+                                            </p>
                                             <p className="mb-0 ct_fs_14">
                                                 boat@domain.com
-                              </p>
+                                            </p>
                                         </div>
                                     </div>
                                     <div className="col-md-4 mb-4 mb-md-0">
@@ -85,7 +85,7 @@ const TodayInvoice = () => {
                                         <div className="ct_invoice_num_cnt">
                                             <h6 className="ct_fs_14">Payment Due Date</h6>
                                             <p className="ct_fs_14">26-02-2024
-                              </p>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

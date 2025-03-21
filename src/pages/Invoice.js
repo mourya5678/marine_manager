@@ -85,16 +85,24 @@ const Invoice = () => {
                 <div className="cti_invoice_bg">
                   <div className="cti_grid_2_1">
                     <div className="cti_logo23">
-                      <img src="img/Logo_blue.png" className="mb-0" />
+                      <img src="img/Logo_blue.svg" className="mb-0" />
                     </div>
                     <div>
+                      {/* <p className="mb-1">Boat Owner Name : {getInvoiceData?.boat?.owners_name ?? ''}</p> */}
                       <p className="mb-1">Phone No : {getInvoiceData?.boat?.phone_no ?? ''}</p>
                       <p className="mb-1">Email : {getInvoiceData?.boat?.email ?? ''}</p>
                       <p className="mb-0">HIN : {getInvoiceData?.boat?.vin ?? ''}</p>
                       <p className="mb-0">Rego : {getInvoiceData?.boat?.rego ?? ''}</p>
                     </div>
                   </div>
-                  <div className="d-flex align-items-center gap-3 flex-wrap justify-content-between mt-5 pt-4">
+
+                  <div>
+                    <p className="mb-1  mb-3 ct_fw_600">{getInvoiceData?.user?.company_name ?? ''}</p>
+                    <div className="cti_logo233">
+                      <img className="mb-0" src={getInvoiceData?.user?.company_logo ?? ''} />
+                    </div>
+                  </div>
+                  <div className="d-flex align-items-center gap-3 flex-wrap justify-content-between mt-5 pt-2">
                     <p className="mb-0">{getInvoiceData?.boat?.owners_name ?? ''}
                     </p>
                     <div className="cti_invoice_amoount_dtl">
