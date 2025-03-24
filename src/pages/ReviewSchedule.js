@@ -79,7 +79,7 @@ const ReviewSchedule = () => {
                                             {boatTaskData?.length != 0 ?
                                                 boatTaskData?.map((item) => (
                                                     <li>
-                                                        <p className="mb-0 ct_fs_14 ct_fw_600 d-flex align-items-center gap-1 ct_orange_text ct_text_decoration_none ct_fw_600"><span className="ct_event_dot ct_dot_clr"></span>{item?.rego}</p>
+                                                        <p className="mb-0 et_event_side_list_p ct_fs_14 ct_fw_600 ct_orange_text ct_text_decoration_none ct_fw_600"><span className="ct_event_dot ct_dot_clr"></span>{item?.rego}</p>
                                                         <a href="javascript:void(0)"><p className="mb-0 ct_fs_14 ct_fw_600" onClick={() => handleViewBoatTask(item)}>View</p></a>
                                                     </li>
                                                 ))

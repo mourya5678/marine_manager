@@ -1128,6 +1128,7 @@ label.ct_file_upload_big {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 5px;
 }
 
 .ct_event_detail_list ul li+li {

@@ -318,6 +318,14 @@
   border-radius: 5px;
 }
 
+.et_event_side_list_p {
+  display: grid;
+  grid-template-columns: 8px auto;
+  align-items: center;
+  gap: 5px;
+  word-break: break-word;
+}
+
 .cti_invoice_amoount_dtl {
   border: 1px solid #939598;
   border-radius: 10px;
