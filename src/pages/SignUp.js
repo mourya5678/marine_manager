@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import { useNavigate } from 'react-router';
 import { signUpSchema } from '../auth/Schema';
 import ErrorMessage from '../components/ErrorMessage';
 import Eye from '../components/Eye';
 import { pageRoutes } from '../routes/PageRoutes';
-import { userSignUp } from '../redux/actions/authActions';
+import { getAllSubscriptionPlan, userSignUp } from '../redux/actions/authActions';
 import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import SelectSubscription from '../components/SelectSubscription';
 import CardDeatilsModel from '../components/CardDeatilsModel';
 
 const SignUp = () => {
-    const { isLoading } = useSelector((state) => state?.authReducer);
+    const { isLoading, subscriptionPlane } = useSelector((state) => state?.authReducer);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -23,11 +23,9 @@ const SignUp = () => {
     const [isSubscription, setIsSubscription] = useState(false);
     const [isCard, setIsCart] = useState(false);
 
-    const [subscriptionType, setSubscriptionType] = useState({});
-    const [planTypess, setPlanTypess] = useState('');
+    const [subscriptionType, setSubscriptionType] = useState();
 
     const [signUpValues, setSignUpValues] = useState();
-
 
     const initialState = {
         first_name: '',
@@ -39,6 +37,12 @@ const SignUp = () => {
         confirm_password: '',
         ct_checkbox_cbx: false,
     };
+
+    useEffect(() => {
+        dispatch(getAllSubscriptionPlan());
+    }, []);
+
+    console.log({ subscriptionPlane });
 
     const handleSignUp = async (values, { setSubmitting }) => {
         setSubmitting(false);
@@ -63,11 +67,10 @@ const SignUp = () => {
         // dispatch(userSignUp({ payload: data, callback }));
     };
 
-    const onSelectSubscription = (value, val) => {
+    const onSelectSubscription = (value) => {
         setIsCart(true);
         setIsSubscription(false);
         setSubscriptionType(value);
-        setPlanTypess(val)
     };
 
     const handleClickBack = () => {
@@ -78,6 +81,7 @@ const SignUp = () => {
     const handleCancel = () => {
         setIsSubscription(false);
         setIsCart(false);
+        setSubscriptionType();
     };
 
     const handleCartDetailsAdd = (val, err) => {
@@ -295,7 +299,7 @@ const SignUp = () => {
                     onClick={onSelectSubscription}
                     handleCancel={handleCancel}
                     subscriptionType={subscriptionType}
-                    planTypess={planTypess}
+                    subscriptionPlane={subscriptionPlane}
                 />
             }
             {isCard && !isSubscription &&

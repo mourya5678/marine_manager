@@ -10,6 +10,7 @@ import {
     getDashboardDataEndPointURL,
     deleteImageEndPointURL,
     notificationEndPointURL,
+    getAllSubscriptionPlansEndPoitnURL,
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
@@ -120,6 +121,19 @@ export const getNotificationData = createAsyncThunk("notification-data", async (
     try {
         const response = await API_REQUEST({
             url: notificationEndPointURL,
+            method: "GET",
+            isErrorToast: false
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    }
+});
+
+export const getAllSubscriptionPlan = createAsyncThunk("get-plan", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: getAllSubscriptionPlansEndPoitnURL,
             method: "GET",
             isErrorToast: false
         });

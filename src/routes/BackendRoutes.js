@@ -1,6 +1,6 @@
-// export const BASE_URL = "http://192.168.29.19:4001/";   // Local Url
+export const BASE_URL = "http://192.168.29.19:4001/";   // Local Url
 
-export const BASE_URL = "https://3.26.177.93:4000/";   // Live Url
+// export const BASE_URL = "https://3.26.177.93:4000/";   // Live Url
 
 // auth user
 export const signupEndPointURL = "users/signup";
@@ -77,4 +77,7 @@ export const getGeneratedInvoiceEndPointURL = "invoice/getInvoiceById/";
 export const getBoatListOfInvoiceEndPointURL = "invoice/getAllBoatsWithCompletedTasks";
 export const sendInvoicePdfToBoatOwnerEndPointURL = "invoice/sendPdfToBoatOwner";
 
-export const getAllInvoiceDataEndPointURL = "invoice/getAllInvoices"
+export const getAllInvoiceDataEndPointURL = "invoice/getAllInvoices";
+
+// Subscriptions
+export const getAllSubscriptionPlansEndPoitnURL = "subscription/allPlans";

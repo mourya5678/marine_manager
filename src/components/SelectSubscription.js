@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { message as toast } from "antd";
 
-const SelectSubscription = ({ onClick, handleCancel, subscriptionType, planTypess }) => {
+const SelectSubscription = ({ onClick, handleCancel, subscriptionType, subscriptionPlane }) => {
     const [planType, setPlanType] = useState(subscriptionType);
-    const [plan, setPlan] = useState(planTypess);
 
     const handleSubmit = () => {
-        if (plan) {
-            onClick(planType, plan);
+        if (planType) {
+            onClick(planType);
         } else {
             toast.error("Please select subscription type");
         }
@@ -22,23 +21,20 @@ const SelectSubscription = ({ onClick, handleCancel, subscriptionType, planTypes
                             Subscription
                         </h4>
                         <div className="row ct_subscription_scroll">
-                            <div className="col-xl-6 col-lg-6 mb-4" onClick={() => {
-                                setPlanType({
-                                    plan_type: "Monthly",
-                                    price: "$198",
-                                    user: 1
-                                })
-                                setPlan("monthly1")
-                            }}>
-                                <div className={`ct_price_card_34 ${plan == "monthly1" && 'active'}`}>
-                                    <h4>Monthly</h4>
-                                    <ul className="ct_px_18">
-                                        <li className="d-flex align-items-center gap-2"> <i class="fa-solid fa-check"></i><span>Monthly</span></li>
-                                        <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>$198/month (1 user)</span></li>
-                                    </ul>
+                            {subscriptionPlane && subscriptionPlane?.map((item) => (
+                                <div className="col-xl-6 col-lg-6 mb-4" onClick={() => {
+                                    setPlanType(item?.stripePriceId)
+                                }}>
+                                    <div className={`ct_price_card_34 ${planType == item?.stripePriceId && 'active'}`}>
+                                        <h4 style={{ textTransform: 'capitalize' }}>{item?.billingCycle ?? ''}</h4>
+                                        <ul className="ct_px_18">
+                                            <li className="d-flex align-items-center gap-2"> <i class="fa-solid fa-check"></i><span style={{ textTransform: 'capitalize' }}>{item?.billingCycle ?? ''}</span></li>
+                                            <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>${item?.price ?? 0}/month (1 user)</span></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="col-xl-6 col-lg-6 mb-4" onClick={() => {
+                            ))}
+                            {/* <div className="col-xl-6 col-lg-6 mb-4" onClick={() => {
                                 setPlanType({
                                     plan_type: "Monthly",
                                     price: "$498",
@@ -86,7 +82,7 @@ const SelectSubscription = ({ onClick, handleCancel, subscriptionType, planTypes
                                         <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>$2,376/yearly (2-5 users)</span></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className='modal-footer justify-content-center border-0'>
                             <button
@@ -107,7 +103,7 @@ const SelectSubscription = ({ onClick, handleCancel, subscriptionType, planTypes
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

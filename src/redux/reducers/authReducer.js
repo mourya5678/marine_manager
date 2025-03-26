@@ -7,7 +7,8 @@ import {
     updateBussinessProfile,
     getDashboardData,
     updateBussinessImage,
-    getNotificationData
+    getNotificationData,
+    getAllSubscriptionPlan
 } from "../actions/authActions";
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
     bussiness_profile: [],
     dashBoardData: {},
     fcm: '',
-    notificationData: []
+    notificationData: [],
+    subscriptionPlane: []
 };
 
 export const authSlice = createSlice({
@@ -119,6 +121,19 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(getNotificationData.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // getAllSubscriptionPlan
+        builder.addCase(getAllSubscriptionPlan.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getAllSubscriptionPlan.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.subscriptionPlane = data ?? [];
+            state.isLoading = false;
+        });
+        builder.addCase(getAllSubscriptionPlan.rejected, (state, action) => {
             state.isLoading = false;
         });
     },
