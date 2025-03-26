@@ -89,8 +89,8 @@ const SignUp = () => {
     };
 
     if (isLoading) {
-        return <Loader />
-    }
+        return <Loader />;
+    };
     return (
         <section className="ct_login_main_div my-4">
             <div className="container-fluid px-0">
