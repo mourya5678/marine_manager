@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import { pageRoutes } from '../routes/PageRoutes';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserSubscriptionPlan } from '../redux/actions/authActions';
+import Loader from '../components/Loader';
 
 const Subscription = () => {
     const [isToggle, setIsToggle] = useState(false);
+    const { isLoading, userSubscriptionPlane } = useSelector((state) => state?.authReducer);
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getUserSubscriptionPlan());
+    }, []);
 
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
 
+    if (isLoading) {
+        return <Loader />
+    };
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -25,16 +38,18 @@ const Subscription = () => {
                             </ul>
                         </div>
                         <div className="row mt-5">
-                            <div className="col-xl-3 col-lg-6 mb-4">
-                                <a href="javascript:void(0)" className="text-dark">
-                                    <div className="ct_boat_card ct_px_18">
-                                        <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{"item?.owners_name " ?? 'NA'}</p>
-                                        <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{"item?.owners_name " ?? 'NA'}</p>
-                                        <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{"item?.owners_name " ?? 'NA'}</p>
-                                        <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{"item?.owners_name " ?? 'NA'}</p>
-                                    </div>
-                                </a>
-                            </div>
+                            {userSubscriptionPlane && userSubscriptionPlane?.map((item) => (
+                                <div className="col-xl-3 col-lg-6 mb-4">
+                                    <a href="javascript:void(0)" className="text-dark">
+                                        <div className="ct_boat_card ct_px_18">
+                                            <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{"item?.owners_name " ?? 'NA'}</p>
+                                            <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{"item?.owners_name " ?? 'NA'}</p>
+                                            <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{"item?.owners_name " ?? 'NA'}</p>
+                                            <p className="d-flex align-items-center gap-1 mb-3"><img src="img/boat_icon.svg.png" alt="" style={{ width: "12px" }} />{"item?.owners_name " ?? 'NA'}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

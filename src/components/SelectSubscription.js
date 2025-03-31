@@ -23,13 +23,13 @@ const SelectSubscription = ({ onClick, handleCancel, subscriptionType, subscript
                         <div className="row ct_subscription_scroll">
                             {subscriptionPlane && subscriptionPlane?.map((item) => (
                                 <div className="col-xl-6 col-lg-6 mb-4" onClick={() => {
-                                    setPlanType(item?.stripePriceId)
+                                    setPlanType(item?.id)
                                 }}>
-                                    <div className={`ct_price_card_34 ${planType == item?.stripePriceId && 'active'}`}>
+                                    <div className={`ct_price_card_34 ${planType == item?.id && 'active'}`}>
                                         <h4 style={{ textTransform: 'capitalize' }}>{item?.billingCycle ?? ''}</h4>
                                         <ul className="ct_px_18">
                                             <li className="d-flex align-items-center gap-2"> <i class="fa-solid fa-check"></i><span style={{ textTransform: 'capitalize' }}>{item?.billingCycle ?? ''}</span></li>
-                                            <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>${item?.price ?? 0}/month (1 user)</span></li>
+                                            <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>${item?.price ?? 0}/month ({item?.maxStaffUsers} user)</span></li>
                                         </ul>
                                     </div>
                                 </div>

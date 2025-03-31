@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../components/Loader';
 import SelectSubscription from '../components/SelectSubscription';
 import CardDeatilsModel from '../components/CardDeatilsModel';
+import { message } from 'antd';
 
 const SignUp = () => {
     const { isLoading, subscriptionPlane } = useSelector((state) => state?.authReducer);
@@ -24,7 +25,6 @@ const SignUp = () => {
     const [isCard, setIsCart] = useState(false);
 
     const [subscriptionType, setSubscriptionType] = useState();
-
     const [signUpValues, setSignUpValues] = useState();
 
     const initialState = {
@@ -42,29 +42,11 @@ const SignUp = () => {
         dispatch(getAllSubscriptionPlan());
     }, []);
 
-    console.log({ subscriptionPlane });
-
     const handleSignUp = async (values, { setSubmitting }) => {
         setSubmitting(false);
         setIsSubscription(true);
         setIsCart(false);
         setSignUpValues(values);
-        // delete values.ct_checkbox_cbx;
-        // delete values.confirm_password;
-        // const callback = (response) => {
-        //     if (response.success) navigate(pageRoutes?.login);
-        // };
-        // const data = {
-        //     first_name: values?.first_name.trim(),
-        //     last_name: values?.last_name?.trim(),
-        //     company_name: values?.company_name.trim(),
-        //     email: values?.email?.trim(),
-        //     phone_no: values?.phone_no,
-        //     password: values?.password,
-        //     confirm_password: values?.confirm_password,
-        //     ct_checkbox_cbx: values?.ct_checkbox_cbx,
-        // };
-        // dispatch(userSignUp({ payload: data, callback }));
     };
 
     const onSelectSubscription = (value) => {
@@ -85,7 +67,30 @@ const SignUp = () => {
     };
 
     const handleCartDetailsAdd = (val, err) => {
-        console.log({ val }, { err })
+        if (err?.message) {
+            message.error(err?.message);
+        } else {
+            const callback = (response) => {
+                if (response.success) {
+                    setIsSubscription(false);
+                    setIsCart(false);
+                    setSignUpValues();
+                    setSubscriptionType();
+                    navigate(pageRoutes?.login);
+                };
+            };
+            const data = {
+                first_name: signUpValues?.first_name.trim(),
+                last_name: signUpValues?.last_name?.trim(),
+                company_name: signUpValues?.company_name.trim(),
+                email: signUpValues?.email?.trim(),
+                phone_no: signUpValues?.phone_no,
+                password: signUpValues?.password,
+                planId: subscriptionType,
+                paymentMethodId: val?.id
+            };
+            dispatch(userSignUp({ payload: data, callback }));
+        };
     };
 
     if (isLoading) {

@@ -25,7 +25,7 @@ export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
         return response;
     } catch (error) {
         callback(null, error);
-    }
+    };
 });
 
 export const userLogin = createAsyncThunk("auth-login", async (props) => {
@@ -41,7 +41,7 @@ export const userLogin = createAsyncThunk("auth-login", async (props) => {
         return response;
     } catch (error) {
         callback(null, error);
-    }
+    };
 });
 
 export const userForgotPassword = createAsyncThunk("auth-forgot-password", async (props) => {
@@ -56,7 +56,7 @@ export const userForgotPassword = createAsyncThunk("auth-forgot-password", async
         return response;
     } catch (error) {
         callback(null, error);
-    }
+    };
 });
 
 export const getBussinessProfileData = createAsyncThunk("get-profile", async (props) => {
@@ -69,7 +69,7 @@ export const getBussinessProfileData = createAsyncThunk("get-profile", async (pr
         return response;
     } catch (error) {
         console.log(error)
-    }
+    };
 });
 
 export const updateBussinessProfile = createAsyncThunk("update-profile", async (props) => {
@@ -87,7 +87,7 @@ export const updateBussinessProfile = createAsyncThunk("update-profile", async (
         return response;
     } catch (error) {
         callback(null, error);
-    }
+    };
 });
 
 export const getDashboardData = createAsyncThunk("dashboard-data", async () => {
@@ -100,7 +100,7 @@ export const getDashboardData = createAsyncThunk("dashboard-data", async () => {
         return response;
     } catch (error) {
         console.log(error)
-    }
+    };
 });
 
 export const updateBussinessImage = createAsyncThunk("update-img", async (props) => {
@@ -114,7 +114,7 @@ export const updateBussinessImage = createAsyncThunk("update-img", async (props)
         return response;
     } catch (error) {
         callback(null, error);
-    }
+    };
 });
 
 export const getNotificationData = createAsyncThunk("notification-data", async () => {
@@ -127,7 +127,7 @@ export const getNotificationData = createAsyncThunk("notification-data", async (
         return response;
     } catch (error) {
         console.log(error)
-    }
+    };
 });
 
 export const getAllSubscriptionPlan = createAsyncThunk("get-plan", async () => {
@@ -140,5 +140,18 @@ export const getAllSubscriptionPlan = createAsyncThunk("get-plan", async () => {
         return response;
     } catch (error) {
         console.log(error)
-    }
+    };
+});
+
+export const getUserSubscriptionPlan = createAsyncThunk("get-user-plan", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: getAllSubscriptionPlansEndPoitnURL,
+            method: "GET",
+            isErrorToast: false
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    };
 });

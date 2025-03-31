@@ -8,7 +8,8 @@ import {
     getDashboardData,
     updateBussinessImage,
     getNotificationData,
-    getAllSubscriptionPlan
+    getAllSubscriptionPlan,
+    getUserSubscriptionPlan
 } from "../actions/authActions";
 
 const initialState = {
@@ -18,7 +19,8 @@ const initialState = {
     dashBoardData: {},
     fcm: '',
     notificationData: [],
-    subscriptionPlane: []
+    subscriptionPlane: [],
+    userSubscriptionPlane: []
 };
 
 export const authSlice = createSlice({
@@ -134,6 +136,19 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(getAllSubscriptionPlan.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // getUserSubscriptionPlan
+        builder.addCase(getUserSubscriptionPlan.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getUserSubscriptionPlan.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.userSubscriptionPlane = data ?? [];
+            state.isLoading = false;
+        });
+        builder.addCase(getUserSubscriptionPlan.rejected, (state, action) => {
             state.isLoading = false;
         });
     },
