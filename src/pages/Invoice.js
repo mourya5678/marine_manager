@@ -54,7 +54,7 @@ const Invoice = () => {
     formData?.append("invoiceId", state?.invoice_id);
     formData?.append("invoice", pdfFile);
     dispatch(sendPdfToBoatOwner({ payload: formData, callback }));
-  }
+  };
 
   const onHandleClick = () => {
     setIsToggle(!isToggle);
@@ -95,7 +95,6 @@ const Invoice = () => {
                       <p className="mb-0">Rego : {getInvoiceData?.boat?.rego ?? ''}</p>
                     </div>
                   </div>
-
                   <div>
                     <p className="mb-1  mb-3 ct_fw_600">{getInvoiceData?.user?.company_name ?? ''}</p>
                     <div className="cti_logo233">

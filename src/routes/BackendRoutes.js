@@ -81,3 +81,6 @@ export const getAllInvoiceDataEndPointURL = "invoice/getAllInvoices";
 
 // Subscriptions
 export const getAllSubscriptionPlansEndPoitnURL = "subscription/allPlans";
+export const getMySubscriptionPlansEndPoitnURL = "subscription/getMySubscriptionOrTrail";
+
+export const cancelSubscriptionPlansEndPointURL = "subscription/cancelSubscription";

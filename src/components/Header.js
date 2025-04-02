@@ -53,7 +53,6 @@ const Header = ({ onClick }) => {
           <span></span>
           <span></span>
         </div>
-
         <div className="ct_dashboard_head">
           <div className="ms-auto d-flex align-items-center gap-3 justify-content-end">
             <div className="dropdown">

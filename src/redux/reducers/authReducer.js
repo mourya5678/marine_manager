@@ -9,7 +9,8 @@ import {
     updateBussinessImage,
     getNotificationData,
     getAllSubscriptionPlan,
-    getUserSubscriptionPlan
+    getUserSubscriptionPlan,
+    cancelSubscriptionPlan
 } from "../actions/authActions";
 
 const initialState = {
@@ -149,6 +150,17 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(getUserSubscriptionPlan.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // cancelSubscriptionPlan
+        builder.addCase(cancelSubscriptionPlan.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(cancelSubscriptionPlan.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(cancelSubscriptionPlan.rejected, (state, action) => {
             state.isLoading = false;
         });
     },

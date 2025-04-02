@@ -9,7 +9,7 @@ const SelectSubscription = ({ onClick, handleCancel, subscriptionType, subscript
             onClick(planType);
         } else {
             toast.error("Please select subscription type");
-        }
+        };
     };
 
     return (
@@ -34,55 +34,6 @@ const SelectSubscription = ({ onClick, handleCancel, subscriptionType, subscript
                                     </div>
                                 </div>
                             ))}
-                            {/* <div className="col-xl-6 col-lg-6 mb-4" onClick={() => {
-                                setPlanType({
-                                    plan_type: "Monthly",
-                                    price: "$498",
-                                    user: 5
-                                })
-                                setPlan("monthly5")
-                            }}>
-                                <div className={`ct_price_card_34 ${plan == "monthly5" && 'active'}`}>
-                                    <h4>Monthly</h4>
-                                    <ul className="ct_px_18">
-                                        <li className="d-flex align-items-center gap-2"> <i class="fa-solid fa-check"></i><span>Monthly</span></li>
-                                        <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>$498/month (2-5 user)</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="col-xl-6 col-lg-6 mb-2" onClick={() => {
-                                setPlanType({
-                                    plan_type: "Yearly",
-                                    price: "$1980",
-                                    user: 1
-                                })
-                                setPlan("yearly1")
-                            }}>
-                                <div className={`ct_price_card_34 ${plan == "yearly1" && 'active'}`}>
-                                    <h4>Yearly</h4>
-                                    <ul className="ct_px_18">
-                                        <li className="d-flex align-items-center gap-2"> <i class="fa-solid fa-check"></i><span>Yearly</span></li>
-                                        <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>$1980/yearly (1 user)</span></li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="col-xl-6 col-lg-6 mb-4" onClick={() => {
-                                setPlanType({
-                                    plan_type: "Yearly",
-                                    price: "$2,376",
-                                    user: 5
-                                })
-                                setPlan("yearly5")
-                            }}>
-                                <div className={`ct_price_card_34 ${plan == "yearly5" && 'active'}`}>
-                                    <h4>Yearly</h4>
-                                    <ul className="ct_px_18">
-                                        <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>Yearly</span></li>
-                                        <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>$2,376/yearly (2-5 users)</span></li>
-                                    </ul>
-                                </div>
-                            </div> */}
                         </div>
                         <div className='modal-footer justify-content-center border-0'>
                             <button

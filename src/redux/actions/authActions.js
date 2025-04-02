@@ -11,6 +11,8 @@ import {
     deleteImageEndPointURL,
     notificationEndPointURL,
     getAllSubscriptionPlansEndPoitnURL,
+    getMySubscriptionPlansEndPoitnURL,
+    cancelSubscriptionPlansEndPointURL,
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
@@ -146,12 +148,26 @@ export const getAllSubscriptionPlan = createAsyncThunk("get-plan", async () => {
 export const getUserSubscriptionPlan = createAsyncThunk("get-user-plan", async () => {
     try {
         const response = await API_REQUEST({
-            url: getAllSubscriptionPlansEndPoitnURL,
+            url: getMySubscriptionPlansEndPoitnURL,
             method: "GET",
             isErrorToast: false
         });
         return response;
     } catch (error) {
         console.log(error)
+    };
+});
+
+export const cancelSubscriptionPlan = createAsyncThunk("cancel-subscription", async (props) => {
+    const { callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: cancelSubscriptionPlansEndPointURL,
+            method: "POST",
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
     };
 });
