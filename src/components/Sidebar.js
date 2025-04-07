@@ -8,7 +8,7 @@ const Sidebar = ({ path }) => {
     return (
         <div className="ct_sidebar_menu">
             <div className="ct_side_logo">
-                <img src="img/Logo_white.png" alt="" />
+                <img src="img/white_log_new.jpg" alt="" />
             </div>
             <ul>
                 <li className={`${path == "home" && 'active'}`}>

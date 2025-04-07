@@ -47,35 +47,36 @@ const CreateBoat = () => {
         const callback = (response) => {
             if (response.success) navigate(pageRoutes.all_boats);
         };
+        // if (avatar_url) {
+        const formData = new FormData();
+        formData.append('vin', values.vin?.trim());
+        formData.append('name', values.name?.trim());
+        formData.append('make', values.make?.trim());
+        formData.append('boat_type', values.boat_type);
+        formData.append('rego', values.rego?.trim());
+        formData.append('model', values.model?.trim());
+        formData.append('email', values.email?.trim());
+        formData.append('length', values.length);
+        formData.append('book_to', values.book_to);
+        formData.append('app_date', pipViewDate4(values.app_date));
+        formData.append('phone_no', values.phone_no);
+        formData.append('engine_no', values.engine_no);
+        formData.append('book_from', values.book_from);
+        formData.append('engine_make', values.engine_make.trim());
+        formData.append('owners_name', values.owners_name.trim());
+        formData.append('engine_model', values.engine_model.trim());
+        formData.append('docking_date', values.docking_date);
         if (avatar_url) {
-            const formData = new FormData();
-            formData.append('vin', values.vin?.trim());
-            formData.append('name', values.name?.trim());
-            formData.append('make', values.make?.trim());
-            formData.append('boat_type', values.boat_type);
-            formData.append('rego', values.rego?.trim());
-            formData.append('model', values.model?.trim());
-            formData.append('email', values.email?.trim());
-            formData.append('length', values.length);
-            formData.append('book_to', values.book_to);
-            formData.append('app_date', pipViewDate4(values.app_date));
-            formData.append('phone_no', values.phone_no);
-            formData.append('engine_no', values.engine_no);
-            formData.append('book_from', values.book_from);
-            formData.append('engine_make', values.engine_make.trim());
-            formData.append('owners_name', values.owners_name.trim());
-            formData.append('engine_model', values.engine_model.trim());
-            formData.append('docking_date', values.docking_date);
             formData.append('avatar_url', avatar_url);
-            dispatch(addBoatDetails({ payload: formData, callback }));
-        } else {
-            setAvtarUrlError("Please select boat image")
         }
+        dispatch(addBoatDetails({ payload: formData, callback }));
+        // } else {
+        //     setAvtarUrlError("Please select boat image")
+        // }
     };
 
     const onHandleImageChange = (e) => {
         setAvtarUrl(e.target.files[0]);
-        setAvtarUrlError();
     };
 
     if (isLoading1) {
@@ -465,11 +466,11 @@ const CreateBoat = () => {
                                                     <div className="ct_boat_dtl_img mt-2 text-center" data-bs-toggle="modal" data-bs-target="#ct_view_image">
                                                         {avatar_url && <img src={URL.createObjectURL(avatar_url)} alt="" className="ct_uploaded_img" style={{ backgroundColor: "#f5f5f5", padding: "4px" }} />}
                                                     </div>
-                                                    {avatar_urlError &&
+                                                    {/* {avatar_urlError &&
                                                         <span style={{ color: "red" }}>
                                                             {avatar_urlError}
                                                         </span>
-                                                    }
+                                                    } */}
                                                 </div>
                                             </div>
                                         </div>

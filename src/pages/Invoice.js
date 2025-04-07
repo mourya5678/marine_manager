@@ -85,7 +85,7 @@ const Invoice = () => {
                 <div className="cti_invoice_bg">
                   <div className="cti_grid_2_1">
                     <div className="cti_logo23">
-                      <img src="img/Logo_blue.svg" className="mb-0" />
+                      <img src="img/blue_logo_new.png" className="mb-0" />
                     </div>
                     <div>
                       {/* <p className="mb-1">Boat Owner Name : {getInvoiceData?.boat?.owners_name ?? ''}</p> */}

@@ -36,15 +36,17 @@ const ForgotPassword = () => {
                 <div className="ct_login_left_bg">
                     <div className="row align-items-center">
                         <div className="col-lg-6 mb-4 mb-md-0">
+                            <div className='ct_left_login_logo_new'>
+                                <img src='../img/blue_logo_new.png' />
+                            </div>
                         </div>
                         <div className="col-lg-4 offset-0 offset-lg-1  mb-4 mb-lg-0">
                             <div className="ct_login_right_form w-60 mx-auto mx-lg-0">
                                 <div className="ct_login_logo mx-auto d-block text-center mb-4">
-                                    <img src="img/Logo_blue.svg" alt="" />
+                                    <img src="img/blue_logo_new.png" alt="" />
                                 </div>
                                 <div className="mb-5 text-center">
                                     <h4 className="ct_fs_28 mb-2">Forgot Password</h4>
-                                    <p className="mb-0">Where Your Marine Needs Meet Expertise</p>
                                 </div>
                                 <Formik
                                     initialValues={initialState}

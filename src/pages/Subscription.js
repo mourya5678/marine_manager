@@ -100,6 +100,10 @@ const Subscription = () => {
     setIsByNow(false);
   };
 
+  const handleContactButton = () => {
+    setIsByNow(false);
+  }
+
   if (isLoading) {
     return <Loader />;
   };
@@ -161,7 +165,7 @@ const Subscription = () => {
                     {userSubscriptionPlane?.length != 0 ?
                       <tbody>
                         <tr>
-                          <td className="py-2">{`${userSubscriptionPlane[0]?.plan?.billingCycle} (${userSubscriptionPlane[0]?.plan?.maxStaffUsers} ${userSubscriptionPlane[0]?.plan?.maxStaffUsers == 1 ? 'user' : 'users'})`}</td>
+                          <td className="py-2">{`${userSubscriptionPlane[0]?.plan?.billingCycle} (${userSubscriptionPlane[0]?.plan?.maxStaffUsers} ${userSubscriptionPlane[0]?.plan?.maxStaffUsers == 1 ? 'technician' : 'technicians'})`}</td>
                           <td className="py-2">{userSubscriptionPlane[0]?.trial_end_date ? 'Trial' : 'Plan'}</td>
                           <td className="py-2">{userSubscriptionPlane[0]?.start_date ? pipViewDate(userSubscriptionPlane[0]?.start_date) : 'xx-xx-xxxx'}</td>
                           <td className="py-2 ">{userSubscriptionPlane[0]?.trial_end_date ? pipViewDate(userSubscriptionPlane[0]?.trial_end_date) : userSubscriptionPlane[0]?.renewed_at ? pipViewDate(userSubscriptionPlane[0]?.renewed_at) : 'xx-xx-xxxx'}</td>
@@ -185,7 +189,7 @@ const Subscription = () => {
                     }
                   </table>
                 </div>
-                {userSubscriptionPlane[0]?.length != 0 && !userSubscriptionPlane[0]?.trial_end_date &&
+                {userSubscriptionPlane[0]?.length != 0 && !userSubscriptionPlane[0]?.trial_end_date || userSubscriptionPlane[0]?.sub_status != 3 &&
                   <div className="text-end mt-2">
                     <a
                       href="javascript:void(0)"
@@ -230,7 +234,7 @@ const Subscription = () => {
                         <tr>
                           {/* 1 = Active, 3 = Canceled, -1 = Trial, 0=payment failed */}
                           <td>{i + 1}</td>
-                          <td>{`${item?.plan?.billingCycle} (${item?.plan?.maxStaffUsers} ${item?.plan?.maxStaffUsers == 1 ? 'user' : 'users'})` ?? ""}</td>
+                          <td>{`${item?.plan?.billingCycle} (${item?.plan?.maxStaffUsers} ${item?.plan?.maxStaffUsers == 1 ? 'technician' : 'technicians'})` ?? ""}</td>
                           <td>{item?.trial_end_date ? "Trial" : "Paid"}</td>
                           <td>${item?.plan?.price ?? 0}</td>
                           <td>
@@ -284,6 +288,7 @@ const Subscription = () => {
           handleCancel={handleCancel}
           subscriptionType=""
           subscriptionPlane={upgradePlan}
+          handleContactButton={handleContactButton}
         />
       }
     </div>

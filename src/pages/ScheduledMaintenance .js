@@ -43,10 +43,16 @@ const ScheduledMaintenance = () => {
   const [selectDate, setSelectDate] = useState('');
   const [selectBoadtId, setSelectBoatId] = useState('');
 
-  const displayUsers = allTasks?.slice(
+  const displayUsers = allTasks?.filter((item) => (
+    item.status != 4 && item
+  ))?.slice(
     currentPage * usersPerPage,
     (currentPage + 1) * usersPerPage
   );
+
+  // const displayUsers = allTasks_by_id?.filter((item) => (
+  //   item?.status == 1 || item?.status == 4 && item
+  // ));
 
   const onHandleClick = () => {
     setIsToggle(!isToggle);

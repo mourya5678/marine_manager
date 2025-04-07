@@ -153,14 +153,16 @@ const BoatDetails = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="col-md-6 mt-3 mb-md-0">
-                                    <div className="ct_boat_dtl_img">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Boat Image</p>
-                                        {state?.data?.avatar_url && <img src={state?.data?.avatar_url} alt="" data-bs-toggle="modal" data-bs-target="#ct_view_image" />}
+                            {state?.data?.avatar_url &&
+                                <div className="row">
+                                    <div className="col-md-6 mt-3 mb-md-0">
+                                        <div className="ct_boat_dtl_img">
+                                            <p className="ct_fs_16 mb-3 ct_fw_700">Boat Image</p>
+                                            {state?.data?.avatar_url && <img src={state?.data?.avatar_url} alt="" data-bs-toggle="modal" data-bs-target="#ct_view_image" />}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                             <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                 <button type="button" className="ct_outline_btn ct_outline_orange w-100"
                                     onClick={() => navigate(pageRoutes.task_description, { state: { data: state.data } })}

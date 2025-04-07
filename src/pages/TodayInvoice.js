@@ -25,7 +25,7 @@ const TodayInvoice = () => {
                                     <h4 className="ct_h4 text-center">Invoice</h4>
                                 </div>
                                 <div className="ct_logo23">
-                                    <img src="img/Logo_blue.svg" />
+                                    <img src="img/blue_logo_new.png" />
                                 </div>
                                 <div className="row">
                                     <div className="col-md-8 mb-4">

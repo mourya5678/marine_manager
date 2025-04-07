@@ -116,8 +116,8 @@ img {
   overflow-y: scroll;
 }
 
-.ct_login_left_bg {
-  background-image: url(../img/1.svg);
+/* .ct_login_left_bg {
+  background-image: url(../img/blue_logo_new.png);
   height: calc(100vh - 48px);
   width: 100%;
   background-size: 50%;
@@ -127,10 +127,26 @@ img {
   transition: 0.4s ease all;
   display: grid;
   align-items: center;
+} */
+.ct_left_login_logo_new img {
+  width: 100%;
+  max-width: 180px;
+  margin-inline: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.ct_left_login_logo_new {
+  background-color: #e65f2b12;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ct_login_logo img {
-  width: 200px;
+  width: 150px;
+  object-fit: contain;
 }
 
 .ct_left_login_img img {
@@ -1119,6 +1135,11 @@ footer {
 @media screen and (max-width: 991px) {
   .ct_banner_left_cnt {
     text-align: center;
+  }
+
+  .ct_left_login_logo_new {
+    height: 300px;
+    margin-bottom: 30px;
   }
 
   .ct_btn_fit {
