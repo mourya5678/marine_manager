@@ -15,6 +15,7 @@ import {
     cancelSubscriptionPlansEndPointURL,
     getSubscriptionHistoryEndPointURL,
     purchaseNewSubscriptionPlanEndPointURL,
+    upgradeSubscriptionPlanEndPointURL,
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
@@ -192,6 +193,21 @@ export const purchaseSubscriptionPlan = createAsyncThunk("purchase-subscription"
     try {
         const response = await API_REQUEST({
             url: purchaseNewSubscriptionPlanEndPointURL,
+            method: "POST",
+            data: payload
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    };
+});
+
+export const upgradeSubscriptionPlan = createAsyncThunk("upgrade-subscription", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: upgradeSubscriptionPlanEndPointURL,
             method: "POST",
             data: payload
         });

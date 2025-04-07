@@ -12,7 +12,8 @@ import {
     getUserSubscriptionPlan,
     cancelSubscriptionPlan,
     getSubscriptionPlanHistory,
-    purchaseSubscriptionPlan
+    purchaseSubscriptionPlan,
+    upgradeSubscriptionPlan
 } from "../actions/authActions";
 
 const initialState = {
@@ -188,6 +189,17 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(purchaseSubscriptionPlan.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // upgradeSubscriptionPlan
+        builder.addCase(upgradeSubscriptionPlan.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(upgradeSubscriptionPlan.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(upgradeSubscriptionPlan.rejected, (state, action) => {
             state.isLoading = false;
         });
     },

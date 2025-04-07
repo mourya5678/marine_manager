@@ -9,6 +9,7 @@ import {
   getSubscriptionPlanHistory,
   getUserSubscriptionPlan,
   purchaseSubscriptionPlan,
+  upgradeSubscriptionPlan,
 } from "../redux/actions/authActions";
 import Loader from "../components/Loader";
 import { pipViewDate } from "../auth/Pip";
@@ -18,12 +19,15 @@ import SelectSubscription from "../components/SelectSubscription";
 const Subscription = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [isToggle, setIsToggle] = useState(false);
-  const [isBuyNow, setIsByNow] = useState(false);
   const { isLoading, userSubscriptionPlane, subscriptionPlane, subscriptionPlanHistory } = useSelector(
     (state) => state?.authReducer
   );
+
+  const [isToggle, setIsToggle] = useState(false);
+  const [isBuyNow, setIsByNow] = useState(false);
+  const [upgradePlan, setUpgradePlan] = useState([]);
+
+  const [isUpgradePlane, setIsUpgradePlane] = useState(false);
 
   useEffect(() => {
     dispatch(getAllSubscriptionPlan());
@@ -54,8 +58,21 @@ const Subscription = () => {
     if (userSubscriptionPlane[0]?.trial_end_date) {
       message.error("You can upgrade the plan after trail end.");
     } else {
-      console.log(userSubscriptionPlane[0]?.trial_end_date, "upgrade");
-    }
+      if (userSubscriptionPlane?.length != 0) {
+        if (userSubscriptionPlane[0]?.planId == 1) {
+          setUpgradePlan([subscriptionPlane[1], subscriptionPlane[2], subscriptionPlane[3]]);
+        } else if (userSubscriptionPlane[0]?.planId == 2) {
+          setUpgradePlan([subscriptionPlane[3]]);
+        } else if (userSubscriptionPlane[0]?.planId == 3) {
+          setUpgradePlan([subscriptionPlane[3]]);
+        } else if (userSubscriptionPlane[0]?.planId == 4) {
+          setUpgradePlan([]);
+        };
+      } else {
+        setUpgradePlan([]);
+      };
+    };
+    setIsByNow(true);
   };
 
   const onSelectSubscription = (val) => {
@@ -72,7 +89,11 @@ const Subscription = () => {
     const data = {
       newPlanId: val
     }
-    dispatch(purchaseSubscriptionPlan({ payload: data, callback }))
+    if (isUpgradePlane == true) {
+      dispatch(upgradeSubscriptionPlan({ payload: data, callback }));
+    } else {
+      dispatch(purchaseSubscriptionPlan({ payload: data, callback }));
+    };
   };
 
   const handleCancel = (val) => {
@@ -100,7 +121,10 @@ const Subscription = () => {
                   <div className="">
                     <a
                       className="ct_custom_btm ct_wrap_100_1 ct_border_radius_0 ms-auto ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22"
-                      onClick={() => setIsByNow(true)}
+                      onClick={() => {
+                        setUpgradePlan(subscriptionPlane);
+                        setIsByNow(true);
+                      }}
                     >
                       Buy Now
                     </a>
@@ -113,8 +137,10 @@ const Subscription = () => {
                     <span className="ct_trial_basge_56">{userSubscriptionPlane[0]?.trial_end_date ? 'Trial' : 'Plan'}</span>
                   </h5>
                   <div>
-                    <button type="button" className="et_cancle_btn12  ct_custom_btm ct_wrap_100_1 ct_border_radius_0 ms-auto ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={() =>
-                      onHandleCancelSubscription(userSubscriptionPlane[0]?.sub_status)
+                    <button type="button" className="et_cancle_btn12  ct_custom_btm ct_wrap_100_1 ct_border_radius_0 ms-auto ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={() => {
+                      setIsUpgradePlane(false);
+                      onHandleCancelSubscription(userSubscriptionPlane[0]?.sub_status);
+                    }
                     }>{userSubscriptionPlane[0]?.sub_status != 3 ? 'Cancel' : 'Cancelled'}</button>
                   </div>
                 </div>
@@ -163,7 +189,10 @@ const Subscription = () => {
                   <div className="text-end mt-2">
                     <a
                       href="javascript:void(0)"
-                      onClick={handleUpgradeSubscription}
+                      onClick={() => {
+                        setIsUpgradePlane(true);
+                        handleUpgradeSubscription();
+                      }}
                       className="ct_custom_btm ct_wrap_100_1 ct_border_radius_0 ms-auto ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22"
                     >
                       Upgrade Plan
@@ -191,7 +220,7 @@ const Subscription = () => {
                       <th className="ct_ff_roboto border-0">Price</th>
                       <th className="ct_ff_roboto border-0">Start Date</th>
                       <th className="ct_ff_roboto border-0">End Date</th>
-                      <th className="ct_ff_roboto border-0">Payment Status</th>
+                      {/* <th className="ct_ff_roboto border-0">Payment Status</th> */}
                       <th className="ct_ff_roboto border-0">Plan Status</th>
                     </tr>
                   </thead>
@@ -201,7 +230,7 @@ const Subscription = () => {
                         <tr>
                           {/* 1 = Active, 3 = Canceled, -1 = Trial, 0=payment failed */}
                           <td>{i + 1}</td>
-                          <td>{item?.plan?.billingCycle ?? ""}</td>
+                          <td>{`${item?.plan?.billingCycle} (${item?.plan?.maxStaffUsers} ${item?.plan?.maxStaffUsers == 1 ? 'user' : 'users'})` ?? ""}</td>
                           <td>{item?.trial_end_date ? "Trial" : "Paid"}</td>
                           <td>${item?.plan?.price ?? 0}</td>
                           <td>
@@ -210,13 +239,11 @@ const Subscription = () => {
                               : "xx-xx-xxxx"}
                           </td>
                           <td>
-                            {item?.trial_end_date
-                              ? pipViewDate(item?.trial_end_date)
-                              : item?.renewed_at
-                                ? pipViewDate(item?.renewed_at)
-                                : "xx-xx-xxxx"}
+                            {item?.canceled_at
+                              ? pipViewDate(item?.canceled_at)
+                              : "xx-xx-xxxx"}
                           </td>
-                          <td>
+                          {/* <td>
                             {item?.sub_status == -1
                               ? "Free"
                               : item?.sub_status == 0
@@ -224,23 +251,8 @@ const Subscription = () => {
                                 : item?.sub_status == 1
                                   ? "Paid"
                                   : item?.sub_status == 3 && "Cancelled"}
-                          </td>
-                          <td>
-                            {item?.sub_status == -1
-                              ? "Active"
-                              : item?.sub_status == 0
-                                ? "InActive"
-                                : item?.sub_status == 1
-                                  ? "Active"
-                                  : item?.sub_status == 3 && "Canceled"}
-                          </td>
-                          {/* <td className="text-end ct_action_btns">
-                            <button
-                              className="ct_custom_btm et_cancle_btn ct_wrap_100_1 ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ms-auto ct_add_item ct_line_height_22"
-                            >
-                              {item?.sub_status == 3 ? "Canceled" : "Cancel"}
-                            </button>
                           </td> */}
+                          <td className="text-end">Cancelled</td>
                         </tr>
                       ))}
                     </tbody>
@@ -263,21 +275,6 @@ const Subscription = () => {
                 </table>
               </div>
             </div>
-            {/* <div className="row mt-5">
-                            <div className="row ct_subscription_scroll">
-                                {userSubscriptionPlane && userSubscriptionPlane?.map((item) => (
-                                    <div className="col-xl-6 col-lg-6 mb-4">
-                                        <div className="ct_price_card_34">
-                                            <h4 style={{ textTransform: 'capitalize' }}>{item?.plan?.billingCycle ?? ''}</h4>
-                                            <ul className="ct_px_18">
-                                                <li className="d-flex align-items-center gap-2"> <i class="fa-solid fa-check"></i><span style={{ textTransform: 'capitalize' }}>{item?.plan?.billingCycle ?? ''}</span></li>
-                                                <li className="d-flex align-items-center gap-2"><i class="fa-solid fa-check"></i><span>${item?.plan?.price ?? 0}/month ({item?.plan?.maxStaffUsers} user)</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div> */}
           </div>
         </div>
       </div>
@@ -286,7 +283,7 @@ const Subscription = () => {
           onClick={onSelectSubscription}
           handleCancel={handleCancel}
           subscriptionType=""
-          subscriptionPlane={subscriptionPlane}
+          subscriptionPlane={upgradePlan}
         />
       }
     </div>

@@ -21,7 +21,7 @@ const SelectSubscription = ({ onClick, handleCancel, subscriptionType, subscript
                             Subscription
                         </h4>
                         <div className="row ct_subscription_scroll">
-                            {subscriptionPlane && subscriptionPlane?.map((item) => (
+                            {subscriptionPlane   && subscriptionPlane?.map((item) => (
                                 <div className="col-xl-6 col-lg-6 mb-4" onClick={() => {
                                     setPlanType(item?.id)
                                 }}>
