@@ -13,6 +13,8 @@ import {
     getAllSubscriptionPlansEndPoitnURL,
     getMySubscriptionPlansEndPoitnURL,
     cancelSubscriptionPlansEndPointURL,
+    getSubscriptionHistoryEndPointURL,
+    purchaseNewSubscriptionPlanEndPointURL,
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
@@ -164,6 +166,34 @@ export const cancelSubscriptionPlan = createAsyncThunk("cancel-subscription", as
         const response = await API_REQUEST({
             url: cancelSubscriptionPlansEndPointURL,
             method: "POST",
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    };
+});
+
+export const getSubscriptionPlanHistory = createAsyncThunk("get-history-plan", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: getSubscriptionHistoryEndPointURL,
+            method: "GET",
+            isErrorToast: false
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    };
+});
+
+export const purchaseSubscriptionPlan = createAsyncThunk("purchase-subscription", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: purchaseNewSubscriptionPlanEndPointURL,
+            method: "POST",
+            data: payload
         });
         callback(response);
         return response;

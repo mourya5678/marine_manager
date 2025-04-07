@@ -39,6 +39,7 @@ const LeadReceived = () => {
     const initialState = {
         client_name: '',
         client_contact_number: '',
+        notes: ''
     };
 
     useEffect(() => {
@@ -61,6 +62,7 @@ const LeadReceived = () => {
         const data = {
             client_name: values.client_name.trim(),
             client_contact_number: `${values.client_contact_number}`,
+            notes: values.notes ?? ''
         }
         dispatch(AddLeads({ payload: data, callback }));
     };
@@ -72,12 +74,13 @@ const LeadReceived = () => {
         const callback = (response) => {
             if (response.success) {
                 dispatch(getAllLeadsData());
-            }
+            };
         };
         const data = {
             id: values?.id,
             client_name: values.client_name.trim(),
             client_contact_number: `${values.client_contact_number}`,
+            notes: values.notes ?? '',
             status: values.status
         }
         dispatch(UpdateLeads({ payload: data, callback }));
@@ -126,6 +129,7 @@ const LeadReceived = () => {
                                         <th>S.No.</th>
                                         <th className="ct_ff_roboto">Client Name</th>
                                         <th className="ct_ff_roboto">Contact Number</th>
+                                        <th className="ct_ff_roboto">Notes</th>
                                         <th className="ct_ff_roboto">Status</th>
                                         <th className="ct_ff_roboto">Action</th>
                                     </tr>
@@ -135,20 +139,33 @@ const LeadReceived = () => {
                                         {displayUsers?.length != 0 && displayUsers?.map((item, i) => (
                                             <tr>
                                                 <td>{i + 1}</td>
-                                                <td>{item?.client_name ?? ''}</td>
+                                                <td>{item?.client_name ?? 'NA'}</td>
                                                 <td>{item?.client_contact_number ?? ''}</td>
+                                                <td>{item?.notes != '' ? `${item?.notes?.slice(0, 28)}${item?.notes?.length >= 28 ? " ..." : ""}` : 'NA'}</td>
                                                 <td>{item?.status == 0 ? "Open" : item?.status == 1 ? "Actioned" : item?.status == 2 && "Contacted"}</td>
                                                 <td className="text-end ct_fw_600">
-                                                    <a href="javascript:void(0)"><i className="fa-solid fa-pen"
-                                                        onClick={() => setLeadDetails({
-                                                            id: item?.id,
-                                                            client_name: item?.client_name,
-                                                            client_contact_number: item?.client_contact_number,
-                                                            status: item?.status
-                                                        })}
-                                                        data-bs-toggle="modal" data-bs-target="#ct_update_lead"
-                                                    ></i>
-                                                    </a>
+                                                    <div className='d-flex align-items-center gap-3 justify-content-end'>
+                                                        <i className="fa-solid fa-eye ct_pointer_curser"
+                                                            onClick={() => setLeadDetails({
+                                                                id: item?.id,
+                                                                client_name: item?.client_name,
+                                                                client_contact_number: item?.client_contact_number,
+                                                                notes: item?.notes,
+                                                                status: item?.status
+                                                            })}
+                                                            data-bs-toggle="modal" data-bs-target="#ct_view_leades">
+                                                        </i>
+                                                        <i className="fa-solid fa-pen ct_pointer_curser"
+                                                            onClick={() => setLeadDetails({
+                                                                id: item?.id,
+                                                                client_name: item?.client_name,
+                                                                client_contact_number: item?.client_contact_number,
+                                                                notes: item?.notes,
+                                                                status: item?.status
+                                                            })}
+                                                            data-bs-toggle="modal" data-bs-target="#ct_update_lead">
+                                                        </i>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         ))}
@@ -344,6 +361,25 @@ const LeadReceived = () => {
                                                         />
                                                     </div>
                                                 </div>
+                                                <div className="col-md-12">
+                                                    <div className="form-group mb-3">
+                                                        <label className="mb-1"><strong>Notes </strong></label>
+                                                        <input
+                                                            id="notes"
+                                                            type="text"
+                                                            className="form-control"
+                                                            value={values.notes}
+                                                            onBlur={handleBlur}
+                                                            onChange={handleChange}
+                                                            onWheel={() => document.activeElement.blur()}
+                                                        />
+                                                        <ErrorMessage
+                                                            errors={errors}
+                                                            touched={touched}
+                                                            fieldName="notes"
+                                                        />
+                                                    </div>
+                                                </div>
                                                 <div className="modal-footer justify-content-center border-0">
                                                     <button type="button" onClick={() => resetForm({ values: initialState })} className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
                                                     <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
@@ -424,6 +460,25 @@ const LeadReceived = () => {
                                                     </div>
                                                     <div className="col-md-12">
                                                         <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Notes</strong></label>
+                                                            <input
+                                                                id="notes"
+                                                                type="text"
+                                                                className="form-control"
+                                                                value={values.notes}
+                                                                onBlur={handleBlur}
+                                                                onChange={handleChange}
+                                                                onWheel={() => document.activeElement.blur()}
+                                                            />
+                                                            <ErrorMessage
+                                                                errors={errors}
+                                                                touched={touched}
+                                                                fieldName="notes"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
                                                             <label className="mb-1"><strong>Status</strong> <span className="ct_required_star">*</span></label>
                                                             <select
                                                                 className="form-control"
@@ -440,6 +495,96 @@ const LeadReceived = () => {
                                                                 errors={errors}
                                                                 touched={touched}
                                                                 fieldName="status"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="modal-footer justify-content-center border-0">
+                                                        <button type="button" onClick={() => setLeadDetails()} className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
+                                                        <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
+                                                            data-bs-dismiss={values?.client_name != '' && Object?.keys(errors)?.length == 0 && "modal"}
+                                                            onClick={handleSubmit}>Update</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        )}
+                                    </Formik>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="modal fade Committed_Price" id="ct_view_leades" tabindex="-1" aria-labelledby="ct_view_leadesLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
+                <div className="modal-dialog modal-lg modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-body">
+                            <div className="pt-4">
+                                <h4 className="mb-4 text-center"><strong>Leads Detail</strong></h4>
+                                {leadDetails &&
+                                    <Formik
+                                        initialValues={leadDetails}
+                                        validationSchema={AddLeadSchema}
+                                        onSubmit={(values, actions) => {
+                                            onHandleUpdateLead(values, actions);
+                                        }}
+                                    >
+                                        {({
+                                            values,
+                                            errors,
+                                            touched,
+                                            handleChange,
+                                            handleBlur,
+                                            handleSubmit,
+                                            resetForm
+                                        }) => (
+                                            <form>
+                                                <div className="row">
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Client Name</strong></label>
+                                                            <input
+                                                                id="client_name"
+                                                                type="text"
+                                                                className="form-control"
+                                                                value={values.client_name}
+                                                                readOnly
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Contact Number </strong></label>
+                                                            <input
+                                                                id="client_contact_number"
+                                                                type="text"
+                                                                className="form-control"
+                                                                value={values.client_contact_number}
+                                                                readOnly
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Notes</strong></label>
+                                                            <textarea
+                                                                id="notes"
+                                                                type="text"
+                                                                className="form-control"
+                                                                value={values.notes}
+                                                                readOnly
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-3">
+                                                            <label className="mb-1"><strong>Status</strong></label>
+                                                            <input
+                                                                id="notes"
+                                                                type="text"
+                                                                className="form-control"
+                                                                value={values.status == 0 ? "Open" : values.status == 1 ? "Actioned" : "Contacted"}
+                                                                readOnly
                                                             />
                                                         </div>
                                                     </div>

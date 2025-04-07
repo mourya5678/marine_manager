@@ -1,5 +1,4 @@
 import React from 'react';
-import { loadStripe } from "@stripe/stripe-js";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 const CardDeatilsModel = ({ onCancel, onClick }) => {

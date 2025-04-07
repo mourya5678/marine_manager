@@ -10,7 +10,9 @@ import {
     getNotificationData,
     getAllSubscriptionPlan,
     getUserSubscriptionPlan,
-    cancelSubscriptionPlan
+    cancelSubscriptionPlan,
+    getSubscriptionPlanHistory,
+    purchaseSubscriptionPlan
 } from "../actions/authActions";
 
 const initialState = {
@@ -21,7 +23,8 @@ const initialState = {
     fcm: '',
     notificationData: [],
     subscriptionPlane: [],
-    userSubscriptionPlane: []
+    userSubscriptionPlane: [],
+    subscriptionPlanHistory: []
 };
 
 export const authSlice = createSlice({
@@ -161,6 +164,30 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(cancelSubscriptionPlan.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // getSubscriptionPlanHistory
+        builder.addCase(getSubscriptionPlanHistory.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getSubscriptionPlanHistory.fulfilled, (state, action) => {
+            const { data } = action?.payload || [];
+            state.subscriptionPlanHistory = data ?? [];
+            state.isLoading = false;
+        });
+        builder.addCase(getSubscriptionPlanHistory.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // purchaseSubscriptionPlan
+        builder.addCase(purchaseSubscriptionPlan.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(purchaseSubscriptionPlan.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+        builder.addCase(purchaseSubscriptionPlan.rejected, (state, action) => {
             state.isLoading = false;
         });
     },

@@ -84,3 +84,6 @@ export const getAllSubscriptionPlansEndPoitnURL = "subscription/allPlans";
 export const getMySubscriptionPlansEndPoitnURL = "subscription/getMySubscriptionOrTrail";
 
 export const cancelSubscriptionPlansEndPointURL = "subscription/cancelSubscription";
+export const getSubscriptionHistoryEndPointURL = "subscription/getMySubscriptionHistory";
+
+export const purchaseNewSubscriptionPlanEndPointURL = "subscription/buyNewPlan";

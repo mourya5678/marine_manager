@@ -397,7 +397,6 @@ main {
 
 .ct_price_card_34 ul li+li {
   border-top: 1px solid #e6e6e6;
-
 }
 
 .ct_subscription_scroll {
@@ -425,9 +424,33 @@ main {
   background: #555;
 }
 
-
 .ct_price_card_34.active {
   border: 1px solid #e65f2b;
   overflow: hidden;
   background-color: hsl(16.68deg 78.9% 53.53% / 10%);
+}
+
+.ct_trial_basge_56 {
+  border-radius: 100px;
+  background-color: #e65f2b;
+  padding: 4px 10px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.et_sub_bg_white_45 {
+  background-color: #fff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.09);
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.et_cancle_btn12 {
+  background-color: #e6e6e6;
+  border-color: #e6e6e6;
+  color: #000;
+}
+
+.et_cancle_btn12:hover {
+  color: #fff;
 }
