@@ -100,11 +100,9 @@ const SignUp = () => {
         <section className="ct_login_main_div">
             <div className="container-fluid px-0">
                 <div className="ct_login_left_bg">
-                    <div className="row ">
+                    <div className="row align-items-center ">
                         <div className="col-lg-6 mb-4 mb-md-0">
-                            <div className='ct_left_login_logo_new'>
-                                <img src='../img/blue_logo_new.png' />
-                            </div>
+
                         </div>
                         <div className="col-lg-4 offset-0 offset-lg-1  mb-4 mb-lg-0">
                             <div className="ct_login_right_form w-60 mx-auto mx-lg-0 py-4">
@@ -272,7 +270,7 @@ const SignUp = () => {
                                                         />
                                                         <label for="ct_checkbox_cbx" className="ct_checkbox_cbx"></label>
                                                     </div>
-                                                    <p className="mb-0">I am a company that gives permission to create a account for and for Marine Managerto collect,
+                                                    <p className="mb-0">I am a company that gives permission to create a account for and for ServiceHub to collect,
                                                         use and disclose the information about my as set forth in the Terms of Use and Privacy Policy.
                                                     </p>
                                                 </div>

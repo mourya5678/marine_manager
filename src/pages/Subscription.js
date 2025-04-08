@@ -138,7 +138,7 @@ const Subscription = () => {
               <div className="mt-4 et_sub_bg_white_45">
                 <div className="d-flex align-items-center justify-content-between flex-wrap">
                   <h5 className="d-flex align-items-center gap-2 mb-2 flex-wrap">
-                    <span className="ct_trial_basge_56">{userSubscriptionPlane[0]?.trial_end_date ? 'Trial' : 'Plan'}</span>
+                    <span className="ct_trial_basge_56">{userSubscriptionPlane[0]?.trial_end_date ? 'Trial' : 'Active Plan'}</span>
                   </h5>
                   <div>
                     <button type="button" className="et_cancle_btn12  ct_custom_btm ct_wrap_100_1 ct_border_radius_0 ms-auto ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={() => {
@@ -154,6 +154,7 @@ const Subscription = () => {
                       <tr>
                         <th className="ct_ff_roboto py-2 border-0">Plan</th>
                         <th className="ct_ff_roboto py-2 border-0">Status</th>
+                        <th className="ct_ff_roboto py-2 border-0">Price</th>
                         <th className="ct_ff_roboto py-2 border-0">
                           Start Date
                         </th>
@@ -167,6 +168,7 @@ const Subscription = () => {
                         <tr>
                           <td className="py-2">{`${userSubscriptionPlane[0]?.plan?.billingCycle} (${userSubscriptionPlane[0]?.plan?.maxStaffUsers} ${userSubscriptionPlane[0]?.plan?.maxStaffUsers == 1 ? 'technician' : 'technicians'})`}</td>
                           <td className="py-2">{userSubscriptionPlane[0]?.trial_end_date ? 'Trial' : 'Plan'}</td>
+                          <td>${userSubscriptionPlane[0]?.plan?.price ?? 0}</td>
                           <td className="py-2">{userSubscriptionPlane[0]?.start_date ? pipViewDate(userSubscriptionPlane[0]?.start_date) : 'xx-xx-xxxx'}</td>
                           <td className="py-2 ">{userSubscriptionPlane[0]?.trial_end_date ? pipViewDate(userSubscriptionPlane[0]?.trial_end_date) : userSubscriptionPlane[0]?.renewed_at ? pipViewDate(userSubscriptionPlane[0]?.renewed_at) : 'xx-xx-xxxx'}</td>
                         </tr>
@@ -189,7 +191,8 @@ const Subscription = () => {
                     }
                   </table>
                 </div>
-                {userSubscriptionPlane[0]?.length != 0 && !userSubscriptionPlane[0]?.trial_end_date || userSubscriptionPlane[0]?.sub_status != 3 &&
+                {userSubscriptionPlane[0]?.length != 0 && !userSubscriptionPlane[0]?.trial_end_date &&
+                  userSubscriptionPlane[0]?.sub_status != 3 && userSubscriptionPlane[0]?.sub_status != -1 &&
                   <div className="text-end mt-2">
                     <a
                       href="javascript:void(0)"

@@ -36,9 +36,7 @@ const ForgotPassword = () => {
                 <div className="ct_login_left_bg">
                     <div className="row align-items-center">
                         <div className="col-lg-6 mb-4 mb-md-0">
-                            <div className='ct_left_login_logo_new'>
-                                <img src='../img/blue_logo_new.png' />
-                            </div>
+
                         </div>
                         <div className="col-lg-4 offset-0 offset-lg-1  mb-4 mb-lg-0">
                             <div className="ct_login_right_form w-60 mx-auto mx-lg-0">

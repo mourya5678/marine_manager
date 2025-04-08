@@ -116,8 +116,8 @@ img {
   overflow-y: scroll;
 }
 
-/* .ct_login_left_bg {
-  background-image: url(../img/blue_logo_new.png);
+.ct_login_left_bg {
+  background-image: url(../img/1.svg);
   height: calc(100vh - 48px);
   width: 100%;
   background-size: 50%;
@@ -127,7 +127,8 @@ img {
   transition: 0.4s ease all;
   display: grid;
   align-items: center;
-} */
+}
+
 .ct_left_login_logo_new img {
   width: 100%;
   max-width: 180px;

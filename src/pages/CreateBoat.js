@@ -49,7 +49,7 @@ const CreateBoat = () => {
         };
         // if (avatar_url) {
         const formData = new FormData();
-        formData.append('vin', values.vin?.trim());
+        formData.append('vin', values.vin ? values.vin?.trim() : '');
         formData.append('name', values.name?.trim());
         formData.append('make', values.make?.trim());
         formData.append('boat_type', values.boat_type);
@@ -60,11 +60,11 @@ const CreateBoat = () => {
         formData.append('book_to', values.book_to);
         formData.append('app_date', pipViewDate4(values.app_date));
         formData.append('phone_no', values.phone_no);
-        formData.append('engine_no', values.engine_no);
+        formData.append('engine_no', values.engine_no ? values.engine_no : '');
         formData.append('book_from', values.book_from);
-        formData.append('engine_make', values.engine_make.trim());
+        formData.append('engine_make', values.engine_make ? values.engine_make.trim() : '');
         formData.append('owners_name', values.owners_name.trim());
-        formData.append('engine_model', values.engine_model.trim());
+        formData.append('engine_model', values.engine_model ? values.engine_model.trim() : '');
         formData.append('docking_date', values.docking_date);
         if (avatar_url) {
             formData.append('avatar_url', avatar_url);
@@ -237,8 +237,7 @@ const CreateBoat = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>HIN</strong>
-                                                        <span className="ct_required_star">*</span></label>
+                                                    ><strong>HIN</strong></label>
                                                     <input
                                                         id="vin"
                                                         value={values.vin}
@@ -297,8 +296,7 @@ const CreateBoat = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>No. Of Engine</strong>
-                                                        <span className="ct_required_star">*</span></label>
+                                                    ><strong>No. Of Engine</strong></label>
                                                     <input
                                                         id="engine_no"
                                                         value={values.engine_no}
@@ -322,8 +320,7 @@ const CreateBoat = () => {
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Engine Make</strong>
-                                                        <span className="ct_required_star">*</span></label>
+                                                    ><strong>Engine Make</strong></label>
                                                     <input
                                                         id="engine_make"
                                                         value={values.engine_make}

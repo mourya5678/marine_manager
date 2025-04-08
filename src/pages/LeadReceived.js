@@ -589,10 +589,7 @@ const LeadReceived = () => {
                                                         </div>
                                                     </div>
                                                     <div className="modal-footer justify-content-center border-0">
-                                                        <button type="button" onClick={() => setLeadDetails()} className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Cancel</button>
-                                                        <button type="button ct_" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit"
-                                                            data-bs-dismiss={values?.client_name != '' && Object?.keys(errors)?.length == 0 && "modal"}
-                                                            onClick={handleSubmit}>Update</button>
+                                                        <button type="button" onClick={() => setLeadDetails()} className="ct_outline_btn ct_outline_orange" data-bs-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </form>
