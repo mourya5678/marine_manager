@@ -15,6 +15,8 @@ import Loader from "../components/Loader";
 import { pipViewDate } from "../auth/Pip";
 import { message } from "antd";
 import SelectSubscription from "../components/SelectSubscription";
+import ReactPagination from "../layout/ReactPagination";
+import PaginationDropdown from "../layout/PaginationDropdown";
 
 const Subscription = () => {
   const navigate = useNavigate();
@@ -26,8 +28,14 @@ const Subscription = () => {
   const [isToggle, setIsToggle] = useState(false);
   const [isBuyNow, setIsByNow] = useState(false);
   const [upgradePlan, setUpgradePlan] = useState([]);
-
   const [isUpgradePlane, setIsUpgradePlane] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [usersPerPage, setUserPerPages] = useState(5);
+
+  const displayUsers = subscriptionPlanHistory?.slice(
+    currentPage * usersPerPage,
+    (currentPage + 1) * usersPerPage
+  );
 
   useEffect(() => {
     dispatch(getAllSubscriptionPlan());
@@ -102,7 +110,11 @@ const Subscription = () => {
 
   const handleContactButton = () => {
     setIsByNow(false);
-  }
+  };
+
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected);
+  };
 
   if (isLoading) {
     return <Loader />;
@@ -145,7 +157,9 @@ const Subscription = () => {
                       setIsUpgradePlane(false);
                       onHandleCancelSubscription(userSubscriptionPlane[0]?.sub_status);
                     }
-                    }>{userSubscriptionPlane[0]?.sub_status != 3 ? 'Cancel' : 'Cancelled'}</button>
+                    }>
+                      {userSubscriptionPlane[0]?.sub_status != 3 ? 'Cancel' : 'Cancelled'}
+                    </button>
                   </div>
                 </div>
                 <div className="table-responsive">
@@ -158,7 +172,7 @@ const Subscription = () => {
                         <th className="ct_ff_roboto py-2 border-0">
                           Start Date
                         </th>
-                        <th className="ct_ff_roboto py-2 border-0 text-start">
+                        <th className="ct_ff_roboto py-2 border-0 text-end">
                           {userSubscriptionPlane[0]?.trial_end_date ? 'Trail End Date' : 'Renewed Date'}
                         </th>
                       </tr>
@@ -170,7 +184,7 @@ const Subscription = () => {
                           <td className="py-2">{userSubscriptionPlane[0]?.trial_end_date ? 'Trial' : 'Plan'}</td>
                           <td>${userSubscriptionPlane[0]?.plan?.price ?? 0}</td>
                           <td className="py-2">{userSubscriptionPlane[0]?.start_date ? pipViewDate(userSubscriptionPlane[0]?.start_date) : 'xx-xx-xxxx'}</td>
-                          <td className="py-2 ">{userSubscriptionPlane[0]?.trial_end_date ? pipViewDate(userSubscriptionPlane[0]?.trial_end_date) : userSubscriptionPlane[0]?.renewed_at ? pipViewDate(userSubscriptionPlane[0]?.renewed_at) : 'xx-xx-xxxx'}</td>
+                          <td className="py-2 text-end">{userSubscriptionPlane[0]?.trial_end_date ? pipViewDate(userSubscriptionPlane[0]?.trial_end_date) : userSubscriptionPlane[0]?.renewed_at ? pipViewDate(userSubscriptionPlane[0]?.renewed_at) : 'xx-xx-xxxx'}</td>
                         </tr>
                       </tbody>
                       :
@@ -227,13 +241,12 @@ const Subscription = () => {
                       <th className="ct_ff_roboto border-0">Price</th>
                       <th className="ct_ff_roboto border-0">Start Date</th>
                       <th className="ct_ff_roboto border-0">End Date</th>
-                      {/* <th className="ct_ff_roboto border-0">Payment Status</th> */}
                       <th className="ct_ff_roboto border-0">Plan Status</th>
                     </tr>
                   </thead>
-                  {subscriptionPlanHistory?.length != 0 ? (
+                  {displayUsers?.length != 0 ? (
                     <tbody>
-                      {subscriptionPlanHistory?.map((item, i) => (
+                      {displayUsers?.map((item, i) => (
                         <tr>
                           {/* 1 = Active, 3 = Canceled, -1 = Trial, 0=payment failed */}
                           <td>{i + 1}</td>
@@ -250,15 +263,6 @@ const Subscription = () => {
                               ? pipViewDate(item?.canceled_at)
                               : "xx-xx-xxxx"}
                           </td>
-                          {/* <td>
-                            {item?.sub_status == -1
-                              ? "Free"
-                              : item?.sub_status == 0
-                                ? "Payment Failed"
-                                : item?.sub_status == 1
-                                  ? "Paid"
-                                  : item?.sub_status == 3 && "Cancelled"}
-                          </td> */}
                           <td className="text-end">Cancelled</td>
                         </tr>
                       ))}
@@ -280,6 +284,25 @@ const Subscription = () => {
                     </tfoot>
                   )}
                 </table>
+              </div>
+              <div className="mt-3">
+                {subscriptionPlanHistory?.length >= 5 &&
+                  subscriptionPlanHistory?.length > 0 && <div className="d-flex align-items-center flex-wrap justify-content-between gap-3 mb-3">
+                    <PaginationDropdown
+                      onChange={(val) => {
+                        setUserPerPages(val);
+                        setCurrentPage(0);
+                      }}
+                    />
+                    <ReactPagination
+                      pageCount={Math.ceil(
+                        subscriptionPlanHistory.length / usersPerPage
+                      )}
+                      onPageChange={handlePageClick}
+                      currentPage={currentPage}
+                    />
+                  </div>
+                }
               </div>
             </div>
           </div>

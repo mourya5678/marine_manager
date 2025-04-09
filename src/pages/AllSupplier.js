@@ -629,6 +629,7 @@ const AllSupplier = () => {
                     </div>
                 </div>
             </div>
+
             <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
                 <div className="modal-dialog modal-md modal-dialog-centered">
                     <div className="modal-content">
@@ -647,6 +648,7 @@ const AllSupplier = () => {
                     </div>
                 </div>
             </div>
+
             <div className="modal fade Committed_Price" id="ct_trade_image" tabindex="-1" aria-labelledby="ct_trade_imageLabel" aria-hidden="true">
                 <div className="modal-dialog modal-md modal-dialog-centered">
                     <div className="modal-content">
@@ -665,6 +667,7 @@ const AllSupplier = () => {
                     </div>
                 </div>
             </div>
+
         </div >
     )
 }
