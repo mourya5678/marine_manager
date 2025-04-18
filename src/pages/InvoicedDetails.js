@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getGeneratedInvoiceData } from '../redux/actions/maintainedBoatsActions';
 import Loader from '../components/Loader';
 import moment from 'moment';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const InvoicedDetails = () => {
     const navigate = useNavigate();
@@ -29,6 +31,35 @@ const InvoicedDetails = () => {
         dispatch(getGeneratedInvoiceData({ payload: state?.invoice_id }));
     }, []);
 
+    const handleGeneratePdf = async () => {
+        const input = targetRef.current;
+        const topMargin = 10;
+        const canvas = await html2canvas(input, {
+            useCORS: true,
+            allowTaint: true,
+            scrollY: -window.scrollY,
+        });
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jsPDF("p", "mm", "a4");
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const imgProps = pdf.getImageProperties(imgData);
+        const imgWidth = pdfWidth;
+        const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+        let heightLeft = imgHeight;
+        let position = 0;
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pdfHeight;
+        while (heightLeft > 0) {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+            heightLeft -= pdfHeight;
+        }
+        console.log(pdf);
+        pdf.save("service-report.pdf");
+    }
+
     if (isLoading2) {
         return <Loader />;
     };
@@ -38,6 +69,7 @@ const InvoicedDetails = () => {
                 <Sidebar path="Invoice" />
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
+                    <button onClick={handleGeneratePdf}>Download Pdf</button>
                     <div ref={targetRef}>
                         <section className="px-3 mb-5">
                             <div className="col-md-9 mx-auto" >
