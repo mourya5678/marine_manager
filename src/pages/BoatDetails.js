@@ -5,22 +5,69 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import { pageRoutes } from '../routes/PageRoutes';
 
+// MVP1 Ventures - Start
+import { useDispatch } from 'react-redux';
+import { onInviteUser } from '../redux/actions/staffActions';
+import { useEffect } from 'react';
+import { message as toast } from "antd";
+// MVP1 Ventures - End
+
+
 const BoatDetails = () => {
     const navigate = useNavigate();
     const { state } = useLocation();
     const [isToggle, setIsToggle] = useState(false);
+    console.log(state?.data, { state });
 
-    console.log(state?.data, { state })
+    // MVP1 Ventures - Start
+    const dispatch = useDispatch();
+    const [inviteStatus, setInviteStatus] = useState("");
+
+    // MVP1 Ventures - End
+    useEffect(() => {
+        setInviteStatus(state.data.inviteStatus);
+    }, [state]);
+
     const onHandleClick = () => {
         setIsToggle(!isToggle);
     };
 
+    // MVP1 Ventures
+    const onInviteUserCall = () => {
+        const userData = localStorage.getItem('m_user_data');
+        let userID = '';
+
+        if (userData) {
+            const userJSON = JSON.parse(userData);
+            userID = userJSON?.id;
+        }
+
+        const callback = (response) => {
+            if (response?.statusCode === 200) {
+                setInviteStatus('invited');
+                toast.success(response?.message);
+            }
+        };
+
+        const data = {
+            email: state?.data?.email,
+            registration: state?.data?.rego,
+            userId: userID,
+            boatId: state?.data?.id,
+            status: "invited"
+        }
+
+        dispatch(onInviteUser({ payload: data, callback }));
+    };
+
     return (
         <div className="ct_dashbaord_bg">
-            <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
+            <div className={`ct_dashbaord_main ${isToggle === false && 'ct_active'}`}>
                 <Sidebar path="boats_details" />
+
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
+
                     <div className="ct_dashbaord_middle">
                         <div className="d-flex align-items-center gap-3 mb-3">
                             <a
@@ -41,9 +88,40 @@ const BoatDetails = () => {
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
-                                    <div className="ct_boat_dtl_left_cnt">
+                                    <div className="ct_boat_dtl_left_cnt position-relative">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Email</p>
                                         <p className="ct_fs_16 mb-2">{state?.data?.email ?? ''}</p>
+
+                                        {/* MVP1 Ventures */}
+                                        {state?.data?.isBoathubRego ? '' : <div className={'d-flex position-absolute end-0 bottom-0 badge ' + (inviteStatus === 'accepted' ? ' bg-success' : ' bg-primary')}>
+                                            <div className="d-flex align-items-center">
+                                                {
+                                                    !inviteStatus
+                                                        ? <i className="fa-solid fa-paper-plane" onClick={onInviteUserCall}></i>
+                                                        : ''
+                                                }
+                                                {
+                                                    (inviteStatus === 'invited')
+                                                        ? (
+                                                            <div className="d-flex align-items-center justify-content-between cursor-pointer" role='button' onClick={onInviteUserCall}>
+                                                                <i className="fa-solid fa-paper-plane me-1"></i>
+                                                                Invited
+                                                            </div>
+                                                        )
+                                                        : ''
+                                                }
+                                                {
+                                                    (inviteStatus === 'accepted')
+                                                        ? (
+                                                            <div className="d-flex align-items-center justify-content-between">
+                                                                <i className="fa-solid fa-check me-1"></i>
+                                                                Accepted
+                                                            </div>
+                                                        )
+                                                        : ''
+                                                }
+                                            </div>
+                                        </div>}
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +157,7 @@ const BoatDetails = () => {
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">HIN</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.vin ?? ''}</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.vin ? state?.data?.vin : ''}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
@@ -99,7 +177,7 @@ const BoatDetails = () => {
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">No. Of Engine</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.engine_no ?? ''}</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.engine_no ? state?.data?.engine_no : ''}</p>
                                     </div>
                                 </div>
                             </div>
@@ -107,21 +185,21 @@ const BoatDetails = () => {
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Engine Make</p>
-                                        <p className="ct_fs_16 mb-2 ">{state?.data?.engine_make ?? ''}</p>
+                                        <p className="ct_fs_16 mb-2 ">{state?.data?.engine_make ? state?.data?.engine_make : ''}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
                                         <p className="ct_fs_16 mb-3 ct_fw_700">Engine Model</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.engine_model ?? ''}</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.engine_model ? state?.data?.engine_model : ''}</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="row ct_mt_20 ct_border_bottom_1">
                                 <div className="col-md-6 mb-3 mb-md-0">
                                     <div className="ct_boat_dtl_left_cnt">
-                                        <p className="ct_fs_16 mb-3 ct_fw_700">Boat Length (Meter)</p>
-                                        <p className="ct_fs_16 mb-2">{state?.data?.length ?? ''}</p>
+                                        <p className="ct_fs_16 mb-3 ct_fw_700">Hull Length (Meter)</p>
+                                        <p className="ct_fs_16 mb-2">{state?.data?.length ? state?.data?.length : ''}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-6 mb-3 mb-md-0">
@@ -153,7 +231,7 @@ const BoatDetails = () => {
                                     </div>
                                 </div>
                             </div>
-                            {state?.data?.avatar_url &&
+                            {/* {state?.data?.avatar_url &&
                                 <div className="row">
                                     <div className="col-md-6 mt-3 mb-md-0">
                                         <div className="ct_boat_dtl_img">
@@ -162,22 +240,24 @@ const BoatDetails = () => {
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            } */}
                             <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                 <button type="button" className="ct_outline_btn ct_outline_orange w-100"
                                     onClick={() => navigate(pageRoutes.task_description, { state: { data: state.data } })}
                                 >Complete Maintenance Details</button>
                                 <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100"
-
                                     onClick={() => navigate(pageRoutes.update_boat, { state: { data: state.data } })}
-                                >Update Boat</button>
+                                >
+                                    {/* MVP1 Ventures */}
+                                    Edit Boat
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
+            {/* <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-md modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body p-2">
@@ -194,7 +274,7 @@ const BoatDetails = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

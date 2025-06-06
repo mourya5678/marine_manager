@@ -32,6 +32,7 @@ const Login = () => {
         const callback = (response) => {
             if (response.success) {
                 const data = {
+                    id: response?.data?.userData?.id ?? "", // MVP1 Ventures
                     name: response?.data?.userData?.first_name ?? "",
                     company_name: response?.data?.userData?.company_name ?? "",
                 };

@@ -5,11 +5,12 @@ import '../Invoice.css';
 import Sidebar from '../components/Sidebar';
 import { pageRoutes } from '../routes/PageRoutes';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGeneratedInvoiceData, sendPdfToBoatOwner } from '../redux/actions/maintainedBoatsActions';
+import { getGeneratedInvoiceData, sendPdfToBoatOwner, saveInvoice, sendInvoiceNotification } from '../redux/actions/maintainedBoatsActions';
 import Loader from '../components/Loader';
 import moment from 'moment';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { pushInvoiceToXeroAction } from '../redux/actions/authActions';
 
 const Invoice = () => {
   const navigate = useNavigate();
@@ -20,6 +21,65 @@ const Invoice = () => {
   const { isLoading2, getInvoiceData } = useSelector(
     (state) => state?.maintainedReducer
   );
+
+  // MVP1 Ventures
+  const generatePDFandSaveIt = async () => {
+    const element = targetRef.current;
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: document.documentElement.offsetWidth,
+      windowHeight: document.documentElement.offsetHeight,
+    });
+    const contentWidth = canvas.width;
+    const contentHeight = canvas.height;
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF({
+      orientation: contentWidth > contentHeight ? 'landscape' : 'portrait',
+      unit: 'px',
+      format: [contentWidth, contentHeight]
+    });
+    const userData = localStorage.getItem('m_user_data');
+    let userID = '';
+
+    if (userData) {
+      const userJSON = JSON.parse(userData);
+      userID = userJSON?.id;
+    }
+    pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
+    const pdfBlob1 = pdf.output('blob');
+    const pdfFile = new File([pdfBlob1], userID + '-' + state?.boat_id + '-' + state?.invoice_id + '-BoatInvoice.pdf', { type: 'application/pdf' });
+    const callback = (response) => {
+      // if (response.success) {
+      // pdf.save(state?.boat_id + '-' + state?.invoice_id + '-BoatInvoice.pdf');
+      // navigate(pageRoutes.maintenance);
+      // };
+      if (response?.status === 200) {
+        setTimeout(() => {
+          const data = {
+            rego: getInvoiceData?.boat?.rego,
+            type: 'Invoice',
+          };
+
+          const callback = (response) => {
+            if (response?.success) {
+
+            }
+          };
+
+          dispatch(sendInvoiceNotification({ payload: data, callback }));
+        }, 1000);
+      }
+    };
+    const formData = new FormData();
+    formData?.append("boatId", state?.boat_id);
+    formData?.append("invoiceId", state?.invoice_id);
+    formData?.append("invoice", pdfFile);
+    dispatch(saveInvoice({ payload: formData, callback }));
+  }
 
   const onHandleGeneratePDFFile = async () => {
     const element = targetRef.current;
@@ -40,12 +100,25 @@ const Invoice = () => {
       unit: 'px',
       format: [contentWidth, contentHeight]
     });
+
+    // MVP1 Ventures - Start
+    const userData = localStorage.getItem('m_user_data');
+    let userID = '';
+
+    if (userData) {
+      const userJSON = JSON.parse(userData);
+      userID = userJSON?.id;
+    }
+    // MVP1 Ventures - End
+
     pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
     const pdfBlob1 = pdf.output('blob');
-    const pdfFile = new File([pdfBlob1], 'BoatInvoice.pdf', { type: 'application/pdf' });
+    // MVP1 Ventures
+    const pdfFile = new File([pdfBlob1], userID + '-' + state?.boat_id + '-' + state?.invoice_id + '-BoatInvoice.pdf', { type: 'application/pdf' });
     const callback = (response) => {
       if (response.success) {
-        pdf.save('BoatInvoice.pdf');
+        // MVP1 Ventures
+        pdf.save(userID + '-' + state?.boat_id + '-' + state?.invoice_id + '-BoatInvoice.pdf');
         navigate(pageRoutes.maintenance);
       };
     };
@@ -54,17 +127,39 @@ const Invoice = () => {
     formData?.append("invoiceId", state?.invoice_id);
     formData?.append("invoice", pdfFile);
     dispatch(sendPdfToBoatOwner({ payload: formData, callback }));
-  };
+  }
 
   const onHandleClick = () => {
     setIsToggle(!isToggle);
   };
 
   useEffect(() => {
-    dispatch(getGeneratedInvoiceData({ payload: state?.invoice_id }));
+    // dispatch(getGeneratedInvoiceData({ payload: state?.invoice_id, callback }));
+
+    // MVP1 Ventures - Start
+    const resp = dispatch(getGeneratedInvoiceData({ payload: state?.invoice_id }));
+
+    // setTimeout(() => {
+    //   if ((resp?.data?.documentLink === null) || (resp?.data?.documentLink === undefined)) {
+    //     generatePDFandSaveIt();
+    //   }
+    // }, 1000);
+    // MVP1 Ventures - End
   }, []);
 
-  console.log(getInvoiceData, "getInvoiceData");
+  const onHandlePushInvoiceToXero = () => {
+    const axiosData = {
+      boatId: state?.boat_id,
+      invoiceId: state?.invoice_id
+    };
+    const callback = (response) => {
+      if (response.success) {
+        navigate(pageRoutes.invoice_list_data);
+      };
+    };
+    dispatch(pushInvoiceToXeroAction({ payload: axiosData, callback }));
+    console.log({ axiosData })
+  };
 
   if (isLoading2) {
     return <Loader />;
@@ -76,9 +171,15 @@ const Invoice = () => {
         <Sidebar path="Invoice" />
         <div className="ct_content_right">
           <Header onClick={onHandleClick} />
-          <div className='px-3 text-end mt-4'>
-            <button className='ct_orange_btnct_custom_btm text-white ms-auto ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22' onClick={onHandleGeneratePDFFile}>Send Invoice</button>
+          <div className='pe-3'>
+            <div className='d-flex justify-content-end  gap-3 text-end mt-4'>
+              <button className='ct_orange_btn ct_custom_btm text-white mx-0 ct_wrap_100_1 ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22' onClick={onHandleGeneratePDFFile}>Send Invoice</button>
+              <button className='ct_custom_btm ct_wrap_100_1 et_btn_fit_new  ct_border_radius_0  ct_news_ltr_btn ct_add_item ct_line_height_22' onClick={onHandlePushInvoiceToXero}>Push Invoice To Xero</button>
+            </div>
           </div>
+          {/* <div className='px-3 text-end mt-4'>
+            <button className='ct_orange_btnct_custom_btm text-white ms-auto ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22' onClick={onHandleGeneratePDFFile}>Send Invoice</button>
+          </div> */}
           <div ref={targetRef}>
             <section className="px-3 mb-5">
               <div className="col-md-9 mx-auto" >
@@ -95,6 +196,7 @@ const Invoice = () => {
                       <p className="mb-0">Rego : {getInvoiceData?.boat?.rego ?? ''}</p>
                     </div>
                   </div>
+
                   <div>
                     <p className="mb-1  mb-3 ct_fw_600">{getInvoiceData?.user?.company_name ?? ''}</p>
                     <div className="cti_logo233">
@@ -129,7 +231,8 @@ const Invoice = () => {
                   </div>
                   <h5 className="text-end cti_fw_700 mt-4 mb-3">TAX INVOICE NO. {getInvoiceData?.invoiceNumber ?? 0}</h5>
                   {getInvoiceData?.tasks?.length != 0 && getInvoiceData?.tasks?.map((item, i) => (
-                    <>
+                    // MVP1 Ventures
+                    <div key={item?.id}>
                       <ul className="cti_tax_invoice_bg">
                         <li>
                           <p className="mb-0 cti_fw_700">Job No.:
@@ -157,7 +260,8 @@ const Invoice = () => {
                           </div>
                         </div>
                         {item?.JobServiceSheet?.length != 0 && item?.JobServiceSheet?.map((items, index) => (
-                          <div className="mb-4">
+                          // MVP1 Ventures
+                          <div className="mb-4" key={items?.id}>
                             <p className="cti_fs_14 cti_fw_700 mb-2">Job Sheet Task</p>
                             <div className="mb-3">
                               <ul>
@@ -167,7 +271,7 @@ const Invoice = () => {
                               </ul>
                             </div>
                             {items?.Material?.length != 0 &&
-                              <>
+                              <div>
                                 <p className="cti_fs_14 cti_fw_700 mb-2">Materials</p>
                                 <div className="table-responsive">
                                   <table className="table cti_basic_table table-bordered">
@@ -182,7 +286,8 @@ const Invoice = () => {
                                     </thead>
                                     <tbody>
                                       {items?.Material?.map((val, ind) => (
-                                        <tr>
+                                        // MVP1 Ventures
+                                        <tr key={val?.id}>
                                           <td>{ind + 1}</td>
                                           <td>{val?.materialName ?? ''}</td>
                                           <td>{val?.unitsUsed ?? 0}</td>
@@ -193,12 +298,12 @@ const Invoice = () => {
                                     </tbody>
                                   </table>
                                 </div>
-                              </>
+                              </div>
                             }
                           </div>
                         ))}
                       </div>
-                    </>
+                    </div>
                   ))}
                   <div className="mb-4">
                     <div className="table-responsive">
@@ -206,24 +311,24 @@ const Invoice = () => {
                         <tbody>
                           <tr style={{ borderBottom: "0px" }}>
                             <td className="border-0">Thank You</td>
-                            <td colspan="3" className="border-0 border-top: 0px; text-end cti_fw_700">Sub-Total
+                            <td colSpan="3" className="border-0 border-top: 0px; text-end cti_fw_700">Sub-Total
                               ex GST</td>
                             <td className=" text-end "
                               style={{ borderBottom: "0px", borderTop: "0px", borderLeft: "0px", borderRight: "0px" }}>
                               ${getInvoiceData?.totalAmount ? getInvoiceData?.totalAmount?.toFixed(2) : '0.00'}</td>
                           </tr>
                           <tr style={{ borderTop: "0px", borderBottom: "0px" }}>
-                            <td colspan="4" className="border-0 text-end cti_fw_700">GST</td>
+                            <td colSpan="4" className="border-0 text-end cti_fw_700">GST</td>
                             <td className=" text-end "
                               style={{ borderBottom: "0px", borderLeft: "0px", borderRight: "0px" }}>10%</td>
                           </tr>
                           <tr style={{ borderTop: "0px", borderBottom: "0px" }}>
-                            <td colspan="4" className="border-0 text-end cti_fw_700">Total inc GST</td>
+                            <td colSpan="4" className="border-0 text-end cti_fw_700">Total inc GST</td>
                             <td className=" text-end "
                               style={{ borderBottom: "0px", borderLeft: "0px", borderRight: "0px" }}>${getInvoiceData?.totalAmountAfterTax ? getInvoiceData?.totalAmountAfterTax?.toFixed(2) : '0.00'}</td>
                           </tr>
                           <tr style={{ borderTop: "0px", borderBottom: "0px" }}>
-                            <td colspan="4" className="border-0 text-end cti_fw_700">Amount Applied</td>
+                            <td colSpan="4" className="border-0 text-end cti_fw_700">Amount Applied</td>
                             <td className=" text-end "
                               style={{ borderBottom: "0px", borderLeft: "0px", borderRight: "0px" }}>${getInvoiceData?.totalAmountAfterTax ? getInvoiceData?.totalAmountAfterTax?.toFixed(2) : '0.00'}</td>
                           </tr>

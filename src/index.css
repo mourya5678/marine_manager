@@ -455,6 +455,73 @@ p {
   color: #fff;
 }
 
+ul.et_login_bottom_bg567 li {
+  background-color: #ffffff54;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px dashed var(--orange);
+  transition: 0.4s ease all;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+ul.et_login_bottom_bg567 li:before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  height: 0%;
+  width: 100%;
+  background-color: var(--orange);
+  z-index: -1;
+  transition: 0.4s ease all;
+  left: 0px;
+
+}
+
+ul.et_login_bottom_bg567 li:hover,
+ul.et_login_bottom_bg567 li:hover p {
+  color: #fff;
+}
+
+ul.et_login_bottom_bg567 li:hover i {
+  color: #fff;
+}
+
+.et_btn_fit_new {
+  width: fit-content;
+}
+
+ul.et_login_bottom_bg567 li:hover:before {
+  height: 100%;
+}
+
+.ct_support_icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--orange);
+  margin-inline: auto;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.ct_fade_modal_new:before {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  background-color: #000;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+.ct_fade_modal_new .modal-content {
+  background-color: rgb(203 218 226) !important;
+}
+
 @media screen and (max-width:1199px) {
   /* .cti_grid_2_1 {
     grid-template-columns: auto;

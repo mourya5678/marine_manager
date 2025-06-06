@@ -13,7 +13,9 @@ import {
     cancelSubscriptionPlan,
     getSubscriptionPlanHistory,
     purchaseSubscriptionPlan,
-    upgradeSubscriptionPlan
+    upgradeSubscriptionPlan,
+    getXeroLoginLink,
+    pushInvoiceToXeroAction
 } from "../actions/authActions";
 
 const initialState = {
@@ -200,6 +202,33 @@ export const authSlice = createSlice({
             state.isLoading = false;
         });
         builder.addCase(upgradeSubscriptionPlan.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // getXeroLoginLink
+        builder.addCase(getXeroLoginLink.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(getXeroLoginLink.fulfilled, (state, action) => {
+            const { data } = action?.payload ?? {};
+            // window.open(data)
+            window.location.href = data;
+            state.isLoading = false;
+        });
+        builder.addCase(getXeroLoginLink.rejected, (state, action) => {
+            state.isLoading = false;
+        });
+
+        // pushInvoiceToXeroAction
+        builder.addCase(pushInvoiceToXeroAction.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(pushInvoiceToXeroAction.fulfilled, (state, action) => {
+            const { data } = action?.payload ?? {};
+            console.log({ data })
+            state.isLoading = false;
+        });
+        builder.addCase(pushInvoiceToXeroAction.rejected, (state, action) => {
             state.isLoading = false;
         });
     },

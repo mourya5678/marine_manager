@@ -8,7 +8,7 @@ import ErrorMessage from '../components/ErrorMessage';
 import Header from '../components/Header';
 import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
-import { updateBoatDetails } from '../redux/actions/staffActions';
+import { updateBoatDetails, onUpdateNotifyBoatHubUser } from '../redux/actions/staffActions'; // MVP1 Ventures
 import { pageRoutes } from '../routes/PageRoutes';
 
 const UpdateBoatDetails = () => {
@@ -23,6 +23,7 @@ const UpdateBoatDetails = () => {
         name: state?.data?.name ?? '',
         make: state?.data?.make ?? '',
         rego: state?.data?.rego ?? '',
+        isBoathubRego: state?.data?.isBoathubRego ?? '',
         model: state?.data?.model ?? '',
         email: state?.data?.email ?? '',
         length: state?.data?.length ?? '',
@@ -49,36 +50,50 @@ const UpdateBoatDetails = () => {
     const createBoatData = async (values, { setSubmitting }) => {
         setSubmitting(false);
         const callback = (response) => {
-            if (response.success) navigate(pageRoutes.all_boats);
+            // if (response.success) navigate(pageRoutes.all_boats);
+            // MVP1 Ventures
+            const callback = (response) => {
+                if (response) {
+                    navigate(pageRoutes.all_boats)
+                }
+            };
+            // MVP1 Ventures
+            if (response.success) {
+                dispatch(onUpdateNotifyBoatHubUser({ regNo: values.rego.trim(), callback })); // Nofify BoatHub user
+            };
         };
         const formData = new FormData();
         formData.append('id', state?.data?.id);
-        formData.append('vin', values.vin.trim());
-        formData.append('name', values.name.trim());
-        formData.append('make', values.make.trim());
-        formData.append('rego', values.rego.trim());
-        formData.append('model', values.model.trim());
-        formData.append('email', values.email?.trim());
-        formData.append('length', values.length);
-        formData.append('boat_type', values.boat_type);
-        formData.append('book_to', values.book_to);
-        formData.append('app_date', values.app_date);
-        formData.append('phone_no', values.phone_no);
-        formData.append('engine_no', values.engine_no);
-        formData.append('book_from', values.book_from);
-        formData.append('engine_make', values.engine_make.trim());
-        formData.append('owners_name', values.owners_name.trim());
-        formData.append('engine_model', values.engine_model.trim());
-        formData.append('docking_date', values.docking_date);
-        if (avatar_url) {
-            formData.append('avatar_url', avatar_url);
-        }
+        formData.append('vin', values.vin ? values.vin?.trim() : null);
+        formData.append('name', values.name ? values.name?.trim() : null);
+        formData.append('make', values.make ? values.make?.trim() : null);
+        formData.append('rego', values.rego ? values.rego?.trim() : null);
+        formData.append('model', values.model ? values.model?.trim() : null);
+        formData.append('email', values.email ? values.email?.trim() : null);
+        formData.append('length', values.length ? values.length : null);
+        formData.append('boat_type', values.boat_type ? values.boat_type : null);
+        formData.append('book_to', values.book_to ? values.book_to : '');
+        formData.append('app_date', values.app_date ? pipViewDate4(values.app_date) : '');
+        formData.append('phone_no', values.phone_no ? values.phone_no : null);
+        formData.append('engine_no', values.engine_no ? values.engine_no : null);
+        formData.append('book_from', values.book_from ? values.book_from : '');
+        formData.append('engine_make', values.engine_make ? values.engine_make.trim() : null);
+        formData.append('owners_name', values.owners_name ? values.owners_name.trim() : null);
+        formData.append('engine_model', values.engine_model ? values.engine_model.trim() : null);
+        formData.append('docking_date', values.docking_date ? values.docking_date : '');
+        formData.append('isBoathubRego', state?.data?.isBoathubRego ? state?.data?.isBoathubRego : false);
+        // if (avatar_url) {
+        //     formData.append('avatar_url', avatar_url);
+        // }
         dispatch(updateBoatDetails({ payload: formData, callback }));
     };
+
 
     if (isLoading1) {
         return <Loader />
     }
+
+
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -180,6 +195,7 @@ const UpdateBoatDetails = () => {
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
                                                         type="text"
+                                                        readonly="true"
                                                         className="form-control"
                                                     />
                                                     <ErrorMessage
@@ -225,7 +241,8 @@ const UpdateBoatDetails = () => {
                                                     >
                                                         <option value="">Select Boat Type</option>
                                                         <option value="Trailer Boat">Trailer Boat</option>
-                                                        <option value="Yacht ">Yacht</option>
+                                                        {/* MVP1 Ventures */}
+                                                        <option value="Yacht">Yacht</option>
                                                         <option value="Jetski">Jetski </option>
                                                     </select>
                                                     <ErrorMessage
@@ -239,8 +256,8 @@ const UpdateBoatDetails = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>HIN</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        {/* <span className="ct_required_star">*</span> */}
+                                                    </label>
                                                     <input
                                                         id="vin"
                                                         value={values.vin}
@@ -249,11 +266,11 @@ const UpdateBoatDetails = () => {
                                                         type="text"
                                                         className="form-control"
                                                     />
-                                                    <ErrorMessage
+                                                    {/* <ErrorMessage
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="vin"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -302,8 +319,8 @@ const UpdateBoatDetails = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>No. Of Engine</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        {/* <span className="ct_required_star">*</span> */}
+                                                    </label>
                                                     <input
                                                         id="engine_no"
                                                         value={values.engine_no}
@@ -317,19 +334,19 @@ const UpdateBoatDetails = () => {
                                                         onWheel={() => document.activeElement.blur()}
                                                         className="form-control"
                                                     />
-                                                    <ErrorMessage
+                                                    {/* <ErrorMessage
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="engine_no"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Engine Make</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                        {/* <span className="ct_required_star">*</span> */}
+                                                    </label>
                                                     <input
                                                         id="engine_make"
                                                         value={values.engine_make}
@@ -338,18 +355,18 @@ const UpdateBoatDetails = () => {
                                                         type="text"
                                                         className="form-control"
                                                     />
-                                                    <ErrorMessage
+                                                    {/* <ErrorMessage
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="engine_make"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Engine Model</strong>
-                                                        <span className="ct_required_star">*</span>
+                                                        {/* <span className="ct_required_star">*</span> */}
                                                     </label>
                                                     <input
                                                         id="engine_model"
@@ -359,19 +376,19 @@ const UpdateBoatDetails = () => {
                                                         type="text"
                                                         className="form-control"
                                                     />
-                                                    <ErrorMessage
+                                                    {/* <ErrorMessage
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="engine_model"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
-                                                    ><strong>Boat Length (Meter)</strong>
-                                                        <span className="ct_required_star">*</span></label
-                                                    >
+                                                    ><strong>Hull Length (Meter)</strong>
+                                                        {/* <span className="ct_required_star">*</span> */}
+                                                    </label>
                                                     <input
                                                         id="length"
                                                         onWheel={() => document.activeElement.blur()}
@@ -381,11 +398,11 @@ const UpdateBoatDetails = () => {
                                                         type="number"
                                                         className="form-control"
                                                     />
-                                                    <ErrorMessage
+                                                    {/* <ErrorMessage
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="length"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
@@ -416,7 +433,7 @@ const UpdateBoatDetails = () => {
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Book From</strong>
-                                                        <span className="ct_required_star">*</span>
+                                                        {/* <span className="ct_required_star">*</span> */}
                                                     </label>
                                                     <input
                                                         id="book_from"
@@ -428,18 +445,18 @@ const UpdateBoatDetails = () => {
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         className="form-control"
                                                     />
-                                                    <ErrorMessage
+                                                    {/* <ErrorMessage
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="book_from"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Book To</strong>
-                                                        <span className="ct_required_star">*</span>
+                                                        {/* <span className="ct_required_star">*</span> */}
                                                     </label>
                                                     <input
                                                         id="book_to"
@@ -451,18 +468,18 @@ const UpdateBoatDetails = () => {
                                                         min={new Date()?.toISOString()?.split("T")[0]}
                                                         className="form-control"
                                                     />
-                                                    <ErrorMessage
+                                                    {/* <ErrorMessage
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="book_to"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </div>
                                             <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                     <label className="mb-1"
                                                     ><strong>Docking Dates</strong>
-                                                        <span className="ct_required_star">*</span>
+                                                        {/* <span className="ct_required_star">*</span> */}
                                                     </label>
                                                     <input
                                                         type="date"
@@ -474,14 +491,14 @@ const UpdateBoatDetails = () => {
                                                         onBlur={handleBlur}
                                                         onChange={handleChange}
                                                     />
-                                                    <ErrorMessage
+                                                    {/* <ErrorMessage
                                                         errors={errors}
                                                         touched={touched}
                                                         fieldName="docking_date"
-                                                    />
+                                                    /> */}
                                                 </div>
                                             </div>
-                                            <div className="col-md-6">
+                                            {/* <div className="col-md-6">
                                                 <div className="form-group mb-3">
                                                 </div>
                                             </div>
@@ -506,7 +523,7 @@ const UpdateBoatDetails = () => {
                                                         }
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <div className="d-flex align-items-center gap-3 mt-4 ct_flex_wrap_575">
                                             <button type="button" className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_modal_submit w-100" onClick={() => navigate(-1)}>Back</button>
@@ -520,7 +537,7 @@ const UpdateBoatDetails = () => {
                 </div>
             </div>
 
-            <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
+            {/* <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true" data-bs-backdrop='static' data-bs-keyboard="false">
                 <div className="modal-dialog modal-md modal-dialog-centered">
                     <div className="modal-content">
                         <div className="modal-body p-2">
@@ -543,7 +560,7 @@ const UpdateBoatDetails = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div >
     )
 }

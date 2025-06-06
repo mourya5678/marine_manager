@@ -16,6 +16,8 @@ import {
     getSubscriptionHistoryEndPointURL,
     purchaseNewSubscriptionPlanEndPointURL,
     upgradeSubscriptionPlanEndPointURL,
+    getXerologinDataENDPOINTURL,
+    pushInvoiceToXeroENDPOINTURL,
 } from "../../routes/BackendRoutes";
 
 export const userSignUp = createAsyncThunk("auth-signup", async (props) => {
@@ -208,6 +210,34 @@ export const upgradeSubscriptionPlan = createAsyncThunk("upgrade-subscription", 
     try {
         const response = await API_REQUEST({
             url: upgradeSubscriptionPlanEndPointURL,
+            method: "POST",
+            data: payload
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    };
+});
+
+export const getXeroLoginLink = createAsyncThunk("xero-login", async () => {
+    try {
+        const response = await API_REQUEST({
+            url: getXerologinDataENDPOINTURL,
+            method: "GET"
+        });
+        return response;
+    } catch (error) {
+        console.log(error)
+    };
+});
+
+// pushInvoiceToXeroENDPOINTURL
+export const pushInvoiceToXeroAction = createAsyncThunk("push-invoice-xero", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: pushInvoiceToXeroENDPOINTURL,
             method: "POST",
             data: payload
         });

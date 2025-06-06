@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { onMessageListener, requestForToken } from "./auth/Firebase";
 import { useDispatch } from "react-redux";
 import { saveFcmToken } from "./redux/reducers/authReducer";
+import Home from "./pages/Home";
 
 function App() {
   // const [fcmToken, setFcmToken] = useState(null);
@@ -60,7 +61,7 @@ function App() {
             )
           })
         }
-        <Route path={pageRoutes.login} exact element={<Login />} />
+        <Route path={pageRoutes.login} exact element={<Home />} />
         <Route path={pageRoutes.signup} exact element={<SignUp />} />
         <Route path={pageRoutes.forgot_password} exact element={<ForgotPassword />} />
         <Route path={pageRoutes.page_not_found} exact element={<PageNotFound />} />

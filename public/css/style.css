@@ -7,6 +7,10 @@
   font-family: "Nunito Sans", sans-serif;
 }
 
+.ct_ff_nunito {
+  font-family: "Nunito Sans", sans-serif;
+}
+
 body {
   overflow-x: hidden;
   position: relative;
@@ -835,6 +839,10 @@ figure.ct_blog_card:hover {
 .ct_blog_card figcaption a {
   color: var(--blue);
   font-weight: 700;
+}
+
+.ct_blue_text {
+  color: #00315f;
 }
 
 .ct_blog_img {

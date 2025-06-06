@@ -85,7 +85,7 @@ p,
 }
 
 .ct_dashbaord_bg {
-  background-color: #e8dfda;
+  background-color: #E8DFDA;
   height: 100vh;
   overflow-y: auto;
 }
@@ -1410,7 +1410,7 @@ label.ct_file_upload_big {
   }
 
   .ct_wrap_100_1 {
-    width: 100%;
+    width: 100% !important;
   }
 
   .ct_add_item {
@@ -1431,4 +1431,28 @@ label.ct_file_upload_big {
   .ct_grid_3_card {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+.ct_sucessful_msg_body {
+  text-align: center;
+  padding-block: 35px !important;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 50%;
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.09);
+  border-radius: 10px !important;
+}
+
+.ct_svg_green path {
+  fill: #4e9a06;
+}
+
+.ct_sucessful_msg_body img {
+  width: 120px;
+  margin-inline: auto;
+  display: block;
 }

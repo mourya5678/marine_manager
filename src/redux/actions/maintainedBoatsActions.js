@@ -14,7 +14,9 @@ import {
     generateBoatInvoiceEndPointURL,
     getGeneratedInvoiceEndPointURL,
     getBoatListOfInvoiceEndPointURL,
-    sendInvoicePdfToBoatOwnerEndPointURL
+    sendInvoicePdfToBoatOwnerEndPointURL,
+    saveInvoicePdfEndPointURL,
+    saveJobsheetPdfEndPointURL
 } from "../../routes/BackendRoutes";
 
 export const getAllBoatTask = createAsyncThunk("boat-task", async () => {
@@ -196,6 +198,42 @@ export const getGeneratedInvoiceData = createAsyncThunk("invoice-data", async (p
     }
 });
 
+// MVP1 Ventures
+export const saveInvoice = createAsyncThunk("save-invoice-pdf", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: saveInvoicePdfEndPointURL,
+            method: "POST",
+            data: payload,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return callback(response);
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+// MVP1 Ventures
+export const saveJobsheet = createAsyncThunk("save-job-sheet", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: saveJobsheetPdfEndPointURL,
+            method: "POST",
+            data: payload,
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return callback(response);
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
 export const sendPdfToBoatOwner = createAsyncThunk("send-invoice-pdf", async (props) => {
     const { payload, callback } = props;
     try {
@@ -225,5 +263,23 @@ export const getAllBoatInvoice = createAsyncThunk("boat-list", async () => {
         return response;
     } catch (error) {
         console.log('error');
+    }
+});
+
+// MVP1 Ventures
+export const sendInvoiceNotification = createAsyncThunk("send-invoice-notification", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: `n8n-api/api/v1.0/first-mate/send-invoice-notification?registration=${payload.rego}&docType=${payload.type}`,
+            method: "POST",
+            // data: payload,
+            isErrorToast: false,
+            // isExternalAPI: true
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
     }
 });

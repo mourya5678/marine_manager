@@ -74,7 +74,7 @@ const LeadReceived = () => {
         const callback = (response) => {
             if (response.success) {
                 dispatch(getAllLeadsData());
-            };
+            }
         };
         const data = {
             id: values?.id,

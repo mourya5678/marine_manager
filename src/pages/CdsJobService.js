@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { useLocation } from "react-router-dom";
 import { pipViewDate } from "../auth/Pip";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { useDispatch } from 'react-redux';
+import { saveJobsheet, sendInvoiceNotification } from '../redux/actions/maintainedBoatsActions';
+
 
 const CdsJobService = () => {
   const [isToggle, setIsToggle] = useState(false);
@@ -12,6 +15,8 @@ const CdsJobService = () => {
   const [clicked, setClicked] = useState(true);
   const [sliceValue, setSlicValue] = useState(3);
   const { state } = useLocation();
+  const targetRef = useRef();
+  const dispatch = useDispatch();
   console.log(state?.data, "state?.data", state?.isShow);
 
   const onHandleClick = () => {
@@ -34,6 +39,81 @@ const CdsJobService = () => {
     });
   };
 
+  // MVP1 Ventures
+  const generatePDFandSaveIt = async () => {
+    const element = targetRef.current;
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      logging: false,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: document.documentElement.offsetWidth,
+      windowHeight: document.documentElement.offsetHeight,
+    });
+    const contentWidth = canvas.width;
+    const contentHeight = canvas.height;
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF({
+      orientation: contentWidth > contentHeight ? 'landscape' : 'portrait',
+      unit: 'px',
+      format: [contentWidth, contentHeight]
+    });
+    const userData = localStorage.getItem('m_user_data');
+    let userID = '';
+
+    if (userData) {
+      const userJSON = JSON.parse(userData);
+      userID = userJSON?.id;
+    }
+    pdf.addImage(imgData, 'PNG', 0, 0, contentWidth, contentHeight);
+    const pdfBlob1 = pdf.output('blob');
+    const pdfFile = new File([pdfBlob1], userID + '-' + state?.data?.boatId + '-' + state?.data?.id + '-BoatJobsheet.pdf', { type: 'application/pdf' });
+    const callback = (response) => {
+      // if (response?.success) {
+      //   pdf.save(state?.boat_id + '-' + state?.invoice_id + '-BoatInvoice.pdf');
+      //   navigate(pageRoutes.maintenance);
+      // };
+      if (response?.status === 200) {
+        const data = {
+          rego: state?.data?.boat?.rego,
+          type: 'Jobsheet',
+        };
+
+        const callback = (response) => {
+          if (response?.success) {
+
+          }
+        };
+
+        dispatch(sendInvoiceNotification({ payload: data, callback }));
+      }
+    };
+    const formData = new FormData();
+    formData?.append("boatId", state?.data?.boatId);
+    formData?.append("invoiceId", state?.data?.id);
+    formData?.append("invoice", pdfFile);
+    dispatch(saveJobsheet({ payload: formData, callback }));
+  }
+
+  useEffect(() => {
+    // MVP1 Ventures - Start
+    setTimeout(() => {
+      console.log('state?.data?.JobServiceSheet[0]?.documentLink', state?.data?.JobServiceSheet[0]?.documentLink);
+
+      if (
+        state?.data?.completed_at &&
+        ((state?.data?.JobServiceSheet[0]?.documentLink === null) || (state?.data?.JobServiceSheet[0]?.documentLink === undefined))
+      ) {
+        console.log('Generate PDF and Save it');
+        generatePDFandSaveIt();
+      }
+    }, 1000);
+    // MVP1 Ventures - End
+
+    console.log(state);
+  }, []);
+
   return (
     <div className="ct_dashbaord_bg">
       <div className={`ct_dashbaord_main ${isToggle == false && "ct_active"}`}>
@@ -43,7 +123,7 @@ const CdsJobService = () => {
           {state?.data?.JobServiceSheet?.length != 0 &&
             <button className="ct_custom_btm ct_wrap_100_1 ms-auto mt-4 mx-4 ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22" onClick={printDocument}>Export Pdf</button>
           }
-          <div className="ct_dashbaord_middle" id="divToPrint">
+          <div className="ct_dashbaord_middle" id="divToPrint" ref={targetRef}>
             <h4 className="ct_fs_24 ct_fw_600 mb-3">CDS Job/Service Sheet</h4>
             <div className="ct_grid_tem_5">
               <div className="ct_boat_white_bg">

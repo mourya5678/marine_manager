@@ -12,7 +12,9 @@ import CreateBoat from "../pages/CreateBoat";
 import CreateStaff from "../pages/CreateStaff";
 import Dashboard from "../pages/Dashboard";
 import DockDetails from "../pages/DockDetails";
+import FailedToConnectXero from "../pages/FailedToConnectXero";
 import GenerateInvoice from "../pages/GenerateInvoice";
+import Home from "../pages/Home";
 import Invoice from "../pages/Invoice";
 import InvoiceDataList from "../pages/InvoiceDataList";
 import InvoicedDetails from "../pages/InvoicedDetails";
@@ -25,6 +27,7 @@ import ReviewSchedule from "../pages/ReviewSchedule";
 import ScheduledMaintenance from "../pages/ScheduledMaintenance ";
 import StaffProductivity from "../pages/StaffProductivity";
 import Subscription from "../pages/Subscription";
+import SuccessToConnectXero from "../pages/SuccessToConnectXero";
 import TaskDescription from "../pages/TaskDescription";
 import TaskReview from "../pages/TaskReview";
 import TodayInvoice from "../pages/TodayInvoice";
@@ -73,7 +76,11 @@ export const pageRoutes = {
   all_invoice: "/all-invoice",
   invoice_detail: "/invoice-detail",
   invoice_list_data: "/invoice-list",
-  subscription: '/subscription'
+  subscription: "/subscription",
+  failed_to_connect_xero: "/failed-to-connect-xero",
+  connected_to_xero: "/connected-to-xero"
+
+  // home: "/home",
 };
 
 export const AllRoutes = [
@@ -83,6 +90,12 @@ export const AllRoutes = [
     element: <Dashboard />,
     isPrivate: true,
   },
+  // {
+  //   name: "Home",
+  //   path: pageRoutes.home,
+  //   element: <Home />,
+  //   isPrivate: false,
+  // },
   {
     name: "Invoice List",
     path: pageRoutes.invoice_list_data,
@@ -285,6 +298,18 @@ export const AllRoutes = [
     name: "Notification",
     path: pageRoutes.notification,
     element: <Notification />,
+    isPrivate: true,
+  },
+  {
+    name: "Failed To Connect Xero",
+    path: pageRoutes.failed_to_connect_xero,
+    element: <FailedToConnectXero />,
+    isPrivate: true,
+  },
+  {
+    name: "Success To Connect Xero",
+    path: pageRoutes.connected_to_xero,
+    element: <SuccessToConnectXero />,
     isPrivate: true,
   },
 ];

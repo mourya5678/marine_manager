@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import Header from '../components/Header';
 import Loader from '../components/Loader';
 import Sidebar from '../components/Sidebar';
-import { getBussinessProfileData } from '../redux/actions/authActions';
+import { getBussinessProfileData, getXeroLoginLink } from '../redux/actions/authActions';
 import { pageRoutes } from '../routes/PageRoutes';
 
 const BusinessProfile = () => {
@@ -19,15 +19,20 @@ const BusinessProfile = () => {
 
     const onHandleClick = () => {
         setIsToggle(!isToggle);
-    }
+    };
 
     const onHandleOpenNewTab = (item) => {
         window.open(item?.filename, '_blank')
-    }
+    };
+
+    const handleContinueWithXero = () => {
+        dispatch(getXeroLoginLink());
+    };
+
 
     if (isLoading) {
         return <Loader />
-    }
+    };
     return (
         <div className="ct_dashbaord_bg">
             <div className={`ct_dashbaord_main ${isToggle == false && 'ct_active'}`}>
@@ -35,9 +40,19 @@ const BusinessProfile = () => {
                 <div className="ct_content_right">
                     <Header onClick={onHandleClick} />
                     <div className="ct_dashbaord_middle">
-                        <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3">
-                            <h4 className="ct_fs_24 text-start ct_fw_700 ">Business Profile</h4>
-                            <button onClick={() => navigate(pageRoutes.update_business_profile, { state: { data: bussiness_profile } })} className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item ct_line_height_22 mx-0">Update Profile</button>
+                        <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3 ct_flex_wrap_767">
+                            <h4 className="ct_fs_24 text-start ct_fw_700 mb-0">Business Profile</h4>
+                            <div className='d-flex align-items-center gap-3  ' >
+                                <button onClick={() => navigate(pageRoutes.update_business_profile, { state: { data: bussiness_profile } })} className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item  mx-0">Update Profile</button>
+
+                                {bussiness_profile?.xero_connected != 1 &&
+                                    <button
+                                        className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item  mx-0"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#ct_connect_xero"
+                                    >Connect with xero</button>
+                                }
+                            </div>
                         </div>
                         <div className="ct_white_bg_1">
                             <form action="">
@@ -198,7 +213,6 @@ const BusinessProfile = () => {
                                             ><strong>Professional Indemnity Insurance</strong>
                                             </label>
                                         </div>
-
                                         <div className="row">
                                             {bussiness_profile?.InsuranceFile?.length != 0 &&
                                                 bussiness_profile?.InsuranceFile?.map((item, i) => (
@@ -264,6 +278,50 @@ const BusinessProfile = () => {
                     </div>
                 </div>
             </div>
+
+
+            <div
+                className="modal fade ct_assets_modal"
+                id="ct_connect_xero"
+                tabIndex={-1}
+                aria-labelledby="ct_connect_xeroLabel"
+                aria-hidden="true"
+            >
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header border-0 pt-0">
+                            <button
+                                type="button"
+                                className="btn-close ct_cloose_btn"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <i className="fa-solid fa-xmark" />
+                            </button>
+                        </div>
+                        <div className="modal-body border-0 ">
+                            <h4 className="text-center mb-4 ct_fw_600">Connect With Xero</h4>
+                            <p className="text-center ct_ff_nunito ">
+                                To connect with Xero, you must have an existing Xero account.
+                                If you don’t have one yet, please sign up on Xero first.
+                                Once your Xero account is created, you can proceed with the connection process here.
+                            </p>
+                            <div className="modal-footer border-0 justify-content-center">
+                                <button
+                                    type="button"
+                                    className="ct_custom_btm ct_border_radius_0 ct_btn_fit ct_news_ltr_btn ct_add_item  mx-0"
+                                    data-bs-dismiss="modal"
+                                    onClick={handleContinueWithXero}
+                                >
+                                    Continue
+                                </button>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div >
     )
 }

@@ -76,7 +76,7 @@ const InvoiceDataList = () => {
                                                 <td>{item?.boat?.email ?? 'NA'}</td>
                                                 <td>{item?.createdAt ? pipViewDate(item?.createdAt) : 'NA'}</td>
                                                 <td className="text-end ct_action_btns" >
-                                                    <i className="fa-solid fa-eye me-2 ab_pointer" onClick={() => navigate(pageRoutes?.invoice_detail, { state: { invoice_id: item?.id } })}></i>
+                                                    <i className="fa-solid fa-eye me-2 ab_pointer" onClick={() => navigate(pageRoutes?.invoice_detail, { state: { invoice_id: item?.id, boat_id: item?.boatId } })}></i>
                                                 </td>
                                             </tr>
                                         ))}

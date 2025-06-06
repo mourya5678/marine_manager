@@ -108,6 +108,7 @@ const UpdateBusinessProfile = () => {
             const callback = (response) => {
                 if (response.success) {
                     const data = {
+                        id: profileData?.id, // MVP1 Ventures
                         name: profileData?.first_name ? profileData?.first_name.trim() : '',
                         company_name: profileData?.company_name ? profileData?.company_name.trim() : ''
                     }
@@ -531,7 +532,7 @@ const UpdateBusinessProfile = () => {
                         </div>
                     </div>
                 </div>
-            </div >
+            </div>
 
             <div className="modal fade Committed_Price" id="ct_view_image" tabindex="-1" aria-labelledby="ct_view_imageLabel" aria-hidden="true">
                 <div className="modal-dialog modal-md modal-dialog-centered">

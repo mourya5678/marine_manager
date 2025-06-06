@@ -134,6 +134,74 @@ export const getBoatData = createAsyncThunk("get-boat", async (props) => {
     }
 });
 
+// MVP1 Ventures - Start
+export const onInviteUser = createAsyncThunk("invite-user", async (props) => {
+    const { payload, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: `n8n-api/api/v1.0/first-mate/inviteUserFromServiceHub?boatId=${payload.boatId}&email=${payload.email}&registration=${payload.registration}&status=${payload.status}&userId=${payload.userId}&companyName=${payload.companyName}&boatOwner=${payload.boatOwner}`,
+            method: "GET",
+            // data: payload,
+            isErrorToast: false,
+            // isExternalAPI: true
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const getBoatDataByRegNo = createAsyncThunk("get-boat-by-regno", async (props) => {
+    const { regNo, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: `n8n-api/api/v1.0/first-mate/get-boathub-vessel-by-rego?registration=${regNo}`,
+            method: "GET",
+            // data: null,
+            isErrorToast: false,
+            // isExternalAPI: true
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const validateBoatHubOTP = createAsyncThunk("validate-boathub-otp", async (props) => {
+    const { regNo, userId, code, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: `n8n-api/api/v1.0/first-mate/verifyOtpToGetBoathubVessel?registration=${regNo}&userId=${userId}&code=${code}`,
+            method: "GET",
+            isErrorToast: false,
+            // isExternalAPI: true,
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+export const sendOtpToGetBoatHubVessel = createAsyncThunk("send-otp-to-get-boathub-vessel", async (props) => {
+    const { regNo, userId, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: `n8n-api/api/v1.0/first-mate/sendOtpToGetBoathubVessel?registration=${regNo}&userId=${userId}`,
+            method: "GET",
+            isErrorToast: false,
+            // isExternalAPI: true,
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+// MVP1 Ventures - End
+
 export const addBoatDetails = createAsyncThunk("add-boat", async (props) => {
     const { payload, callback } = props;
     try {
@@ -212,6 +280,23 @@ export const updateBoatDetails = createAsyncThunk("update-boat-details", async (
             url: updateBoatDetailsEndPointURL,
             method: "POST",
             data: payload,
+        });
+        callback(response);
+        return response;
+    } catch (error) {
+        callback(null, error);
+    }
+});
+
+// MVP1 Ventures
+export const onUpdateNotifyBoatHubUser = createAsyncThunk("on-update-notify-boathub-user", async (props) => {
+    const { regNo, callback } = props;
+    try {
+        const response = await API_REQUEST({
+            url: `n8n-api/api/v1.0/first-mate/update/vassel/notifiy?registration=${regNo}`,
+            method: "GET",
+            isErrorToast: false,
+            // isExternalAPI: true
         });
         callback(response);
         return response;
